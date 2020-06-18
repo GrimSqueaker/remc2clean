@@ -5,11 +5,19 @@
 //#define SOUND_OPENAL
 
 #include "mctypes.h"
-#include "SDL.h"
+#ifdef __linux__ 
+	#include <SDL2/SDL.h>
+#else
+	#include "SDL.h"
+#endif
 #ifdef SOUND_SDLMIXER
-	#include "SDL_mixer_ext.h"
-	#include "music.h"
-	#include "mixer.h"
+	#ifdef __linux__ 
+		#include <SDL2/SDL_mixer.h>
+	#else
+		#include "SDL_mixer_ext.h"
+		#include "music.h"
+		#include "mixer.h"
+	#endif
 #endif//SOUND_SDLMIXER
 #ifdef SOUND_OPENAL
 	#include <al.h>

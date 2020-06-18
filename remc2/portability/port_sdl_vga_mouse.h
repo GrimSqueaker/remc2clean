@@ -8,7 +8,11 @@
 
 #include "mctypes.h"
 
-#include "SDL.h"
+#ifdef __linux__ 
+	#include <SDL2/SDL.h>
+#else
+	#include "SDL.h"
+#endif
 
 #include "port_sdl_sound.h"
 #include "port_filesystem.h"

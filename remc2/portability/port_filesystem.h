@@ -1,12 +1,21 @@
 #ifndef PORT_FILESYSTEM
 #define PORT_FILESYSTEM
-#include <io.h>
+
+#ifdef _MSC_VER
+	#include <io.h>
+	#include <windows.h>
+#else
+	struct _finddata_t; // TODO: fix stub
+#endif
+
 #include <stdio.h>
 #include <stdlib.h>  
+#include <stdint.h>  
 #include <string.h>
-#include <windows.h>
 //#ifdef _MSC_VER
-#include <direct.h>
+#ifndef __linux__
+	#include <direct.h>
+#endif
 //#endif
 #include "mctypes.h"
 #ifdef _MSC_VER
@@ -67,7 +76,7 @@ int dos_getdrive(int* a);
 
 void get_exe_path(char*);
 
-unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b);
+int64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b);
 
 void debug_printf(const char* format, ...);
 #endif //PORT_FILESYSTEM

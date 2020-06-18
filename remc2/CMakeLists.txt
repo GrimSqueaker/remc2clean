@@ -27,6 +27,7 @@ endif()
 source_group("Source Files" FILES ${SOURCE_FILES})
 
 set(SOURCE_FILES__dosbox_files
+    "dosbox_files/config.h"
 )
 source_group("Source Files\\dosbox_files" FILES ${SOURCE_FILES__dosbox_files})
 

@@ -3,10 +3,12 @@
 #include <string.h>
 #include <ctype.h>
 
-#include <direct.h>  
-#include <io.h>  
+#ifndef __linux__
+	#include <direct.h>
+    #include <io.h>  
+    #include <windows.h>
+#endif
 
-#include <windows.h>
 #ifdef _MSC_VER
 #include "../portability/dirent-x.h"
 #else
@@ -17,8 +19,10 @@
 #include "../portability/port_sdl_sound.h"
 #include "defs.h"
 
-#include "INIReader.h"
-#include "ini.h"
+#ifndef __linux__
+    #include "INIReader.h"
+    #include "ini.h"
+#endif
 
 
 

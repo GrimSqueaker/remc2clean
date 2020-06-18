@@ -1,6 +1,9 @@
 #ifndef AIL_SOUND_ACTIVE
 #define AIL_SOUND_ACTIVE
+#ifdef __linux__
+#else
 #include "../dosbox_files/config.h"
+#endif
 //#include "SDL_mixer.h"
 
 #define MSS_STRUCT struct

@@ -37,16 +37,20 @@
 #include <string.h>
 #include <ctype.h>
 
+#ifdef _MSC_VER
 #include <direct.h>  
-//#include <dir.h>
 #include <io.h>  
+#include <windows.h>
+#else
+#endif
+
+//#include <dir.h>
 
 //#include <vld.h>//only for debug
 
 #include "../portability/port_outputs.h"
 
 //#include <sys/statvfs.h>
-#include <windows.h>
 #ifdef _MSC_VER
 #include "../portability/dirent-x.h"
 #else
@@ -303,7 +307,7 @@ typedef struct {
 	Bit8u** begin_buffer;
 	Bit8u** end_buffer;
 	Bit8u** dat_buffer;
-	posistruct** posistruct;
+	posistruct** posistruct_;
 } filearray_struct;
 #pragma pack (16)
 
