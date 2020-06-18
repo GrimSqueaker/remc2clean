@@ -5,8 +5,6 @@
 #include "dosbox.h"
 #include "logging.h"
 #include "dos_system.h"
-#else
-#include "../dosbox_files/config.h"
 #endif //USE_DOSBOX
 
 typedef          char   int8;
