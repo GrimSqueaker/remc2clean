@@ -307,7 +307,7 @@ typedef struct {
 	Bit8u** begin_buffer;
 	Bit8u** end_buffer;
 	Bit8u** dat_buffer;
-	posistruct** posistruct_;
+	posistruct** posistruct;
 } filearray_struct;
 #pragma pack (16)
 
