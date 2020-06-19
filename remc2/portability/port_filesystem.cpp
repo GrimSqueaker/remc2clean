@@ -6,6 +6,33 @@
 #endif
 */
 
+#ifdef __linux__
+	#include <limits.h>
+	#include <libgen.h>
+	#include <iostream>
+	#include <unistd.h>
+	#include <stdarg.h>
+	#include <sys/stat.h>
+    #include <boost/filesystem.hpp>
+
+	#define MAX_PATH PATH_MAX
+	#define _chdir chdir
+
+	extern "C" {
+    	#include "findfirst.h"
+	}
+
+	std::string getExePath() {
+		std::string strpathx;
+		char result[ PATH_MAX ];
+		ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
+		if (count != -1) {
+			strpathx = dirname(result);
+		}
+		return strpathx;
+	}
+#endif 
+
 //char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
 char gamepath[512] = "..\\..\\Magic2\\mc2-orig-copy";
 char biggraphicspath[512] = "biggraphics/";
@@ -14,6 +41,7 @@ char fixsound[512] = "fix-sound\\";
 char fixsoundout[512];
 
 
+#ifdef _MSC_VER
 std::string utf8_encode(const std::wstring &wstr)
 {
 	if (wstr.empty()) return std::string();
@@ -22,12 +50,16 @@ std::string utf8_encode(const std::wstring &wstr)
 	WideCharToMultiByte(CP_UTF8, 0, &wstr[0], (int)wstr.size(), &strTo[0], size_needed, NULL, NULL);
 	return strTo;
 }
+#endif
 
 char oldpathx[512];
 bool firstrun = true;
 
-void pathfix(char* path, char* path2)
+void pathfix(const char* path, char* path2)
 {
+#ifdef __linux__
+	strcpy(path2, path);
+#else
 	if (firstrun)
 	{
 		#ifdef _MSC_VER
@@ -73,7 +105,7 @@ void pathfix(char* path, char* path2)
 			path2[i] = fixstring[i];
 		path2[fixlen] = '\\';
 	}
-
+#endif
 }
 
 void get_exe_path(char* retpath) {
@@ -84,15 +116,14 @@ void get_exe_path(char* retpath) {
 	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
 	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
 	#else
-	char* buffer = new char[MAX_PATH];
-	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-	std::string strpathx = std::string(buffer).substr(0, pos)/*+"\\system.exe"*/;
+	std::string strpathx = getExePath();
 	#endif
-	sprintf(retpath,"%s", (char*)strpathx.c_str());
+	sprintf(retpath, "%s", (char*)strpathx.c_str());
 	//retpath = (char*)strpathx.c_str();
 	//return pathx;
+	#ifdef _MSC_VER
 	delete[] buffer;
+	#endif
 };
 
 
@@ -105,10 +136,7 @@ void pathfix2(char* path, char* path2)
 	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
 	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
 	#else
-	char* buffer = new char[MAX_PATH];
-	GetModuleFileName(NULL, buffer, MAX_PATH);
-	std::string::size_type pos = std::string(buffer).find_last_of("\\/");
-	std::string strpathx = std::string(buffer).substr(0, pos)/*+"\\system.exe"*/;
+	std::string strpathx = getExePath();
 	#endif
 	char* pathx = (char*)strpathx.c_str();
 	sprintf(fixsoundout,"%s\\%s", pathx,fixsound);
@@ -135,7 +163,9 @@ void pathfix2(char* path, char* path2)
 		for (int i = 0;i < fixlen;i++)
 			path2[i] = fixstring[i];
 	}
+	#ifdef _MSC_VER
 	delete[] buffer;
+	#endif
 }
 
 void unpathfix(char* path, char* path2)
@@ -312,6 +342,7 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 		debug_printf("mymkdir:path2: %s\n", path2);
 	#endif //DEBUG_FILEOPS
 
+#ifdef WIN32
 	const WCHAR *pwcsName;
 	// required size
 	int nChars = MultiByteToWideChar(CP_ACP, 0, path2, -1, NULL, 0);
@@ -319,21 +350,21 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 	pwcsName = new WCHAR[nChars];
 	MultiByteToWideChar(CP_ACP, 0, path2, -1, (LPWSTR)pwcsName, nChars);
 	// use it....
-
 #ifdef DEBUG_FILEOPS
 	debug_printf("mymkdir:path3: %s\n", pwcsName);
 #endif //DEBUG_FILEOPS
+#endif
+
 
 
 
 	int result;
 #if defined (WIN32)						/* MS Visual C++ */
 	result = _wmkdir(pwcsName);
-#else
-	result = mkdir(pwcsName, 0700);
-#endif
-	// delete it
 	delete[] pwcsName;
+#else
+	result = mkdir(path2, 0700);
+#endif
 
 #ifdef DEBUG_FILEOPS
 	debug_printf("mymkdir:end: %d\n", result);
@@ -471,10 +502,16 @@ dirsstruct getListDirFix(char* indirname)
 	return directories;
 }
 */
+
 int dos_getdrive(int* a) {
+#ifdef WIN32
 	*a = _getdrive();
+#else
+	*a = 0;
+	std::cerr << "STUB: dos_getdrive on Linux" << std::endl;
+#endif
 	return *a;
-};
+}
 
 struct space_info
 {
@@ -486,19 +523,11 @@ struct space_info
 //BOOST_FILESYSTEM_DECL
 space_info space(char* path, int* ec)
 {
-#   ifdef BOOST_POSIX_API
-	struct BOOST_STATVFS vfs;
+#   ifdef __linux__
 	space_info info;
-	if (!error(::BOOST_STATVFS(path, &vfs) ? BOOST_ERRNO : 0,
-		p, ec, "boost::filesystem::space"))
-	{
-		info.capacity
-			= static_cast<boost::uintmax_t>(vfs.f_blocks)* BOOST_STATVFS_F_FRSIZE;
-		info.free
-			= static_cast<boost::uintmax_t>(vfs.f_bfree)* BOOST_STATVFS_F_FRSIZE;
-		info.available
-			= static_cast<boost::uintmax_t>(vfs.f_bavail)* BOOST_STATVFS_F_FRSIZE;
-	}
+	info.capacity = boost::filesystem::space(path).capacity;
+	info.free = boost::filesystem::space(path).free;
+	info.available = boost::filesystem::space(path).available;
 
 #   else
 	ULARGE_INTEGER avail, total, free;
@@ -526,17 +555,17 @@ space_info space(char* path, int* ec)
 			= ((avail.HighPart) << 32)
 			+ avail.LowPart;
 	}
-
-#   endif
-
 	else
 	{
 		info.capacity = info.free = info.available = 0;
 	}
+
+#   endif
+
 	return info;
 }
 
-unsigned __int64 dos_getdiskfree(__int16 a1, __int16 a2, Bit8u a, short* b) {
+uint64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b) {
 	unsigned long wanted_size = 0;//fix it
 	char drivename[10];
 	sprintf(drivename, "%c:", (Bit8u)(a + 64));

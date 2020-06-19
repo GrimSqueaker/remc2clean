@@ -19,7 +19,10 @@
 #include "../portability/port_sdl_sound.h"
 #include "defs.h"
 
-#ifndef __linux__
+#ifdef __linux__
+    #include "../../inih/INIReader.h"
+    #include "../../inih/ini.h"
+#else
     #include "INIReader.h"
     #include "ini.h"
 #endif

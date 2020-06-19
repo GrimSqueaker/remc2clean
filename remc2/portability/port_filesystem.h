@@ -76,7 +76,7 @@ int dos_getdrive(int* a);
 
 void get_exe_path(char*);
 
-int64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b);
+uint64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b);
 
 void debug_printf(const char* format, ...);
 #endif //PORT_FILESYSTEM

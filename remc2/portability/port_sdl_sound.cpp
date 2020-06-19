@@ -1,5 +1,8 @@
 #include "port_sdl_sound.h"
+
+#ifdef WIN32 # FIXME
 #include <adlmidi.h>
+#endif
 
 /*This source code copyrighted by Lazy Foo' Productions (2004-2013)
 and may not be redistributed without written permission.*/
@@ -640,6 +643,7 @@ int run()
 	spec.channels = 2;
 	spec.samples = 2048;
 
+#ifdef WIN32 # FIXME
 	/* Initialize ADLMIDI */
 	midi_player = adl_init(spec.freq);
 	if (!midi_player)
@@ -692,6 +696,7 @@ int run()
 	/* shut everything down */
 	SDL_CloseAudio();
 	adl_close(midi_player);
+#endif
 
 	return 0;
 }
@@ -710,7 +715,9 @@ void my_audio_callback(void *midi_player, Uint8 *stream, int len)
 	int samples_count = len / 2;
 
 	/* Take some samples from the ADLMIDI */
+#ifdef WIN32  # FIXME
 	samples_count = adl_play(p, samples_count, (short*)buffer);
+#endif
 
 	if (samples_count <= 0)
 	{
@@ -953,7 +960,7 @@ void ALSOUND_play(int which, Mix_Chunk* mixchunk, int loops)
 
 void ALSOUND_delete()
 {
-	//Once you’ve finished don’t forget to clean memoryand release OpenAL contextand device
+	//Once youï¿½ve finished donï¿½t forget to clean memoryand release OpenAL contextand device
 
 	//alDeleteSources(1, &alSource);
 

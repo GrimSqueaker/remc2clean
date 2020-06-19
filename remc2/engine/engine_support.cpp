@@ -1,5 +1,8 @@
 #include "engine_support.h"
 
+#ifdef __linux__
+  #include <ctype.h>
+#endif
 
 #ifdef USE_DOSBOX
 extern DOS_Device *DOS_CON;
@@ -104,7 +107,7 @@ Bit8u x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 
 Bit8u x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
 Bit8u x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
 Bit8u x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
-__int16 x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
+int16_t x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
 
 
 type_str_E2A74 str_E2A74[0x69] = {//2b3a74
@@ -1236,7 +1239,12 @@ Bit32u compare_with_sequence(char* filename, Bit8u* adress, Bit32u adressdos, lo
 		mydelay(100);
 		fptestepc=fopen(findnamec, "rb");
 	}
+
+#ifdef __linux__
+	fseek(fptestepc, (long long)count* (long long)size1+ offset, SEEK_SET);
+#else
 	_fseeki64(fptestepc, (long long)count* (long long)size1+ offset, SEEK_SET);
+#endif
 	
 	Bit32u i;
 	/*for (i = 0; i < count; i++)

@@ -32,20 +32,20 @@ set(SOURCE_FILES__dosbox_files
 source_group("Source Files\\dosbox_files" FILES ${SOURCE_FILES__dosbox_files})
 
 set(SOURCE_FILES_ENGINE
-#    "engine/ail_sound.h"
+    "engine/ail_sound.h"
 #    "engine/bytearrays.x"
 #    "engine/cd_utils.cpp"
 #    "engine/cd_utils.h"
 #    "engine/defs.h"
 ##    "engine/editor.cpp"
 ##    "engine/editor.h"
-#    "engine/engine_support.cpp"
-#    "engine/engine_support.h"
-#    "engine/engine_support_converts.cpp"
-#    "engine/engine_support_converts.h"
+    "engine/engine_support.cpp"
+    "engine/engine_support.h"
+    "engine/engine_support_converts.cpp"
+    "engine/engine_support_converts.h"
 #    "engine/info.x"
-#    "engine/read_config.cpp"
-#    "engine/read_config.h"
+    "engine/read_config.cpp"
+    "engine/read_config.h"
 #    "engine/structures.x"
     "engine/sub_main.cpp"
     "engine/sub_main.h"
@@ -240,21 +240,21 @@ source_group("Source Files\\libs\\sdl-mixer-x" FILES ${SOURCE_FILES__libs__sdl-m
 set(SOURCE_FILES__portability
 #    "../temp/dirent.c"
 #    "portability/dirent-x.h"
-#    "portability/mctypes.h"
-#    "portability/port_filesystem.cpp"
-#    "portability/port_filesystem.h"
-#    "portability/port_inputs.cpp"
-#    "portability/port_inputs.h"
-#    "portability/port_outputs.cpp"
-#    "portability/port_outputs.h"
-#    "portability/port_sdl_sound.cpp"
-#    "portability/port_sdl_sound.h"
-#    "portability/port_sdl_vga_mouse.cpp"
-#    "portability/port_sdl_vga_mouse.h"
-#    "portability/port_time.cpp"
-#    "portability/port_time.h"
-#    "portability/xmi2mid.cpp"
-#    "portability/xmi2mid.h"
+    "portability/mctypes.h"
+    "portability/port_filesystem.cpp"
+    "portability/port_filesystem.h"
+    "portability/port_inputs.cpp"
+    "portability/port_inputs.h"
+    "portability/port_outputs.cpp"
+    "portability/port_outputs.h"
+    "portability/port_sdl_sound.cpp"
+    "portability/port_sdl_sound.h"
+    "portability/port_sdl_vga_mouse.cpp"
+    "portability/port_sdl_vga_mouse.h"
+    "portability/port_time.cpp"
+    "portability/port_time.h"
+    "portability/xmi2mid.cpp"
+    "portability/xmi2mid.h"
 )
 source_group("Source Files\\portability" FILES ${SOURCE_FILES__portability})
 
@@ -273,8 +273,9 @@ set(ALL_FILES
 )
 
 ################################################################################
-# Target
+# target
 ################################################################################
+#add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
 if (WIN32)
@@ -287,6 +288,34 @@ set(ROOT_NAMESPACE remc2)
 set_target_properties(${PROJECT_NAME} PROPERTIES
     VS_GLOBAL_KEYWORD "Win32Proj"
 )
+
+
+################################################################################
+# Linux settings
+################################################################################
+if (UNIX)
+    target_include_directories(${PROJECT_NAME} PUBLIC
+        "inih"
+        "${CMAKE_SOURCE_DIR}/findfirst"
+    )
+    #target_compile_definitions(${PROJECT_NAME} PRIVATE
+    #)
+    #target_compile_options(${PROJECT_NAME} PRIVATE
+    #)
+    #target_link_options(${PROJECT_NAME} PRIVATE
+    #)
+    target_link_libraries(${PROJECT_NAME} PUBLIC 
+        ${SDL2_LIBRARIES}
+        ${SDL_MIXER_LIBRARY}
+        ${PNG_LIBRARY}
+        Boost::filesystem
+    )
+    target_link_directories(${PROJECT_NAME} PUBLIC
+    )
+endif ()
+
+
+
 ################################################################################
 # Target name
 ################################################################################

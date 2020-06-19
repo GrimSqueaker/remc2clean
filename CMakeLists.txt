@@ -18,12 +18,34 @@ if(NOT ("${CMAKE_VS_PLATFORM_NAME}" STREQUAL "x64"
 endif()
 
 
+
 ################################################################################
 # Conan setup
 ################################################################################
 
 #include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 #conan_basic_setup()
+
+
+
+################################################################################
+# Dependencies
+################################################################################
+
+set(Boost_USE_STATIC_LIBS OFF) 
+set(Boost_USE_MULTITHREADED ON)  
+set(Boost_USE_STATIC_RUNTIME OFF) 
+find_package(Boost COMPONENTS filesystem)
+find_package(SDL2 REQUIRED)
+#find_package(SDL2_MIXER REQUIRED)
+find_package(PNG REQUIRED)
+find_library(SDL_MIXER_LIBRARY
+  NAMES SDL2_mixer
+  HINTS
+    ENV SDLMIXERDIR
+    ENV SDLDIR
+  PATH_SUFFIXES lib
+)
 
 
 ################################################################################
