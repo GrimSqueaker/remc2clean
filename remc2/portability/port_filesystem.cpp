@@ -34,7 +34,7 @@
 #endif 
 
 //char gamepath[512] = "..\\..\\Magic2\\mc2-orig-copy";
-std::string gamepath = {""};
+boost::filesystem::path gamepath("");
 char biggraphicspath[512] = "biggraphics/";
 char gamepathout[512];
 char fixsound[512] = "fix-sound\\";
@@ -521,7 +521,7 @@ struct space_info
 	unsigned long available; // <= free
 };
 //BOOST_FILESYSTEM_DECL
-space_info space(char* path, int* ec)
+space_info space(const boost::filesystem::path& path, int* ec)
 {
 #   ifdef __linux__
 	space_info info;
@@ -567,10 +567,13 @@ space_info space(char* path, int* ec)
 
 uint64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b) {
 	unsigned long wanted_size = 0;//fix it
-	char drivename[10];
-	sprintf(drivename, "%c:", (Bit8u)(a + 64));
+#ifdef __linux__
+	boost::filesystem::path path(gamepath);
+#else
+	boost::filesystem::path path((Bit8u)(a + 64))
+#endif
 	int ec;
-	space_info myspaceinfo = space(drivename, &ec);
+	space_info myspaceinfo = space(path, &ec);
 	if (ec)
 		if (myspaceinfo.free > wanted_size)return 0;
 		else return 1;

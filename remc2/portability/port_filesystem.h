@@ -7,6 +7,7 @@
 #else
 	struct _finddata_t; // TODO: fix stub
 	#include <string>
+	#include <boost/filesystem.hpp>
 #endif
 
 #include <stdio.h>
@@ -36,7 +37,7 @@
 //#define DEBUG_PRINT_DEBUG_TO_SCREEN
 
 //extern char gamepath[512];
-extern std::string gamepath;
+extern boost::filesystem::path gamepath;
 extern char biggraphicspath[512];
 
 
