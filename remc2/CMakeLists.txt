@@ -103,6 +103,18 @@ set(ALL_FILES
 add_library(findfirst ${SOURCE_FILES__libs__findfirst})
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
+install(
+    TARGETS ${PROJECT_NAME}
+    CONFIGURATIONS Debug;Release;RelWithDebInfo
+    RUNTIME DESTINATION bin
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib/static
+)
+install(
+    FILES ${CMAKE_SOURCE_DIR}/resources/font/16x16-font.bmp
+    DESTINATION bin/font
+)
+
 if (WIN32)
     add_precompiled_header(${PROJECT_NAME} "stdafx.h" "stdafx.cpp")
 endif (WIN32)

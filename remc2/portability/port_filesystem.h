@@ -6,6 +6,7 @@
 	#include <windows.h>
 #else
 	struct _finddata_t; // TODO: fix stub
+	#include <string>
 #endif
 
 #include <stdio.h>
@@ -34,7 +35,8 @@
 
 //#define DEBUG_PRINT_DEBUG_TO_SCREEN
 
-extern char gamepath[512];
+//extern char gamepath[512];
+extern std::string gamepath;
 extern char biggraphicspath[512];
 
 

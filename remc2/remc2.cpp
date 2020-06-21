@@ -20,6 +20,8 @@ int main(int argc, char** argv)
 	//ds:esi - cesta k nazvu
 	//mine_texts((char*)"0160-0022A288", 0x2a1000, 1000, (char*)"mined-texts.txt");
 
+	// init 
+
 	support_begin();
 	int retval = sub_main(argc, argv, envp);
 	support_end();

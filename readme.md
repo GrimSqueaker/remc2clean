@@ -16,16 +16,19 @@ Original from https://github.com/turican0/remc2
 ## Build
 
 ```bash
-mkdir build
-cd build
-cmake ..
-make
+export BUILDTYPE=Debug # or Release
+mkdir build_${BUILDTYPE}
+cd build_${BUILDTYPE}
+cmake -G Ninja -DCMAKE_BUILD_TYPE=${BUILDTYPE} -DCMAKE_INSTALL_PREFIX=./installed ..
+ninja
+ninja install
 ```
 
 ## Run
 
 ```bash
-./remc2/remc2
+cd build_${BUILDTYPE}/installed/bin
+./remc2
 ```
 
 ## TODO

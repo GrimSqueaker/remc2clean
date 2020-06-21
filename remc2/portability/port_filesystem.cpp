@@ -33,8 +33,8 @@
 	}
 #endif 
 
-//char gamepath[512] = "c:\\prenos\\Magic2\\mc2-orig-copy";
-char gamepath[512] = "..\\..\\Magic2\\mc2-orig-copy";
+//char gamepath[512] = "..\\..\\Magic2\\mc2-orig-copy";
+std::string gamepath = {""};
 char biggraphicspath[512] = "biggraphics/";
 char gamepathout[512];
 char fixsound[512] = "fix-sound\\";
@@ -139,9 +139,10 @@ void pathfix2(char* path, char* path2)
 	std::string strpathx = getExePath();
 	#endif
 	char* pathx = (char*)strpathx.c_str();
-	sprintf(fixsoundout,"%s\\%s", pathx,fixsound);
-	sprintf(gamepathout, "%s\\%s", pathx, gamepath);
+	sprintf(fixsoundout,"%s%s%s", pathx, boost::filesystem::path::preferred_separator, fixsound);
+	sprintf(gamepathout, "%s%s%s", pathx, boost::filesystem::path::preferred_separator, gamepath);
 
+	#ifdef _MSC_VER
 	if ((path[0] == 'c') || (path[0] == 'C'))
 	{
 		long len = strlen(path);
@@ -163,7 +164,6 @@ void pathfix2(char* path, char* path2)
 		for (int i = 0;i < fixlen;i++)
 			path2[i] = fixstring[i];
 	}
-	#ifdef _MSC_VER
 	delete[] buffer;
 	#endif
 }

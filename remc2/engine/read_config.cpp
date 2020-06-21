@@ -88,8 +88,9 @@ void readini(char* filename) {
 
 	texturepixels=reader.GetInteger("graphics", "texturepixels", 32);
 
-	std::string readstr2 = reader.GetString("main", "gamepath", "");
-	strcpy((char*)gamepath, (char*)readstr2.c_str());
+	//std::string readstr2 = reader.GetString("main", "gamepath", "");
+	//strcpy((char*)gamepath, (char*)readstr2.c_str());
+	gamepath = reader.GetString("main", "gamepath", "");
 
 	speedGame = reader.GetInteger("game", "speed", 35);
 	speedAnim = reader.GetInteger("game", "animspeed", 100);

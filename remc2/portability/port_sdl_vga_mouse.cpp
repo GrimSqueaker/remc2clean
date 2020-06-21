@@ -250,9 +250,6 @@ Bit8u fontbuffer[256*256];
 SDL_Surface* surface_font = NULL;
 bool VGA_LoadFont()
 {
-	//Loading success flag
-	bool success = true;
-
 	//Load splash image
 	//surface_font = SDL_LoadBMP("c:/prenos/remc2/font/xterm714.bmp");	
 	char path[512]; 
@@ -263,7 +260,7 @@ bool VGA_LoadFont()
 	if (surface_font == NULL)
 	{
 		printf("Unable to load image %s! SDL Error: %s\n", "16x16-font.bmp", SDL_GetError());
-		success = false;
+		return false;
 	}
 
 	Bit8u* pixels=(Bit8u*)surface_font->pixels;
@@ -271,7 +268,7 @@ bool VGA_LoadFont()
 		for (int xx = 0; xx < 256; xx++)
 			fontbuffer[yy * 256 + xx] = pixels[(yy * 256 + xx)*3];
 
-	return success;
+	return true;
 }
 
 int lastpoz = 0;
@@ -652,7 +649,7 @@ void VGA_Init(Uint32 flags)
 		if (!VGA_LoadFont())
 		{
 			printf("Failed to load font!\n");
-			exit(-1);
+			exit(EXIT_FAILURE);
 		}
 
 		Set_basic_pallette1();
@@ -1223,7 +1220,7 @@ atexit(SDL_Quit);
 screen = SDL_SetVideoMode(WIDTH, HEIGHT, BPP, FLAGS);
 
 // load something on screen
-image = SDL_LoadBMP(“test.bmp”);
+image = SDL_LoadBMP(ï¿½test.bmpï¿½);
 SDL_BlitSurface(image, NULL, screen, NULL);
 SDL_Flip(screen);
 SDL_Delay(5000);
