@@ -307,17 +307,8 @@ void debug_printf(const char* format, ...) {
 Bit32s myaccess(char* path, Bit32u flags) {
 	DIR *dir;
 	char path2[2048] = "\0";
-	#ifdef DEBUG_FILEOPS
-		debug_printf("myaccess:orig path:%s\n", path);
-	#endif //DEBUG_FILEOPS
 	pathfix(path, path2);//only for DOSBOX version
-	#ifdef DEBUG_FILEOPS
-		debug_printf("myaccess:fix path:%s\n", path2);
-	#endif //DEBUG_FILEOPS
 	dir = opendir(path2);
-	#ifdef DEBUG_FILEOPS
-		debug_printf("myaccess:exit:%p %d\n", dir, errno);
-	#endif //DEBUG_FILEOPS
 	if (dir)
 	{
 		/* Directory exists. */
@@ -519,73 +510,6 @@ struct space_info
 	unsigned long capacity;
 	unsigned long free;      // <= capacity
 	unsigned long available; // <= free
-};
-//BOOST_FILESYSTEM_DECL
-space_info space(const boost::filesystem::path& path, int* ec)
-{
-#   ifdef __linux__
-	space_info info;
-	info.capacity = boost::filesystem::space(path).capacity;
-	info.free = boost::filesystem::space(path).free;
-	info.available = boost::filesystem::space(path).available;
-
-#   else
-	ULARGE_INTEGER avail, total, free;
-	space_info info;
-
-	//std::string charstring = "hello, world";
-
-	std::wstring widestring;
-
-	for (Bit32u i = 0; i < strlen(path); i++)
-		widestring += (wchar_t)path[i];
-
-	LPCWSTR lpcwpath = widestring.c_str();
-
-
-	if (GetDiskFreeSpaceExW(lpcwpath, &avail, &total, &free) != 0)
-	{
-		info.capacity
-			= ((total.HighPart) << 32)
-			+ total.LowPart;
-		info.free
-			= ((free.HighPart) << 32)
-			+ free.LowPart;
-		info.available
-			= ((avail.HighPart) << 32)
-			+ avail.LowPart;
-	}
-	else
-	{
-		info.capacity = info.free = info.available = 0;
-	}
-
-#   endif
-
-	return info;
-}
-
-uint64_t dos_getdiskfree(int16_t a1, int16_t a2, Bit8u a, short* b) {
-	unsigned long wanted_size = 0;//fix it
-#ifdef __linux__
-	boost::filesystem::path path(gamepath);
-#else
-	boost::filesystem::path path((Bit8u)(a + 64))
-#endif
-	int ec;
-	space_info myspaceinfo = space(path, &ec);
-	if (ec)
-		if (myspaceinfo.free > wanted_size)return 0;
-		else return 1;
-	else return 1;
-	/*
-	if ( (_WORD)b == -1 )
-	return _set_EINVAL(b, a3);
-	a4[0] = a;
-	a4[1] = a2;
-	a4[2] = b;
-	a4[3] = a1;
-	*/
 };
 
 void AdvReadfile(const char* path, Bit8u* buffer) {
