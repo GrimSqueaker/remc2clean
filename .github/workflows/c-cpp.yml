@@ -18,7 +18,7 @@ jobs:
     - name: install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get -y install cmake libboost-dev libsdl2-dev libsdl2-mixer-dev
+        sudo apt-get -y install cmake libboost-dev libboost-filesystem-dev libsdl2-dev libsdl2-mixer-dev  libpng-dev libpng++-dev libz-dev
     - name: cmake release
       run: |
         cd ${{ github.workspace }}
