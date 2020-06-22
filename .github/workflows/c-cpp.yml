@@ -16,7 +16,9 @@ jobs:
       with:
           submodules: recursive
     - name: install dependencies
-      run: sudo apt-get -y install cmake libboost-dev libsdl2-dev libsdl2-mixer-dev
+      run: |
+        sudo apt-get update
+        sudo apt-get -y install cmake libboost-dev libsdl2-dev libsdl2-mixer-dev
     - name: cmake release
       run: |
         cd ${{ github.workspace }}
