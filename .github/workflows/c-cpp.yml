@@ -1,0 +1,41 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+          submodules: recursive
+    - name: install dependencies
+      run: apt install cmake SDL2-devel SDL2-mixer libpng-devel boost-devel
+    - name: cmake release
+      run: |
+        cd ${{ github.workspace }}
+        mkdir build_release
+        cd build_release
+        cmake -DCMAKE_BUILD_TYPE=Release ..
+    - name: make release
+      run: |
+        cd ${{ github.workspace }}
+        cd build_release
+        make
+    - name: cmake debug
+      run: |
+        cd ${{ github.workspace }}
+        mkdir build_debug
+        cd build_debug
+        cmake -DCMAKE_BUILD_TYPE=Debug ..
+    - name: make debug
+      run: |
+        cd ${{ github.workspace }}
+        cd build_debug
+        make
