@@ -6,6 +6,10 @@ Original from https://github.com/turican0/remc2
 * Added CMake setup (not tested on Windows)
 * Made buildable on Linux (Fedora 32, gcc 10)
 
+## CI
+
+![Build Status](https://github.com/GrimSqueaker/remc2clean/workflows/C/C++%20CI/badge.svg)
+
 ## Requirements
 
 * SDL2
