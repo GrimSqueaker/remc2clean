@@ -16,7 +16,7 @@ jobs:
       with:
           submodules: recursive
     - name: install dependencies
-      run: apt install cmake SDL2-devel SDL2-mixer libpng-devel boost-devel
+      run: sudo apt-get -y install cmake libboost-dev libsdl2-dev libsdl2-mixer-dev
     - name: cmake release
       run: |
         cd ${{ github.workspace }}
