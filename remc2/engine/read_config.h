@@ -19,20 +19,15 @@
 #include "../portability/port_sdl_sound.h"
 #include "defs.h"
 
-#ifdef __linux__
-    #include "../../inih/INIReader.h"
-    #include "../../inih/ini.h"
-#else
-    #include "INIReader.h"
-    #include "ini.h"
-#endif
+#include "INIReader.h"
+#include "ini.h"
 
 
 
 #ifndef READ_CONFIG
 #define READ_CONFIG
 
-void readini(char* filename);
+void readini(const std::string& filename);
 extern int config_skip_screen;
 extern int texturepixels;
 extern int speedGame;

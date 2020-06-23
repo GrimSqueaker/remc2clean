@@ -14,7 +14,6 @@ Original from https://github.com/turican0/remc2
 
 * SDL2
 * SDL2_MIXER
-* boost::filesystem
 * libpng
 
 ## Build

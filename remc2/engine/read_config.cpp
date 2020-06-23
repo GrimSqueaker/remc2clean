@@ -32,7 +32,7 @@ int texturepixels;
 int speedGame;
 int speedAnim;
 bool res640x480 = false;
-void readini(char* filename) {
+void readini(const std::string& filename) {
 	/*configuration config;
 
 	if (ini_parse(filename, handler, &config) < 0) {

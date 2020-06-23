@@ -13,7 +13,7 @@
 	#include <unistd.h>
 	#include <stdarg.h>
 	#include <sys/stat.h>
-    #include <boost/filesystem.hpp>
+    #include <filesystem>
 
 	#define MAX_PATH PATH_MAX
 	#define _chdir chdir
@@ -34,7 +34,7 @@
 #endif 
 
 //char gamepath[512] = "..\\..\\Magic2\\mc2-orig-copy";
-boost::filesystem::path gamepath("");
+std::filesystem::path gamepath("");
 char biggraphicspath[512] = "biggraphics/";
 char gamepathout[512];
 char fixsound[512] = "fix-sound\\";
@@ -108,21 +108,18 @@ void pathfix(const char* path, char* path2)
 #endif
 }
 
-void get_exe_path(char* retpath) {
+std::string get_exe_path() {
 	#ifdef _MSC_VER
 	LPWSTR buffer = new WCHAR[MAX_PATH];
 	GetModuleFileName(NULL, buffer, MAX_PATH);
 	std::string locstr = utf8_encode(buffer);
 	std::string::size_type pos = std::string(locstr).find_last_of("\\/");
 	std::string strpathx = std::string(locstr).substr(0, pos)/*+"\\system.exe"*/;
-	#else
-	std::string strpathx = getExePath();
-	#endif
 	sprintf(retpath, "%s", (char*)strpathx.c_str());
-	//retpath = (char*)strpathx.c_str();
-	//return pathx;
-	#ifdef _MSC_VER
 	delete[] buffer;
+	return retpath.c_str();
+	#else
+	return getExePath();
 	#endif
 };
 
@@ -139,8 +136,8 @@ void pathfix2(char* path, char* path2)
 	std::string strpathx = getExePath();
 	#endif
 	char* pathx = (char*)strpathx.c_str();
-	sprintf(fixsoundout,"%s%s%s", pathx, boost::filesystem::path::preferred_separator, fixsound);
-	sprintf(gamepathout, "%s%s%s", pathx, boost::filesystem::path::preferred_separator, gamepath);
+	sprintf(fixsoundout,"%s%s%s", pathx, std::filesystem::path::preferred_separator, fixsound);
+	sprintf(gamepathout, "%s%s%s", pathx, std::filesystem::path::preferred_separator, gamepath);
 
 	#ifdef _MSC_VER
 	if ((path[0] == 'c') || (path[0] == 'C'))
@@ -457,10 +454,7 @@ dirsstruct getListDir(char* dirname)
 }
 
 void FixDir(char* outdirname, char* indirname) {
-	//char outdirname[512] = "\0";
-	char pathexe[512] = "\0";
-	get_exe_path(pathexe);
-	sprintf(outdirname, "%s/%s", pathexe, indirname);
+	sprintf(outdirname, "%s/%s", get_exe_path().c_str(), indirname);
 };
 /*
 
@@ -471,9 +465,7 @@ dirsstruct getListDirFix(char* indirname)
 	directories.number = 0;
 	// opendir() returns a pointer of DIR type.  
 	char path2[512] = "\0";
-	char pathexe[512] = "\0";
-	get_exe_path(pathexe);
-	sprintf(path2,"%s/%s", pathexe,indirname);
+	sprintf(path2,"%s/%s", get_exe_path().c_str(),indirname);
 
 	DIR *dr = opendir(path2);
 	if (dr == NULL)  // opendir returns NULL if couldn't open directory 
@@ -513,12 +505,8 @@ struct space_info
 };
 
 void AdvReadfile(const char* path, Bit8u* buffer) {
-
-	
-	char pathexe[512] = "\0";
-	get_exe_path(pathexe);
 	char path2[512];
-	sprintf(path2, "%s/%s", pathexe, path);
+	sprintf(path2, "%s/%s", get_exe_path().c_str(), path);
 	/*
 	FILE* file0;
 	fopen_s(&file0, path2, (char*)"wb");
@@ -537,12 +525,8 @@ void AdvReadfile(const char* path, Bit8u* buffer) {
 };
 
 bool ExistGraphicsfile(const char* path) {
-
-
-	char pathexe[512] = "\0";
-	get_exe_path(pathexe);
 	char path2[512];
-	sprintf(path2, "%s/%s%s", pathexe, biggraphicspath, path);
+	sprintf(path2, "%s/%s%s", get_exe_path().c_str(), biggraphicspath, path);
 
 	FILE* file;
 
@@ -560,12 +544,8 @@ bool ExistGraphicsfile(const char* path) {
 }
 
 void ReadGraphicsfile(const char* path, Bit8u* buffer, long size) {
-
-
-	char pathexe[512] = "\0";
-	get_exe_path(pathexe);
 	char path2[512];
-	sprintf(path2, "%s/%s%s", pathexe, biggraphicspath, path);
+	sprintf(path2, "%s/%s%s", get_exe_path().c_str(), biggraphicspath, path);
 
 	/*FILE* file0;
 	fopen_s(&file0, path2, (char*)"wb");

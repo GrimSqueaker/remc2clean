@@ -140,7 +140,6 @@ if (UNIX)
         ${SDL2_LIBRARIES}
         ${SDL_MIXER_LIBRARY}
         ${PNG_LIBRARY}
-        Boost::filesystem
         findfirst
     )
     target_link_directories(${PROJECT_NAME} PUBLIC

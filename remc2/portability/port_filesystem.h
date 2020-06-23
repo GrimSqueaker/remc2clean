@@ -7,7 +7,7 @@
 #else
 	struct _finddata_t; // TODO: fix stub
 	#include <string>
-	#include <boost/filesystem.hpp>
+	#include <filesystem>
 #endif
 
 #include <stdio.h>
@@ -36,8 +36,7 @@
 
 //#define DEBUG_PRINT_DEBUG_TO_SCREEN
 
-//extern char gamepath[512];
-extern boost::filesystem::path gamepath;
+extern std::filesystem::path gamepath;
 extern char biggraphicspath[512];
 
 
@@ -77,7 +76,7 @@ void FixDir(char* outdirname, char* indirname);
 
 int dos_getdrive(int* a);
 
-void get_exe_path(char*);
+std::string get_exe_path();
 
 void debug_printf(const char* format, ...);
 #endif //PORT_FILESYSTEM
