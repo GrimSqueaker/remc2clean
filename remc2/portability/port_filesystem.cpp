@@ -496,14 +496,6 @@ int dos_getdrive(int* a) {
 	return *a;
 }
 
-struct space_info
-{
-	// all values are byte counts
-	unsigned long capacity;
-	unsigned long free;      // <= capacity
-	unsigned long available; // <= free
-};
-
 void AdvReadfile(const char* path, Bit8u* buffer) {
 	char path2[512];
 	sprintf(path2, "%s/%s", get_exe_path().c_str(), path);
