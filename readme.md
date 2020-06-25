@@ -38,5 +38,6 @@ cd build_${BUILDTYPE}/installed/bin
 
 * compiles and links on Fedora 32
 * fix midi
-* migrate all filesystem access to boost
+* migrate all filesystem access to c++17 std::filesystem
+* c++-ify code
 * cleanup code
