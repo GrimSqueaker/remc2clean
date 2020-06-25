@@ -33,8 +33,6 @@ source_group("Source Files\\dosbox_files" FILES ${SOURCE_FILES__dosbox_files})
 
 set(SOURCE_FILES_ENGINE
     "engine/ail_sound.h"
-#    "engine/cd_utils.cpp"
-#    "engine/cd_utils.h"
     "engine/defs.h"
 #    "engine/editor.cpp"
 #    "engine/editor.h"
