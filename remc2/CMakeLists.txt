@@ -42,6 +42,8 @@ set(SOURCE_FILES_ENGINE
     "engine/engine_support.h"
     "engine/engine_support_converts.cpp"
     "engine/engine_support_converts.h"
+    "engine/file_handling.cpp"
+    "engine/file_handling.h"
     "engine/read_config.cpp"
     "engine/read_config.h"
     "engine/sub_main.cpp"
