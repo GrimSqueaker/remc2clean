@@ -417,7 +417,6 @@ void sub_9D710(Bit8u* a1, int a2);
 bool sub_9D740(unsigned int a1, int a2);
 
 signed int sub_9D4D0(int a1, Bit8u* a2, Bit32u* a3, Bit32u* a4);
-void* sub_83D70_malloc1(int a1);
 void sub_9D560(Bit8u* a1);
 void sub_83E80_freemem4(Bit8u* a1);
 AIL_DRIVER* x_DWORD_181C50[16]; // idb

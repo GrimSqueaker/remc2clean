@@ -314,45 +314,12 @@ int sub_9E6E0_set_preference(Bit32u number, Bit32s value)
 }
 // 181DAC: using guessed type int x_DWORD_181DAC[];
 
-//----- (00083D70) --------------------------------------------------------
-void* sub_83D70_malloc1(int a1)//264d70
-{
-	/*int *v1; // eax
-	unsigned int v2; // edi
-	int *v3; // ebx
-	unsigned int v4; // esi
-	unsigned int v5; // edx
-
-	sub_85070();
-	v1 = (int*)&x_DWORD_17ECA0;
-	v2 = -1;
-	v4 = a1 + 271;
-	v3 = 0;
-	LOWORD(v4) = (a1 + 271) & 0xFFF0;
-	while ( v1 )
-	{
-	  v5 = v1[1];
-	  if ( v4 <= v5 && v2 > v5 && !*((x_BYTE *)v1 + 16) && x_DWORD_17E0A4[3 * *((unsigned __int8 *)v1 + 17)] )
-	  {
-		v3 = v1;
-		v2 = v1[1];
-	  }
-	  v1 = (int *)v1[2];
-	}
-	if ( !v3 || !sub_83E00((int)v3, v4) )
-	  return 0;
-	sub_85350();
-	memset((void*)*v3, 0, v4);//problém
-	return (void*)*v3;*/
-	return malloc(a1);
-}
-
 //----- (0009D4D0) --------------------------------------------------------
 signed int sub_9D4D0(int a1, Bit8u** a2, Bit32u* a3, Bit32u* a4)//27e4d0
 {
 	Bit8u* v6; // [esp+Ch] [ebp-4h]
 
-	v6 = (Bit8u*)sub_83D70_malloc1(16 * a1);
+	v6 = (Bit8u*)malloc(16 * a1);
 	if (v6 == NULL)
 		return 0;
 	*a3 = 0;//(int)v6 >> 4 << 16;//fixed - remove segment
