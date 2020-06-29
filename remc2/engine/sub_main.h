@@ -141,11 +141,6 @@ x_DWORD * sub_A5850(int a1, char a2, unsigned int a3, signed int a4, int a5);*/
 
 #endif
 
-#ifndef _countof
-#define _countof(arr) sizeof(arr) / sizeof(arr[0])
-//dirty
-#endif
-
 //#if !defined(_M_I86) && !defined(__WINDOWS_386__)
 
 struct SREGS {
@@ -497,7 +492,6 @@ void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
 x_DWORD /*__cdecl*/ fix_filelength(x_DWORD);// weak
 //x_DWORD /*__cdecl*/ access(char* path, Bit32u flags);// weak
 //x_DWORD /*__cdecl*/ mkdir(char* path);
-x_DWORD /*__cdecl*/ settextposition(x_DWORD, x_DWORD);// weak
 x_DWORD /*__cdecl*/ outtext(char* text);// weak
 //x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386(int intno, REGS *inregs, REGS *outregs);

@@ -46,7 +46,6 @@ void my_findclose(long hFile);
 bool file_exists(const char * filename);
 bool fix_file_exists(const char* filename);
 FILE* mycreate(char* path, Bit32u flags);
-Bit32s myaccess(char* path, Bit32u flags);
 Bit32s mymkdir(char* path);
 
 FILE* myopen(char* path, int pmode, Bit32u flags);

@@ -14,6 +14,7 @@
 	#include <stdarg.h>
 	#include <sys/stat.h>
     #include <filesystem>
+    #include <cstdio>
 
 	#define MAX_PATH PATH_MAX
 	#define _chdir chdir
@@ -33,7 +34,6 @@
 	}
 #endif 
 
-//char gamepath[512] = "..\\..\\Magic2\\mc2-orig-copy";
 std::filesystem::path gamepath("");
 char biggraphicspath[512] = "biggraphics/";
 char gamepathout[512];
@@ -55,10 +55,11 @@ std::string utf8_encode(const std::wstring &wstr)
 char oldpathx[512];
 bool firstrun = true;
 
-void pathfix(const char* path, char* path2)
+std::filesystem::path pathfix(const std::filesystem::path& path)
 {
+	// prefix paths that are releative to the gamedir so that they are absolute paths
 #ifdef __linux__
-	strcpy(path2, path);
+	return gamepath / path;
 #else
 	if (firstrun)
 	{
@@ -191,15 +192,14 @@ void unpathfix(char* path, char* path2)
 }
 
 long my_findfirst(char* path, _finddata_t* c_file){
-	char path2[2048] = "\0";
 	#ifdef DEBUG_START
 		debug_printf("my_findfirst:%s\n", path);
 	#endif //DEBUG_START
-	pathfix(path, path2);//only for DOSBOX version
+	std::filesystem::path abs_path = pathfix(path);//only for DOSBOX version
 	#ifdef DEBUG_START
 		debug_printf("my_findfirst:fixed:%s\n", path);
 	#endif //DEBUG_START
-	long result= _findfirst(path2, c_file);
+	long result= _findfirst(abs_path.c_str(), c_file);
 	#ifdef DEBUG_START
 			debug_printf("my_findfirst:end:%d\n", result);
 	#endif //DEBUG_START
@@ -262,9 +262,8 @@ bool file_exists(const char * filename) {
 
 FILE* mycreate(char* path, Bit32u flags) {
 	FILE *fp;
-	char path2[512] = "\0";
-	pathfix(path, path2);//only for DOSBOX version
-	fp = fopen(path2, "wb+");
+	std::filesystem::path abs_path = pathfix(path);//only for DOSBOX version
+	fp = fopen(abs_path.c_str(), "wb+");
 	#ifdef DEBUG_START
 		debug_printf("mycreate:%p\n",fp);
 	#endif //DEBUG_START
@@ -274,8 +273,7 @@ FILE* mycreate(char* path, Bit32u flags) {
 FILE* debug_output;
 
 bool debug_first = true;
-const char* debug_filename = "../debug.txt";
-char path2[2048] = "\0";
+const char* debug_filename = "debug.txt";
 
 void debug_printf(const char* format, ...) {
 	char prbuffer[1024];
@@ -285,15 +283,13 @@ void debug_printf(const char* format, ...) {
 	done = vsprintf(prbuffer, format, arg);
 	va_end(arg);
 
-	pathfix((char*)debug_filename, path2);//only for DOSBOX version
-
 	if (debug_first)
 	{
-		debug_output = fopen(path2, "wt");
+		debug_output = fopen(debug_filename, "wt");
 		debug_first = false;
 	}
 	else
-		debug_output = fopen(path2, "at");
+		debug_output = fopen(debug_filename, "at");
 	fprintf(debug_output, prbuffer);
 	fclose(debug_output);
 	#ifdef DEBUG_PRINT_DEBUG_TO_SCREEN
@@ -301,33 +297,14 @@ void debug_printf(const char* format, ...) {
 	#endif
 }
 
-Bit32s myaccess(char* path, Bit32u flags) {
-	DIR *dir;
-	char path2[2048] = "\0";
-	pathfix(path, path2);//only for DOSBOX version
-	dir = opendir(path2);
-	if (dir)
-	{
-		/* Directory exists. */
-		closedir(dir);
-		return 1;
-	}
-	else if (ENOENT == errno)
-	{
-		return -1;
-	}
-	return -1;
-};
-
 Bit32s /*__cdecl*/ mymkdir(char* path) {
-	char path2[512] = "\0";
 	#ifdef DEBUG_FILEOPS
 		debug_printf("mymkdir:path: %s\n", path);
 	#endif //DEBUG_FILEOPS
-	pathfix(path, path2);//only for DOSBOX version
+	std::filesystem::path abs_path = pathfix(path);
 
 	#ifdef DEBUG_FILEOPS
-		debug_printf("mymkdir:path2: %s\n", path2);
+		debug_printf("mymkdir:path2: %s\n", abs_path);
 	#endif //DEBUG_FILEOPS
 
 #ifdef WIN32
@@ -351,7 +328,7 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 	result = _wmkdir(pwcsName);
 	delete[] pwcsName;
 #else
-	result = mkdir(path2, 0700);
+	result = mkdir(abs_path.c_str(), 0700);
 #endif
 
 #ifdef DEBUG_FILEOPS
@@ -361,27 +338,19 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 };
 
 FILE* myopen(char* path, int pmode, Bit32u flags) {
-	#ifdef DEBUG_START
-		debug_printf("myopen:open file:%s\n", path);
-	#endif //DEBUG_START
-	//bool localDrive::FileOpen(DOS_File * * file, const char * name, Bit32u flags) {
-	const char * type;
-	if ((pmode == 0x222) && (flags == 0x40))type = "rb+";
-	else if ((pmode == 0x200) && (flags == 0x40))type = "rb+";
-	else
-		exit(1);//error - DOSSetError(DOSERR_ACCESS_CODE_INVALID);
+	std::string type;
+	#ifdef __linux__
+	type = "r";
+	#else
+	type = "rb+";
+	#endif
 	FILE *fp;
-	char path2[512] = "\0";
-	pathfix(path, path2);//only for DOSBOX version
-	#ifdef DEBUG_START
-		debug_printf("myopen:open file:fixed:%s\n", path2);
-	#endif //DEBUG_START
-	//if(file_exists(path2))
+	std::filesystem::path abs_path = pathfix(path);//only for DOSBOX version
 
-	fp=fopen(path2, type);
-	#ifdef DEBUG_START
-		debug_printf("myopen:open end %p\n", fp);
-	#endif //DEBUG_START
+	bool exists = std::filesystem::exists(abs_path);
+	const char* tmppath = abs_path.c_str();
+	fp=std::fopen(tmppath, type.c_str());
+
 	return fp;
 };
 int myclose(FILE* descriptor) {
@@ -402,11 +371,11 @@ long myftell(FILE* decriptor) {
 
 
 int x_chdir(const char* path) {
-	char path2[2048] = "\0";
-	pathfix((char*)path, path2);
-	int result = _chdir(path2);
+	std::filesystem::path abs_path = pathfix(path);
+	int result = _chdir(abs_path.c_str());
 	return result;
 };// weak
+
 char* x_getcwd(x_DWORD a, x_DWORD b) {
 	char cwd[512] = "\0";	
 	if (getcwd(cwd, 512) == NULL)

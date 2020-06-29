@@ -41,3 +41,7 @@ cd build_${BUILDTYPE}/installed/bin
 * migrate all filesystem access to c++17 std::filesystem
 * c++-ify code
 * cleanup code
+* remove dos specific stuff like
+  * sound ini files (dig.ini, mid.ini)
+  * findfirst, etc.
+    * instead load all files at the start in a c++ fashion, decompress and provide buffers - this way we do not have to bother with malloc/free
