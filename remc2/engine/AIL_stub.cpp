@@ -31,14 +31,12 @@ void sub_A0EEC_s_plus2()
 {
 	x_DWORD_E3FF2++;
 }
-// E3FF2: using guessed type int x_DWORD_E3FF2;
 
 //----- (000A0EF9) --------------------------------------------------------
 void sub_A0EF9_s_minus2()//281ef9
 {
 	x_DWORD_E3FF2--;
 }
-// E3FF2: using guessed type int x_DWORD_E3FF2;
 
 //----- (0009D450) --------------------------------------------------------
 Bit8u* sub_9D450_malloc4(int a1)
@@ -50,14 +48,9 @@ Bit8u* sub_9D450_malloc4(int a1)
 		sub_9D710(v2, a1);
 	return v2;
 }
-// E3E30: invalid function type has been ignored
-// E3E30: using guessed type int (*off_E3E30_mallocx)(x_DWORD);
 
 int x_free(void* ptr) { free(ptr); return 0; };
 
-// E29E8: using guessed type char x_BYTE_E29E8;
-// 17ECA0: using guessed type int x_DWORD_17ECA0;
-// 17FEA0: using guessed type int x_DWORD_17FEA0;
 void sub_83E80_freemem4(Bit8u* a1) {
 	free(a1);
 }
@@ -77,7 +70,6 @@ int sub_9D490_free4(void* a1, int a2)
 	//fix it
 	//return 0;
 }
-// E3E34: using guessed type int (*off_E3E34_freex)(int);
 
 //----- (0009D560) --------------------------------------------------------
 void sub_9D560(Bit8u* a1)
@@ -187,8 +179,6 @@ int sub_9E2B0(char* a1, int a2, x_DWORD *a3)
 		*a3 = i + (int)a1;
 	return v5 * v6;
 }
-// 98805: using guessed type x_DWORD x_toupper(x_DWORD);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
 
 
 //----- (0009E3A0) --------------------------------------------------------
@@ -294,15 +284,6 @@ int sub_9E3A0_AIL_API_read_INI(AIL_INI* INI, char* filename/*,char* a8*/)//27f3a
 	}
 	return v18;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
-// A1AF0: using guessed type x_DWORD fopen(x_DWORD, x_DWORD);
-// A1E05: using guessed type x_DWORD fclose(x_DWORD);
-// AD7AA: using guessed type x_DWORD fgets(x_DWORD, x_DWORD, x_DWORD);
-// 181C90: using guessed type char x_BYTE_181C90;
-// 9E3A0: using guessed type char var_68[80];
 
 //----- (0009E6E0) --------------------------------------------------------
 int sub_9E6E0_set_preference(Bit32u number, Bit32s value)
@@ -312,7 +293,6 @@ int sub_9E6E0_set_preference(Bit32u number, Bit32s value)
 	x_DWORD_181DAC[number] = value;
 	return oldvalue;
 }
-// 181DAC: using guessed type int x_DWORD_181DAC[];
 
 //----- (0009D4D0) --------------------------------------------------------
 signed int sub_9D4D0(int a1, Bit8u** a2, Bit32u* a3, Bit32u* a4)//27e4d0
@@ -442,10 +422,6 @@ AIL_DRIVER* sub_9E720_AIL_API_install_driver(/*int a1, */Bit8u* driver_image, Bi
 	}
 	return result;
 }
-// 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
-// 9E250: using guessed type int sub_9E250();
-// AD81F: using guessed type x_DWORD memmove(x_DWORD, x_DWORD, x_DWORD);
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (0009EA60) --------------------------------------------------------
 int sub_9EA60_AIL_API_uninstall_driver(AIL_DRIVER* a1)
@@ -506,8 +482,6 @@ IO_PARMS* sub_9EB60_AIL_API_get_IO_environment(AIL_DRIVER *drvr)
 	qmemcpy(&unk_181DF8, (void *)(*(x_DWORD *)(drvr + 16) + 22), 0x18u);
 	return &unk_181DF8;
 }
-// 99E33: using guessed type x_DWORD getenv(x_DWORD);
-// AD871: using guessed type x_DWORD strncpy(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009EDD0) --------------------------------------------------------
 bool sub_9EDD0()
@@ -527,11 +501,6 @@ bool sub_9EDD0()
 	}
 	return result;
 }
-// E3E38: using guessed type int x_DWORD_E3E38;
-// E3E3C: using guessed type int x_DWORD_E3E3C;
-// 181C90: using guessed type char x_BYTE_181C90;
-// 181DA8: using guessed type int x_DWORD_181DA8;
-// 181DAC: using guessed type int x_DWORD_181DAC[];
 
 //----- (0009E1B0) --------------------------------------------------------
 void sub_9E1B0()
@@ -551,11 +520,6 @@ void sub_9E1B0()
 	}
 	//return result;
 }
-// E3E38: using guessed type int x_DWORD_E3E38;
-// E3E3C: using guessed type int x_DWORD_E3E3C;
-// 181C90: using guessed type char x_BYTE_181C90;
-// 181DA8: using guessed type int x_DWORD_181DA8;
-// 181DAC: using guessed type int x_DWORD_181DAC[];
 
 
 //----- (0009EC30) --------------------------------------------------------
@@ -588,7 +552,6 @@ void sub_9EC30()
 	x_BYTE_181C90[0] = 0;
 	sub_A10F4_sound_proc_irq();
 }
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (0009ED70) --------------------------------------------------------
 signed int sub_9ED70()
@@ -645,7 +608,6 @@ bool sub_9D650(unsigned int a1, unsigned int a2)
 	//int386(49, (REGS*)&v5, (REGS*)&v10); // unlock linear region
 	return v11 == 0;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009D710) --------------------------------------------------------
 void sub_9D710(Bit8u* a1, int a2)
@@ -700,7 +662,6 @@ void sub_9D590_lock_linear_region(Bit8u* a1, unsigned int a2)
 	int386(0x31, (REGS*)&v5, (REGS*)&v10);//Lock Linear Region*/ // fix it
 	//return v11 == 0; //fix it
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (000986A0) --------------------------------------------------------
 bool sub_986A0_unlock_linear_region()//2796a0
@@ -714,7 +675,6 @@ bool sub_986A0_unlock_linear_region()//2796a0
 	}
 	return result;
 }
-// E39BC: using guessed type int x_DWORD_E39BC;
 
 //----- (000915A0) --------------------------------------------------------
 void sub_915A0_sound_proc23()
@@ -736,15 +696,6 @@ void sub_915A0_sound_proc23()
 	}
 	//return result;
 }
-// E39BC: using guessed type int x_DWORD_E39BC;
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181BFC: using guessed type int x_DWORD_181BFC;
-// 181C00: using guessed type int x_DWORD_181C00;
-// 181C08: using guessed type int x_DWORD_181C08;
-// 181C0C: using guessed type int x_DWORD_181C0C;
-// 181C10: using guessed type int x_DWORD_181C10;
 
 void sub_91660(HMDIDRIVER user)
 {
@@ -792,13 +743,6 @@ void sub_91660(HMDIDRIVER user)
 	dbgfprintf(x_DWORD_181BF0_AIL_debugfile, (const char *)&unk_D2270);
   return 1;
 }*/
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BFC: using guessed type int x_DWORD_181BFC;
-// 181C04: using guessed type int x_DWORD_181C04;
-// 181C08: using guessed type int x_DWORD_181C08;
-// 181C0C: using guessed type int x_DWORD_181C0C;
-// 181C10: using guessed type int x_DWORD_181C10;
 
 //----- (000919C0) --------------------------------------------------------
 signed int sub_919C0()
@@ -820,12 +764,6 @@ signed int sub_919C0()
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// A1E05: using guessed type x_DWORD fclose(x_DWORD);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000A102C) --------------------------------------------------------
 char sub_A102C(int a1)//28202c //fix
@@ -853,7 +791,6 @@ char sub_A102C(int a1)//28202c //fix
 	x__writeeflags(v3);
 	return result;
 }
-// E3FE6: using guessed type int x_DWORD_E3FE6;
 
 //----- (000A105C) --------------------------------------------------------
 char sub_A105C(unsigned int a1)//28205c
@@ -889,12 +826,6 @@ void sub_A108F()//28208f
 	}
 	sub_91BF0_s_minus();
 }
-// E3E9C: using guessed type int x_DWORD_E3E9C[];
-// E3EDC: using guessed type int x_DWORD_E3EDC[];
-// E3F1C: using guessed type int x_DWORD_E3F1C[];
-// E3FEA: using guessed type int x_DWORD_E3FEA;
-
-
 
 //----- (000A10F4) --------------------------------------------------------
 void sub_A10F4_sound_proc_irq()//2820f4
@@ -936,19 +867,6 @@ void sub_A10F4_sound_proc_irq()//2820f4
 		;// _enable();
 	x__writeeflags(v2);
 }
-// E3E9C: using guessed type int x_DWORD_E3E9C[];
-// E3ED8: using guessed type int x_DWORD_E3ED8;
-// E3EDC: using guessed type int x_DWORD_E3EDC[];
-// E3F1C: using guessed type int x_DWORD_E3F1C[];
-// E3F5C: using guessed type int x_DWORD_E3F5C[];
-// E3FDC: using guessed type int x_DWORD_E3FDC;
-// E3FE0: using guessed type __int16 x_WORD_E3FE0;
-// E3FE2: using guessed type int x_DWORD_E3FE2;
-// E3FEA: using guessed type int x_DWORD_E3FEA;
-// E3FEE: using guessed type int x_DWORD_E3FEE;
-// E3FF2: using guessed type int x_DWORD_E3FF2;
-// E3FF6: using guessed type __int16 x_WORD_E3FF6;
-// E3FF8: using guessed type int x_DWORD_E3FF8;
 
 //----- (000A11E2) --------------------------------------------------------
 signed int sub_A11E2()//2821e2
@@ -969,8 +887,6 @@ signed int sub_A11E2()//2821e2
 	x__writeeflags(v2);
 	return result;
 }
-// E3FDC: using guessed type int x_DWORD_E3FDC;
-// E3FE0: using guessed type __int16 x_WORD_E3FE0;
 
 //----- (000A121D) --------------------------------------------------------
 Bit16u sub_A121D_AIL_API_get_real_vect(Bit32u vectnum/*int a1, __int16 a2, int a3, int a4*/)//28221d
@@ -1042,22 +958,6 @@ signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3)//2822c5
 	}
 	return result;
 }
-// A1462: write access to const memory at A128C has been detected
-// A146A: write access to const memory at A1286 has been detected
-// A1473: write access to const memory at A1277 has been detected
-// A147C: write access to const memory at A12AC has been detected
-// A1485: write access to const memory at A12B3 has been detected
-// A1493: write access to const memory at A12A2 has been detected
-// A1270: using guessed type int x_DWORD_A1270;
-// A1277: using guessed type __int16 x_WORD_A1277;
-// A1286: using guessed type __int16 x_WORD_A1286;
-// A128C: using guessed type int x_DWORD_A128C;
-// A12A2: using guessed type __int16 x_WORD_A12A2;
-// A12AC: using guessed type __int16 x_WORD_A12AC;
-// A12B3: using guessed type __int16 x_WORD_A12B3;
-// E3FF8: using guessed type int x_DWORD_E3FF8;
-// E3FFC: using guessed type int x_DWORD_E3FFC;
-// E4000: using guessed type int x_DWORD_E4000;
 
 //----- (000A14DB) --------------------------------------------------------
 void sub_A14DB_AIL_API_restore_USE16_ISR(int a1)//2824db
@@ -1072,9 +972,6 @@ void sub_A14DB_AIL_API_restore_USE16_ISR(int a1)//2824db
 	}
 	//return result;
 }
-// E3FF8: using guessed type int x_DWORD_E3FF8;
-// E3FFC: using guessed type int x_DWORD_E3FFC;
-// E4000: using guessed type int x_DWORD_E4000;
 
 //----- (000A1520) --------------------------------------------------------
 unsigned int sub_A1520()//282520
@@ -1202,7 +1099,6 @@ int sub_A16A2()//2826a2
 {
 	return x_DWORD_E3FEE;
 }
-// E3FEE: using guessed type int x_DWORD_E3FEE;
 
 //----- (000A16AE) --------------------------------------------------------
 HTIMER sub_A16AE_register_timer(AILTIMERCB callback_fn)//2826ae
@@ -1228,8 +1124,6 @@ LABEL_6:
 	sub_91BF0_s_minus();
 	return v2;
 }
-// E3E5C: using guessed type int x_DWORD_E3E5C[];
-// E3E9C: using guessed type int x_DWORD_E3E9C[];
 
 //----- (000A16F5) --------------------------------------------------------
 signed __int32 sub_A16F5_AIL_API_set_timer_user(int a1, signed __int32 a2)//2826f5
@@ -1248,7 +1142,6 @@ signed __int32 sub_A16F5_AIL_API_set_timer_user(int a1, signed __int32 a2)//2826
 	sub_91BF0_s_minus();
 	return v3;
 }
-// E3F9C: using guessed type int x_DWORD_E3F9C[];
 
 //----- (000A171D) --------------------------------------------------------
 void sub_A171D_release_timer_handle(Bit32s a1)//28271d
@@ -1258,7 +1151,6 @@ void sub_A171D_release_timer_handle(Bit32s a1)//28271d
 		*(int *)((char *)x_DWORD_E3E9C + a1) = 0;
 	sub_91BF0_s_minus();
 }
-// E3E9C: using guessed type int x_DWORD_E3E9C[];
 
 //----- (000A1744) --------------------------------------------------------
 void sub_A1744_AIL_API_release_all_timers()//282744
@@ -1285,7 +1177,6 @@ void sub_A1768_start_timer(HTIMER timer)//282768
 		*(int *)((char *)x_DWORD_E3E9C + timer) = 2;
 	sub_91BF0_s_minus();
 }
-// E3E9C: using guessed type int x_DWORD_E3E9C[];
 
 //----- (000A1798) --------------------------------------------------------
 void sub_A1798()//282798
@@ -1312,7 +1203,6 @@ void sub_A17BC_stop_timer(HTIMER timer)//2827bc
 		*(int *)((char *)x_DWORD_E3E9C + timer) = 1;
 	sub_91BF0_s_minus();
 }
-// E3E9C: using guessed type int x_DWORD_E3E9C[];
 
 //----- (000A17EC) --------------------------------------------------------
 void sub_A17EC()//2827ec
@@ -1340,8 +1230,6 @@ void sub_A1810_set_timer_period(HTIMER timer, Bit32u microseconds)//282810
 	sub_A108F();
 	sub_91BF0_s_minus();
 }
-// E3EDC: using guessed type int x_DWORD_E3EDC[];
-// E3F1C: using guessed type int x_DWORD_E3F1C[];
 
 //----- (000A1840) --------------------------------------------------------
 void sub_A1840_AIL_API_set_timer_frequency(HTIMER timer, Bit32u hertz)//282840
@@ -1378,11 +1266,6 @@ int sub_91A80_AIL_set_preference(Bit32u number, Bit32s value)//int (__stdcall *m
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00091BD0) --------------------------------------------------------
 void sub_91BD0_s_plus()//fix it - remove
@@ -1421,11 +1304,6 @@ Bit16u sub_91C10_AIL_get_real_vect(/*VDI_HDR* a1, int a2, int a3,*/ Bit32u vectn
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00091D50) --------------------------------------------------------
 void sub_91D50_AIL_set_real_vect(Bit32u vectnum, Bit16u real_ptr)//AIL_set_real_vect
@@ -1440,11 +1318,6 @@ void sub_91D50_AIL_set_real_vect(Bit32u vectnum, Bit16u real_ptr)//AIL_set_real_
 	sub_A1249_AIL_API_set_real_vect(vectnum, real_ptr);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00091E90) --------------------------------------------------------
 void sub_91E90_AIL_restore_USE16_ISR(Bit32s a1)//AIL_restore_USE16_ISR
@@ -1458,11 +1331,6 @@ void sub_91E90_AIL_restore_USE16_ISR(Bit32s a1)//AIL_restore_USE16_ISR
 	sub_A14DB_AIL_API_restore_USE16_ISR(a1);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00091F20) --------------------------------------------------------
 unsigned int sub_91F20()
@@ -1500,11 +1368,6 @@ Bit32s sub_91F70_AIL_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000920D0) --------------------------------------------------------
 void sub_920D0_AIL_delay(int a1)//AIL_delay
@@ -1520,11 +1383,6 @@ void sub_920D0_AIL_delay(int a1)//AIL_delay
 	x_DWORD_181C04--;
 	//return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00092160) --------------------------------------------------------
 int sub_92160()
@@ -1604,11 +1462,6 @@ int sub_92190_AIL_read_INI(AIL_INI* INI, char* filename/*, char* a8, IO_PARMS IO
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00092600) --------------------------------------------------------
 HTIMER sub_92600_AIL_register_timer(AILTIMERCB callback_fn/*AILTIMERCB    callback_fn*/)//AIL_register_timer
@@ -1634,11 +1487,6 @@ HTIMER sub_92600_AIL_register_timer(AILTIMERCB callback_fn/*AILTIMERCB    callba
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00092740) --------------------------------------------------------
 signed __int32 sub_92740_AIL_set_timer_user(int timer/*HTIMER      timer*/, signed __int32 user/*UINTa       user*/)//AIL_set_timer_user
@@ -1664,11 +1512,6 @@ signed __int32 sub_92740_AIL_set_timer_user(int timer/*HTIMER      timer*/, sign
 	x_DWORD_181C04--;
 	return v6;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00092890) --------------------------------------------------------
 void sub_92890_AIL_set_timer_period(HTIMER timer, Bit32u microseconds)//AIL_set_timer_period
@@ -1682,11 +1525,6 @@ void sub_92890_AIL_set_timer_period(HTIMER timer, Bit32u microseconds)//AIL_set_
 	sub_A1810_set_timer_period(timer, microseconds);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00092930) --------------------------------------------------------
 void sub_92930_AIL_set_timer_frequency(HTIMER timer/*HTIMER timer*/, Bit32u hertz/*U32 hertz*/)//AIL_set_timer_frequency
@@ -1700,11 +1538,6 @@ void sub_92930_AIL_set_timer_frequency(HTIMER timer/*HTIMER timer*/, Bit32u hert
 	sub_A1840_AIL_API_set_timer_frequency(timer, hertz);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00092BA0) --------------------------------------------------------
 void sub_92BA0_AIL_start_timer(HTIMER timer/*HTIMER      timer*/)//AIL_start_timer
@@ -1718,11 +1551,6 @@ void sub_92BA0_AIL_start_timer(HTIMER timer/*HTIMER      timer*/)//AIL_start_tim
 	sub_A1768_start_timer(timer);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00092CB0) --------------------------------------------------------
 void sub_92CB0_AIL_stop_timer(HTIMER timer/*HTIMER      timer*/)//AIL_stop_timer
@@ -1736,11 +1564,6 @@ void sub_92CB0_AIL_stop_timer(HTIMER timer/*HTIMER      timer*/)//AIL_stop_timer
 	sub_A17BC_stop_timer(timer);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00092DC0) --------------------------------------------------------
 void sub_92DC0_AIL_release_timer_handle(Bit32s timer/*HTIMER      timer*/)//AIL_release_timer_handle
@@ -1754,11 +1577,6 @@ void sub_92DC0_AIL_release_timer_handle(Bit32s timer/*HTIMER      timer*/)//AIL_
 	sub_A171D_release_timer_handle(timer);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00092E50) --------------------------------------------------------
 void sub_92E50_AIL_release_all_timers()//AIL_release_all_timers
@@ -1772,11 +1590,6 @@ void sub_92E50_AIL_release_all_timers()//AIL_release_all_timers
 	sub_A1744_AIL_API_release_all_timers();
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00092ED0) --------------------------------------------------------
 IO_PARMS* sub_92ED0_AIL_get_IO_environment(AIL_DRIVER* drvr/*AIL_DRIVER *drvr  */)//AIL_get_IO_environment  
@@ -1802,11 +1615,6 @@ IO_PARMS* sub_92ED0_AIL_get_IO_environment(AIL_DRIVER* drvr/*AIL_DRIVER *drvr  *
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093010) --------------------------------------------------------
 AIL_DRIVER* sub_93010_AIL_install_driver(/*int a1, */Bit8u* driver_image, Bit32s n_bytes)//AIL_install_driver //274010
@@ -1832,11 +1640,6 @@ AIL_DRIVER* sub_93010_AIL_install_driver(/*int a1, */Bit8u* driver_image, Bit32s
 	x_DWORD_181C04--;
 	return v7;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093160) --------------------------------------------------------
 int sub_93160_AIL_uninstall_driver(AIL_DRIVER* drvr/*AIL_DRIVER *drvr  */)//AIL_uninstall_driver  
@@ -1852,11 +1655,6 @@ int sub_93160_AIL_uninstall_driver(AIL_DRIVER* drvr/*AIL_DRIVER *drvr  */)//AIL_
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000A3600) --------------------------------------------------------
 HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1,*/ char* filename, IO_PARMS* IO)//284600
@@ -1899,8 +1697,6 @@ HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1,*/ char* filename,
 	}
 	return result;
 }
-// E3E34: using guessed type int (*off_E3E34_freex)(int);
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (00093330) --------------------------------------------------------
 HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(/*int a1, */char* filename, IO_PARMS* IO)//AIL_install_DIG_driver_file // 274330
@@ -1926,11 +1722,6 @@ HDIGDRIVER sub_93330_AIL_install_DIG_driver_file(/*int a1, */char* filename, IO_
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000A3720) --------------------------------------------------------
 int sub_A3720_AIL_API_install_DIG_INI(/*int a1, */HDIGDRIVER* dig)//284720
@@ -1960,7 +1751,6 @@ int sub_A3720_AIL_API_install_DIG_INI(/*int a1, */HDIGDRIVER* dig)//284720
 	}
 	return result;
 }
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A37A0) --------------------------------------------------------
 int sub_A37A0(unsigned int *a1)
@@ -1992,11 +1782,6 @@ int sub_931F0_AIL_install_DIG_INI(/*int a1,*/ HDIGDRIVER* dig/*HDIGDRIVER *dig*/
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 
 
@@ -2016,11 +1801,6 @@ int sub_93480_AIL_uninstall_DIG_driver(unsigned int *dig/*HDIGDRIVER dig*/)//AIL
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093510) --------------------------------------------------------
 HSAMPLE sub_93510_AIL_allocate_sample_handle(HDIGDRIVER dig/*HDIGDRIVER dig*/)//AIL_allocate_sample_handle //00274510
@@ -2046,11 +1826,6 @@ HSAMPLE sub_93510_AIL_allocate_sample_handle(HDIGDRIVER dig/*HDIGDRIVER dig*/)//
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000937A0) --------------------------------------------------------
 int sub_937A0_AIL_release_sample_handle(int S/*HSAMPLE S*/)//AIL_release_sample_handle //2747a0
@@ -2066,11 +1841,6 @@ int sub_937A0_AIL_release_sample_handle(int S/*HSAMPLE S*/)//AIL_release_sample_
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093830) --------------------------------------------------------
 void sub_93830_AIL_init_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_init_sample //274830
@@ -2086,11 +1856,6 @@ void sub_93830_AIL_init_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_init_sample //274830
 	x_DWORD_181C04--;
 	//return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000938C0) --------------------------------------------------------
 Bit32s sub_938C0_AIL_set_sample_file(HSAMPLE S/*HSAMPLE S*/, Bit8u* file_image/*void const FAR *file_image*/, Bit32s block/*S32 block*/)//AIL_set_sample_file //2748c0
@@ -2116,11 +1881,6 @@ Bit32s sub_938C0_AIL_set_sample_file(HSAMPLE S/*HSAMPLE S*/, Bit8u* file_image/*
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093A10) --------------------------------------------------------
 void sub_93A10_AIL_set_sample_address(HSAMPLE S, Bit8u* start, Bit32u len)//AIL_set_sample_address //274a10
@@ -2136,11 +1896,6 @@ void sub_93A10_AIL_set_sample_address(HSAMPLE S, Bit8u* start, Bit32u len)//AIL_
 	x_DWORD_181C04--;
 	//return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093AB0) --------------------------------------------------------
 void sub_93AB0_AIL_set_sample_type(HSAMPLE S, Bit32s a2, Bit32u a3)//AIL_set_sample_type //274ab0
@@ -2156,11 +1911,6 @@ void sub_93AB0_AIL_set_sample_type(HSAMPLE S, Bit32s a2, Bit32u a3)//AIL_set_sam
 	x_DWORD_181C04--;
 	//return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093B50) --------------------------------------------------------
 void sub_93B50_AIL_start_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_start_sample //274b50
@@ -2174,11 +1924,6 @@ void sub_93B50_AIL_start_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_start_sample //274b
 	sub_A3CB0_API_AIL_start_sample(S);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093D00) --------------------------------------------------------
 void sub_93D00_AIL_end_sample(HSAMPLE S/*HSAMPLE S*/)//274d00 AIL_end_sample //274d00
@@ -2192,11 +1937,6 @@ void sub_93D00_AIL_end_sample(HSAMPLE S/*HSAMPLE S*/)//274d00 AIL_end_sample //2
 	sub_A3DA0__API_AIL_end_sample(S);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093D90) --------------------------------------------------------
 void sub_93D90_AIL_set_sample_playback_rate(HSAMPLE S, Bit32s playback_rate)//AIL_set_sample_playback_rate //274d90
@@ -2210,11 +1950,6 @@ void sub_93D90_AIL_set_sample_playback_rate(HSAMPLE S, Bit32s playback_rate)//AI
 	sub_A3AF0_set_sample_playback_rate(S, playback_rate);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093E30) --------------------------------------------------------
 void sub_93E30_AIL_set_sample_volume(HSAMPLE S, Bit32s volume)//AIL_set_sample_volume //274e30
@@ -2228,11 +1963,6 @@ void sub_93E30_AIL_set_sample_volume(HSAMPLE S, Bit32s volume)//AIL_set_sample_v
 	sub_A3B40_set_sample_volume(S, volume);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093ED0) --------------------------------------------------------
 void sub_93ED0_AIL_set_sample_volume_pan(HSAMPLE S, Bit32s volume)//AIL_set_sample_volume_pan //274ed0
@@ -2246,11 +1976,6 @@ void sub_93ED0_AIL_set_sample_volume_pan(HSAMPLE S, Bit32s volume)//AIL_set_samp
 	sub_A3BB0_set_sample_volume_pan(S, volume);
 	x_DWORD_181C04++;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00093F70) --------------------------------------------------------
 void sub_93F70_AIL_set_sample_loop_count(HSAMPLE S/*HSAMPLE S*/, int loop_count/*S32 loop_count*/)//AIL_set_sample_loop_count //274f70
@@ -2264,11 +1989,6 @@ void sub_93F70_AIL_set_sample_loop_count(HSAMPLE S/*HSAMPLE S*/, int loop_count/
 	sub_A3C90_set_sample_loop_count(S, loop_count);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00094010) --------------------------------------------------------
 Bit32u sub_94010_AIL_sample_status(HSAMPLE S)//AIL_sample_status
@@ -2299,11 +2019,6 @@ Bit32u sub_94010_AIL_sample_status_orig(HSAMPLE S)//AIL_sample_status
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00094650) --------------------------------------------------------
 void sub_94650_AIL_set_digital_master_volume(x_DWORD *a1, Bit32s master_volume)//AIL_set_digital_master_volume
@@ -2317,11 +2032,6 @@ void sub_94650_AIL_set_digital_master_volume(x_DWORD *a1, Bit32s master_volume)/
 	sub_A3F70_set_digital_master_volume(a1, master_volume);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095140) --------------------------------------------------------
 EOS_callback_type sub_95140_AIL_register_EOS_callback(HSAMPLE S/*HSAMPLE S*/, EOS_callback_type EOS/*AILSAMPLECB EOS*/)//AIL_register_EOS_callback
@@ -2347,11 +2057,6 @@ EOS_callback_type sub_95140_AIL_register_EOS_callback(HSAMPLE S/*HSAMPLE S*/, EO
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000953E0) --------------------------------------------------------
 void sub_953E0_AIL_set_sample_user_data(HSAMPLE S/*HSAMPLE S*/, int index/*U32     index*/, int value/* SINTa   value*/)//AIL_set_sample_user_data
@@ -2367,11 +2072,6 @@ void sub_953E0_AIL_set_sample_user_data(HSAMPLE S/*HSAMPLE S*/, int index/*U32  
 	x_DWORD_181C04--;
 	//return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095480) --------------------------------------------------------
 int sub_95480_AIL_sample_user_data(HSAMPLE S/*HSAMPLE S*/, int index/*U32     index*/)//AIL_sample_user_data
@@ -2397,11 +2097,6 @@ int sub_95480_AIL_sample_user_data(HSAMPLE S/*HSAMPLE S*/, int index/*U32     in
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095710) --------------------------------------------------------
 Bit32s sub_95710_AIL_install_MDI_INI(/*int a1,*/ HMDIDRIVER *mdi)//HMDIDRIVER *mdi AIL_install_MDI_INI //276710
@@ -2427,11 +2122,6 @@ Bit32s sub_95710_AIL_install_MDI_INI(/*int a1,*/ HMDIDRIVER *mdi)//HMDIDRIVER *m
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095850) --------------------------------------------------------
 HMDIDRIVER sub_95850_AIL_install_MDI_driver_file(char* filename, IO_PARMS *IO)//HMDIDRIVER *mdi AIL_install_MDI_driver_file //276850
@@ -2457,11 +2147,6 @@ HMDIDRIVER sub_95850_AIL_install_MDI_driver_file(char* filename, IO_PARMS *IO)//
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000959A0) --------------------------------------------------------
 int sub_959A0_AIL_uninstall_MDI_driver(HMDIDRIVER mdi/*HMDIDRIVER  mdi*/)//AIL_uninstall_MDI_driver
@@ -2477,11 +2162,6 @@ int sub_959A0_AIL_uninstall_MDI_driver(HMDIDRIVER mdi/*HMDIDRIVER  mdi*/)//AIL_u
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095A30) --------------------------------------------------------
 HSEQUENCE sub_95A30_AIL_allocate_sequence_handle(HMDIDRIVER mdi)//AIL_allocate_sequence_handle
@@ -2507,11 +2187,6 @@ HSEQUENCE sub_95A30_AIL_allocate_sequence_handle(HMDIDRIVER mdi)//AIL_allocate_s
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095C00) --------------------------------------------------------
 Bit32s sub_95C00_AIL_init_sequence(HSEQUENCE S, Bit8u* start, Bit32s sequence_num, Bit32u track)//AIL_init_sequence
@@ -2537,11 +2212,6 @@ Bit32s sub_95C00_AIL_init_sequence(HSEQUENCE S, Bit8u* start, Bit32s sequence_nu
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095D50) --------------------------------------------------------
 void sub_95D50_AIL_start_sequence(HSEQUENCE S/*HSEQUENCE S*/, Bit32u track)//AIL_start_sequence
@@ -2557,11 +2227,6 @@ void sub_95D50_AIL_start_sequence(HSEQUENCE S/*HSEQUENCE S*/, Bit32u track)//AIL
 	x_DWORD_181C04--;
 	//return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095DE0) --------------------------------------------------------
 void sub_95DE0_AIL_stop_sequence(HSEQUENCE S/*HSEQUENCE S*/)//AIL_stop_sequence
@@ -2577,11 +2242,6 @@ void sub_95DE0_AIL_stop_sequence(HSEQUENCE S/*HSEQUENCE S*/)//AIL_stop_sequence
 	x_DWORD_181C04--;
 	//return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095E70) --------------------------------------------------------
 void sub_95E70_AIL_resume_sequence(HSEQUENCE S)//AIL_resume_sequence
@@ -2595,11 +2255,6 @@ void sub_95E70_AIL_resume_sequence(HSEQUENCE S)//AIL_resume_sequence
 	sub_A8180_AIL_API_resume_sequence(S);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00095F00) --------------------------------------------------------
 void sub_95F00_AIL_end_sequence(HSEQUENCE S/*HSEQUENCE S*/)//AIL_end_sequence
@@ -2615,11 +2270,6 @@ void sub_95F00_AIL_end_sequence(HSEQUENCE S/*HSEQUENCE S*/)//AIL_end_sequence
 	x_DWORD_181C04--;
 	//return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00096030) --------------------------------------------------------
 void sub_96030_AIL_set_sequence_volume(HSEQUENCE S, Bit32s volume, Bit32s milliseconds)//AIL_set_sequence_volume
@@ -2633,11 +2283,6 @@ void sub_96030_AIL_set_sequence_volume(HSEQUENCE S, Bit32s volume, Bit32s millis
 	sub_A8360_AIL_API_set_sequence_volume(S, volume, milliseconds);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00096170) --------------------------------------------------------
 int sub_96170_AIL_sequence_status(HSEQUENCE S/*HSEQUENCE S*/)//AIL_sequence_status
@@ -2663,11 +2308,6 @@ int sub_96170_AIL_sequence_status(HSEQUENCE S/*HSEQUENCE S*/)//AIL_sequence_stat
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00096670) --------------------------------------------------------
 void sub_96670_AIL_set_XMIDI_master_volume(HMDIDRIVER mdi, Bit32s master_volume)//AIL_set_XMIDI_master_volume
@@ -2678,11 +2318,6 @@ void sub_96670_AIL_set_XMIDI_master_volume(HMDIDRIVER mdi, Bit32s master_volume)
 	sub_A84D0_AIL_API_set_XMIDI_master_volume(mdi, master_volume);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000969A0) --------------------------------------------------------
 Bit32s sub_969A0_AIL_MDI_driver_type(HMDIDRIVER mdi)//AIL_MDI_driver_type
@@ -2707,11 +2342,6 @@ Bit32s sub_969A0_AIL_MDI_driver_type(HMDIDRIVER mdi)//AIL_MDI_driver_type
 	}
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00096AE0) --------------------------------------------------------
 void sub_96AE0_AIL_set_GTL_filename_prefix(Bit8u* prefix/*char const *prefix*/)//AIL_set_GTL_filename_prefix
@@ -2727,11 +2357,6 @@ void sub_96AE0_AIL_set_GTL_filename_prefix(Bit8u* prefix/*char const *prefix*/)/
 	x_DWORD_181C04--;
 	//return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00097330) --------------------------------------------------------
 int sub_97330_AIL_sequence_position(x_DWORD *S/*HSEQUENCE S*/, x_DWORD *beat/*FAR *beat*/, x_DWORD *measure/*FAR *measure*/)//AIL_sequence_position
@@ -2761,11 +2386,6 @@ int sub_97330_AIL_sequence_position(x_DWORD *S/*HSEQUENCE S*/, x_DWORD *beat/*FA
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00097480) --------------------------------------------------------
 x_DWORD *sub_97480_AIL_branch_index(HSEQUENCE S/*HSEQUENCE S*/, int marker/*U32 marker*/)//AIL_branch_index
@@ -2781,11 +2401,6 @@ x_DWORD *sub_97480_AIL_branch_index(HSEQUENCE S/*HSEQUENCE S*/, int marker/*U32 
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00097670) --------------------------------------------------------
 xCALLBACK sub_97670_AIL_register_trigger_callback(HSEQUENCE S/*HSEQUENCE S*/, xCALLBACK callback/*AILTRIGGERCB   callback*/)//AIL_register_trigger_callback
@@ -2811,11 +2426,6 @@ xCALLBACK sub_97670_AIL_register_trigger_callback(HSEQUENCE S/*HSEQUENCE S*/, xC
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00097A60) --------------------------------------------------------
 int sub_97A60_AIL_register_event_callback(int mdi/*HMDIDRIVER mdi*/, int callback/*AILEVENTCB callback*/)//AIL_register_event_callback
@@ -2841,11 +2451,6 @@ int sub_97A60_AIL_register_event_callback(int mdi/*HMDIDRIVER mdi*/, int callbac
 	x_DWORD_181C04--;
 	return v6;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00097BB0) --------------------------------------------------------
 int sub_97BB0_AIL_register_timbre_callback(int mdi/*HMDIDRIVER mdi*/, int callback/*AILTIMBRECB callback*/)//AIL_register_timbre_callback
@@ -2871,11 +2476,6 @@ int sub_97BB0_AIL_register_timbre_callback(int mdi/*HMDIDRIVER mdi*/, int callba
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00097F90) --------------------------------------------------------
 int sub_97F90_AIL_lock_channel(x_DWORD *mdi/*HMDIDRIVER mdi*/)//AIL_lock_channel
@@ -2901,11 +2501,6 @@ int sub_97F90_AIL_lock_channel(x_DWORD *mdi/*HMDIDRIVER mdi*/)//AIL_lock_channel
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (000980D0) --------------------------------------------------------
 int sub_980D0_AIL_release_channel(x_DWORD *mdi/*HMDIDRIVER mdi*/, int channel/*S32 channel*/)//AIL_release_channel
@@ -2921,11 +2516,6 @@ int sub_980D0_AIL_release_channel(x_DWORD *mdi/*HMDIDRIVER mdi*/, int channel/*S
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00098170) --------------------------------------------------------
 int sub_98170_AIL_map_sequence_channel(x_DWORD *S/*HSEQUENCE S*/, int seq_channel/*S32 seq_channel*/, int new_channel/*S32 new_channel*/)//AIL_map_sequence_channel
@@ -2941,11 +2531,6 @@ int sub_98170_AIL_map_sequence_channel(x_DWORD *S/*HSEQUENCE S*/, int seq_channe
 	x_DWORD_181C04--;
 	return result;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 //----- (00098360) --------------------------------------------------------
 void sub_98360_AIL_send_channel_voice_message(HMDIDRIVER mdi, HSEQUENCE S, Bit32s status, Bit32s data_1, Bit32s data_2)//AIL_send_channel_voice_message // 279360
@@ -2959,11 +2544,6 @@ void sub_98360_AIL_send_channel_voice_message(HMDIDRIVER mdi, HSEQUENCE S, Bit32
 	sub_A9140_AIL_API_send_channel_voice_message(mdi, S, status, data_1, data_2);
 	x_DWORD_181C04--;
 }
-// A18E3: using guessed type x_DWORD fprintf(x_DWORD, const char *, ...);
-// 181BF0: using guessed type int x_DWORD_181BF0_AIL_debugfile;
-// 181BF4: using guessed type int x_DWORD_181BF4;
-// 181BF8: using guessed type int x_DWORD_181BF8;
-// 181C04: using guessed type int x_DWORD_181C04;
 
 
 //----- (000A1870) --------------------------------------------------------
@@ -2985,7 +2565,6 @@ int sub_A18B2()//2828b2
 {
 	return x_DWORD_E3FE6;
 }
-// E3FE6: using guessed type int x_DWORD_E3FE6;
 
 //----- (000A18BE) --------------------------------------------------------
 void sub_A18BE()//2828be
@@ -2993,7 +2572,6 @@ void sub_A18BE()//2828be
 	//sub_9D590_lock_linear_region((Bit8u*)x_DWORD_E3E5C, (unsigned int)x_BYTE_E4A0C);
 	//sub_9D590_lock_linear_region((Bit8u*)sub_A0EEC_s_plus2, (unsigned int)sub_A18BE);
 }
-// E3E5C: using guessed type int x_DWORD_E3E5C[];
 
 
 //----- (000A2EA0) --------------------------------------------------------
@@ -3243,15 +2821,6 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 	}
 	return result;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// A2450: using guessed type int sub_A2450();
-// A2DE0: using guessed type int sub_A2DE0();
-// 181C90: using guessed type char x_BYTE_181C90;
-// 181DAC: using guessed type int x_DWORD_181DAC[];
-// 181DB4: using guessed type int x_DWORD_181DB4;
-// 181DBC: using guessed type int x_DWORD_181DBC;
-// 181DF0: using guessed type int x_DWORD_181DF0;
-// 181DF4: using guessed type int x_DWORD_181DF4;
 
 //----- (000B0C46) --------------------------------------------------------
 void sub_B0C46()
@@ -3282,14 +2851,6 @@ void sub_A1F90()//282f90
 	}
 	//return result;
 }
-// E4A8C: using guessed type int x_DWORD_E4A8C;
-// E4A90: using guessed type int x_DWORD_E4A90;
-// 181E8C: using guessed type int x_DWORD_181E8C;
-// 181E90: using guessed type int x_DWORD_181E90;
-// 181E94: using guessed type int x_DWORD_181E94;
-// 181E98: using guessed type int x_DWORD_181E98;
-// 181E9C: using guessed type int x_DWORD_181E9C;
-// 181EA0: using guessed type int x_DWORD_181EA0;
 
 //----- (000A2070) --------------------------------------------------------
 void sub_A2070(HDIGDRIVER a1)//283070
@@ -3682,14 +3243,6 @@ LABEL_33:
 	}
 	return v10;
 }
-// A0D1F: using guessed type x_DWORD abs(x_DWORD);
-// 181C90: using guessed type char x_BYTE_181C90;
-// 181DB0: using guessed type int x_DWORD_181DB0;
-// 181DB4: using guessed type int x_DWORD_181DB4;
-// 181DB8: using guessed type int x_DWORD_181DB8;
-// 181DC8: using guessed type int x_DWORD_181DC8;
-// 181DCC: using guessed type int x_DWORD_181DCC;
-// 181DF4: using guessed type int x_DWORD_181DF4;
 
 Bit16s envstring[0x18] = {
 	220,7,01,05,-1,-1,-1,-1,
@@ -3760,7 +3313,6 @@ int sub_A2C80(HDIGDRIVER a1, IO_PARMS* a2)//283c80
 		v9 = 1;
 	return sub_91F70_AIL_call_driver(a1->drvr_0, 772, &v8, 0);
 }
-// 181DD0: using guessed type int x_DWORD_181DD0;
 
 
 
@@ -3822,7 +3374,6 @@ HSAMPLE sub_A3820_allocate_sample_handle(HDIGDRIVER dig)//284820
 	}
 	return v3;
 }
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A38C0) --------------------------------------------------------
 int sub_A38C0_AIL_API_release_sample_handle(int a1)
@@ -3869,7 +3420,6 @@ void sub_A38E0_init_sample(HSAMPLE S/*S32     format,U32     flags*/)//2848e0
 		sub_A2110(S);
 	}
 }
-// 181DC0: using guessed type int x_DWORD_181DC0;
 
 //----- (000A3A00) --------------------------------------------------------
 Bit32u sub_A3A00_sample_status(HSAMPLE S)
@@ -4368,14 +3918,6 @@ bool sub_A4260()//285260
 	}
 	return result;
 }
-// E4A8C: using guessed type int x_DWORD_E4A8C;
-// E4A90: using guessed type int x_DWORD_E4A90;
-// 181E8C: using guessed type int x_DWORD_181E8C;
-// 181E90: using guessed type int x_DWORD_181E90;
-// 181E94: using guessed type int x_DWORD_181E94;
-// 181E98: using guessed type int x_DWORD_181E98;
-// 181E9C: using guessed type int x_DWORD_181E9C;
-// 181EA0: using guessed type int x_DWORD_181EA0;
 
 //----- (000A4330) --------------------------------------------------------
 void sub_A4330()//285330
@@ -4389,7 +3931,6 @@ void sub_A4330()//285330
 	}
 	//return result;
 }
-// E4A94: using guessed type int x_DWORD_E4A94;
 
 //----- (000A4370) --------------------------------------------------------
 int sub_A4370(x_DWORD *a1)//285370
@@ -4426,7 +3967,6 @@ void sub_A43E0(HSAMPLE S)//2853e0
 	//JUMPOUT(__CS__, (int*) *(&off_A4400 + *(unsigned __int8 *)v1));
 	//fix it!!!
 }
-// A4400: using guessed type void *off_A4400;
 
 //----- (000A47C0) --------------------------------------------------------
 void sub_A47C0_sub_set_sample_file(Bit8u* file_image, HSAMPLE S)//2857c0
@@ -4461,7 +4001,6 @@ void sub_A47C0_sub_set_sample_file(Bit8u* file_image, HSAMPLE S)//2857c0
 		v5 += (*(x_DWORD *)(v5 + 4) & 1) + *(x_DWORD *)(v5 + 4) + 8;
 	sub_93A10_AIL_set_sample_address(S, v5 + 8, *(x_DWORD *)(v5 + 4));
 }
-// 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (000A4970) --------------------------------------------------------
 HSAMPLE sub_A4970(int a1, Bit8u* a2, int a3)//285970
@@ -4512,10 +4051,6 @@ HSAMPLE sub_A4970(int a1, Bit8u* a2, int a3)//285970
 
 	return 0;
 }
-// 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
-// A47A0: using guessed type int sub_A47A0();
-// A4920: using guessed type int sub_A4920();
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A4B20) --------------------------------------------------------
 Bit32s sub_A4B20_set_sample_file(HSAMPLE S, Bit8u* file_image, Bit32s block)//285b20
@@ -4555,8 +4090,6 @@ Bit32s sub_A4B20_set_sample_file(HSAMPLE S, Bit8u* file_image, Bit32s block)//28
 	strcpy(x_BYTE_181C90, strlen("Invalid or missing data block\n") + 1, "Invalid or missing data block\n");
 	return 0;
 }
-// 99B23: using guessed type x_DWORD strnicmp(x_DWORD, x_DWORD, x_DWORD);
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A4C60) --------------------------------------------------------
 int sub_A4C60(int a1, int a2)
@@ -4582,7 +4115,6 @@ bool sub_A4CB0()
 	}
 	return result;
 }
-// E4A94: using guessed type int x_DWORD_E4A94;
 
 //----- (000A4CF0) --------------------------------------------------------
 void sub_A4CF0()
@@ -4610,20 +4142,6 @@ void sub_A4CF0()
 	}
 	//return result;
 }
-// E4B18: using guessed type int x_DWORD_E4B18;
-// E4B1C: using guessed type int x_DWORD_E4B1C;
-// 181EB0: using guessed type int x_DWORD_181EB0;
-// 181EB4: using guessed type int x_DWORD_181EB4;
-// 181EB8: using guessed type int x_DWORD_181EB8;
-// 181EBC: using guessed type int x_DWORD_181EBC;
-// 181EC0: using guessed type int x_DWORD_181EC0;
-// 181EC4: using guessed type int x_DWORD_181EC4;
-// 181EC8: using guessed type int x_DWORD_181EC8;
-// 181ECC: using guessed type int x_DWORD_181ECC;
-// 181ED0: using guessed type int x_DWORD_181ED0;
-// 181ED4: using guessed type int x_DWORD_181ED4;
-// 181ED8: using guessed type int x_DWORD_181ED8;
-// 181EDC: using guessed type int x_DWORD_181EDC;
 
 //----- (000A4E10) --------------------------------------------------------
 signed int sub_A4E10(char a1)
@@ -4724,7 +4242,6 @@ void sub_A4FD0(int a1, int a2, unsigned int a3)
 		++*(x_DWORD *)(a1 + 424);
 	sub_A4EB0((HMDIDRIVER)a1);
 }
-// AD81F: using guessed type x_DWORD memmove(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (000A5040) --------------------------------------------------------
 int sub_A5040(x_DWORD *a1)
@@ -4790,7 +4307,6 @@ Bit8u* sub_A50F0(Bit8u* a1, int a2)
 	}
 	return v3;
 }
-// 99682: using guessed type x_DWORD strncmp(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (000A5210) --------------------------------------------------------
 int sub_A5210(int a1, char a2, unsigned int a3)
@@ -5329,7 +4845,6 @@ void sub_A6370(HSEQUENCE a1)//287370
 	a1->interval_num_13 = 0;
 	//return result;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (000A6490) --------------------------------------------------------
 void sub_A6490(HSEQUENCE S)
@@ -5876,19 +5391,6 @@ HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER* a1, IO_PARMS *a2)//287fb0
 
 	return v10;
 }
-// 8C250: using guessed type x_DWORD memset(x_DWORD, x_DWORD, x_DWORD);
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// 99D84: using guessed type x_DWORD strcat(x_DWORD, x_DWORD);
-// 99E33: using guessed type x_DWORD getenv(x_DWORD);
-// A6530: using guessed type int sub_A6530();
-// A6F30: using guessed type int sub_A6F30();
-// AD871: using guessed type x_DWORD strncpy(x_DWORD, x_DWORD, x_DWORD);
-// 181C90: using guessed type char x_BYTE_181C90;
-// 181DD8: using guessed type int x_DWORD_181DD8;
-// 181DDC: using guessed type int x_DWORD_181DDC;
-// 181DE0: using guessed type int x_DWORD_181DE0;
-// 181DEC: using guessed type int x_DWORD_181DEC;
-// 181DF0: using guessed type int x_DWORD_181DF0;
 
 //----- (000A77D0) --------------------------------------------------------
 HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS *IO)//2887d0
@@ -5924,8 +5426,6 @@ HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS *IO)//2887
 	}
 	return v5;
 }
-// E3E34: using guessed type int (*off_E3E34_freex)(int);
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A7880) --------------------------------------------------------
 HMDIDRIVER sub_A7880_sound_proc27(int a1, Bit8u* a2, int a3, IO_PARMS* a4)
@@ -5968,7 +5468,6 @@ Bit32s sub_A78F0_AIL_API_install_MDI_INI(/*int a1, */HMDIDRIVER *mdi) //2888f0
 	}
 	return result;
 }
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A7970) --------------------------------------------------------
 int sub_A7970_AIL_API_uninstall_MDI_driver(HMDIDRIVER mdi)//288970
@@ -6003,7 +5502,6 @@ Bit32s sub_A7990_AIL_API_MDI_driver_type(HMDIDRIVER mdi)//288990
 		return 2;
 	return 0;
 }
-// 98F5D: using guessed type x_DWORD stricmp(x_DWORD, x_DWORD);
 
 //----- (000A7AA0) --------------------------------------------------------
 void sub_A7AA0_AIL_API_set_GTL_filename_prefix(Bit8u* a1)//288aa0
@@ -6035,8 +5533,6 @@ void sub_A7AA0_AIL_API_set_GTL_filename_prefix(Bit8u* a1)//288aa0
 	}
 	return;
 }
-// 99D46: using guessed type x_DWORD strcpy(x_DWORD, x_DWORD);
-// 99D6B: using guessed type x_DWORD strlen(x_DWORD);
 /*
 sub_91BD0_s_plus();
 	for (i = 0; i < dig->var24_aildrv && dig->var23_aildrvx[i].status_1 != 1; i++)
@@ -6087,7 +5583,6 @@ HSEQUENCE sub_A7B30_AIL_API_allocate_sequence_handle(HMDIDRIVER mdi)//288b30
 	}
 	return v3;
 }
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A7BF0) --------------------------------------------------------
 void sub_A7BF0_sound_proc33(HSEQUENCE S)//288bf0
@@ -6269,11 +5764,6 @@ Bit32s sub_A7C20_AIL_API_init_sequence_orig(HSEQUENCE S, void* start, Bit32s seq
 	}
 	return v6;
 }
-// 8E3D5: using guessed type x_DWORD sprintf_s(x_DWORD, const char *, ...);
-// 99682: using guessed type x_DWORD strncmp(x_DWORD, x_DWORD, x_DWORD);
-// AD81F: using guessed type x_DWORD memmove(x_DWORD, x_DWORD, x_DWORD);
-// 181C90: using guessed type char x_BYTE_181C90;
-// 181DE0: using guessed type int x_DWORD_181DE0;
 
 
 void sub_A8010_AIL_API_start_sequence(HSEQUENCE S, Bit32u track)//289010
@@ -6475,7 +5965,6 @@ void sub_A82C0(x_DWORD *a1, int a2, int a3)//2892c0
 		}
 	}
 }
-// A0D1F: using guessed type x_DWORD abs(x_DWORD);
 
 //----- (000A8360) --------------------------------------------------------
 void sub_A8360_AIL_API_set_sequence_volume(HSEQUENCE S, Bit32s volume, Bit32s milliseconds)//289360
@@ -6504,7 +5993,6 @@ void sub_A8360_AIL_API_set_sequence_volume(HSEQUENCE S, Bit32s volume, Bit32s mi
 		}
 	}
 }
-// A0D1F: using guessed type x_DWORD abs(x_DWORD);
 
 //----- (000A8410) --------------------------------------------------------
 int sub_A8410_AIL_API_sequence_status(HSEQUENCE S)
@@ -6621,11 +6109,6 @@ VDI_CALL sub_A85B0_sound_proc40(int *a1, int a2, int a3)
 		sprintf(x_BYTE_181C90, 512, "Driver could not install timbre bank %u, patch %u\n", v5 >> 8, v5);
 	return result;
 }
-// 8E3D5: using guessed type x_DWORD sprintf_s(x_DWORD, const char *, ...);
-// AD81F: using guessed type x_DWORD memmove(x_DWORD, x_DWORD, x_DWORD);
-// E4B2A: using guessed type char x_BYTE_E4B2A;
-// E4B2B: using guessed type char x_BYTE_E4B2B;
-// 181C90: using guessed type char x_BYTE_181C90;
 
 //----- (000A8690) --------------------------------------------------------
 int sub_A8690_sound_proc41(int *a1, __int16 a2, __int16 a3)
@@ -6734,7 +6217,6 @@ int sub_A8830(x_DWORD *a1, x_DWORD *a2, x_DWORD *a3)
 	}
 	return result;
 }
-// 181DE4: using guessed type int x_DWORD_181DE4;
 
 //----- (000A8900) --------------------------------------------------------
 x_DWORD *sub_A8900(HSEQUENCE S, int a2)
@@ -6777,7 +6259,6 @@ x_DWORD *sub_A8900(HSEQUENCE S, int a2)
 	}
 	return result;
 }
-// 181DE8: using guessed type int x_DWORD_181DE8;
 
 //----- (000A89E0) --------------------------------------------------------
 int sub_A89E0(int a1, int a2)
@@ -7201,16 +6682,6 @@ int sub_B096C(int *a1)
 	} while ((unsigned int)v10 < x_DWORD_E4E2C);
 	return result;
 }
-// 10000: using guessed type void /*__noreturn*/ sub_10000();
-// AED40: using guessed type int (*off_AED40[2])();
-// E4E1C: using guessed type int x_DWORD_E4E1C;
-// E4E20: using guessed type int x_DWORD_E4E20;
-// E4E24: using guessed type int x_DWORD_E4E24;
-// E4E28: using guessed type int x_DWORD_E4E28;
-// E4E2C: using guessed type int x_DWORD_E4E2C;
-// E4E30: using guessed type __int64 qx_WORD_E4E30;
-// E4E38: using guessed type int x_DWORD_E4E38;
-// 181DC4: using guessed type int x_DWORD_181DC4;
 
 //----- (000B0B87) --------------------------------------------------------
 int sub_B0B87(HDIGDRIVER a1, int a2)
@@ -7250,8 +6721,6 @@ int sub_B0B87(HDIGDRIVER a1, int a2)
 	}
 	return ((int(*)(int, x_BYTE *, int *))off_AEB40[x_DWORD_E4E1C])(v4, (int8*)v5, v3);
 }
-// AEB40: using guessed type int (*off_AEB40[2])();
-// E4E1C: using guessed type int x_DWORD_E4E1C;
 
 //----- (000B0C1A) --------------------------------------------------------
 void sub_B0C1A(HDIGDRIVER a1)
@@ -7313,8 +6782,6 @@ int sub_AFB7E(int result, x_DWORD *a2, x_BYTE *a3)
 	} while ((unsigned int)a2 < x_DWORD_E4E2C);
 	return result;
 }
-// E4E24: using guessed type int x_DWORD_E4E24;
-// E4E2C: using guessed type int x_DWORD_E4E2C;
 
 //----- (000AFB9F) --------------------------------------------------------
 int sub_AFB9F(int result, x_DWORD *a2, x_BYTE *a3)
@@ -7332,8 +6799,6 @@ int sub_AFB9F(int result, x_DWORD *a2, x_BYTE *a3)
 	} while ((unsigned int)a2 < x_DWORD_E4E2C);
 	return result;
 }
-// E4E24: using guessed type int x_DWORD_E4E24;
-// E4E2C: using guessed type int x_DWORD_E4E2C;
 
 //----- (000A9280) --------------------------------------------------------
 bool sub_A9280()
@@ -7360,19 +6825,6 @@ bool sub_A9280()
 	}
 	return result;
 }
-// E4B18: using guessed type int x_DWORD_E4B18;
-// E4B1C: using guessed type int x_DWORD_E4B1C;
-// 181EB0: using guessed type int x_DWORD_181EB0;
-// 181EB4: using guessed type int x_DWORD_181EB4;
-// 181EB8: using guessed type int x_DWORD_181EB8;
-// 181EBC: using guessed type int x_DWORD_181EBC;
-// 181EC4: using guessed type int x_DWORD_181EC4;
-// 181EC8: using guessed type int x_DWORD_181EC8;
-// 181ECC: using guessed type int x_DWORD_181ECC;
-// 181ED0: using guessed type int x_DWORD_181ED0;
-// 181ED4: using guessed type int x_DWORD_181ED4;
-// 181ED8: using guessed type int x_DWORD_181ED8;
-// 181EDC: using guessed type int x_DWORD_181EDC;
 
 //----- (0009F280) --------------------------------------------------------
 int sub_9F280(int *a1)//a1 bude nejaky driver
@@ -7581,7 +7033,6 @@ signed __int64 sub_9F110(int a1)
 		LOWORD(v6) = v4;
 	return __PAIR__(v6, 0);
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 void __writegsx_WORD(unsigned long Offset, unsigned short Data) { stub_fix_it(); };
 
@@ -7613,7 +7064,6 @@ int sub_9F220(int a1)
 		v7 = ((signed int)v5 >> 4) + (v4 << 12);
 	return v7;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009F1D0) --------------------------------------------------------
 int sub_9F1D0(int a1)
@@ -7636,7 +7086,6 @@ int sub_9F1D0(int a1)
 		v5 = (unsigned __int16)v2;
 	return v5;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 //----- (0009F170) --------------------------------------------------------
 int sub_9F170(int a1, unsigned __int16 a2)
@@ -7659,7 +7108,6 @@ int sub_9F170(int a1, unsigned __int16 a2)
 		v6 = 0;
 	return v6;
 }
-// 98D52: using guessed type x_DWORD int386(x_DWORD, x_DWORD, x_DWORD);
 
 int sub_AEF40() { stub_fix_it(); return 0; };
 int sub_AEF51() { stub_fix_it(); return 0; };
