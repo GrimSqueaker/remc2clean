@@ -1,6 +1,7 @@
 #include "file_handling.h"
 
 #include <fstream>
+#include <cstring>
 #include <libgen.h>
 #include <unistd.h>
 #include <limits.h>
@@ -20,20 +21,29 @@ namespace remc2 {
 using std::string;
 using std::filesystem::path;
 
-void FileHandling::createDefaultSoundIni(path inifile)
+FileHandling::FileHandling() 
 {
-    std::string default_sound_ini = "DEVICE\t\tNone\r\nDRIVER\t\tNone\r\nIO_ADDR\t\t-1\r\nIRQ\t\t-1\r\nDMA_8_BIT\t\t-1\r\nDMA_16_BIT\t\t-1\r\n";
-    std::filesystem::path sound_dir = m_game_path / "SOUND";
-    std::filesystem::create_directories(sound_dir);
-
-    std::filesystem::path dig_ini_file = sound_dir / inifile;
-    if (!std::filesystem::exists(dig_ini_file))
-    {
-        std::ofstream dig_ini_file_stream;
-        dig_ini_file_stream.open(dig_ini_file);
-        dig_ini_file_stream << default_sound_ini;
-        dig_ini_file_stream.close();
+    // obtain exe path
+    std::string pathexe;
+    char result[ PATH_MAX ];
+    ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
+    if (count != -1) {
+        pathexe = dirname(result);
     }
+    this->m_exe_path = pathexe;
+}
+
+void FileHandling::init() {
+	m_datfiles_names.resize(MC2Files::mc2files_end);
+	m_datfiles_buffers.resize(MC2Files::mc2files_end);
+
+	m_datfiles_names[MC2Files::hscreen0] = m_game_path / "DATA" / "SCREENS" / "HSCREEN0.DAT";
+
+	// load all needed files into buffers
+	for (int i = 0; i < MC2Files::mc2files_end; ++i)
+		loadFileIntoBuffer(i);
+
+	// decompress all needed data
 }
 
 void FileHandling::initDirsAndFiles()
@@ -51,6 +61,22 @@ void FileHandling::initDirsAndFiles()
     createDefaultSoundIni("MID.INI");
 }
 
+void FileHandling::createDefaultSoundIni(path inifile)
+{
+    std::string default_sound_ini = "DEVICE\t\tNone\r\nDRIVER\t\tNone\r\nIO_ADDR\t\t-1\r\nIRQ\t\t-1\r\nDMA_8_BIT\t\t-1\r\nDMA_16_BIT\t\t-1\r\n";
+    std::filesystem::path sound_dir = m_game_path / "SOUND";
+    std::filesystem::create_directories(sound_dir);
+
+    std::filesystem::path dig_ini_file = sound_dir / inifile;
+    if (!std::filesystem::exists(dig_ini_file))
+    {
+        std::ofstream dig_ini_file_stream;
+        dig_ini_file_stream.open(dig_ini_file);
+        dig_ini_file_stream << default_sound_ini;
+        dig_ini_file_stream.close();
+    }
+}
+
 void FileHandling::setGamePath(const path& gamepath)
 { 
     path data_dir("DATA");
@@ -61,21 +87,22 @@ void FileHandling::setGamePath(const path& gamepath)
         throw std::runtime_error(err);
     }
     this->m_game_path = gamepath;
+
+	init();
 }
 
-FileHandling::FileHandling() 
+
+void FileHandling::loadFileIntoBuffer(MC2Files file)
 {
-    // obtain exe path
-    std::string pathexe;
-    char result[ PATH_MAX ];
-    ssize_t count = readlink("/proc/self/exe", result, PATH_MAX);
-    if (count != -1) {
-        pathexe = dirname(result);
-    }
-    this->m_exe_path = pathexe;
+	auto size = std::filesystem::file_size(m_datfiles_names[file]);
 
+	m_datfiles_buffers[file].resize(size);
+
+	std::ifstream ifs(m_datfiles_names[file], std::ios::binary);
+
+	if(!ifs.read((char*)m_datfiles_buffers[file].data(), size))
+		throw std::runtime_error(m_datfiles_names[file].string() + ": " + std::strerror(errno));
 }
-
 
 // original load and decompress functions
 
@@ -756,4 +783,24 @@ int sub_9894C_decompress(Bit8u* a1, Bit8u* a2) {
 	return error_code;
 }
 
+//----- (0005C3D0) --------------------------------------------------------
+signed int sub_5C3D0_file_decompress(Bit8u* input, Bit8u* output)//23d3d0
+{
+	//char v3; // [esp+0h] [ebp-8h]
+	//char v4; // [esp+1h] [ebp-7h]
+	//char v5; // [esp+2h] [ebp-6h]
+	//char v6; // [esp+3h] [ebp-5h]
+	//char v7; // [esp+4h] [ebp-4h]
+
+	char RNSSING[5] = "RNC\x1";
+	//v3 = 82;
+	//v4 = 78;
+	//v6 = 1;
+	//v5 = 67;
+	//v7 = 0;
+	if (strncmp((const char*)input, RNSSING, 4))
+		return 0;
+	sub_9894C_decompress(input, output);
+	return 1;
+}
 }

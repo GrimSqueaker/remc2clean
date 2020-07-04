@@ -1,6 +1,8 @@
 #pragma once
 
+#include <cstddef>
 #include <string>
+#include <vector>
 #include <filesystem>
 
 #include "../dosbox_files/config.h"
@@ -10,8 +12,22 @@ namespace remc2 {
 using std::string;
 using std::filesystem::path;
 
+typedef enum {
+    hscreen0 = 0,
+    mc2files_end
+} MC2Files;
+
+typedef enum {
+    sprite0
+} MC2Asset;
+
+typedef struct {
+    MC2Files mc2file;
+    int position;
+    int lengh;
+} MC2AssetInfo;
+
 /*    
-enum class MC2Files = {
 Bit8u* x_DWORD_E9C38_smalltit;
 
 Pathstruct xasearchd_2bac30 = { "*SearchD\0",&SEARCH_BEGIN_BUFFER,&SEARCH_END_BUFFER,0x1000,NULL };
@@ -165,19 +181,29 @@ class FileHandling {
 public:
     FileHandling();
 
-	path getExePath() {return m_exe_path; }
+    void init();
     void initDirsAndFiles();
 
     void createDefaultSoundIni(path inifile);
+
+	path getExePath() {return m_exe_path; }
 
     path getGamePath() { return m_game_path; }
     void setGamePath(const path& gamepath);
     
     path m_exe_path {};
     path m_game_path {};
+
+    std::vector<std::filesystem::path> m_datfiles_names;
+    std::vector<std::vector<std::byte>> m_datfiles_buffers;
+
+private:
+    void loadFileIntoBuffer(MC2Files);
 };
 
 
 int sub_9894C_decompress(Bit8u* a1, Bit8u* a2);
+
+signed int sub_5C3D0_file_decompress(Bit8u* input, Bit8u* output);
 
 }
