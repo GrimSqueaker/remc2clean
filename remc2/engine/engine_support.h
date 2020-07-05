@@ -1963,4 +1963,321 @@ void write_posistruct_to_png(Bit8u* buffer, int width, int height, char* filenam
 int my_sign32(Bit32s var);
 int my_sign16(Bit16s var);
 
+
+
+
+
+///////////////////////////////////////////////
+// shared between sub_main and menus_and_intros
+
+#pragma pack (1)
+typedef struct {
+	Bit32s dword_0;
+	Bit16u word_4;
+	Bit16u word_6;//level number
+	Bit16u word_8;
+	Bit16u word_10;
+	Bit16u word_12;
+	Bit16u word_14;
+	Bit8u byte_16;
+}
+type_x_WORD_E2970;
+#pragma pack (16)
+
+#pragma pack (1)
+typedef struct//lenght 613 // end 17E09D
+{
+	Bit8u* x_DWORD_17DE38; // weak
+	Bit8u* x_DWORD_17DE3C; // weak//1
+	Bit8u* x_DWORD_17DE40; // weak//2
+	Bit8u* x_DWORD_17DE44; // weak//3
+	Bit8u* x_DWORD_17DE48c; // weak//4
+	Bit8u* x_DWORD_17DE4C; // weak
+	char* x_DWORD_17DE50; // weak
+	Bit8u* x_DWORD_17DE54; // weak
+	Bit8u* x_DWORD_17DE58; // weak
+	Bit8u* x_DWORD_17DE5C_border_bitmap; // weak
+	Bit8u* x_DWORD_17DE60; // weak
+	Bit8u* x_DWORD_17DE64_game_world_map; // weak
+	Bit8u x_BYTE_17DE68x[88]; // fix it -  weak
+	//char x_BYTE_17DE69[1]; //x_BYTE_17DE68x[0x1] fix it -  weak
+	//char x_BYTE_17DE71[1]; //x_BYTE_17DE68x[0x9] fix it -  weak
+	//char x_BYTE_17DE72[78]; //x_BYTE_17DE68x[0xa] idb
+	Bit8u* x_DWORD_17DEC0; // weak
+	Bit8u* x_DWORD_17DEC4; // weak
+	Bit8u* x_DWORD_17DEC8; // weak
+	Bit8u* x_DWORD_17DECC; // weak
+	int x_DWORD_17DED0; // weak
+	Bit8u* x_DWORD_17DED4; // weak
+	Bit8u* x_DWORD_17DED8; // weak
+	int x_DWORD_17DEDC; // weak
+	FILE* x_DWORD_17DEE0_filedesc; // weak
+	Bit16s x_DWORD_17DEE4_mouse_positionx; // weak
+	char stub0[2];
+	Bit16s x_DWORD_17DEE8_mouse_positiony; // weak
+	char stub1[2];
+	int16_t x_WORD_17DEEC; // weak
+	int16_t x_WORD_17DEEE_mouse_buttons; // weak
+	int16_t x_WORD_17DEF0; // weak
+	int16_t x_WORD_17DEF2; // weak
+	int16_t x_WORD_17DEF4; // weak
+	int16_t x_WORD_17DEF6; // weak
+	int16_t x_WORD_17DEF8; // weak
+	int16_t x_WORD_17DEFA; // weak
+	int16_t x_WORD_17DEFC; // weak
+	int16_t x_WORD_17DEFE; // weak
+	int16_t x_WORD_17DF00; // weak
+	int16_t x_WORD_17DF02; // weak
+	int16_t x_WORD_17DF04; // weak
+	int16_t x_WORD_17DF06; // weak
+	int16_t x_WORD_17DF08; // weak
+	int16_t x_WORD_17DF0A; // weak
+	int16_t x_WORD_17DF0C; // weak
+	int16_t x_WORD_17DF0E; // weak
+	char x_BYTE_17DF10_get_key_scancode; // weak
+	char x_BYTE_17DF11_last_key_status; // weak
+	char stuba[1];
+	char x_BYTE_17DF13; // weak
+	char x_BYTE_17DF14[344]; // idb// 34*8
+	//char x_BYTE_17DF3C[400]; // fix it -  weak//&x_BYTE_17DF14[40]
+	//char x_BYTE_17DF3D[400]; // fix it -  weak//&x_BYTE_17DF14[41]
+	//char x_BYTE_17DF3E[400]; // idb//&x_BYTE_17DF14[42]
+	int16_t x_WORD_17E06C; // weak
+	int16_t x_WORD_17E06E; // weak
+	int16_t x_WORD_17E070; // weak
+	int16_t x_WORD_17E072; // weak
+	int16_t x_WORD_17E074; // weak
+	int16_t x_WORD_17E076; // weak
+	Bit8s unk_17E078x[0xc]; // weak [11]
+	//__int16 x_WORD_17E07C; // weak unk_17E078x[4]
+	//__int16 x_WORD_17E07E; // weak unk_17E078x[6]
+	//__int16 x_WORD_17E080; // weak unk_17E078x[8]
+	//char x_BYTE_17E082; // weak unk_17E078x[0xa]
+	//char x_BYTE_17E083; // weak unk_17E078x[0xb]
+	Bit16s unk_17E084x[0xc]; // weak [11]
+	char x_BYTE_17E09C; // weak
+} type_x_DWORD_17DE38str;
+#pragma pack (16)
+
+#pragma pack (1)
+typedef struct {
+	Bit8u** begin_buffer;
+	Bit8u** end_buffer;
+	Bit8u** dat_buffer;
+	posistruct** posistruct;
+} filearray_struct;
+#pragma pack (16)
+
+#pragma pack (1)
+typedef struct {
+	char path[512];
+	Bit8u** var28_begin_buffer;//1C // asi buffer
+	Bit8u** var32_end_buffer;//20 // asi buffer
+	Bit32u var36_size_buffer;//24 //asi file size
+	Bit32u var40_alloc_type;//28
+} Pathstruct;
+#pragma pack (16)
+
+
+extern int16_t x_WORD_180660_VGA_type_resolution;
+extern char x_BYTE_D41C1;
+extern Bit8u* x_DWORD_E9C38_smalltit;
+extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
+extern char x_BYTE_17DBC6;
+extern Bit32s x_DWORD_17DBB8[4];
+extern int16_t x_WORD_1803EC;
+extern int help_VGA_type_resolution;
+extern char* x_DWORD_E9C4C_langindexbuffer[1000];
+extern char* x_DWORD_D41BC_langbuffer;
+extern char x_BYTE_E29E0;
+extern char x_BYTE_D41C0;
+extern Bit8u off_E1BAC[0x3c4/*4096*/];
+extern int filearrayindex_POINTERSDATTAB;
+extern filearray_struct filearray_2aa18c[];
+extern Bit8u x_BYTE_EB3A8;
+extern int16_t x_WORD_E29DA_type_resolution;
+extern char x_BYTE_D41AD_skip_screen;
+extern Bit8u* pre_x_DWORD_E9C3C;
+extern Bit8u* x_DWORD_E9C3C;
+extern char x_BYTE_E3798_sound_active2;
+extern char x_BYTE_D41CE;
+extern char* x_DWORD_D41D0;
+extern int16_t x_WORD_E12FC;
+extern int16_t x_WORD_D4004;
+extern Bit16u x_WORD_17DB60;
+extern Bit8u* x_DWORD_E12F4;
+extern FILE* x_DWORD_17DB38_intro_file_handle;
+extern Bit16s x_WORD_17DB48;
+extern Bit16s x_WORD_17DB4A;
+extern int16_t x_WORD_180744_mouse_right_button;
+extern int16_t x_WORD_180746_mouse_left_button;
+extern int16_t x_WORD_18074A_mouse_right2_button;
+extern int16_t x_WORD_18074C_mouse_left2_button;
+extern int x_DWORD_E1300;
+extern int16_t x_WORD_17DB5A;
+extern int16_t x_WORD_17DB5C;
+extern Bit8u unk_E17CC_0[0x160];
+extern Bit8u x_BYTE_EB39E_keys[10];
+
+extern void sub_753D0();
+extern void sub_41BC0();
+extern void sub_7A060_get_mouse_and_keyboard_events();
+extern Bit16s sub_90B27_VGA_pal_fadein_fadeout(Bit8u* a1, Bit8u shadow_levels, bool a3);
+extern void sub_90478_VGA_Blit320();
+extern void sub_75200_VGA_Blit640(Bit16u height);
+extern char sub_7B250_draw_and_serve();
+extern void sub_7AB00_draw_menu_animations(uint8_t a4);
+extern void sub_7C120_draw_bitmap_640(Bit16s posx, Bit16s posy, posistruct tempstr);
+extern void sub_9A144_copy_screen_640(void* source, void* desc, Bit16u countlines);
+extern void sub_9A128_copy_screen_320(void* source, void* desc, Bit16u countlines);
+extern long j___clock();
+extern void sub_8CD27_set_cursor(posistruct a2);
+extern void sub_7B5A0_disable_enable();
+extern void sub_7A110_load_hscreen(char a1, char a2);
+extern char sub_77350_new_game_dialog(Bit8u* a1);
+extern void sub_8E160_sound_proc15_startsequence(int16_t a1, uint16_t a2);
+extern void sub_8E020_sound_proc14_stopsequence();
+extern void sub_6EDB0_set_mouse_position_by_res();
+extern Bit32s sub_84300_load_sound(Bit8u a1);
+extern char sub_86860_speak_Sound(uint16_t a1);
+extern signed int sub_8CEDF_install_mouse();
+extern void sub_90D6E_VGA_set_video_mode_320x200_and_pallette(Bit8u* pallette);
+extern void sub_90E07_VGA_set_video_mode_640x480_and_pallette(Bit8u* pallette);
+extern void sub_41A90_VGA_pallette_install(Bit8u* a1);
+extern void sub_72883_clear_graphics_320(void *a2, uint16_t a3, char a4);
+extern void sub_728A9_clear_graphics_640(void *a2, uint16_t a3, char a4);
+extern void sub_54600_mouse_reset();
+extern void sub_81DB0_read_config();
+extern void sub_7B5D0();
+extern void sub_8D8F0_sound_proc3_endsample();
+extern void sub_7AA70_load_and_decompres_dat_file(char* a1, Bit8u* a2, int a3, int a4);
+extern char sub_779E0_lang_setting_dialog(Bit8u* a1);
+extern int sub_98882_close(FILE* a1);
+extern int sub_9891E_seek(FILE* filedesc, int position, char type);
+extern void sub_5B870_copy_sentence(char* langbuffer, char** langindexbuffer, Bit32u count);
+extern void sub_83E80_freemem4(Bit8u* a1);
+extern Bit8u sub_5BE80_test_pallette(Bit8u *a1, Bit8u a2, Bit8u a3, Bit8u a4);
+extern size_t sub_988A7_read(FILE* a1, Bit8u* a2, int a3);
+extern void sub_8E410_sound_proc16_xmidivolume(Bit32s master_volume);
+extern int sub_8E470_sound_proc17_volume(int a1);
+extern x_DWORD fix_filelength(x_DWORD);
+extern long x_filelength(FILE* decriptor);
+extern void stub_fix_it();
+extern void sub_6EBF0(filearray_struct* a1);
+extern FILE* sub_98817_open(char* path, int __pmode);
+extern void sub_9874D_create_index_dattab(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4);
+extern void sub_9874D_create_index_dattab_add(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4,int add);
+extern void sub_98709_create_index_dattab_power(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4);
+extern void sub_98709_create_index_dattab_power_add(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4,int add);
+extern signed int sub_9A10A_check_keyboard();
+extern type_x_WORD_E2970* sub_824E0(int16_t a1);
+extern void sub_6EB90(filearray_struct* a1);
+extern void sub_473B0();
+extern void sub_1B280_run_intro_events(Bit8u* a1);
+extern void sub_75DB0();
+extern void sub_75E70();
+extern x_DWORD j___delay(x_DWORD);
+
+
+extern Pathstruct xasearchd_2bac30;
+#define psxasearchd_2bac30 0
+extern Pathstruct xafonts0dat;
+#define psxafonts0dat 1
+extern Pathstruct xafonts0tab;
+#define psxafonts0tab 2
+extern Pathstruct xafonts1dat;
+#define psxafonts1dat 3
+extern Pathstruct xafonts1tab;
+#define psxafonts1tab 4
+extern Pathstruct xadatatmaps00tab;
+#define psxadatatmaps00tab 5
+extern Pathstruct xapaldata;
+#define psxapaldata 6
+extern Pathstruct xapalmem;
+#define psxapalmem 7
+extern Pathstruct xadatapointersdat;
+#define psxadatapointersdat 8
+extern Pathstruct xadatapointerstab;
+#define psxadatapointerstab 9
+extern Pathstruct xazero;
+#define psxazero0 10
+extern Pathstruct xadatabuild00dat;
+#define psxadatabuild00dat 11
+extern Pathstruct xadatabuild00tab;
+#define psxadatabuild00tab 12
+//zero
+#define psxazero1 13
+extern Pathstruct xadataetextdat;
+#define psxadataetextdat 14
+//zero
+#define psxazero2 15
+extern Pathstruct xadataftextdat;
+#define psxadataftextdat 16
+//zero
+#define psxazero3 17
+extern Pathstruct xadatagtextdat;
+#define psxadatagtextdat 18
+//zero
+#define psxazero4 19
+extern Pathstruct xadataitextdat;
+#define psxadataitextdat 20
+//zero
+#define psxazero5 21
+extern Pathstruct xadatablock16dat;
+#define psxadatablock16dat 22
+extern Pathstruct xadatablock32dat;
+#define psxadatablock32dat 23
+//zero
+#define psxazero6 24
+extern Pathstruct xabscreen;
+#define psxabscreen 25
+extern Pathstruct xadatapald0dat;
+#define psxadatapald0dat 26
+//zero
+#define psxazero7 27
+extern Pathstruct xawscreen_351628;
+#define psxawscreen_351628 28
+extern Pathstruct xabscreen2;
+#define psxabscreen2 29
+
+extern Pathstruct xadatapald0dat2;
+#define psxadatapald0dat2 30
+//zero
+#define psxazero8 31
+extern Pathstruct xadatamsprd00dat;
+#define psxadatamsprd00dat 32
+extern Pathstruct xadatamsprd00tab;
+#define psxadatamsprd00tab 33
+//zero
+#define psxazero9 34
+extern Pathstruct xadatahsprd00dat;
+#define psxadatahsprd00dat 35
+extern Pathstruct xadatahsprd00tab;
+#define psxadatahsprd00tab 36
+extern Pathstruct xadatahfont3dat;
+#define psxadatahfont3dat 37
+extern Pathstruct xadatahfont3tab;
+#define psxadatahfont3tab 38
+//zero
+#define psxazero10 39
+extern Pathstruct xadataclrd0dat;
+#define psxadataclrd0dat 40
+//zero
+#define psxazero11 41
+extern Pathstruct xadataspellsdatx;
+#define psxadataspellsdat 42
+//zero
+#define psxazero12 43
+extern Pathstruct xadatalang;
+#define psxadatalangbuffer 44
+//zero
+#define psxazero13 45
+extern Pathstruct xadatatables;
+#define psxadatalangbuffer2 46
+//zero
+#define psxazero14 47
+
+extern Pathstruct pstr[100];
+
+
 #endif //ENGINE_SUPPORT_ACTIVE
