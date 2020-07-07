@@ -18,6 +18,8 @@
 //#define USE_DOSBOX
 
 
+#include "file_handling.h"
+using namespace remc2;
 
 
 
@@ -2078,6 +2080,7 @@ typedef struct {
 } Pathstruct;
 #pragma pack (16)
 
+extern std::unique_ptr<FileHandling> file_handling;
 
 extern int16_t x_WORD_180660_VGA_type_resolution;
 extern char x_BYTE_D41C1;

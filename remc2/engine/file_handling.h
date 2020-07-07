@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include <filesystem>
+#include <unordered_map>
 
 #include "../dosbox_files/config.h"
 
@@ -12,17 +13,77 @@ namespace remc2 {
 using std::string;
 using std::filesystem::path;
 
-typedef enum {
-    hscreen0 = 0,
-    mc2files_end
-} MC2Files;
+typedef std::vector<std::byte> filedata_t;
 
-typedef enum {
-    sprite0
-} MC2Asset;
+enum class MC2File {
+    data_bl16c00_dat,
+    data_bl16f00_dat,
+    data_bl16n00_dat,
+    data_bl32c00_dat,
+    data_bl32f00_dat,
+    data_bl32n00_dat,
+    data_bl128c00_dat,
+    data_bl128f00_dat,
+    data_bl128n00_dat,
+    data_bldgprm_dat,
+    data_block128_dat,
+    data_block16_dat,
+    data_block32_dat,
+    data_clrd0_dat,
+    data_gtd2_dat,
+    data_hscreen0_dat,
+    data_pald0_dat,
+    data_screens_hscreen0_dat,
+    data_search_dat,
+    data_skyd00_dat,
+    data_skyn00_dat,
+    data_smatitl2_dat,
+    data_smatitl2_pal,
+    data_smatitle_dat,
+    data_smatitle_pal,
+    data_spells_dat,
+    data_tablesc_dat,
+    data_tablesd_dat,
+    data_tablesn_dat,
+    data_tmaps00_dat,
+    data_tmaps10_dat,
+    data_tmaps20_dat,
+    data_tmaps00_tab,
+    data_tmaps10_tab,
+    data_tmaps20_tab,
+
+    cdata_tmaps00_dat,
+    cdata_tmaps10_dat,
+    cdata_tmaps20_dat,
+    cdata_tmaps00_tab,
+    cdata_tmaps10_tab,
+    cdata_tmaps20_tab,
+    cdata_version_dat,
+
+    levels_levels_dat,
+    levels_levels_tab,
+
+    clevels_levels_dat,
+    clevels_levels_tab,
+
+    config_dat,
+
+    intro_intro_dat,
+    intro_intro2_dat,
+};
+//file_handling->getFilePath(MC2File::data_search_dat).c_str()
 
 typedef struct {
-    MC2Files mc2file;
+    path file_path;
+    filedata_t file_data;
+} MC2FileInfo;
+
+enum class MC2Asset {
+    sprite0,
+};
+
+typedef struct {
+    MC2File mc2file;
     int position;
     int lengh;
 } MC2AssetInfo;
@@ -190,15 +251,22 @@ public:
 
     path getGamePath() { return m_game_path; }
     void setGamePath(const path& gamepath);
+
+    const filedata_t& getFileData(MC2File file) {
+        return m_mc2files.at(file).file_data;
+    };
+    const path& getFilePath(MC2File file) {
+        return m_mc2files.at(file).file_path;
+    };
     
     path m_exe_path {};
     path m_game_path {};
 
-    std::vector<std::filesystem::path> m_datfiles_names;
-    std::vector<std::vector<std::byte>> m_datfiles_buffers;
 
 private:
-    void loadFileIntoBuffer(MC2Files);
+    void loadFileIntoBuffer(MC2File);
+
+    std::unordered_map<MC2File, MC2FileInfo> m_mc2files;
 };
 
 

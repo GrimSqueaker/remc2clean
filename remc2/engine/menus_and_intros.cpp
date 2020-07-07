@@ -469,9 +469,8 @@ int sub_83850_show_welcome_screen()//264850
 	
 	//fix it
 
-  std::filesystem::path path_hscreen0dat = gamepath / "DATA" / "SCREENS" / "HSCREEN0.DAT";
-	sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_DWORD_E9C38_smalltit, 0x178E5F, 0x32B9);
-	sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), *xadatapald0dat2.var28_begin_buffer, 0x17C118, 0x300);
+	sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), x_DWORD_E9C38_smalltit, 0x178E5F, 0x32B9);
+	sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), *xadatapald0dat2.var28_begin_buffer, 0x17C118, 0x300);
 	sub_7AA70_load_and_decompres_dat_file((char*)"\0", 0, 0, 0);
 	//v0 = (int)sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0); //fix it
 	v0 = 0;//fix it
@@ -531,9 +530,8 @@ void sub_76D10_intros(char a1)//257d10
 	x_DWORD_17DE38str.x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x49ADB];// 301787;
 	x_DWORD_17DE38str.x_DWORD_17DEC0 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4B52F];//308527;
 	x_DWORD_17DE38str.x_DWORD_17DEC4 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4BB8F];
-  std::filesystem::path path_hscreen0dat = gamepath / "DATA" / "SCREENS" / "HSCREEN0.DAT";
-	sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x49ADB], 0x164FCD, 0x35C);
-	sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 0x224);
+	sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x49ADB], 0x164FCD, 0x35C);
+	sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 0x224);
 	sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
@@ -552,9 +550,8 @@ void sub_76D10_intros(char a1)//257d10
 		x_BYTE_D41C1 = 1;
 	}
 	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
-  // TODO/FIXME: get rid of this global printbuffer
-  std::filesystem::path path_introdat = gamepath / "INTRO" / "INTRO.DAT";
-  std::strcpy(printbuffer, path_introdat.c_str());
+	// TODO/FIXME: get rid of this global printbuffer
+	std::strcpy(printbuffer, file_handling->getFilePath(MC2File::intro_intro_dat).c_str());
 	switch (a1)
 	{
 	case 0:
@@ -571,8 +568,7 @@ void sub_76D10_intros(char a1)//257d10
 			/*v1 = */sub_7A060_get_mouse_and_keyboard_events();
 		}
 		j___delay(50);
-    path_introdat = gamepath / "INTRO" / "INTRO2.DAT";
-    std::strcpy(printbuffer, path_introdat.c_str());
+    std::strcpy(printbuffer, file_handling->getFilePath(MC2File::intro_intro2_dat).c_str());
 		goto LABEL_17;
 	case 1:
 		sub_76160_play_intro(1, 1, unk_E17CC_0);
@@ -581,8 +577,7 @@ void sub_76D10_intros(char a1)//257d10
 		x_BYTE_1806E4 = 0;
 		x_BYTE_D41C1 = 0;
 		x_BYTE_D41C0 = 0;
-    path_introdat = gamepath / "INTRO" / "INTRO2.DAT";
-    std::strcpy(printbuffer, path_introdat.c_str());
+    std::strcpy(printbuffer, file_handling->getFilePath(MC2File::intro_intro2_dat).c_str());
 	LABEL_17:
 		sub_76160_play_intro(1, 1, unk_E17CC_0x160);//E192C
 		break;
@@ -641,9 +636,8 @@ void sub_82670()//263670
 			x_DWORD_17DE38str.x_DWORD_17DE54 = (Bit8u*)v2 + 301787;
 			x_DWORD_17DE38str.x_DWORD_17DEC0 = (Bit8u*)v2 + 308527;
 			x_DWORD_17DE38str.x_DWORD_17DEC4 = (Bit8u*)v2 + 310159;
-      std::filesystem::path path_hscreen0dat = gamepath / "DATA" / "SCREENS" / "HSCREEN0.DAT";
-			sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), (Bit8u*)(v2 + 301787), 0x164FCD, 860);
-			sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), (Bit8u*)(int)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 548);
+			sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), (Bit8u*)(v2 + 301787), 0x164FCD, 860);
+			sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), (Bit8u*)(int)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 548);
 			sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
 			//if (*(x_BYTE *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11232) & 2 || x_D41A0_BYTEARRAY_4_struct.levelnumber_43 > 0x18u)
 			if (D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2 || x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 0x18u)
@@ -877,8 +871,7 @@ void sub_76A40_lang_setting()//257A40
 	memset(&x_DWORD_17DE38str, 0, 613);//fix it
 	x_DWORD_17DE38str.x_DWORD_17DEE0_filedesc = NULL;
 	memset(v10, 0, 32);
-  std::filesystem::path path_configdat = gamepath / "CONFIG.DAT";
-	configdatfile = sub_98817_open(path_configdat.c_str(), 512);
+	configdatfile = sub_98817_open(file_handling->getFilePath(MC2File::config_dat).c_str(), 512);
 	if (configdatfile == NULL)//config is not found
 	{
 		sub_7AC00_load_and_set_graphics_and_pallette();//25BC00 //zmena pomeru obrazovky
@@ -919,7 +912,7 @@ void sub_76A40_lang_setting()//257A40
 			sub_8E470_sound_proc17_volume(x_D41A0_BYTEARRAY_4_struct.wordindex_6);
 			sub_8E410_sound_proc16_xmidivolume(x_D41A0_BYTEARRAY_4_struct.wordindex_8);
 
-      std::filesystem::path path_language = gamepath / "LANGUAGE" / (std::string("L") + std::to_string(x_D41A0_BYTEARRAY_4_struct.wordindex_4) + ".TXT");
+    		std::filesystem::path path_language = gamepath / "LANGUAGE" / (std::string("L") + std::to_string(x_D41A0_BYTEARRAY_4_struct.wordindex_4) + ".TXT");
 			for (Bit16s i = 0;i < 2;i++)
 				//i = 0;
 				//while (i < 2 )
