@@ -36,9 +36,9 @@ cd build_${BUILDTYPE}/installed/bin
 
 ## TODO
 
-* compiles and links on Fedora 32
-* fix midi
-* migrate all filesystem access to c++17 std::filesystem
+* compiles and links on Fedora 32 and Ubuntu 20.04
+* fix midi and sound in general
+* migrate all filesystem access to c++17 (std::filesystem, ...)
 * c++-ify code
 * cleanup code
 * remove dos specific stuff like

@@ -76,6 +76,7 @@ enum class MC2File {
 typedef struct {
     path file_path;
     filedata_t file_data;
+    filedata_t file_data_decompressed;
 } MC2FileInfo;
 
 enum class MC2Asset {
@@ -265,13 +266,13 @@ public:
 
 private:
     void loadFileIntoBuffer(MC2File);
+    void decompressFile(MC2File);
 
     std::unordered_map<MC2File, MC2FileInfo> m_mc2files;
 };
 
 
-int sub_9894C_decompress(Bit8u* a1, Bit8u* a2);
-
-signed int sub_5C3D0_file_decompress(Bit8u* input, Bit8u* output);
+int sub_9894C_decompress(const Bit8u* a1, Bit8u* a2);
+signed int sub_5C3D0_file_decompress(const Bit8u* input, Bit8u* output);
 
 }

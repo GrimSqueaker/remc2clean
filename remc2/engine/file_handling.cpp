@@ -7,6 +7,7 @@
 #include <limits.h>
 #include <string.h>
 #include <iostream>
+#include <list>
 
 #define MAX_PATH PATH_MAX
 
@@ -98,6 +99,64 @@ void FileHandling::init() {
 	}
 
 	// decompress all needed data
+	std::list<MC2File> decompress_files = {
+		MC2File::data_tmaps00_dat,
+		MC2File::data_tmaps10_dat,
+		MC2File::data_tmaps20_dat,
+	};
+	for( auto file : decompress_files ) {
+		decompressFile(file);
+	}
+
+//	signed int sub_AB9E1_get_file_unpack_size(char* a1)//28c9e1
+//{
+//	Bit8u v2[10]; // [esp+0h] [ebp-1Ch]
+//	unsigned __int8 v3; // [esp+4h] [ebp-18h]
+//	unsigned __int8 v4; // [esp+5h] [ebp-17h]
+//	unsigned __int8 v5; // [esp+6h] [ebp-16h]
+//	unsigned __int8 v6; // [esp+7h] [ebp-15h]
+//	char v9; // [esp+Ah] [ebp-12h]
+//	char v10; // [esp+Bh] [ebp-11h]
+//	int ret_size; // [esp+14h] [ebp-8h]
+//	FILE* file; // [esp+18h] [ebp-4h]
+//
+//	//fix it
+//	v3 = 0;
+//	v4 = 0;
+//	v5 = 0;
+//	v6 = 0;
+//	v9 = 0;
+//	v10 = 0;
+//	//fix it
+//
+//	ret_size = -1;
+//	//v7 = 'R';
+//	//v8 = 'N';
+//	//v9 = 'C';
+//	//v10 = 1;
+//	//v11 = 0;
+//	file = sub_98817_open(a1, 512);
+//	if (file == NULL)
+//		return -1;
+//	sub_988A7_read(file, v2, 8);
+//	if (!strncmp((const char*)v2, (const char*)"RNC\1", 4))
+//	{
+//		ret_size = v2[4] << 8;//reverse size in rnc format
+//		ret_size += v2[5];
+//		ret_size <<= 8;
+//		ret_size += v2[6];
+//		ret_size <<= 8;
+//		ret_size += v2[7];
+//	}
+//	else
+//	{
+//		ret_size = x_filelength(file);
+//	}
+//	sub_98882_close(file);
+//	return ret_size;
+//}
+
+
 }
 
 void FileHandling::initDirsAndFiles()
@@ -162,6 +221,33 @@ void FileHandling::loadFileIntoBuffer(MC2File file)
 	}
 	else
 		std::cerr << "File missing: " << file_path.string() << std::endl;
+}
+
+void FileHandling::decompressFile(MC2File file)
+{
+//	x_DWORD result; // eax
+//	FILE* file; // ebx
+//	Bit32u v4; // esi
+//	file = sub_98817_open((char*)path, 0x200);//234E72 - 279817
+//	result = (x_DWORD)file;
+//	if (result != NULL)
+//	{
+//		v4 = x_filelength(file);//234E82 - 2798DA
+//		sub_988A7_read(file, *a2, v4);//234E8F - 2798A7
+//		sub_98882_close(file);//234E98 - 279882
+//		result = (x_DWORD)sub_9894C_decompress(*a2, *a2);//234ea2 - 27994c
+//		if (result >= 0)
+//		{
+//			if (!result)
+//				result = v4;
+//		}
+//		else
+//		{
+//			myprintf("ERROR decompressing %s\n");
+//			result = -2;
+//		}
+//	}
+//	return result;
 }
 
 // original load and decompress functions
@@ -768,7 +854,7 @@ vars_t *init_vars()
 	return v;
 }
 
-int sub_9894C_decompress(Bit8u* a1, Bit8u* a2) {
+int sub_9894C_decompress(const Bit8u* a1, Bit8u* a2) {
 	vars_t *v = init_vars();
 	if (v->method == 1)
 	{
@@ -844,20 +930,9 @@ int sub_9894C_decompress(Bit8u* a1, Bit8u* a2) {
 }
 
 //----- (0005C3D0) --------------------------------------------------------
-signed int sub_5C3D0_file_decompress(Bit8u* input, Bit8u* output)//23d3d0
+signed int sub_5C3D0_file_decompress(const Bit8u* input, Bit8u* output)//23d3d0
 {
-	//char v3; // [esp+0h] [ebp-8h]
-	//char v4; // [esp+1h] [ebp-7h]
-	//char v5; // [esp+2h] [ebp-6h]
-	//char v6; // [esp+3h] [ebp-5h]
-	//char v7; // [esp+4h] [ebp-4h]
-
 	char RNSSING[5] = "RNC\x1";
-	//v3 = 82;
-	//v4 = 78;
-	//v6 = 1;
-	//v5 = 67;
-	//v7 = 0;
 	if (strncmp((const char*)input, RNSSING, 4))
 		return 0;
 	sub_9894C_decompress(input, output);
