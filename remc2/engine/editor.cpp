@@ -2166,7 +2166,7 @@ int main_x(/*int argc, char** argv*/)
 	kiss_hex4edit_new(&hex4edit14, &window1, &D41A0_BYTESTR_0.str_2FECE.word_2FED0, (char*)"2FED0:", 250, 30, 80);
 	kiss_hex2edit_new(&hex2edit15, &window1, &D41A0_BYTESTR_0.str_2FECE.byte_0x2FED2, (char*)"2FED2:", 250, 50, 80);
 	kiss_hex2edit_new(&hex2edit16, &window1, &D41A0_BYTESTR_0.str_2FECE.byte_0x2FED3, (char*)"2FED3:", 250, 70, 80);
-	kiss_hex2edit_new(&hex2edit17, &window1, &D41A0_BYTESTR_0.str_2FECE.byte_0x2FED4, (char*)"DY/NG/CV:", 250, 90, 80);
+	kiss_hex2edit_new(&hex2edit17, &window1, &D41A0_BYTESTR_0.str_2FECE.byte_level_type, (char*)"DY/NG/CV:", 250, 90, 80);
 	kiss_hex4edit_new(&hex4edit18, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FED5, (char*)"2FED5:", 250, 110, 80);
 	kiss_hex4edit_new(&hex4edit19, &window1, &D41A0_BYTESTR_0.str_2FECE.word_0x2FED7, (char*)"2FED7:", 250, 130, 80);
 
@@ -2179,16 +2179,6 @@ int main_x(/*int argc, char** argv*/)
 	kiss_hex2edit_new(&hex2edit26, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[6], (char*)"D9-6", 250, 210, 40);
 	kiss_hex2edit_new(&hex2edit27, &window1, &D41A0_BYTESTR_0.str_2FECE.array_0x2FED9[7], (char*)"D9-7", 385, 210, 40);
 
-	/*
-	Bit16u word_2FECE;
-	Bit16u word_2FED0;
-	Bit8u byte_0x2FED2;//x_D41A0_BYTEARRAY_0[196306] // type of level graphics
-	Bit8u byte_0x2FED3;
-	Bit8u byte_0x2FED4;//x_D41A0_BYTEARRAY_0[196308]//GraphicsType
-	Bit16s word_0x2FED5;
-	Bit16s word_0x2FED7;
-	Bit8s array_0x2FED9[8];
-	*/
 
 	//drawterrain2(0, window1.rect.h - mapimage.h, 10, 0, 0);
 	kiss_terrain_new(&terrain1, &window1, mapsurface, kiss_border, window1.rect.h - mapimage.h - kiss_border, &terrainzoom, &terrainbeginx, &terrainbeginy);

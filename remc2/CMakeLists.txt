@@ -141,6 +141,7 @@ if (UNIX)
     target_link_libraries(${PROJECT_NAME} PUBLIC 
         ${SDL2_LIBRARIES}
         ${SDL_MIXER_LIBRARY}
+	SDL2
         ${PNG_LIBRARY}
         findfirst
     )

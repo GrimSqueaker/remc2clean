@@ -1,13 +1,14 @@
 #include "file_handling.h"
 
-#include <fstream>
+#include <algorithm>
 #include <cstring>
-#include <libgen.h>
-#include <unistd.h>
-#include <limits.h>
-#include <string.h>
+#include <fstream>
 #include <iostream>
+#include <libgen.h>
+#include <limits.h>
 #include <list>
+#include <string.h>
+#include <unistd.h>
 
 #define MAX_PATH PATH_MAX
 
@@ -39,123 +40,100 @@ void FileHandling::init() {
 	m_mc2files.clear();
 
 	// define and load all files into memory
-    m_mc2files.insert( {MC2File::data_bl16c00_dat, {m_game_path / "DATA" / "BL16C0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_bl16f00_dat, {m_game_path / "DATA" / "BL16F0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_bl16n00_dat, {m_game_path / "DATA" / "BL16N0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_bl32c00_dat, {m_game_path / "DATA" / "BL32C0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_bl32f00_dat, {m_game_path / "DATA" / "BL32F0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_bl32n00_dat, {m_game_path / "DATA" / "BL32N0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_bl128c00_dat, {m_game_path / "DATA" / "BL128C0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_bl128f00_dat, {m_game_path / "DATA" / "BL128F0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_bl128n00_dat, {m_game_path / "DATA" / "BL128N0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_bldgprm_dat, {m_game_path / "DATA" / "BLDGPRM.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_block128_dat, {m_game_path / "DATA" / "BLOCK128.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_block16_dat, {m_game_path / "DATA" / "BLOCK16.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_block32_dat, {m_game_path / "DATA" / "BLOCK32.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_clrd0_dat, {m_game_path / "DATA" / "CLRD-0.PAL", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_gtd2_dat, {m_game_path / "DATA" / "GTD2.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_hscreen0_dat, {m_game_path / "DATA" / "SCREENS" / "HSCREEN0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_pald0_dat, {m_game_path / "DATA" / "PALD-0.PAL", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_screens_hscreen0_dat, {m_game_path / "DATA" / "SCREENS" / "HSCREEN0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_search_dat, {m_game_path / "DATA" / "SEARCH.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_skyd00_dat, {m_game_path / "DATA" / "SKYD0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_skyn00_dat, {m_game_path / "DATA" / "SKYN0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_smatitl2_dat, {m_game_path / "DATA" / "SMATITL2.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_smatitl2_pal, {m_game_path / "DATA" / "SMATITL2.PAL", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_smatitle_dat, {m_game_path / "DATA" / "SMATITLE.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_smatitle_pal, {m_game_path / "DATA" / "SMATITLE.PAL", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_spells_dat, {m_game_path / "DATA" / "SPELLS.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_tablesc_dat, {m_game_path / "DATA" / "TABLESC.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_tablesd_dat, {m_game_path / "DATA" / "TABLESD.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_tablesn_dat, {m_game_path / "DATA" / "TABLESN.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_tmaps00_dat, {m_game_path / "DATA" / "TMAPS0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_tmaps10_dat, {m_game_path / "DATA" / "TMAPS1-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_tmaps20_dat, {m_game_path / "DATA" / "TMAPS2-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_tmaps00_tab, {m_game_path / "DATA" / "TMAPS0-0.TAB", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_tmaps10_tab, {m_game_path / "DATA" / "TMAPS1-0.TAB", filedata_t()} } );
-    m_mc2files.insert( {MC2File::data_tmaps20_tab, {m_game_path / "DATA" / "TMAPS2-0.TAB", filedata_t()} } );
+    m_mc2files.insert( {MC2File::data_bl16c00_dat, {m_game_path / "DATA" / "BL16C0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_bl16f00_dat, {m_game_path / "DATA" / "BL16F0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_bl16n00_dat, {m_game_path / "DATA" / "BL16N0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_bl32c00_dat, {m_game_path / "DATA" / "BL32C0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_bl32f00_dat, {m_game_path / "DATA" / "BL32F0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_bl32n00_dat, {m_game_path / "DATA" / "BL32N0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_bl128c00_dat, {m_game_path / "DATA" / "BL128C0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_bl128f00_dat, {m_game_path / "DATA" / "BL128F0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_bl128n00_dat, {m_game_path / "DATA" / "BL128N0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_bldgprm_dat, {m_game_path / "DATA" / "BLDGPRM.DAT"} } );
+    m_mc2files.insert( {MC2File::data_block16_dat, {m_game_path / "DATA" / "BLOCK16.DAT"} } );
+    m_mc2files.insert( {MC2File::data_block32_dat, {m_game_path / "DATA" / "BLOCK32.DAT"} } );
+    m_mc2files.insert( {MC2File::data_block128_dat, {m_game_path / "DATA" / "BLOCK128.DAT"} } );
+    m_mc2files.insert( {MC2File::data_build00_dat, {m_game_path / "DATA" / "BUILD0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_build00_tab, {m_game_path / "DATA" / "BUILD0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_clrd0_dat, {m_game_path / "DATA" / "CLRD-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_font0_dat, {m_game_path / "DATA" / "FONT0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_font0_tab, {m_game_path / "DATA" / "FONT0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_font1_dat, {m_game_path / "DATA" / "FONT1.DAT"} } );
+    m_mc2files.insert( {MC2File::data_font1_tab, {m_game_path / "DATA" / "FONT1.TAB"} } );
+    m_mc2files.insert( {MC2File::data_gtd2_dat, {m_game_path / "DATA" / "GTD2.DAT"} } );
+    m_mc2files.insert( {MC2File::data_hfont3_dat, {m_game_path / "DATA" / "HFONT3.DAT"} } );
+    m_mc2files.insert( {MC2File::data_hfont3_tab, {m_game_path / "DATA" / "HFONT3.TAB"} } );
+    m_mc2files.insert( {MC2File::data_pald0_dat, {m_game_path / "DATA" / "PALD-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_pointers_dat, {m_game_path / "DATA" / "POINTERS.DAT"} } );
+    m_mc2files.insert( {MC2File::data_pointers_tab, {m_game_path / "DATA" / "POINTERS.TAB"} } );
+    m_mc2files.insert( {MC2File::data_screens_hscreen0_dat, {m_game_path / "DATA" / "SCREENS" / "HSCREEN0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_search_dat, {m_game_path / "DATA" / "SEARCH.DAT"} } );
+    m_mc2files.insert( {MC2File::data_skyd00_dat, {m_game_path / "DATA" / "SKYD0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_skyn00_dat, {m_game_path / "DATA" / "SKYN0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_smatitl2_dat, {m_game_path / "DATA" / "SMATITL2.DAT"} } );
+    m_mc2files.insert( {MC2File::data_smatitl2_pal, {m_game_path / "DATA" / "SMATITL2.PAL"} } );
+    m_mc2files.insert( {MC2File::data_smatitle_dat, {m_game_path / "DATA" / "SMATITLE.DAT"} } );
+    m_mc2files.insert( {MC2File::data_smatitle_pal, {m_game_path / "DATA" / "SMATITLE.PAL"} } );
+    m_mc2files.insert( {MC2File::data_spells_dat, {m_game_path / "DATA" / "SPELLS.DAT"} } );
+    m_mc2files.insert( {MC2File::data_tablesc_dat, {m_game_path / "DATA" / "TABLESC.DAT"} } );
+    m_mc2files.insert( {MC2File::data_tablesd_dat, {m_game_path / "DATA" / "TABLESD.DAT"} } );
+    m_mc2files.insert( {MC2File::data_tablesn_dat, {m_game_path / "DATA" / "TABLESN.DAT"} } );
+    m_mc2files.insert( {MC2File::data_tmaps00_dat, {m_game_path / "DATA" / "TMAPS0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_tmaps10_dat, {m_game_path / "DATA" / "TMAPS1-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_tmaps20_dat, {m_game_path / "DATA" / "TMAPS2-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_tmaps00_tab, {m_game_path / "DATA" / "TMAPS0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_tmaps10_tab, {m_game_path / "DATA" / "TMAPS1-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_tmaps20_tab, {m_game_path / "DATA" / "TMAPS2-0.TAB"} } );
 
-    m_mc2files.insert( {MC2File::cdata_tmaps00_dat, {m_game_path / "CDATA" / "TMAPS0-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::cdata_tmaps10_dat, {m_game_path / "CDATA" / "TMAPS1-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::cdata_tmaps20_dat, {m_game_path / "CDATA" / "TMAPS2-0.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::cdata_tmaps00_tab, {m_game_path / "CDATA" / "TMAPS0-0.TAB", filedata_t()} } );
-    m_mc2files.insert( {MC2File::cdata_tmaps10_tab, {m_game_path / "CDATA" / "TMAPS1-0.TAB", filedata_t()} } );
-    m_mc2files.insert( {MC2File::cdata_tmaps20_tab, {m_game_path / "CDATA" / "TMAPS2-0.TAB", filedata_t()} } );
-    m_mc2files.insert( {MC2File::cdata_version_dat, {m_game_path / "CDATA" / "VERSION.DAT", filedata_t()} } );
+    m_mc2files.insert( {MC2File::data_hsprd00_dat, {m_game_path / "DATA" / "HSPRD0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_hsprd00_tab, {m_game_path / "DATA" / "HSPRD0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_msprd00_dat, {m_game_path / "DATA" / "MSPRD0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_msprd00_tab, {m_game_path / "DATA" / "MSPRD0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_hsprn00_dat, {m_game_path / "DATA" / "HSPRN0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_hsprn00_tab, {m_game_path / "DATA" / "HSPRN0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_msprn00_dat, {m_game_path / "DATA" / "MSPRN0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_msprn00_tab, {m_game_path / "DATA" / "MSPRN0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_hsprc00_dat, {m_game_path / "DATA" / "HSPRC0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_hsprc00_tab, {m_game_path / "DATA" / "HSPRC0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_msprc00_dat, {m_game_path / "DATA" / "MSPRC0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_msprc00_tab, {m_game_path / "DATA" / "MSPRC0-0.TAB"} } );
 
-    m_mc2files.insert( {MC2File::levels_levels_dat, {m_game_path / "LEVELS" / "LEVELS.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::levels_levels_tab, {m_game_path / "LEVELS" / "LEVELS.TAB", filedata_t()} } );
+    m_mc2files.insert( {MC2File::data_etext_dat, {m_game_path / "DATA" / "ETEXT.DAT"} } );
+    m_mc2files.insert( {MC2File::data_ftext_dat, {m_game_path / "DATA" / "FTEXT.DAT"} } );
+    m_mc2files.insert( {MC2File::data_gtext_dat, {m_game_path / "DATA" / "GTEXT.DAT"} } );
+    m_mc2files.insert( {MC2File::data_itext_dat, {m_game_path / "DATA" / "ITEXT.DAT"} } );
 
-    m_mc2files.insert( {MC2File::clevels_levels_dat, {m_game_path / "CLEVELS" / "LEVELS.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::clevels_levels_tab, {m_game_path / "CLEVELS" / "LEVELS.TAB", filedata_t()} } );
+    m_mc2files.insert( {MC2File::cdata_tmaps00_dat, {m_game_path / "CDATA" / "TMAPS0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::cdata_tmaps10_dat, {m_game_path / "CDATA" / "TMAPS1-0.DAT"} } );
+    m_mc2files.insert( {MC2File::cdata_tmaps20_dat, {m_game_path / "CDATA" / "TMAPS2-0.DAT"} } );
+    m_mc2files.insert( {MC2File::cdata_tmaps00_tab, {m_game_path / "CDATA" / "TMAPS0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::cdata_tmaps10_tab, {m_game_path / "CDATA" / "TMAPS1-0.TAB"} } );
+    m_mc2files.insert( {MC2File::cdata_tmaps20_tab, {m_game_path / "CDATA" / "TMAPS2-0.TAB"} } );
+    m_mc2files.insert( {MC2File::cdata_version_dat, {m_game_path / "CDATA" / "VERSION.DAT"} } );
 
-    m_mc2files.insert( {MC2File::config_dat, {m_game_path / "CONFIG.DAT", filedata_t()} } );
+    m_mc2files.insert( {MC2File::levels_levels_dat, {m_game_path / "LEVELS" / "LEVELS.DAT"} } );
+    m_mc2files.insert( {MC2File::levels_levels_tab, {m_game_path / "LEVELS" / "LEVELS.TAB"} } );
 
-    m_mc2files.insert( {MC2File::intro_intro_dat, {m_game_path / "INTRO" / "INTRO.DAT", filedata_t()} } );
-    m_mc2files.insert( {MC2File::intro_intro2_dat, {m_game_path / "INTRO" / "INTRO2.DAT", filedata_t()} } );
+    m_mc2files.insert( {MC2File::clevels_levels_dat, {m_game_path / "CLEVELS" / "LEVELS.DAT"} } );
+    m_mc2files.insert( {MC2File::clevels_levels_tab, {m_game_path / "CLEVELS" / "LEVELS.TAB"} } );
 
+    m_mc2files.insert( {MC2File::config_dat, {m_game_path / "CONFIG.DAT"} } );
+
+    m_mc2files.insert( {MC2File::intro_intro_dat, {m_game_path / "INTRO" / "INTRO.DAT"} } );
+    m_mc2files.insert( {MC2File::intro_intro2_dat, {m_game_path / "INTRO" / "INTRO2.DAT"} } );
+
+	// load everything into buffers
 	for( auto const& [key, val] : m_mc2files ) {
 		loadFileIntoBuffer(key);
 	}
 
 	// decompress all needed data
-	std::list<MC2File> decompress_files = {
-		MC2File::data_tmaps00_dat,
-		MC2File::data_tmaps10_dat,
-		MC2File::data_tmaps20_dat,
-	};
-	for( auto file : decompress_files ) {
-		decompressFile(file);
+	for( auto const& [key, val] : m_mc2files ) {
+		decompressFile(key);
 	}
 
-//	signed int sub_AB9E1_get_file_unpack_size(char* a1)//28c9e1
-//{
-//	Bit8u v2[10]; // [esp+0h] [ebp-1Ch]
-//	unsigned __int8 v3; // [esp+4h] [ebp-18h]
-//	unsigned __int8 v4; // [esp+5h] [ebp-17h]
-//	unsigned __int8 v5; // [esp+6h] [ebp-16h]
-//	unsigned __int8 v6; // [esp+7h] [ebp-15h]
-//	char v9; // [esp+Ah] [ebp-12h]
-//	char v10; // [esp+Bh] [ebp-11h]
-//	int ret_size; // [esp+14h] [ebp-8h]
-//	FILE* file; // [esp+18h] [ebp-4h]
-//
-//	//fix it
-//	v3 = 0;
-//	v4 = 0;
-//	v5 = 0;
-//	v6 = 0;
-//	v9 = 0;
-//	v10 = 0;
-//	//fix it
-//
-//	ret_size = -1;
-//	//v7 = 'R';
-//	//v8 = 'N';
-//	//v9 = 'C';
-//	//v10 = 1;
-//	//v11 = 0;
-//	file = sub_98817_open(a1, 512);
-//	if (file == NULL)
-//		return -1;
-//	sub_988A7_read(file, v2, 8);
-//	if (!strncmp((const char*)v2, (const char*)"RNC\1", 4))
-//	{
-//		ret_size = v2[4] << 8;//reverse size in rnc format
-//		ret_size += v2[5];
-//		ret_size <<= 8;
-//		ret_size += v2[6];
-//		ret_size <<= 8;
-//		ret_size += v2[7];
-//	}
-//	else
-//	{
-//		ret_size = x_filelength(file);
-//	}
-//	sub_98882_close(file);
-//	return ret_size;
-//}
-
+	// set up texture maps
+	
 
 }
 
@@ -225,29 +203,76 @@ void FileHandling::loadFileIntoBuffer(MC2File file)
 
 void FileHandling::decompressFile(MC2File file)
 {
-//	x_DWORD result; // eax
-//	FILE* file; // ebx
-//	Bit32u v4; // esi
-//	file = sub_98817_open((char*)path, 0x200);//234E72 - 279817
-//	result = (x_DWORD)file;
-//	if (result != NULL)
-//	{
-//		v4 = x_filelength(file);//234E82 - 2798DA
-//		sub_988A7_read(file, *a2, v4);//234E8F - 2798A7
-//		sub_98882_close(file);//234E98 - 279882
-//		result = (x_DWORD)sub_9894C_decompress(*a2, *a2);//234ea2 - 27994c
-//		if (result >= 0)
-//		{
-//			if (!result)
-//				result = v4;
-//		}
-//		else
-//		{
-//			myprintf("ERROR decompressing %s\n");
-//			result = -2;
-//		}
-//	}
-//	return result;
+	MC2FileInfo& fileinfo = m_mc2files.at(file);
+	const data_t& data = fileinfo.file_data;
+	bool has_rnc = false;
+	data_t temp_buffer;
+	temp_buffer.resize(BUFFER_SIZE);
+	fileinfo.data_decompressed.clear();
+
+	// find all RNC headers in the files and try to decompress the data
+	int RNC_header_length = 18;
+	for (int i = 0; i+RNC_header_length < data.size(); i++) {
+		if (data[i+2] == 'C' && data[i+1] == 'N' && data[i] == 'R') {
+			int compression_method = fileinfo.file_data[i+3];
+			int uncompressed_size = (data[i+4]<<24) + (data[i+5]<<16) + (data[i+6]<<8) + data[i+7];
+			int compressed_size = (data[i+8]<<24) + (data[i+9]<<16) + (data[i+10]<<8) + data[i+11];
+			std::cout << "File: " << fileinfo.file_path << " - "
+			          << "RNC header @ " << i
+					  << ", compression method " << compression_method
+					  << ", uncompressed size " << uncompressed_size
+					  << ", compressed size " << compressed_size
+					  << std::endl;
+			has_rnc = true;
+
+			// uncompress and store in hashmap
+			std::memcpy(temp_buffer.data(), &data[i+RNC_header_length], std::min(compressed_size, (int)(data.size()-(i+RNC_header_length)) ));
+			sub_9894C_decompress(temp_buffer.data(), temp_buffer.data());
+			data_t decomp_data;
+			decomp_data.resize(uncompressed_size);
+			std::memcpy(decomp_data.data(), temp_buffer.data(), uncompressed_size);
+    		fileinfo.data_decompressed.insert({i, decomp_data});
+		}
+	}
+	if (!has_rnc) {
+		std::cout << "No RNC in file: " << fileinfo.file_path << std::endl;
+	}
+}
+
+MC2FileInfo& FileHandling::getCurrentTMapsFileDatInfo()
+{
+	MC2File current_dat = MC2File::data_tmaps00_dat;
+	switch (m_current_tmaps_file) {
+		case MC2CurrentTMapsFile::TMaps00:
+			current_dat = MC2File::data_tmaps00_dat;
+			break;
+		case MC2CurrentTMapsFile::TMaps10:
+			current_dat = MC2File::data_tmaps10_dat;
+			break;
+		case MC2CurrentTMapsFile::TMaps20:
+			current_dat = MC2File::data_tmaps20_dat;
+			break;
+	}
+
+    return m_mc2files[current_dat];
+}
+
+MC2FileInfo& FileHandling::getCurrentTMapsFileTabInfo()
+{
+	MC2File current_tab = MC2File::data_tmaps00_tab;
+	switch (m_current_tmaps_file) {
+		case MC2CurrentTMapsFile::TMaps00:
+			current_tab = MC2File::data_tmaps00_tab;
+			break;
+		case MC2CurrentTMapsFile::TMaps10:
+			current_tab = MC2File::data_tmaps10_tab;
+			break;
+		case MC2CurrentTMapsFile::TMaps20:
+			current_tab = MC2File::data_tmaps20_tab;
+			break;
+	}
+
+    return m_mc2files[current_tab];
 }
 
 // original load and decompress functions

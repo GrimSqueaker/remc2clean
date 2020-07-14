@@ -706,7 +706,7 @@ void VGA_Set_file_pallette(char* filename) {
 	SubSet_pallette(colors);
 }
 
-void VGA_Set_pallette(Uint8* pallettebuffer) {
+void VGA_Set_pallette(const Uint8* pallettebuffer) {
 	memcpy(temppallettebuffer, pallettebuffer, 768);
 	SDL_Color colors[256];
 	/* Fill colors with color information */
@@ -723,7 +723,7 @@ void VGA_Set_pallette(Uint8* pallettebuffer) {
 	SubSet_pallette(colors);
 }
 
-void VGA_Set_pallette2(Uint8* pallettebuffer) {
+void VGA_Set_pallette2(const Uint8* pallettebuffer) {
 	memcpy(temppallettebuffer, pallettebuffer, 768);
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {

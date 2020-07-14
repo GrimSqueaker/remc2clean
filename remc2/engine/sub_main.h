@@ -264,33 +264,6 @@ extern int filearrayindex_BUILD00DATTAB;
 extern int filearrayindex_ZERO4;
 
 extern filearray_struct filearray_2aa18c[];
-extern filearray_struct x_DWORD_E9B20[4];
-
-
-/*
-extern Bit16s x_DWORD_17DEE4_mouse_positionx; // weak
-extern Bit16s x_DWORD_17DEE4_mouse_positiony; // weak
-extern __int16 x_WORD_17DEEC; // weak
-extern __int16 x_WORD_17DEEE; // weak
-extern __int16 x_WORD_17DEF0; // weak
-extern __int16 x_WORD_17DEF2; // weak
-extern __int16 x_WORD_17DEF4; // weak
-extern __int16 x_WORD_17DEF6; // weak
-extern __int16 x_WORD_17DEF8; // weak
-extern __int16 x_WORD_17DEFA; // weak
-extern __int16 x_WORD_17DEFC; // weak
-extern __int16 x_WORD_17DEFE; // weak
-extern __int16 x_WORD_17DF00; // weak
-extern __int16 x_WORD_17DF02; // weak
-extern __int16 x_WORD_17DF04; // weak
-extern __int16 x_WORD_17DF06; // weak
-extern __int16 x_WORD_17DF08; // weak
-extern __int16 x_WORD_17DF0A; // weak
-extern __int16 x_WORD_17DF0C; // weak
-extern __int16 x_WORD_17DF0E; // weak
-extern char x_BYTE_17DF10_get_key_scancode; // weak
-extern char x_BYTE_17DF11_last_key_status; // weak
-*/
 
 extern Bit8u x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
 extern Bit8u x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
