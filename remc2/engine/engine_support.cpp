@@ -14,94 +14,10 @@ Bit8u* readbuffer;
 
 char* printbuffer;//char* buffer; // [esp+0h] [ebp-2h]
 char* printbuffer2;//char v11; // [esp+40h] [ebp+3Eh]
-/*Bit32s x_DWORD_D41A4_x6x = 0;
-Bit32s x_DWORD_D41A4_x8x = 0;
-Bit32s x_DWORD_D41A4_xAx = -1;
-Bit32s x_DWORD_D41A4_xBx = -1;
-Bit32s x_DWORD_D41A4_xCx = -1;
-Bit32s x_DWORD_D41A4_xDx = -1;
-char x_DWORD_D41A4_xB6 = 'C';//2A1644 b6=182
-char x_DWORD_D41A4_x16x = '5';//2A15A4 16=22
-Bit8u x_DWORD_D41A4_x17x = 0;
-Bit8u x_DWORD_D41A4_x18x = 0;
-char x_DWORD_D41A4_x19x=0;//2A51BD 19=25
-Bit8u x_DWORD_D41A4_x1Ex = 0;
-Bit8u x_DWORD_D41A4_x2Bx=0;
-Bit8u x_DWORD_D41A4_x2Dx = 0;
-Bit32s x_DWORD_D41A4_x33x = 0;
-Bit32s x_DWORD_D41A4_x59x = 0;
-Bit32s x_DWORD_D41A4_x79x = 0;
-Bit32s x_DWORD_D41A4_x7Ax = 0;
-Bit32s x_DWORD_D41A4_x7Bx = 0;
-Bit32s x_DWORD_D41A4_x7Cx = 0;
-Bit32s x_DWORD_D41A4_x7Dx = 0;
-Bit32s x_DWORD_D41A4_x7Fx = 0;
-//char* char_355198 = "8R5";
-Bit32s x_DWORD_D41A4_xB2 = 0;
-Bit32s x_DWORD_D41A4_xB4 = 0;
-Bit32s x_DWORD_D41A4_xB7 = 0;
-Bit32s x_DWORD_D41A4_xBA = 0;
-Bit32s x_DWORD_D41A4_xC0 = 0;
-Bit32s x_DWORD_D41A4_xCE = 0;
-Bit32s x_DWORD_D41A4_xCF = 0;
-Bit32s x_DWORD_D41A4_xCD = 0;
-Bit32s x_DWORD_D41A4_xD0 = 0;
-Bit32s x_DWORD_D41A4_xD8=0;
-Bit32s x_DWORD_D41A4_xDC = 0;
-Bit32s x_DWORD_D41A4_xE0 = -1;
-Bit32s x_DWORD_D41A4_xE1 = -1;
-Bit32s x_DWORD_D41A4_xE2=-1;
-Bit32s x_DWORD_D41A4_xE6 = -1;
-Bit32s x_DWORD_D41A4_xF2 = -1;
-Bit32s x_DWORD_D41A4_xF6 = -1;
-Bit32s x_DWORD_D41A4_x100 = -1;
-Bit32s x_DWORD_D41A4_x235 = -1;
-Bit32s x_DWORD_D41A4_x749 = -1;
-Bit32s x_DWORD_D41A4_x8CF = -1;
-Bit32s x_DWORD_D41A4_x94C = -1;
-Bit32s x_DWORD_D41A4_x954 = -1;
-Bit32s x_DWORD_D41A4_x21AA = -1;
-Bit32s x_DWORD_D41A4_x00 = -1;
-Bit32s x_DWORD_D41A4_x9602 = -1;
-Bit32s x_DWORD_D41A4_x9603 = -1;
-Bit32s x_DWORD_D41A4_x9677 = -1;
-Bit32s x_DWORD_D41A4_x967B = -1;
-Bit32s x_DWORD_D41A4_x967F = -1;
-Bit32s x_DWORD_D41A4_x4 = -1;
-Bit32s x_DWORD_D41A4_x965B = -1;
-Bit32s x_DWORD_D41A4_x966F = -1;
-Bit32s x_DWORD_D41A4_x9683 = -1;
-Bit32s x_DWORD_D41A4_x96BF = -1;
-Bit32s x_DWORD_D41A4_x9691 = -1;
-Bit32s x_DWORD_D41A4_x9692 = -1;*/
-
-//Bit32s x2124_x_DWORD_D41A4_xCx_x_DWORD_D41A0_11234 = 0;
-
-//Bit8u* x_DWORD_E9C38_smalltit; // weak
-
-//Bit32s x_DWORD_D41A4 = -1;
-
-//Bit8u* x_DWORD_D41A0; // weak
-
-//Bit8u* x_D41A0_BYTEARRAY_0;
-//12 - my be player counter(position of structure)
-//11244 - players(my by creatures, every 2124 lenght)
-//196302 - terrain input
-//196308 - sky and blocks
-
-
-//Bit8u* x_D41A0_BYTEARRAY_4;
 
 type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;
 
 Bit16s x_D41A0_WORDARRAY[10000];
-
-//Bit32u x_D41A0_BYTEARRAY_4_0xE6_heapsize;
-//Bit8u* x_D41A0_BYTEARRAY_4_0xE2_heapbuffer;
-//Bit8u* x_D41A0_BYTEARRAY_4_0xDE_heapbuffer;
-//Bit32u* off_D918C[0x7c];//turn off - fix it
-
-//xx Bit8u* dword_E9C30[1000]; // weak
 
 Bit8u x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//2DC4E0 //map array1
 Bit8u x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
@@ -516,9 +432,6 @@ void support_begin() {
 	//x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(320000);
 	x_DWORD_180628b_screen_buffer = &pre_x_DWORD_180628b_screen_buffer[0x110000];
 
-	//x_DWORD_E9C38_smalltit= (Bit8u*)malloc(64000);
-	//x_D41A0_BYTEARRAY_4_0xDE_heapbuffer= (Bit8u*)malloc(64000);
-
 	/*for (int i = 0;i < 0x1c+0x60;i++)
 		off_D918C[i] = new Bit32u;*/
 	//2aa18c
@@ -546,24 +459,13 @@ void support_begin() {
 	x_DWORD_D4188t_spritestr = new posistruct[1000];
 
 	x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182 = 0x43;
-	//x_D41A0_BYTEARRAY_4_struct.player_name_57 = 0;
-
-    //printbuffer2[0] = '\0';
 }
+
 void support_end() {
 	if(readbuffer)free(readbuffer);
 	if(printbuffer)free(printbuffer);//char* buffer; // [esp+0h] [ebp-2h]
     if(printbuffer2)free(printbuffer2);//char v11; // [esp+40h] [ebp+3Eh]
 	if(pre_x_DWORD_180628b_screen_buffer)free(pre_x_DWORD_180628b_screen_buffer);
-	//free(x_DWORD_E9C38_smalltit);
-	/*for (int i = 0;i < 0x1c;i++)
-		free(off_D918C[i]);*/
-	//free(x_D41A0_BYTEARRAY_4_0xDE_heapbuffer);
-	/*xx free(dword_E9C30[0]);
-	free(dword_E9C30[2]);
-	free(dword_E9C30[4]);*/
-	//free(x_D41A0_BYTEARRAY_4_struct.player_name_57);
-	//if(x_D41A0_BYTEARRAY_4_struct.savestring_89)delete(x_D41A0_BYTEARRAY_4_struct.savestring_89);
 
 	if(x_BYTE_14B4E0)delete(x_BYTE_14B4E0);
 	if(off_D41A8_sky)delete(off_D41A8_sky);

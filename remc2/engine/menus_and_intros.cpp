@@ -406,17 +406,10 @@ int sub_83850_show_welcome_screen()//264850
 //----- (00076D10) --------------------------------------------------------
 void sub_76D10_intros(char a1)//257d10
 {
-	//int v1; // eax
-	//signed int v2; // eax
-	//signed int v3; // eax
-
-	
-
-	//x_DWORD_17DE48c = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
-	x_DWORD_17DE38str.x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x49ADB];// 301787;
-	x_DWORD_17DE38str.x_DWORD_17DEC0 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4B52F];//308527;
-	x_DWORD_17DE38str.x_DWORD_17DEC4 = &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x4BB8F];
-	sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), &x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226[0x49ADB], 0x164FCD, 0x35C);
+	x_DWORD_17DE38str.x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_struct.heapbuffer[0x49ADB];// 301787;
+	x_DWORD_17DE38str.x_DWORD_17DEC0 = &x_D41A0_BYTEARRAY_4_struct.heapbuffer[0x4B52F];//308527;
+	x_DWORD_17DE38str.x_DWORD_17DEC4 = &x_D41A0_BYTEARRAY_4_struct.heapbuffer[0x4BB8F];
+	sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), &x_D41A0_BYTEARRAY_4_struct.heapbuffer[0x49ADB], 0x164FCD, 0x35C);
 	sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 0x224);
 	sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
 	if (x_WORD_180660_VGA_type_resolution & 1)
@@ -493,7 +486,6 @@ void sub_82670()//263670
 	int16_t v0; // si
 	//x_WORD *v1; // eax
 	Bit16s v1x;
-	Bit8u* v2; // eax
 	Bit8s* v3; // ebx
 	int16_t v4; // cx
 	type_x_WORD_E2970* v5x; // edi
@@ -516,14 +508,14 @@ void sub_82670()//263670
 		//LOWORD(v1) = (uint16)x_D41A0_BYTEARRAY_4;
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 		{
-			v2 = x_D41A0_BYTEARRAY_4_struct.pointer_0xE2_heapbuffer_226;
+			Bit8u* v2 = x_D41A0_BYTEARRAY_4_struct.heapbuffer.data();
 			x_BYTE_D41C1 = 0;
 			x_DWORD_17DE38str.x_DWORD_17DE48c = v2;
-			x_DWORD_17DE38str.x_DWORD_17DE54 = (Bit8u*)v2 + 301787;
-			x_DWORD_17DE38str.x_DWORD_17DEC0 = (Bit8u*)v2 + 308527;
-			x_DWORD_17DE38str.x_DWORD_17DEC4 = (Bit8u*)v2 + 310159;
-			sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), (Bit8u*)(v2 + 301787), 0x164FCD, 860);
-			sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), (Bit8u*)(int)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 548);
+			x_DWORD_17DE38str.x_DWORD_17DE54 = v2 + 301787;
+			x_DWORD_17DE38str.x_DWORD_17DEC0 = v2 + 308527;
+			x_DWORD_17DE38str.x_DWORD_17DEC4 = v2 + 310159;
+			sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), (Bit8u*)x_DWORD_17DE38str.x_DWORD_17DE54, 0x164FCD, 860);
+			sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), (Bit8u*)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 548);
 			sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
 			//if (*(x_BYTE *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11232) & 2 || x_D41A0_BYTEARRAY_4_struct.levelnumber_43 > 0x18u)
 			if (D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dw_w_b_0_2BDE_11230.byte[2] & 2 || x_D41A0_BYTEARRAY_4_struct.levelnumber_43w > 0x18u)
@@ -605,10 +597,6 @@ void sub_82670()//263670
 						sub_8CEDF_install_mouse();
 						sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
 					}
-					/*if (x_WORD_180660_VGA_type_resolution & 1)
-						sub_98709_create_index_dattab_power(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, (new posistruct));
-					else
-						sub_9874D_create_index_dattab(x_DWORD_17DEC0, x_DWORD_17DEC4, x_DWORD_17DE54, (new posistruct));*/
 
 					if (x_WORD_180660_VGA_type_resolution & 1)
 					{
