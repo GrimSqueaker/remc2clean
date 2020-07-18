@@ -13,9 +13,7 @@
   typedef          long long ll;
   typedef unsigned long long ull;
   #define __int64 long long
-  #define __int32 int
-  #define __int16 short
-  #define __int8  char
+  #define int32_t int
   #define MAKELL(num) num ## LL
   #define FMT_64 "ll"
 #elif defined(_MSC_VER)

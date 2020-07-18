@@ -40,7 +40,7 @@ int x_DWORD_E3F5C[] = { 0 }; // weak
 int x_DWORD_E3F98 = 0; // weak
 int x_DWORD_E3F9C[] = { 0 }; // weak
 int x_DWORD_E3FDC = 0; // weak
-__int16 x_WORD_E3FE0 = 0; // weak
+int16_t x_WORD_E3FE0 = 0; // weak
 int x_DWORD_E3FE2 = 0; // weak
 int x_DWORD_E3FE6 = 0; // weak
 
@@ -48,7 +48,7 @@ int x_DWORD_E3FEA = 0; // weak
 int x_DWORD_E3FEE = 0; // weak
 
 int x_DWORD_E3FF2 = 0; // weak
-__int16 x_WORD_E3FF6 = 0; // weak
+int16_t x_WORD_E3FF6 = 0; // weak
 int x_DWORD_E3FF8 = 0; // weak
 
 
@@ -65,13 +65,13 @@ int x_DWORD_A128C = 2576980377; // weak
 
 _UNKNOWN unk_E4004; // weak
 
-__int16 x_WORD_A1286 = 39321; // weak
-__int16 x_WORD_A1277 = 39321; // weak
+int16_t x_WORD_A1286 = 39321; // weak
+int16_t x_WORD_A1277 = 39321; // weak
 
-__int16 x_WORD_A12A2 = 39321; // weak
-__int16 x_WORD_A12AC = 39321; // weak
+int16_t x_WORD_A12A2 = 39321; // weak
+int16_t x_WORD_A12AC = 39321; // weak
 
-__int16 x_WORD_A12B3 = 39321; // weak
+int16_t x_WORD_A12B3 = 39321; // weak
 
 x_DWORD loc_9B94B;
 void *off_9B844 = &loc_9B94B; // weak
@@ -291,7 +291,7 @@ int x_DWORD_E4C90 = 0; // weak
 int x_DWORD_E4C94 = 0; // weak
 int x_DWORD_E4CA4 = 0; // weak
 
-__int16 x_WORD_E4A04 = 0; // weak
+int16_t x_WORD_E4A04 = 0; // weak
 int x_DWORD_E4A08 = 0; // weak
 Bit8u x_BYTE_E4A0C[128] =
 {
@@ -316,9 +316,9 @@ Bit8u x_BYTE_E4A0C[128] =
 HSAMPLE x_DWORD_181E10; // weak
 FILE* x_DWORD_181E20; // weak
 int x_DWORD_181E26; // weak
-__int16 x_WORD_181E2A; // weak
+int16_t x_WORD_181E2A; // weak
 int x_DWORD_181E2C; // weak
-__int16 x_WORD_181E30; // weak
+int16_t x_WORD_181E30; // weak
 _UNKNOWN unk_181E80; // weak
 int x_DWORD_181E8C; // weak
 int x_DWORD_181E90; // weak
@@ -365,8 +365,8 @@ int(/*__fastcall*/ *off_E4CBD)(x_DWORD) = &nullsub_3; // weak
 int x_DWORD_E4CCC = 0; // weak
 int x_DWORD_E4CD0 = 0; // weak
 int x_DWORD_E4D10 = 0; // weak
-__int16 x_WORD_E4D14 = 0; // weak
-__int16 x_WORD_E4D16 = 0; // weak
+int16_t x_WORD_E4D14 = 0; // weak
+int16_t x_WORD_E4D16 = 0; // weak
 char x_BYTE_E4D18 = '\0'; // weak
 int(*off_E4D20)(x_DWORD, x_DWORD) = &_no_support_loaded; // weak
 int x_DWORD_E4E1C = 0; // weak
@@ -376,7 +376,7 @@ int x_DWORD_E4E28 = 0; // weak
 int x_DWORD_E4E2C = 0; // weak
 __int64 qx_WORD_E4E30 = 0i64; // weak
 int x_DWORD_E4E38 = 0; // weak
-__int16 x_WORD_E4E3C = 0; // weak
+int16_t x_WORD_E4E3C = 0; // weak
 
 Bit8u* x_DWORD_E3808_music_header = 0; // weak
 Bit8u* x_DWORD_E380C = 0; // weak
@@ -424,17 +424,17 @@ AIL_DRIVER* x_DWORD_181C50[16]; // idb
 void sub_A10F4_sound_proc_irq();
 signed int sub_A11E2();
 void sub_A1249_AIL_API_set_real_vect(Bit32u vectnum, Bit16u real_ptr);
-signed int sub_A12C5_sound_proc_irq(int a1, int a2, __int16 a3);
+signed int sub_A12C5_sound_proc_irq(int a1, int a2, int16_t a3);
 void sub_A14DB_AIL_API_restore_USE16_ISR(int a1);
 unsigned int sub_A1520();
 void sub_A1524(unsigned int a1);
-//int sub_A158B_AIL_API_call_driver(Bit32s* drvr, __int16 a2, x_WORD *a3, x_WORD *a4);
+//int sub_A158B_AIL_API_call_driver(Bit32s* drvr, int16_t a2, x_WORD *a3, x_WORD *a4);
 Bit32s sub_A158B_AIL_API_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL* out);
 void sub_A1665_AIL_API_delay(int a1);
 int sub_A16A2();
 //unsigned int sub_A16AE_register_timer(int a1);
 HTIMER sub_A16AE_register_timer(AILTIMERCB callback_fn);
-signed __int32 sub_A16F5_AIL_API_set_timer_user(int a1, signed __int32 a2);
+int32_t sub_A16F5_AIL_API_set_timer_user(int a1, int32_t a2);
 void sub_A171D_release_timer_handle(Bit32s a1);
 void sub_A1744_AIL_API_release_all_timers();
 void sub_A1768_start_timer(HTIMER timer);
@@ -450,7 +450,7 @@ void sub_A1840_AIL_API_set_timer_frequency(HTIMER timer, Bit32u hertz);
 int sub_91A80_AIL_set_preference(Bit32u number, Bit32s value);
 void sub_91BD0_s_plus();
 void sub_91BF0_s_minus();
-Bit16u sub_A121D_AIL_API_get_real_vect(Bit32u vectnum/*int a1, __int16 a2, int a3, int a4*/);
+Bit16u sub_A121D_AIL_API_get_real_vect(Bit32u vectnum/*int a1, int16_t a2, int a3, int a4*/);
 Bit16u sub_91C10_AIL_get_real_vect(/*VDI_HDR* a1, int a2, int a3,*/ Bit32u vectnum/*U32       vectnum*/);//AIL_get_real_vect
 void sub_91D50_AIL_set_real_vect(Bit32u vectnum, Bit16u real_ptr);
 void sub_91E90_AIL_restore_USE16_ISR(Bit32s a1);
@@ -461,7 +461,7 @@ void sub_920D0_AIL_delay(int a1);
 int sub_92160();
 int sub_92190_AIL_read_INI(AIL_INI* INI, char* filename/*, char* a8, IO_PARMS IO*/);
 HTIMER sub_92600_AIL_register_timer(AILTIMERCB callback_fn);
-signed __int32 sub_92740_AIL_set_timer_user(int a1, signed __int32 a2);
+int32_t sub_92740_AIL_set_timer_user(int a1, int32_t a2);
 //void sub_92890_AIL_set_timer_period(int a1, int a2);
 void sub_92890_AIL_set_timer_period(HTIMER timer, Bit32u microseconds);
 //void sub_92930_AIL_set_timer_frequency(int a1, unsigned int a2);
@@ -603,7 +603,7 @@ int sub_A5040(x_DWORD *a1);
 unsigned int sub_A50A0(int a1);
 Bit8u* sub_A50F0(Bit8u* a1, int a2);
 int sub_A5210(int a1, char a2, unsigned int a3);
-x_DWORD *sub_A5530(int a1, char a2, unsigned int a3, unsigned __int8 a4);
+x_DWORD *sub_A5530(int a1, char a2, unsigned int a3, uint8_t a4);
 void sub_A5850(HSEQUENCE S, char a2, unsigned int a3, signed int a4, int a5);
 void sub_A5E50(HSEQUENCE S);
 void sub_A5F30(int *a1, int a2);
@@ -638,10 +638,10 @@ int sub_A8470(int a1);
 int sub_A84A0(int a1);
 void sub_A84D0_AIL_API_set_XMIDI_master_volume(HMDIDRIVER mdi, Bit32s master_volume);
 int sub_A8550(int a1);
-int sub_A8570_sound_proc39(int *a1, __int16 a2, __int16 a3);
+int sub_A8570_sound_proc39(int *a1, int16_t a2, int16_t a3);
 VDI_CALL sub_A85B0_sound_proc40(int *a1, int a2, int a3);
-int sub_A8690_sound_proc41(int *a1, __int16 a2, __int16 a3);
-int sub_A86D0_sound_proc42(int *a1, __int16 a2, __int16 a3);
+int sub_A8690_sound_proc41(int *a1, int16_t a2, int16_t a3);
+int sub_A86D0_sound_proc42(int *a1, int16_t a2, int16_t a3);
 int sub_A8710(int a1);
 int sub_A8770(int a1, char a2, unsigned int a3);
 int sub_A87C0(int a1, int a2);
@@ -668,17 +668,17 @@ void sub_B0C1A(HDIGDRIVER a1);
 bool sub_A9280();
 
 int sub_9F280(int *a1);
-VDI_CALL sub_9F2E0(int *a1, int a2, unsigned __int16 a3, unsigned __int16 a4);
-__int64 sub_9F3D0(int *a1, int a2, unsigned __int16 a3, unsigned __int16 a4);
-VDI_CALL sub_9F4F0(int *a1, int a2, unsigned __int16 a3, unsigned __int16 a4);
-VDI_CALL sub_9F5E0(int *a1, int a2, unsigned __int16 a3, unsigned __int16 a4);
-VDI_CALL sub_9F6D0(int *a1, __int16 a2);
+VDI_CALL sub_9F2E0(int *a1, int a2, uint16_t a3, uint16_t a4);
+__int64 sub_9F3D0(int *a1, int a2, uint16_t a3, uint16_t a4);
+VDI_CALL sub_9F4F0(int *a1, int a2, uint16_t a3, uint16_t a4);
+VDI_CALL sub_9F5E0(int *a1, int a2, uint16_t a3, uint16_t a4);
+VDI_CALL sub_9F6D0(int *a1, int16_t a2);
 signed __int64 sub_9F110(int a1);
 
 void __writegsx_WORD(unsigned long Offset, unsigned short Data);
 int sub_9F220(int a1);
 int sub_9F1D0(int a1);
-int sub_9F170(int a1, unsigned __int16 a2);
+int sub_9F170(int a1, uint16_t a2);
 
 void dbgfprintf(FILE* file, const char *format, ...);
 

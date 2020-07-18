@@ -213,8 +213,8 @@ void sub_2EB40()//20fb40
 int sub_7AC00_load_and_set_graphics_and_pallette()//25BC00
 {
 	//char v0; // al
-	//unsigned __int8 v1; // al
-	//unsigned __int8 v2; // al
+	//uint8_t v1; // al
+	//uint8_t v2; // al
 
 	if (!(x_WORD_180660_VGA_type_resolution & 8))
 	{
@@ -278,13 +278,13 @@ int sub_7AC00_load_and_set_graphics_and_pallette()//25BC00
 }
 
 //----- (00076160) --------------------------------------------------------
-void sub_76160_play_intro(__int16 a1, __int16 a2, Bit8u* a3)//257160
+void sub_76160_play_intro(int16_t a1, int16_t a2, Bit8u* a3)//257160
 {
 	//fix
 	//memset(&x_DWORD_180628b_screen_buffer[320 * 200], 0, 320*200);
 	//fix
 	FILE* tempfile; // eax
-	//__int16 v4; // ax
+	//int16_t v4; // ax
 
 	x_WORD_E12FC = a2;
 	x_WORD_D4004 = 0;
@@ -501,7 +501,7 @@ void sub_82670()//263670
 
 	v0 = 0;
 	v11 = x_WORD_180660_VGA_type_resolution;
-	//LOWORD(v1) = (unsigned __int8)x_WORD_180660_VGA_type_resolution;
+	//LOWORD(v1) = (uint8_t)x_WORD_180660_VGA_type_resolution;
 	x_BYTE_1806E4 = 0;
 	if (!x_BYTE_E29E1)
 	{
@@ -648,15 +648,15 @@ void sub_82670()//263670
 		}
 	}
 	x_BYTE_D41C1 = 0;
-	//return (signed __int16)v1;
+	//return (int16_t)v1;
 }
 
 //----- (0007ADE0) --------------------------------------------------------
 int sub_7ADE0(char a1)//25bde0
 {
 	char v1; // al
-	unsigned __int8 v2; // al
-	unsigned __int8 v3; // al
+	uint8_t v2; // al
+	uint8_t v3; // al
 
 	if (a1 == 1)
 	{
@@ -733,7 +733,7 @@ void sub_76A40_lang_setting()//257A40
 	Bit8u v10[32]; // [esp+A0h] [ebp+5Eh]
 	//Bit8u v11[100]; // [esp+A4h] [ebp+62h]
 	//int v12; // [esp+B4h] [ebp+72h]
-	//__int16 v13; // [esp+BEh] [ebp+7Ch]
+	//int16_t v13; // [esp+BEh] [ebp+7Ch]
 	Bit32s configdword1; // [esp+C0h] [ebp+7Eh]
 
 	//fix
@@ -833,7 +833,7 @@ void sub_76A40_lang_setting()//257A40
 void sub_7BEC0()//25cec0
 {
 	Bit8u* result; // eax
-	unsigned __int8 v1; // dl
+	uint8_t v1; // dl
 
 	for (result = off_E1BAC; *((Bit16u*)result + 5); result += 44)
 	{
@@ -994,13 +994,13 @@ void sub_83250_play_intros(char a1)//264250
 //----- (00076FA0) --------------------------------------------------------
 void sub_76FA0_main_menu(int a2, Bit16u a3x)
 {
-	__int16 v4; // dx
+	int16_t v4; // dx
 	int v6; // eax
 	int v7; // edx
 	int v8; // edx
 	int v9; // edx
-	unsigned __int16 v10; // di
-	unsigned __int16 v12; // si
+	uint16_t v10; // di
+	uint16_t v12; // si
 	int v13; // eax
 	Bit8u* v15; // esi
 	int v16; // edx

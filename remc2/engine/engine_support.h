@@ -1097,9 +1097,9 @@ typedef struct//lenght 613 // end 17E09D
 	int16_t x_WORD_17E074; // weak
 	int16_t x_WORD_17E076; // weak
 	Bit8s unk_17E078x[0xc]; // weak [11]
-	//__int16 x_WORD_17E07C; // weak unk_17E078x[4]
-	//__int16 x_WORD_17E07E; // weak unk_17E078x[6]
-	//__int16 x_WORD_17E080; // weak unk_17E078x[8]
+	//int16_t x_WORD_17E07C; // weak unk_17E078x[4]
+	//int16_t x_WORD_17E07E; // weak unk_17E078x[6]
+	//int16_t x_WORD_17E080; // weak unk_17E078x[8]
 	//char x_BYTE_17E082; // weak unk_17E078x[0xa]
 	//char x_BYTE_17E083; // weak unk_17E078x[0xb]
 	Bit16s unk_17E084x[0xc]; // weak [11]

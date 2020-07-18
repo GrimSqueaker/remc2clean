@@ -54,7 +54,7 @@ int sub_97F90(x_DWORD *a1);
 int sub_980D0(x_DWORD *a1, int a2);
 int sub_98170(x_DWORD *a1, int a2, int a3);
 bool sub_9EDD0();
-int sub_A158B(int a1, __int16 a2, x_WORD *a3, x_WORD *a4);
+int sub_A158B(int a1, int16_t a2, x_WORD *a3, x_WORD *a4);
 bool sub_A4CB0();
 int sub_A4F10(int a1, char a2, char a3, char a4);
 x_DWORD * sub_A5850(int a1, char a2, unsigned int a3, signed int a4, int a5);*/
@@ -269,7 +269,7 @@ extern Bit8u x_BYTE_10B4E0_terraintype[0x10000]; // idb// x_BYTE_10B1E0[0x300]//
 extern Bit8u x_BYTE_11B4E0_height[0x10000]; // idb		//2EC4E0    	//map array2 // heightmap
 extern Bit8u x_BYTE_12B4E0_shading[0x10000]; // fix it -  weak	//2FC4E0    //map array3
 extern Bit8u x_BYTE_13B4E0_angle[0x10000]; // idb//30C4E0	//map array4 // water
-extern __int16 x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
+extern int16_t x_WORD_15B4E0_source[0x10000]; // idb//32C4E0	//map array5
 
 extern Bit16u x_WORD_17B4E0; // 34c4e0
 
@@ -296,24 +296,24 @@ typedef struct {
 }
 type_E9C08;
 #pragma pack (16)
-void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(__int16 a1, unsigned __int16 a2, __int16 a3, Bit32s a4);
+void /*__spoils<ecx>*/ sub_B5E70_decompress_terrain_map_level(int16_t a1, uint16_t a2, int16_t a3, Bit32s a4);
 void sub_44DB0_truncTerrainHeight();
-void sub_44E40(int a1, unsigned __int8 a2);
+void sub_44E40(int a1, uint8_t a2);
 void sub_45AA0_setMax4Tiles();
 void sub_43B40();
 void sub_43BB0();
-void sub_43C60(unsigned __int8 a1, char a2, int a3, int a4);
+void sub_43C60(uint8_t a1, char a2, int a3, int a4);
 void sub_43D50();
 void sub_43EE0();
 void sub_43FC0();
-void sub_440D0(unsigned __int16 a1);
+void sub_440D0(uint16_t a1);
 void sub_44320();
 void sub_44580();
 void sub_44D00();
-void sub_45060(unsigned __int8 a1, unsigned __int8 a2);
-void sub_45210(unsigned __int8 a1, unsigned __int8 a2);
-void sub_454F0(unsigned __int8 a1, unsigned __int8 a2);
-void sub_45600(unsigned __int8 a1);
+void sub_45060(uint8_t a1, uint8_t a2);
+void sub_45210(uint8_t a1, uint8_t a2);
+void sub_454F0(uint8_t a1, uint8_t a2);
+void sub_45600(uint8_t a1);
 
 void sub_49830(type_str_2FECE* a1);
 void sub_49290(type_str_2FECE* a1, char a2);
@@ -321,42 +321,42 @@ void sub_49290(type_str_2FECE* a1, char a2);
 void sub_49F30();
 
 
-void sub_6FC50(__int16 a1);
+void sub_6FC50(int16_t a1);
 
 
-char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2);
+char sub_533B0_decompress_levels(int16_t a1, type_str_2FECE* a2);
 
 bool sub_7B200_in_region(Bit16s* a1, Bit16s testx, Bit16s testy);
-void sub_2BC10_draw_text(char* text, __int16 a2, __int16 a3, unsigned __int8 a4);
+void sub_2BC10_draw_text(char* text, int16_t a2, int16_t a3, uint8_t a4);
 void sub_6F940_sub_draw_text(char* a1, int a2, int a3, Bit8u color);
 //int /*__noreturn*/ sub_10000(); // weak
 type_str_0x6E8E* sub_15CB0(/*type_str_0x6E8E* a1,*/ type_str_0x6E8E* a2); // weak
-char sub_15D40(__int16 a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3); // weak
+char sub_15D40(int16_t a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3); // weak
 Bit16s sub_16730(/*int a1,*/ type_str_0x6E8E* a2, char a3); // weak
-Bit16s sub_16CA0(baxis_2d* a2, __int16 a3, char a4); // weak
-void sub_17A00(x_BYTE *a1, signed int a2, __int16 a3); // weak
+Bit16s sub_16CA0(baxis_2d* a2, int16_t a3, char a4); // weak
+void sub_17A00(x_BYTE *a1, signed int a2, int16_t a3); // weak
 int _wcpp_1_unwind_leave__120(x_DWORD a, x_DWORD b, x_DWORD c);// weak
-void sub_1A070(signed int a1, __int16 a2);
+void sub_1A070(signed int a1, int16_t a2);
 void JUMPOUT(int* adr);
 void JUMPOUT(x_WORD cs, int* adr);
 void JUMPOUT(x_WORD cs, int a, int* adr);
 void sub_1F0C0(/*type_str_0x6E8E* a1,*/ type_str_0x6E8E* a2);
-int sub_253B0(/*int result, */type_str_0x6E8E* a2, unsigned __int8 a3, unsigned __int8 a4);
-signed int sub_369F0(/*signed int a1,*/ __int16 a2);
+int sub_253B0(/*int result, */type_str_0x6E8E* a2, uint8_t a3, uint8_t a4);
+signed int sub_369F0(/*signed int a1,*/ int16_t a2);
 void qmemcpy(void* a, void* b, size_t c);
 void sub_2A340(/*int a1, type_str_0x6E8E* a2, type_str_0x6E8E* a3, int a4, *//*type_str_0x6E8E* a5, */type_str_0x6E8E* a6);
 void sub_2AA90(/*type_str_0x6E8E* a1, */type_str_0x6E8E* a2, type_str_0x6E8E* a3);
-void sub_728A9_clear_graphics_alt(void* a2, unsigned __int16 a3, char a4);
+void sub_728A9_clear_graphics_alt(void* a2, uint16_t a3, char a4);
 void sub_303D0(/*signed int a1*/);
 int _wcpp_1_unwind_leave__62(void); //weak
-int sub_7FCB0_draw_text_with_border(int a1, char* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, unsigned __int8 a7, Bit32u a8);//560cb0
-void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3, unsigned __int8 a4);
+int sub_7FCB0_draw_text_with_border(int a1, char* a2, Bit32s a3, Bit32s a4, int a5, Bit8u a6, uint8_t a7, Bit32u a8);//560cb0
+void sub_45DC0(Bit8u a1, Bit8u a2, uaxis_2d a3, uint8_t a4);
 signed int sub_36A50(/*signed int a1, */char a2);
-void sub_36920(/*signed __int16 a1, */type_str_0x6E8E* a2);
-void sub_48A20(int a1, char a2, char a3, int a4, int a5, unsigned __int8 a6);
-unsigned int sub_439A0(unsigned int a1, unsigned __int16 a2);
+void sub_36920(/*int16_t a1, */type_str_0x6E8E* a2);
+void sub_48A20(int a1, char a2, char a3, int a4, int a5, uint8_t a6);
+unsigned int sub_439A0(unsigned int a1, uint16_t a2);
 void sub_3E360_draw_particles(/*int a1x, */int a2x);
-unsigned __int16 sub_3FD60(int a2x);
+uint16_t sub_3FD60(int a2x);
 //void __outx_WORD(unsigned short Port, unsigned short Data);
 //void __outx_BYTE(unsigned short Port, unsigned char Data);
 //unsigned char __inx_BYTE(unsigned short Port);
@@ -366,7 +366,7 @@ void sub_56A30_init_game_level(unsigned int a1);
 void sub_47320_in_game_loop(signed int a1);
 void sub_56D60(unsigned int a1, char a2);
 void VGA_BlitAny();
-void sub_47560_draw_and_events_in_game(/*Bit8u* a1, int a2, */Bit32u a3, signed int a4, __int16 a5);
+void sub_47560_draw_and_events_in_game(/*Bit8u* a1, int a2, */Bit32u a3, signed int a4, int16_t a5);
 void sub_51BB0_game_events(/*Bit8u* a1*/);
 //x_DWORD /*__cdecl*/ toupper(x_DWORD); //weak
 void sub_55C60(/*int a1, int a2,*/ type_str_0x2BDE* a3);
@@ -389,26 +389,26 @@ int /*__cdecl*/ _wcpp_1_unwind_leave__98(x_DWORD);// weak
 //x_DWORD /*__cdecl*/ dos_setvect(x_DWORD number, void(*actcall)(), x_DWORD);// weak
 int /*__fastcall*/ _wcpp_1_unwind_leave__130(x_DWORD);// weak
 //unsigned char _BitScanReverse(unsigned long * Index, unsigned long Mask);
-void sub_8F920(Bit8u a1byte1, Bit8u a1byte2, Bit16s posx, Bit16s posy, Bit8u* a4, unsigned __int8 a5, char a6);
+void sub_8F920(Bit8u a1byte1, Bit8u a1byte2, Bit16s posx, Bit16s posy, Bit8u* a4, uint8_t a5, char a6);
 void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u a2, int a3, Bit8u* a4, Bit8u setbyte, char a6);
-signed int sub_74767(signed __int16 *a1, x_BYTE *a2, Bit8u* a3);
+signed int sub_74767(int16_t *a1, x_BYTE *a2, Bit8u* a3);
 //x_DWORD /*__cdecl*/ segread(SREGS*); //weak
 //x_DWORD /*__cdecl*/ int386x(x_DWORD, x_DWORD, x_DWORD, x_DWORD);// weak
 //int int386x(int, REGS *, REGS *, struct SREGS *);
 unsigned char __readgsx_BYTE(unsigned long Offset);
 unsigned short __readgsx_WORD(unsigned long Offset);
-int sub_7F6A0(int a1, int a2, __int16 a3, __int16 a4, char *a5, x_BYTE *a6, unsigned __int8 a7);
-unsigned int sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED_db_str* a5);
-signed int sub_7E5A0_pre_draw(int a1, int a2, __int16 a3, __int16 a4, Bit8u* a5, __int16 a6, __int16 a7);
-void sub_81260(int a1, int a2, Bit8s* a3, __int16 a4, __int16 a5);
-void sub_82510(/*__int16 a1*//*, int *a2*/);
-signed __int16 sub_81EE0(int a1, int a2, int a3, signed __int16 a4, __int16 a5, __int16 a6);
-signed int sub_80D40_move_graphics_and_play_sounds(__int16 a1, __int16 a2, __int16 a3, __int16 a4, __int16 a5, char a6);
-void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */unsigned __int16 *a3);
+int sub_7F6A0(int a1, int a2, int16_t a3, int16_t a4, char *a5, x_BYTE *a6, uint8_t a7);
+unsigned int sub_81CA0(int a1, int a2, int16_t a3, int16_t a4, type_x_BYTE_E25ED_db_str* a5);
+signed int sub_7E5A0_pre_draw(int a1, int a2, int16_t a3, int16_t a4, Bit8u* a5, int16_t a6, int16_t a7);
+void sub_81260(int a1, int a2, Bit8s* a3, int16_t a4, int16_t a5);
+void sub_82510(/*int16_t a1*//*, int *a2*/);
+int16_t sub_81EE0(int a1, int a2, int a3, int16_t a4, int16_t a5, int16_t a6);
+signed int sub_80D40_move_graphics_and_play_sounds(int16_t a1, int16_t a2, int16_t a3, int16_t a4, int16_t a5, char a6);
+void sub_85CC3_draw_round_frame(/*unsigned int a1, int a2, */uint16_t *a3);
 //void sub_840B8(char a1, bool a2, char a3, char a4);
 //unsigned     int __readeflags(void);
-__int16 sub_840D3(char _CF, bool _ZF, char _SF, char _OF);
-void  sub_841CE(__int16 a1);
+int16_t sub_840D3(char _CF, bool _ZF, char _SF, char _OF);
+void  sub_841CE(int16_t a1);
 //void __writeeflags(unsigned Value);
 x_DWORD /*__cdecl*/ gets(x_DWORD);// weak
 //x_DWORD /*__cdecl*/ fix_tell(x_DWORD);// weak
@@ -441,11 +441,11 @@ FILE* /*__cdecl*/ x_sopen(char* path, int pmode, Bit32u flags);
 x_DWORD /*__cdecl*/ x_close(FILE*);// weak
 x_DWORD /*__cdecl*/ x_lseek(FILE*, x_DWORD, char);// weak
 //Bit32u sub_98AE0(Bit8u *a1);
-__int16 sub_98B2C(unsigned __int8 a1, int a2);
+int16_t sub_98B2C(uint8_t a1, int a2);
 //char sub_98BAF(int a1);
-__int16 sub_98AE9(__int16 *a1, int a2);
-unsigned __CFRCR__(__int16 a, unsigned __int8 b);
-unsigned __CFRCL__(__int16 a, unsigned __int8 b);
+int16_t sub_98AE9(int16_t *a1, int a2);
+unsigned __CFRCR__(int16_t a, uint8_t b);
+unsigned __CFRCL__(int16_t a, uint8_t b);
 Bit32u /*__cdecl*/ x_write(FILE* descriptor, Bit8u* buffer, Bit32u size_t);
 x_DWORD /*__cdecl*/ x_tolower(x_DWORD);// weak
 FILE* x_open(char* path, int pmodex);
@@ -459,7 +459,7 @@ void __inx_BYTEstring(unsigned short Port, unsigned char* Buffer, unsigned long 
 int /*__fastcall*/ _hook387(x_DWORD, x_DWORD, x_DWORD);// weak
 //void __sidt(void *Destination);
 //unsigned long __readcr0(void);
-//void __writecr0(unsigned __int32 Data);
+//void __writecr0(uint32_t Data);
 int sub_ACE8D(x_WORD *a1, int a2, int *a3);
 void sub_AD0E2(x_BYTE *a1, int a2, int *a3, x_BYTE **a4);
 void sub_ACF1A(x_BYTE *a1, int a2, int *a3);
@@ -474,9 +474,9 @@ int sub_B41F9(int a1, x_BYTE *a2, int a3);
 int sub_B3ADF(__int64 *a1, x_BYTE *a2);
 int sub_B3605(unsigned __int64 a1, int a2, unsigned int a3, x_BYTE *a4, int a5);
 int sub_B37DA(unsigned __int64 a1, unsigned int a2, unsigned int a3, int a4);
-__int16 /*__spoils<ecx>*/ sub_B3EAE(int a1, x_BYTE *a2, int a3);
+int16_t /*__spoils<ecx>*/ sub_B3EAE(int a1, x_BYTE *a2, int a3);
 int sub_B4A2A(int *a1, int a2, int a3);
-int sub_B4077(__int64 a1, unsigned int a2, unsigned int a3, __int16 a4, __int16 a5);
+int sub_B4077(__int64 a1, unsigned int a2, unsigned int a3, int16_t a4, int16_t a5);
 int sub_B423C(int a1, x_BYTE *a2);
 void sub_B49D8(int a1, int a2);
 int _DOS4G_hook_init(void);// weak
@@ -485,14 +485,14 @@ int /*__cdecl*/ _Ergo_hook_init(x_DWORD, x_DWORD);// weak
 //int _Intel_hook_init(void);// weak
 //int _DOS4G_hook_fini(void);// weak
 double sub_B5250(char a1, double *a2, double result);
-double sub_B5205(char a1, int a2, __int16 a3, double a4);
-__int64 sub_B522B(int a1, __int16 a2, int _ESI);
+double sub_B5205(char a1, int a2, int16_t a3, double a4);
+__int64 sub_B522B(int a1, int16_t a2, int _ESI);
 //int _Intel_hook_fini(void);// weak
 //int _Phar_hook_fini(void);// weak
 //int /*__cdecl*/ _Ergo_hook_fini(x_DWORD);// weak
-void sub_B5F8F(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
+void sub_B5F8F(int16_t a1, Bit16u* a2, Bit32s a3, int16_t* a4);
 int sub_BD320(int result, x_BYTE *a2, x_BYTE *a3, int a4, int a5, int a6);
-void sub_B5EFA(__int16 a1, Bit16u* a2, Bit32s a3, __int16* a4);
+void sub_B5EFA(int16_t a1, Bit16u* a2, Bit32s a3, int16_t* a4);
 
 //type_str_0x6E8E* pre_sub_4A190(Bit32u adress, Bit16s* a1,int type);
 type_str_0x6E8E* pre_sub_4A190_axis_3d(Bit32u adress, axis_3d* a1, int type);//pre 22b190
