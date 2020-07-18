@@ -1799,15 +1799,15 @@ int main_x(/*int argc, char** argv*/)
 
 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN
-	Uint32 rmask = 0xff000000;
-	Uint32 gmask = 0x00ff0000;
-	Uint32 bmask = 0x0000ff00;
-	Uint32 amask = 0x000000ff;
+	uint32_t rmask = 0xff000000;
+	uint32_t gmask = 0x00ff0000;
+	uint32_t bmask = 0x0000ff00;
+	uint32_t amask = 0x000000ff;
 #else
-	Uint32 rmask = 0x000000ff;
-	Uint32 gmask = 0x0000ff00;
-	Uint32 bmask = 0x00ff0000;
-	Uint32 amask = 0xff000000;
+	uint32_t rmask = 0x000000ff;
+	uint32_t gmask = 0x0000ff00;
+	uint32_t bmask = 0x00ff0000;
+	uint32_t amask = 0xff000000;
 #endif
 	mapsurface = SDL_CreateRGBSurface(SDL_SWSURFACE, 512, 512, 32, rmask, gmask, bmask, amask);
 	if (mapsurface == NULL) {

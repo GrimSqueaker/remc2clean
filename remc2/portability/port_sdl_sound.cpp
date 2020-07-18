@@ -443,27 +443,6 @@ void SOUND_start_sample(HSAMPLE S) {
 #ifdef SOUND_SDLMIXER
 	if (hqsound)
 	{
-		/*
-		// load sample.wav in to sample
-		Bit8u* presample = malloc(S->len_4_5[0] * 4 + 10);
-		Mix_Chunk* sample;
-		sample = Mix_LoadWAV_RW(presample, 0);
-		if (!sample) {
-			printf("Mix_LoadWAV_RW: %s\n", Mix_GetError());
-			// handle error
-		}
-		*/
-
-		//44100, AUDIO_S16, 2, 4096
-		//src/dst
-		/*SDL_AudioCVT cvt;
-		SDL_BuildAudioCVT(&cvt, AUDIO_U8, 1, S->playback_rate_15, AUDIO_S16, 2, 44100);
-		SDL_assert(cvt.needed); // obviously, this one is always needed.
-		cvt.len = S->len_4_5[0];// 1024 * 2 * 4;  // 1024 stereo float32 sample frames.
-		cvt.buf = (Uint8*)S->start_2_3[0];//(Uint8*)SDL_malloc(cvt.len * cvt.len_mult);
-		// read your float32 data into cvt.buf here.
-		SDL_ConvertAudio(&cvt);*/
-
 		gamechunk[S->index_sample].abuf = /*sample->abuf;//*/ (Bit8u*)S->start_44mhz;
 		if (fixspeedsound)
 			gamechunk[S->index_sample].alen = /*sample->alen;//*/S->len_4_5[0] * 16;
@@ -494,7 +473,6 @@ void SOUND_start_sample(HSAMPLE S) {
 	Mix_PlayChannel(S->index_sample, &gamechunk[S->index_sample], 0);
 #endif//SOUND_SDLMIXER
 #ifdef SOUND_OPENAL
-	//sound_load_wav((char*)S->start_44mhz, sizeof(S->start_44mhz));
 	if (hqsound)
 	{
 		gamechunk[S->index_sample].abuf = (Bit8u*)S->start_44mhz;
@@ -619,10 +597,10 @@ void test_music()
 {
 }
 
-void my_audio_callback(void *midi_player, Uint8 *stream, int len);
+void my_audio_callback(void *midi_player, uint8_t *stream, int len);
 
 /* variable declarations */
-static Uint32 is_playing = 0; /* remaining length of the sample we have to play */
+static uint32_t is_playing = 0; /* remaining length of the sample we have to play */
 static short buffer[4096]; /* Audio buffer */
 
 int run()
@@ -707,7 +685,7 @@ int run()
  requesting audio buffer (stream)
  you should only copy as much as the requested length (len)
 */
-void my_audio_callback(void *midi_player, Uint8 *stream, int len)
+void my_audio_callback(void *midi_player, uint8_t *stream, int len)
 {
 	struct ADL_MIDIPlayer* p = (struct ADL_MIDIPlayer*)midi_player;
 
@@ -727,7 +705,7 @@ void my_audio_callback(void *midi_player, Uint8 *stream, int len)
 	}
 
 	/* Send buffer to the audio device */
-	SDL_memcpy(stream, (Uint8*)buffer, samples_count * 2);
+	SDL_memcpy(stream, (uint8_t*)buffer, samples_count * 2);
 }
 
 #define TEST_ERROR(_msg)		\

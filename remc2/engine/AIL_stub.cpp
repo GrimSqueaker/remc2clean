@@ -3443,7 +3443,7 @@ void init_hqsound(HSAMPLE S) {
 	//SDL_assert(cvt.needed); // obviously, this one is always needed.
 	cvt.len = S->len_4_5[0];  // 1024 stereo float32 sample frames.
 	//cvt.len_mult = 2 * 4 * 2;
-	cvt.buf = (Uint8 *)SDL_malloc(cvt.len * cvt.len_mult);
+	cvt.buf = (uint8_t *)SDL_malloc(cvt.len * cvt.len_mult);
 	memcpy(cvt.buf, S->start_2_3[0], S->len_4_5[0]);
 	// read your float32 data into cvt.buf here.
 	SDL_ConvertAudio(&cvt);
@@ -4597,8 +4597,8 @@ void sub_A5850(HSEQUENCE S, char a2, unsigned int a3, signed int a4, int a5)//28
 			if (v7->lock[v9] == 1)
 			{
 				sub_A5F30((int*)S, v8);
-				sub_980D0_AIL_release_channel((int32*)v7, v9 + 1);
-				/*result = (x_DWORD *)*/sub_98170_AIL_map_sequence_channel((int32*)S, v8 + 1, v8 + 1);
+				sub_980D0_AIL_release_channel((int32_t*)v7, v9 + 1);
+				/*result = (x_DWORD *)*/sub_98170_AIL_map_sequence_channel((int32_t*)S, v8 + 1, v8 + 1);
 			}
 		}
 		else
@@ -4606,11 +4606,11 @@ void sub_A5850(HSEQUENCE S, char a2, unsigned int a3, signed int a4, int a5)//28
 			//result = &v7[v9];
 			if (v7->lock[v9] != 1)
 			{
-				result = (HMDIDRIVER)(x_DWORD *)sub_97F90_AIL_lock_channel((int32*)v7);
-				v12 = (int32*)result;
+				result = (HMDIDRIVER)(x_DWORD *)sub_97F90_AIL_lock_channel((int32_t*)v7);
+				v12 = (int32_t*)result;
 				if (result)
 				{
-					sub_98170_AIL_map_sequence_channel((int32*)S, v8 + 1, (int)result);
+					sub_98170_AIL_map_sequence_channel((int32_t*)S, v8 + 1, (int)result);
 					result = (HMDIDRIVER)(x_DWORD *)S;
 					v7->var23_aildrvx[(int)v12] = S;
 				}
@@ -4815,7 +4815,7 @@ void sub_A5FD0(int a1, int a2)
 		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 0x5Du, *(x_DWORD *)(a1 + 4 * a2 + 1236), 0);
 	result = (x_DWORD *)(a1 + 4 * a2);
 	if (result[325] != -1)
-		/*result = (int32*)*/sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 6u, *(x_DWORD *)(a1 + 4 * a2 + 1300), 0);
+		sub_A5850((HSEQUENCE)a1, a2 | 0xB0, 6u, *(x_DWORD *)(a1 + 4 * a2 + 1300), 0);
 }
 
 //----- (000A6370) --------------------------------------------------------
@@ -4954,7 +4954,7 @@ void sub_A6530(HMDIDRIVER a1)//287530
 							{
 								x_DWORD_181EDC = *(uint8_t *)(*(_DWORD *)(x_DWORD_181EB8 + 20) + 1);
 								*(_DWORD *)(x_DWORD_181EB8 + 20) += 2;
-								x_DWORD_181ED8 = sub_A5040((int32*)x_DWORD_181EB8 + 20);
+								x_DWORD_181ED8 = sub_A5040((int32_t*)x_DWORD_181EB8 + 20);
 								if ((unsigned int)x_DWORD_181EDC < 0x51)
 								{
 									if (x_DWORD_181EDC == 47)
@@ -5051,7 +5051,7 @@ void sub_A6530(HMDIDRIVER a1)//287530
 									*(_DWORD *)(4 * x_DWORD_181EBC + x_DWORD_181EB8 + 1496) = *(uint8_t *)(*(_DWORD *)(x_DWORD_181EB8 + 20)
 										+ 1);
 									*(_DWORD *)(x_DWORD_181EB8 + 20) += 3;
-									*(_DWORD *)(x_DWORD_181EB8 + 4 * x_DWORD_181EBC + 1624) = sub_A5040((int32*)x_DWORD_181EB8 + 20);
+									*(_DWORD *)(x_DWORD_181EB8 + 4 * x_DWORD_181EBC + 1624) = sub_A5040((int32_t*)x_DWORD_181EB8 + 20);
 								}
 								else
 								{
@@ -5075,7 +5075,7 @@ void sub_A6530(HMDIDRIVER a1)//287530
 							}
 							if (*(_DWORD *)(x_DWORD_181EB8 + 36))
 							{
-								sub_97330_AIL_sequence_position((int32*)x_DWORD_181EB8, &x_DWORD_181EBC, &x_DWORD_181EC0);
+								sub_97330_AIL_sequence_position((int32_t*)x_DWORD_181EB8, &x_DWORD_181EBC, &x_DWORD_181EC0);
 								(*(void(__cdecl **)(_DWORD, HSEQUENCE, int, int))(x_DWORD_181EB8 + 36))(
 									*(_DWORD *)x_DWORD_181EB8,
 									x_DWORD_181EB8,
@@ -5846,7 +5846,7 @@ void sub_A8050_AIL_API_stop_sequence_orig(HSEQUENCE S)//289050
 				if (S->seq_149[i] >= 64)
 					sub_A4F10((HMDIDRIVER)v4, v2 | 0xB0, 112, 0);
 				if (S->seq_101[i] >= 64)
-					sub_980D0_AIL_release_channel((int32*)v4, v2 + 1);
+					sub_980D0_AIL_release_channel((int32_t*)v4, v2 + 1);
 				//result = i;
 			}
 		}
@@ -6719,7 +6719,7 @@ int sub_B0B87(HDIGDRIVER a1, int a2)
 		if (a1->hw_mode_flags_7 & 8)
 			v6 = a1->half_buffer_size_4;
 	}
-	return ((int(*)(int, x_BYTE *, int *))off_AEB40[x_DWORD_E4E1C])(v4, (int8*)v5, v3);
+	return ((int(*)(int, x_BYTE *, int *))off_AEB40[x_DWORD_E4E1C])(v4, (int8_t*)v5, v3);
 }
 
 //----- (000B0C1A) --------------------------------------------------------

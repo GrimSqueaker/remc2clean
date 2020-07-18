@@ -34,9 +34,9 @@
 #ifndef SOUND_SDLMIXER
 typedef struct {
 	int allocated;
-	Uint8* abuf;
-	Uint32 alen;
-	Uint8 volume;       /* Per-sample volume, 0-128 */
+	uint8_t* abuf;
+	uint32_t alen;
+	uint8_t volume;       /* Per-sample volume, 0-128 */
 } Mix_Chunk;
 #endif//SOUND_SDLMIXER
 

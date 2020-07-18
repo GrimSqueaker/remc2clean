@@ -28,7 +28,7 @@ const char* default_caption = "Remake Magic Carpet 2";
 
 
 bool inited = false;
-Uint8 temppallettebuffer[768];/* = {
+uint8_t temppallettebuffer[768];/* = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x2A, 0x00, 0x2A, 0x00, 0x00, 0x2A, 0x2A, 0x2A, 0x00, 0x00, 0x2A,
 0x00, 0x2A, 0x2A, 0x2A, 0x00, 0x2A, 0x2A, 0x2A, 0x00, 0x00, 0x15, 0x00, 0x00, 0x3F, 0x00, 0x2A,
 0x15, 0x00, 0x2A, 0x3F, 0x2A, 0x00, 0x15, 0x2A, 0x00, 0x3F, 0x2A, 0x2A, 0x15, 0x2A, 0x2A, 0x3F,
@@ -79,7 +79,7 @@ Uint8 temppallettebuffer[768];/* = {
 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };*/
 
 
-Uint8* VGA_Get_pallette() {
+uint8_t* VGA_Get_pallette() {
 	return temppallettebuffer;
 }
 
@@ -162,11 +162,11 @@ void Set_basic_pallette3() {
 	SubSet_pallette(colors);
 }
 
-void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
+void putpixel(SDL_Surface *surface, int x, int y, uint32_t pixel)
 {
 	int bpp = surface->format->BytesPerPixel;
 	/* Here p is the address to the pixel we want to set */
-	Uint8 *p = (Uint8 *)surface->pixels + y * surface->pitch + x * bpp;
+	uint8_t *p = (uint8_t *)surface->pixels + y * surface->pitch + x * bpp;
 
 	switch (bpp) {
 	case 1:
@@ -174,7 +174,7 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 		break;
 
 	case 2:
-		*(Uint16 *)p = pixel;
+		*(uint16_t *)p = pixel;
 		break;
 
 	case 3:
@@ -191,7 +191,7 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint32 pixel)
 		break;
 
 	case 4:
-		*(Uint32 *)p = pixel;
+		*(uint32_t *)p = pixel;
 		break;
 	}
 }
@@ -410,138 +410,20 @@ VGA_Init(SDL_HWPALETTE | SDL_INIT_AUDIO);
 }
 
 SDL_Rect dst;
-//SDL_Surface *curs;
-/*
-void VGA_Set_Cursor(posistruct posstrcursor,int number) {
-	int sizex = 64;
-	int sizey = 64;
-
-	if (SDL_MUSTLOCK(curs)) {
-		if (SDL_LockSurface(curs) < 0) {
-			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
-			return;
-		}
-	}
-
-	SDL_FillRect(curs, NULL, 0x000000);
-
-	Bit32u inindex = 0;
-	Bit32u outindex = 0;
-	Bit8s shift = 0;
-	Bit8s end = 0;
-	Bit8s count = 0;
-
-	Bit8s unknownvar = posstrcursor.pointer[inindex++];
-	for(int i=0;i<number;i++)
-		while (posstrcursor.pointer[inindex++] != 0x7f);
-
-	end = posstrcursor.pointer[inindex++];
-	if (end == 0)
-	{
-		count = posstrcursor.pointer[inindex++];
-		outindex++;
-		while (count == 0) {
-			outindex += curs->w + 1;
-			count = posstrcursor.pointer[inindex++];
-		}
-		if (count < 0) {
-			shift = -count;
-			count = posstrcursor.pointer[inindex++];
-		}
-		outindex += curs->w;
-	}
-	else {
-		shift += count;
-		count = end;
-		if (count < 0) {
-			shift -= count;
-			count = posstrcursor.pointer[inindex++];
-		}
-	}
-	memcpy(&((Uint8 *)curs->pixels)[outindex], &posstrcursor.pointer[inindex], count);
-	for (Bit32u y = 1;count != 0x7f;y++)
-	{
-		memcpy(&((Uint8 *)curs->pixels)[outindex + shift], &posstrcursor.pointer[inindex], count);
-		inindex += count;
-		end = posstrcursor.pointer[inindex++];
-		if (end == 0)
-		{
-			count = posstrcursor.pointer[inindex++];
-			while (count == 0) {
-				outindex += curs->w + 1;
-				count = posstrcursor.pointer[inindex++];
-			}
-			if (count < 0) {
-				shift = -count;
-				count = posstrcursor.pointer[inindex++];
-			}
-			outindex += curs->w;
-		}
-		else {
-			shift += count;
-			count = end;
-			if (count < 0) {
-				shift -= count;
-				count = posstrcursor.pointer[inindex++];
-			}
-		}
-	}
-
-	//free(v21_buffer_temp_index1);
-
-
-	//v21_buffer_temp_index1 = (x_DWORD_18062C_resolution_x * tiley + tilex + pixel_buffer_index);
-
-	//v21 = (char *)(dword_18062C * a2 + a3 + v6);
-
-	if (SDL_MUSTLOCK(curs)) {
-		SDL_UnlockSurface(curs);
-	}
-
-	//Uint32 colorkey = SDL_MapRGB(curs->format, 0xff, 0xFF, 0xFF);
-	//SDL_SetColorKey(curs, SDL_SRCCOLORKEY, colorkey);
-	//(curs->->pixels)[0] = 0;
-};
-
-Bit8u cursor1[10] = {
-0x10,0x10,0x10,0,0,0,0,0,0,0
-};
-
-void VGA_Set_Cursor2() {
-	int sizex = 64;
-	int sizey = 64;
-
-	if (SDL_MUSTLOCK(curs)) {
-		if (SDL_LockSurface(curs) < 0) {
-			fprintf(stderr, "Can't lock screen: %s\n", SDL_GetError());
-			return;
-		}
-	}
-
-	for (int i = 0;i < 10;i++)
-		((Uint8 *)curs->pixels)[i] = cursor1[i];
-
-	if (SDL_MUSTLOCK(curs)) {
-		SDL_UnlockSurface(curs);
-	}
-
-
-};*/
-
 
 // Initalize Color Masks. 
 #if SDL_BYTEORDER == SDL_BIG_ENDIAN 
-Uint32 redMask = 0xff000000;
-Uint32 greenMask = 0x00ff0000;
-Uint32 blueMask = 0x0000ff00;
-Uint32 alphaMask = 0x000000ff;
+uint32_t redMask = 0xff000000;
+uint32_t greenMask = 0x00ff0000;
+uint32_t blueMask = 0x0000ff00;
+uint32_t alphaMask = 0x000000ff;
 #else 
-Uint32 redMask = 0x000000ff;
-Uint32 greenMask = 0x0000ff00;
-Uint32 blueMask = 0x00ff0000;
-Uint32 alphaMask = 0xff000000;
+uint32_t redMask = 0x000000ff;
+uint32_t greenMask = 0x0000ff00;
+uint32_t blueMask = 0x00ff0000;
+uint32_t alphaMask = 0xff000000;
 #endif 
-void VGA_Init(Uint32 flags)
+void VGA_Init(uint32_t flags)
 {
 	if (!inited)
 	{
@@ -669,7 +551,7 @@ void VGA_Resize(int width, int height) {
 	origh = height;
 	//VGA_Resize(width, height, 8, SDL_HWPALETTE);
 }
-void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
+void VGA_Resize(int width, int height, int bpp, uint32_t flags) {
 	/*SDL_FreeSurface(screen);
 
 	if (!screen) {
@@ -684,7 +566,7 @@ void VGA_Resize(int width, int height, int bpp, Uint32 flags) {
 };
 
 FILE* fptpal;
-void SavePal(Uint8* pallettebuffer,char* filename)
+void SavePal(uint8_t* pallettebuffer,char* filename)
 {
 	fptpal=fopen(filename, "wb");
 	fwrite(pallettebuffer, 768,1, fptpal);
@@ -706,7 +588,7 @@ void VGA_Set_file_pallette(char* filename) {
 	SubSet_pallette(colors);
 }
 
-void VGA_Set_pallette(const Uint8* pallettebuffer) {
+void VGA_Set_pallette(const uint8_t* pallettebuffer) {
 	memcpy(temppallettebuffer, pallettebuffer, 768);
 	SDL_Color colors[256];
 	/* Fill colors with color information */
@@ -723,7 +605,7 @@ void VGA_Set_pallette(const Uint8* pallettebuffer) {
 	SubSet_pallette(colors);
 }
 
-void VGA_Set_pallette2(const Uint8* pallettebuffer) {
+void VGA_Set_pallette2(const uint8_t* pallettebuffer) {
 	memcpy(temppallettebuffer, pallettebuffer, 768);
 	SDL_Color colors[256];
 	for (int i = 0; i < 256; i++) {
@@ -734,7 +616,7 @@ void VGA_Set_pallette2(const Uint8* pallettebuffer) {
 	SubSet_pallette(colors);
 }
 
-void VGA_Write_basic_pallette(Uint8* pallettebuffer) {
+void VGA_Write_basic_pallette(uint8_t* pallettebuffer) {
 	memcpy(temppallettebuffer, pallettebuffer, 768);
 }
 
@@ -890,7 +772,7 @@ bool alt_enter(SDL_Event* event) {
 }
 
 void ToggleFullscreen() {
-	Uint32 FullscreenFlag = SDL_WINDOW_FULLSCREEN;
+	uint32_t FullscreenFlag = SDL_WINDOW_FULLSCREEN;
 	bool IsFullscreen = SDL_GetWindowFlags(gWindow) & FullscreenFlag;
 
 	SDL_DisplayMode dm;
@@ -940,8 +822,8 @@ Bit16u lastchar = 0;
 int events()
 {
 	SDL_Event event;
-	Uint8 buttonindex;
-	Uint8 buttonstate;
+	uint8_t buttonindex;
+	uint8_t buttonstate;
 	Bit32u buttonresult;
 	while (SDL_PollEvent(&event))
 	{
@@ -1053,7 +935,7 @@ void VGA_Set_mouse(Bit16s x, Bit16s y) {
 //SDL_Surface *output_surface = NULL;
 
 
-void VGA_Blit(int width, int height, Uint8* buffer) {
+void VGA_Blit(int width, int height, uint8_t* buffer) {
 	events();
 	if (SDL_MUSTLOCK(screen)) {
 		if (SDL_LockSurface(screen) < 0) {
@@ -1131,7 +1013,7 @@ void VGA_Blit(int width, int height, Uint8* buffer) {
 	SOUND_UPDATE();
 }
 
-void VGA_Debug_Blit(int width, int height, Uint8* buffer) {
+void VGA_Debug_Blit(int width, int height, uint8_t* buffer) {
 	//Set_basic_pallette3();
 	VGA_Blit(width, height, buffer);
 }

@@ -505,7 +505,6 @@ void sub_82670()//263670
 	x_BYTE_1806E4 = 0;
 	if (!x_BYTE_E29E1)
 	{
-		//LOWORD(v1) = (uint16)x_D41A0_BYTEARRAY_4;
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 		{
 			x_BYTE_D41C1 = 0;
@@ -538,7 +537,6 @@ void sub_82670()//263670
 				}
 				if (!v0)
 				{
-					//LOWORD(v1) = (uint16)x_D41A0_BYTEARRAY_4;
 					v4 = x_D41A0_BYTEARRAY_4_struct.levelnumber_43w;
 					if ((uint16_t)v4 > 0x18u)
 					{
@@ -821,11 +819,9 @@ void sub_76A40_lang_setting()//257A40
 			sub_7ADE0(1);
 		}
 	}
-	//result = (uint8)x_D41A0_BYTEARRAY_4;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_179 != 2 || !x_BYTE_E3798_sound_active2)
 		x_BYTE_D41C0 = 1;
 	x_WORD_E29D8 = 1;
-	//return result;
 }
 
 
