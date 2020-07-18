@@ -374,7 +374,7 @@ int x_DWORD_E4E20 = 0; // weak
 int x_DWORD_E4E24 = 0; // weak
 int x_DWORD_E4E28 = 0; // weak
 int x_DWORD_E4E2C = 0; // weak
-__int64 qx_WORD_E4E30 = 0i64; // weak
+int64_t qx_WORD_E4E30 = 0i64; // weak
 int x_DWORD_E4E38 = 0; // weak
 int16_t x_WORD_E4E3C = 0; // weak
 
@@ -669,11 +669,11 @@ bool sub_A9280();
 
 int sub_9F280(int *a1);
 VDI_CALL sub_9F2E0(int *a1, int a2, uint16_t a3, uint16_t a4);
-__int64 sub_9F3D0(int *a1, int a2, uint16_t a3, uint16_t a4);
+int64_t sub_9F3D0(int *a1, int a2, uint16_t a3, uint16_t a4);
 VDI_CALL sub_9F4F0(int *a1, int a2, uint16_t a3, uint16_t a4);
 VDI_CALL sub_9F5E0(int *a1, int a2, uint16_t a3, uint16_t a4);
 VDI_CALL sub_9F6D0(int *a1, int16_t a2);
-signed __int64 sub_9F110(int a1);
+int64_t sub_9F110(int a1);
 
 void __writegsx_WORD(unsigned long Offset, unsigned short Data);
 int sub_9F220(int a1);

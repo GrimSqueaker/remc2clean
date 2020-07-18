@@ -12,18 +12,16 @@
 #if defined(__GNUC__)
   typedef          long long ll;
   typedef unsigned long long ull;
-  #define __int64 long long
-  #define int32_t int
   #define MAKELL(num) num ## LL
   #define FMT_64 "ll"
 #elif defined(_MSC_VER)
-  typedef          __int64 ll;
-  typedef unsigned __int64 ull;
+  typedef          int64_t ll;
+  typedef uint64_t ull;
   #define MAKELL(num) num ## i64
   #define FMT_64 "I64"
 #elif defined (__BORLANDC__)
-  typedef          __int64 ll;
-  typedef unsigned __int64 ull;
+  typedef          int64_t ll;
+  typedef uint64_t ull;
   #define MAKELL(num) num ## i64
   #define FMT_64 "L"
 #else
@@ -55,18 +53,15 @@ typedef          int    int32;
 typedef   signed int    sint32;
 typedef unsigned int    uint32;
 #endif
-typedef ll              int64;
-typedef ll              sint64;
-typedef ull             uint64;
+typedef int64_t              int64;
+typedef int64_t              sint64;
+typedef uint64_t             uint64;
 
 // Partially defined types:
 #define _BYTE  uint8
 #define _WORD  uint16
 #define _DWORD uint32
 #define _QWORD uint64
-#if !defined(_MSC_VER)
-#define _LONGLONG __int128
-#endif
 
 #ifndef _WINDOWS_
 //typedef unsigned char BYTE;

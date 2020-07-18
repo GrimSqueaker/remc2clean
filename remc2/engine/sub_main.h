@@ -464,19 +464,19 @@ int sub_ACE8D(x_WORD *a1, int a2, int *a3);
 void sub_AD0E2(x_BYTE *a1, int a2, int *a3, x_BYTE **a4);
 void sub_ACF1A(x_BYTE *a1, int a2, int *a3);
 int _FDFS(void);// weak
-int sub_B33D6(unsigned __int64 a1, int a2, int a3, int a4);
+int sub_B33D6(uint64_t a1, int a2, int a3, int a4);
 //int _sigfpe_handler();// weak
 int sub_B337C(int a1, int a2, int a3);
 int sub_B37B0(int a1, int a2, int a3);
 int sub_B35DB(int a1, int a2, x_BYTE *a3, int a4);
-int sub_B39E0(__int64 a1, int a2, x_BYTE *a3);
+int sub_B39E0(int64_t a1, int a2, x_BYTE *a3);
 int sub_B41F9(int a1, x_BYTE *a2, int a3);
-int sub_B3ADF(__int64 *a1, x_BYTE *a2);
-int sub_B3605(unsigned __int64 a1, int a2, unsigned int a3, x_BYTE *a4, int a5);
-int sub_B37DA(unsigned __int64 a1, unsigned int a2, unsigned int a3, int a4);
+int sub_B3ADF(int64_t *a1, x_BYTE *a2);
+int sub_B3605(uint64_t a1, int a2, unsigned int a3, x_BYTE *a4, int a5);
+int sub_B37DA(uint64_t a1, unsigned int a2, unsigned int a3, int a4);
 int16_t /*__spoils<ecx>*/ sub_B3EAE(int a1, x_BYTE *a2, int a3);
 int sub_B4A2A(int *a1, int a2, int a3);
-int sub_B4077(__int64 a1, unsigned int a2, unsigned int a3, int16_t a4, int16_t a5);
+int sub_B4077(int64_t a1, unsigned int a2, unsigned int a3, int16_t a4, int16_t a5);
 int sub_B423C(int a1, x_BYTE *a2);
 void sub_B49D8(int a1, int a2);
 int _DOS4G_hook_init(void);// weak
@@ -486,7 +486,7 @@ int /*__cdecl*/ _Ergo_hook_init(x_DWORD, x_DWORD);// weak
 //int _DOS4G_hook_fini(void);// weak
 double sub_B5250(char a1, double *a2, double result);
 double sub_B5205(char a1, int a2, int16_t a3, double a4);
-__int64 sub_B522B(int a1, int16_t a2, int _ESI);
+int64_t sub_B522B(int a1, int16_t a2, int _ESI);
 //int _Intel_hook_fini(void);// weak
 //int _Phar_hook_fini(void);// weak
 //int /*__cdecl*/ _Ergo_hook_fini(x_DWORD);// weak

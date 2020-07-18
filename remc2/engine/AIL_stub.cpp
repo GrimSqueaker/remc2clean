@@ -799,7 +799,7 @@ char sub_A105C(unsigned int a1)//28205c
 
 	v1 = 0;
 	if (a1 < 0xD68D)
-		v1 = 10000 * (unsigned __int64)a1 / 0x20BC;
+		v1 = 10000 * (uint64_t)a1 / 0x20BC;
 	return sub_A102C(v1);
 }
 
@@ -2553,7 +2553,7 @@ void sub_A1870(int a1, unsigned int a2)//282870
 
 	sub_91BD0_s_plus();
 	if (a2)
-		v2 = 10000 * (unsigned __int64)a2 / 0x2E9C;
+		v2 = 10000 * (uint64_t)a2 / 0x2E9C;
 	else
 		v2 = 54925;
 	sub_92890_AIL_set_timer_period(a1, v2);
@@ -5173,7 +5173,7 @@ int sub_A6E00_sound_proc25(HMDIDRIVER a1, IO_PARMS* a2)//287e00
 //----- (000A6FB0) --------------------------------------------------------
 HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER* a1, IO_PARMS *a2)//287fb0
 {
-	__int64 v2; // rtt
+	int64_t v2; // rtt
 	unsigned int v3; // eax
 	IO_PARMS v5; // [esp+0h] [ebp-3Ch]
 	VDI_CALL v6; // [esp+18h] [ebp-24h]
@@ -6557,7 +6557,7 @@ int sub_B096C(int *a1)
 	int *v2; // ecx
 	x_DWORD *v3; // edi
 	signed int v4; // eax
-	unsigned __int64 v5; // rax
+	uint64_t v5; // rax
 	signed int v6; // eax
 	char *v7; // edx
 	unsigned int v8; // eax
@@ -6852,7 +6852,7 @@ int sub_9F280(int *a1)//a1 bude nejaky driver
 //----- (0009F2E0) --------------------------------------------------------
 VDI_CALL sub_9F2E0(int *a1, int a2, uint16_t a3, uint16_t a4)
 {
-	signed __int64 v4; // rax
+	int64_t v4; // rax
 	uint16_t v5; // ax
 	VDI_CALL v7; // [esp+0h] [ebp-10h]
 	int16_t v8; // [esp+4h] [ebp-Ch]
@@ -6883,16 +6883,16 @@ VDI_CALL sub_9F2E0(int *a1, int a2, uint16_t a3, uint16_t a4)
 }
 
 //----- (0009F3D0) --------------------------------------------------------
-__int64 sub_9F3D0(int *a1, int a2, uint16_t a3, uint16_t a4)
+int64_t sub_9F3D0(int *a1, int a2, uint16_t a3, uint16_t a4)
 {
-	signed __int64 v4; // rax
+	int64_t v4; // rax
 	uint16_t v5; // ax
 	int v6; // ebx
 	VDI_CALL v8; // [esp+0h] [ebp-14h]
 	int16_t v9; // [esp+4h] [ebp-10h]
 	int16_t v10; // [esp+6h] [ebp-Eh]
 	int16_t v11; // [esp+8h] [ebp-Ch]
-	__int64 v12; // [esp+Ch] [ebp-8h]
+	int64_t v12; // [esp+Ch] [ebp-8h]
 
 	if (*(x_DWORD *)x_BYTE_E3E54
 		|| *(x_WORD *)&x_BYTE_E3E54[4]
@@ -6931,7 +6931,7 @@ __int64 sub_9F3D0(int *a1, int a2, uint16_t a3, uint16_t a4)
 //----- (0009F4F0) --------------------------------------------------------
 VDI_CALL sub_9F4F0(int *a1, int a2, uint16_t a3, uint16_t a4)
 {
-	signed __int64 v4; // rax
+	int64_t v4; // rax
 	uint16_t v5; // ax
 	VDI_CALL result; // [esp+0h] [ebp-10h]
 	int16_t v8; // [esp+4h] [ebp-Ch]
@@ -6964,7 +6964,7 @@ VDI_CALL sub_9F4F0(int *a1, int a2, uint16_t a3, uint16_t a4)
 //----- (0009F5E0) --------------------------------------------------------
 VDI_CALL sub_9F5E0(int *a1, int a2, uint16_t a3, uint16_t a4)
 {
-	signed __int64 v4; // rax
+	int64_t v4; // rax
 	uint16_t v5; // ax
 	VDI_CALL result; // [esp+0h] [ebp-10h]
 	int16_t v8; // [esp+4h] [ebp-Ch]
@@ -7011,7 +7011,7 @@ VDI_CALL sub_9F6D0(int *a1, int16_t a2)
 }
 
 //----- (0009F110) --------------------------------------------------------
-signed __int64 sub_9F110(int a1)
+int64_t sub_9F110(int a1)
 {
 	int v2; // [esp+0h] [ebp-24h]
 	int v3; // [esp+4h] [ebp-20h]
