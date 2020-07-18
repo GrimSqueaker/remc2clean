@@ -429,23 +429,7 @@ void support_begin() {
     //printbuffer[0] = '\0';
     printbuffer2 = (char*)malloc(4096);
 	pre_x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(0x220000);
-	//x_DWORD_180628b_screen_buffer = (Bit8u*)malloc(320000);
 	x_DWORD_180628b_screen_buffer = &pre_x_DWORD_180628b_screen_buffer[0x110000];
-
-	/*for (int i = 0;i < 0x1c+0x60;i++)
-		off_D918C[i] = new Bit32u;*/
-	//2aa18c
-	//0 2bc394
-	//1
-	//2
-
-	/*xx dword_E9C30[0] = new Bit8u[4096];
-	for (int i = 0;i <4096;i++)
-		dword_E9C30[0][0] = 0;
-	dword_E9C30[2] = new Bit8u[4096];
-	dword_E9C30[4] = new Bit8u[4096];*/
-	//x_D41A0_BYTEARRAY_4_struct.player_name_57 =new char[256];
-	//x_D41A0_BYTEARRAY_4_struct.savestring_89 = new char[256];
 
 	x_BYTE_14B4E0 = new Bit8u[65536];
 	off_D41A8_sky = new Bit8u[65536];
@@ -1241,8 +1225,6 @@ void add_compare(Bit32u adress,bool debugafterload,int stopstep,bool skip) {
 
 				comp20 = compare_with_sequence_array_E2A74(buffer3, (Bit8u*)& str_E2A74, 0x2b3a74, index, 0xc4e, 0xc4e, &origbyte20, &remakebyte20);
 			}
-		//if(debugcounter_271478>5)
-		//comp20 = compare_with_sequence(buffer4, x_DWORD_180628b_screen_buffer, 0x3aa0a4, index, 320 * 200, 320 * 200, &origbyte20, &remakebyte20);
 		if (stopstep > -1)
 		{
 			comp20 = index;

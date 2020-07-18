@@ -113,15 +113,16 @@ enum class MC2CurrentTMapsFile {
     TMaps20,
 };
 
-enum class MC2Asset {
-    sprite0,
-};
-
 typedef struct {
-    MC2File mc2file;
-    int position;
-    int lengh;
-} MC2AssetInfo;
+    int    uncompressed_size;
+    int    pos_in_tmaps_dat;
+    int    id;
+    data_t data;
+} MC2TMapsEntry;
+
+//enum class MC2Asset {
+//    sprite0,
+//};
 
 // NOTE: fix all pstr[..] by using file_handling instead
 
@@ -134,7 +135,6 @@ Pathstruct xawscreen_351628 = { "*WScreen\0",&WSCREEN_BEGIN_BUFFER,&WSCREEN_END_
 Pathstruct xabscreen2 = { "*BScreen\0",&x_DWORD_E9C38_smalltit,&BSCREEN2_END_BUFFER,0x11170,NULL }; //0x011508
 Pathstruct xadatalang = { "",(Bit8u**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,NULL,NULL };
 Pathstruct xadatatables = { "",(Bit8u**)&x_DWORD_D41BC_langbuffer,&LANG_BEGIN_BUFFER,NULL,NULL };
-
 */
 
 // Class to handle all file accesses to orinial game data
@@ -147,15 +147,18 @@ public:
 
     void createDefaultSoundIni(path inifile);
 
-	path getExePath() {return m_exe_path; }
+	path getExePath() const {return m_exe_path; }
 
-    path getGamePath() { return m_game_path; }
+    path getGamePath() const { return m_game_path; }
     void setGamePath(const path& gamepath);
 
     void setCurrentTMapsFile(MC2CurrentTMapsFile file) { m_current_tmaps_file = file; };
-    MC2CurrentTMapsFile getCurrentTMapsFile() { return m_current_tmaps_file; };
-    MC2FileInfo& getCurrentTMapsFileDatInfo();
-    MC2FileInfo& getCurrentTMapsFileTabInfo();
+    MC2CurrentTMapsFile getCurrentTMapsFile() const { return m_current_tmaps_file; };
+    MC2File getTMapsDatFile(MC2CurrentTMapsFile tmap) const;
+    MC2FileInfo& getCurrentTMapsFileDatInfo() const;
+    MC2File getTMapsTabFile(MC2CurrentTMapsFile tmap) const;
+    MC2FileInfo& getCurrentTMapsFileTabInfo() const;
+    MC2TMapsEntry& getCurrentTMaps(int index) const { return m_tmaps[getCurrentTMapsFile()][index]; };
 
     const data_t& getFileData(MC2File file) {
         return m_mc2files.at(file).file_data;
@@ -171,10 +174,13 @@ public:
 private:
     void loadFileIntoBuffer(MC2File);
     void decompressFile(MC2File);
+    void prepareTMapsFile(MC2CurrentTMapsFile map);
 
     std::unordered_map<MC2File, MC2FileInfo> m_mc2files;
 
+    // tmaps
     MC2CurrentTMapsFile m_current_tmaps_file;
+    std::unordered_map<MC2CurrentTMapsFile, std::vector<MC2TMapsEntry>> m_tmaps;
 };
 
 

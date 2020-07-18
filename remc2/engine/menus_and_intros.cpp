@@ -508,12 +508,11 @@ void sub_82670()//263670
 		//LOWORD(v1) = (uint16)x_D41A0_BYTEARRAY_4;
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10))
 		{
-			Bit8u* v2 = x_D41A0_BYTEARRAY_4_struct.heapbuffer.data();
 			x_BYTE_D41C1 = 0;
-			x_DWORD_17DE38str.x_DWORD_17DE48c = v2;
-			x_DWORD_17DE38str.x_DWORD_17DE54 = v2 + 301787;
-			x_DWORD_17DE38str.x_DWORD_17DEC0 = v2 + 308527;
-			x_DWORD_17DE38str.x_DWORD_17DEC4 = v2 + 310159;
+			x_DWORD_17DE38str.x_DWORD_17DE48c = x_D41A0_BYTEARRAY_4_struct.heapbuffer.data();
+			x_DWORD_17DE38str.x_DWORD_17DE54 = &x_D41A0_BYTEARRAY_4_struct.heapbuffer[301787];
+			x_DWORD_17DE38str.x_DWORD_17DEC0 = &x_D41A0_BYTEARRAY_4_struct.heapbuffer[308527];
+			x_DWORD_17DE38str.x_DWORD_17DEC4 = &x_D41A0_BYTEARRAY_4_struct.heapbuffer[310159];
 			sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), (Bit8u*)x_DWORD_17DE38str.x_DWORD_17DE54, 0x164FCD, 860);
 			sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), (Bit8u*)x_DWORD_17DE38str.x_DWORD_17DEC0, 0x165329, 548);
 			sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);

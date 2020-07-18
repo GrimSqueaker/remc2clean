@@ -126,7 +126,6 @@ void loadlevel(int levelnumber) {
 
 void editor_run()
 {	
-	//Bit8u* back_x_DWORD_180628b_screen_buffer=x_DWORD_180628b_screen_buffer;
 	sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
 	x_WORD_180660_VGA_type_resolution = 1;
 	x_WORD_E29DA_type_resolution = 1;
@@ -149,11 +148,8 @@ void editor_run()
 	//terrain_recalculate();
 
 	main_x(/*int argc, char** argv*/);
-	//x_DWORD_180628b_screen_buffer= back_x_DWORD_180628b_screen_buffer;
 	
 	sub_47320_in_game_loop(0);//run game	
-
-	//restore D41A0_BYTESTR_0
 }
 
 void terrain_recalculate() {

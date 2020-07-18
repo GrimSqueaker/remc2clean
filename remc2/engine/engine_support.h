@@ -426,14 +426,15 @@ typedef struct {//lenght 2124=0x84C
 typedef struct {//size 26
 	Bit32s dword_0;
 	Bit32s dword_4;
-	Bit8u* dword_8_data;
-	Bit32u* dword_12x;//Bit32u*
-	Bit32u* dword_16x;//Bit32u*
+	Bit8u* dword_8_data;  // points to data[], data is indexed in 14-byte steps
+	Bit32u* dword_12x;
+	Bit32u* dword_16x;
 	Bit16s word_20;
-	Bit16s word_22;
+	Bit16s word_22;       // stores number of entries in dword_8_data
 	Bit16s word_24;
 	Bit8u data[];
 } type_x_DWORD_E9C28_str;
+
 
 typedef struct {
 	Bit32u dwordindex_0;//x_D41A0_BYTEARRAY_4_struct.dwordindex_0

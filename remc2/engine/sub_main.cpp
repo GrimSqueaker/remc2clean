@@ -2464,12 +2464,15 @@ int sub_71930();
 void sub_71990();
 void sub_71A70_setTmaps(unsigned __int8 a1);
 void sub_71AB0(__int16 a1, char a2);
+
+// FIXME: trying to remove type_x_DWORD_E9C28_str and replace by 64-bit-safe alternative using decompressed tmaps from file_handling
 type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C28_str* a3);
 signed int sub_71CD0(const type_x_DWORD_E9C28_str &a1);
 int sub_71E60(type_x_DWORD_E9C28_str* a1);
 Bit8u* sub_71E70(type_x_DWORD_E9C28_str &a1, unsigned int a2, __int16 a3);
-__int16 sub_71F20(type_x_DWORD_E9C28_str* a1, int a2);
+__int16 sub_71F20(type_x_DWORD_E9C28_str* a1, Bit8u* a2);
 void sub_720C0(type_x_DWORD_E9C28_str** a1);
+
 type_E9C08* sub_72120(unsigned __int16 a1);
 type_animations1* sub_721C0_initTmap(type_E9C08* a1, int *a2, __int16 a3);
 void sub_72350(type_animations1* a1);
@@ -3158,7 +3161,7 @@ void /*__spoils<ecx>*/ sub_BD1B6(int a1);
 void /*__spoils<ecx>*/ sub_BD2CB(int a1);
 void sub_BD3DD();
 void sub_BD524(__int16 a1, __int16 a2, __int16 a3, __int16 a4,char a5);
-void /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4, char a5);
+void sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4, char a5);
 void sub_67960(/*type_str_0x6E8E* a1x,*/ type_str_0x6E8E* a2x);
 
 //-------------------------------------------------------------------------
@@ -10905,7 +10908,9 @@ int x_DWORD_E9C1C; // weak
 int x_DWORD_E9C20; // weak
 int x_DWORD_E9C24_fps; // weak
 
+// FIXME: trying to remove x_DWORD_E9C28_str
 type_x_DWORD_E9C28_str* x_DWORD_E9C28_str;
+
 Bit8u* x_DWORD_E9C28x; // weak
 
 Bit8u* pre_x_DWORD_E9C3C;
@@ -10969,7 +10974,7 @@ typedef struct {
 	Bit32s dword0x17;
 	Bit32s dword0x18;
 	Bit32s dword0x19;
-	Bit32s dword0x1a;
+	Bit32s* dword0x1a;
 	Bit32s dword0x1b;
 	Bit32s dword0x1c;
 	Bit32s dword0x1d;
@@ -11008,8 +11013,8 @@ __int16 x_WORD_F4FE0[0x1a8]; // fix it -  weak
 std::array<char, 504> x_BYTE_F5340;
 std::array<Bit8u, 504> x_BYTE_F5538;
 
-std::array<int, 504> x_DWORD_F5730;
-std::array<int, 504> x_DWORD_F5F10;
+std::array<int, 504> x_DWORD_F5730; // related to tmaps00tab
+std::array<Bit8u*, 504> x_DWORD_F5F10;
 std::array<Bit32u*, 504> x_DWORD_F66F0x;
 
 Bit8u x_BYTE_F6EE0_tablesx[0x14600];// (Bit8u*)&x_BYTE_F6EE0_tablesbuff;//animated sprites
@@ -43334,7 +43339,7 @@ x_DWORD *sub_3B560_set_billboards(__int16 a1)//21c560
 	__int16 v39; // bx
 	signed int v40; // ecx
 	int v41; // edx
-	int v42; // edx
+	Bit32s* v42; // edx
 	x_DWORD *v43; // edi
 	signed int *v44; // esi
 	int v45; // eax
@@ -43448,7 +43453,7 @@ x_DWORD *sub_3B560_set_billboards(__int16 a1)//21c560
 		str_F2C20ar.dword0x25 = (unsigned __int16)x_DWORD_DE568;
 		str_F2C20ar.dword0x26 = (unsigned __int16)x_DWORD_DE564;
 		str_F2C20ar.dword0x1c = (unsigned __int16)x_DWORD_DE568 + (unsigned __int16)x_DWORD_DE564;
-		str_F2C20ar.dword0x1a = (int)(4 * (v7 - 1) + &x_DWORD_E9C38_smalltit[59360]);
+		str_F2C20ar.dword0x1a = (Bit32s*)(&x_DWORD_E9C38_smalltit[59360] + 4 * v7 - 4);
 		v9 = x_DWORD_DE560_ScreenWidth;
 		str_F2C20ar.dword0x19 = (unsigned __int16)x_DWORD_DE568 - v7;
 		goto LABEL_66;
@@ -43516,7 +43521,7 @@ x_DWORD *sub_3B560_set_billboards(__int16 a1)//21c560
 		str_F2C20ar.dword0x25 = (unsigned __int16)x_DWORD_DE564;
 		str_F2C20ar.dword0x26 = (unsigned __int16)x_DWORD_DE568;
 		str_F2C20ar.dword0x1c = (unsigned __int16)x_DWORD_DE568 + (unsigned __int16)x_DWORD_DE564;
-		str_F2C20ar.dword0x1a = (int)(4 * (-1 - str_F2C20ar.dword0x21) + &x_DWORD_E9C38_smalltit[59360]);
+		str_F2C20ar.dword0x1a = (Bit32s*)(&x_DWORD_E9C38_smalltit[59360] - 4*str_F2C20ar.dword0x21 - 4);
 		v9 = -1;
 		str_F2C20ar.dword0x19 = (unsigned __int16)x_DWORD_DE564 + str_F2C20ar.dword0x21;
 		goto LABEL_66;
@@ -43562,7 +43567,7 @@ x_DWORD *sub_3B560_set_billboards(__int16 a1)//21c560
 		str_F2C20ar.dword0x26 = (unsigned __int16)x_DWORD_DE568;
 		str_F2C20ar.dword0x23 = -1;
 		str_F2C20ar.dword0x19 = (unsigned __int16)x_DWORD_DE564 - v28;
-		str_F2C20ar.dword0x1a = (int)(4 * (v28 - 1) + &x_DWORD_E9C38_smalltit[59360]);
+		str_F2C20ar.dword0x1a = (Bit32s*)(&x_DWORD_E9C38_smalltit[59360] + 4 * v28 - 4);
 		v95 = (unsigned __int16)x_DWORD_DE568 - 1;
 		result = (x_DWORD*)unk_F0E20x;
 		if (v95 < 0)
@@ -43633,7 +43638,7 @@ x_DWORD *sub_3B560_set_billboards(__int16 a1)//21c560
 		str_F2C20ar.dword0x25 = (unsigned __int16)x_DWORD_DE568;
 		str_F2C20ar.dword0x26 = (unsigned __int16)x_DWORD_DE564;
 		str_F2C20ar.dword0x1c = (unsigned __int16)x_DWORD_DE568 + (unsigned __int16)x_DWORD_DE564;
-		v42 = (int)(4 * (-1 - str_F2C20ar.dword0x21) + &x_DWORD_E9C38_smalltit[59360]);
+		v42 = (Bit32s*)(&x_DWORD_E9C38_smalltit[59360] - 4*str_F2C20ar.dword0x21 - 4);
 		str_F2C20ar.dword0x19 = (unsigned __int16)x_DWORD_DE568 + str_F2C20ar.dword0x21;
 		v9 = -x_DWORD_DE560_ScreenWidth;
 		goto LABEL_65;
@@ -43678,7 +43683,7 @@ x_DWORD *sub_3B560_set_billboards(__int16 a1)//21c560
 		str_F2C20ar.dword0x25 = (unsigned __int16)x_DWORD_DE568;
 		str_F2C20ar.dword0x26 = (unsigned __int16)x_DWORD_DE564;
 		str_F2C20ar.dword0x1c = (unsigned __int16)x_DWORD_DE568 + (unsigned __int16)x_DWORD_DE564;
-		v42 = (int)(4 * (-1 - v49) + &x_DWORD_E9C38_smalltit[59360]);
+		v42 = (Bit32s*)(&x_DWORD_E9C38_smalltit[59360] - 4*v49 - 4);
 		str_F2C20ar.dword0x19 = v50;
 		v9 = -x_DWORD_DE560_ScreenWidth;
 		goto LABEL_65;
@@ -43748,7 +43753,7 @@ x_DWORD *sub_3B560_set_billboards(__int16 a1)//21c560
 		str_F2C20ar.dword0x1c = (unsigned __int16)x_DWORD_DE568 + (unsigned __int16)x_DWORD_DE564;
 		str_F2C20ar.dword0x23 = 1;
 		str_F2C20ar.dword0x19 = (unsigned __int16)x_DWORD_DE564 + str_F2C20ar.dword0x21;
-		str_F2C20ar.dword0x1a = (int)(4 * (-1 - str_F2C20ar.dword0x21) + &x_DWORD_E9C38_smalltit[59360]);
+		str_F2C20ar.dword0x1a = (Bit32s*)(&x_DWORD_E9C38_smalltit[59360] - 4*str_F2C20ar.dword0x21 - 4);
 		v95 = (unsigned __int16)x_DWORD_DE568 - 1;
 		result = (x_DWORD*)unk_F0E20x;
 		if (v95 < 0)
@@ -43795,7 +43800,7 @@ x_DWORD *sub_3B560_set_billboards(__int16 a1)//21c560
 		str_F2C20ar.dword0x1c = (unsigned __int16)x_DWORD_DE568 + (unsigned __int16)x_DWORD_DE564;
 		str_F2C20ar.dword0x26 = (unsigned __int16)x_DWORD_DE568;
 		str_F2C20ar.dword0x23 = 1;
-		str_F2C20ar.dword0x1a = (int)(4 * (v68 - 1) + &x_DWORD_E9C38_smalltit[59360]);
+		str_F2C20ar.dword0x1a = (Bit32s*)(&x_DWORD_E9C38_smalltit[59360] + 4*v68 - 4);
 		v95 = (unsigned __int16)x_DWORD_DE568 - 1;
 		result = (x_DWORD*)unk_F0E20x;
 		if (v95 < 0)
@@ -43869,7 +43874,7 @@ x_DWORD *sub_3B560_set_billboards(__int16 a1)//21c560
 		str_F2C20ar.dword0x26 = (unsigned __int16)x_DWORD_DE564;
 		str_F2C20ar.dword0x1c = (unsigned __int16)x_DWORD_DE568 + (unsigned __int16)x_DWORD_DE564;
 		str_F2C20ar.dword0x19 = (unsigned __int16)x_DWORD_DE568 + str_F2C20ar.dword0x21;
-		v42 = (int)(4 * (-1 - str_F2C20ar.dword0x21) + &x_DWORD_E9C38_smalltit[59360]);
+		v42 = (Bit32s*)(&x_DWORD_E9C38_smalltit[59360] - 4*str_F2C20ar.dword0x21 - 4);
 		v9 = x_DWORD_DE560_ScreenWidth;
 	LABEL_65:
 		str_F2C20ar.dword0x1a = v42;
@@ -47582,13 +47587,13 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 									v12 = (unsigned __int16)*v7;
 									v13 = 4 * v12;
 								}
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v12 + v13) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v12 + v13) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = (type_particle_str*)*(x_DWORD *)x_DWORD_F66F0x[(unsigned __int16)*v7];
 								goto LABEL_51;
 							case 1:
 								if (!x_DWORD_F66F0x[(unsigned __int16)*v7] && !sub_71520_mainInitTmaps(*v7))
 									goto LABEL_178;
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)*v7 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)*v7 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v7];
 								goto LABEL_51;
 							case 2:
@@ -47623,7 +47628,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 										//v26 = (int)x_D41A0_BYTEARRAY_4;
 										v27 = *(x_WORD *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v25 + (unsigned __int16)*v7) + 8);
 									}
-									x_DWORD_F5730[v27] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									x_DWORD_F5730.at(v27) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									a1y = (type_particle_str*)*x_DWORD_F66F0x[v25 + (unsigned __int16)*v7];
 									goto LABEL_51;
 								}
@@ -47639,7 +47644,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 									//v29 = (int)x_D41A0_BYTEARRAY_4;
 									v30 = *(x_WORD *)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)*v7 + 15 - v25) + 8);
 								}
-								x_DWORD_F5730[v30] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(v30) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v7 + 15 - v25];
 								str_F2C20ar.dword0x08_width = a1y->word_2;
 								str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -47663,7 +47668,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 									//v34 = (int)x_D41A0_BYTEARRAY_4;
 									v35 = *(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v32 + (unsigned __int16)*v7) + 8);
 								}
-								x_DWORD_F5730[v35] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(v35) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[v32 + (unsigned __int16)*v7];
 								str_F2C20ar.dword0x08_width = a1y->word_2;
 								str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -47680,15 +47685,15 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 									v23 = v22 + (unsigned __int16)*v7;
 									if (x_DWORD_F66F0x[v23])
 									{
-										x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v23 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+										x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v23 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									else
 									{
 										if (!sub_71520_mainInitTmaps(*v7 + (unsigned __int8)v22))
 											goto LABEL_178;
-										x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
+										x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
 											+ 10 * ((unsigned __int16)*v7 + (unsigned __int8)x_BYTE_D4750[0xc + v18])
-											+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+											+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v7 + (unsigned __int8)x_BYTE_D4750[0xc + v18]];
 									str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -47703,15 +47708,15 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 									v19 = (unsigned __int8)x_BYTE_D4750[0xc + v18] + (unsigned __int16)*v7;
 									if (x_DWORD_F66F0x[v19])
 									{
-										x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v19 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+										x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v19 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									else
 									{
 										if (!sub_71520_mainInitTmaps(*v7 + (unsigned __int8)x_BYTE_D4750[0xc + v18]))
 											goto LABEL_178;
-										x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
+										x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
 											+ 10 * ((unsigned __int16)*v7 + (unsigned __int8)x_BYTE_D4750[0xc + v18])
-											+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+											+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v7 + (unsigned __int8)x_BYTE_D4750[0xc + v18]];
 									str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -47733,7 +47738,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 											goto LABEL_178;
 										v41 = (unsigned __int8)x_BYTE_D4750[0x1c + v37] + (unsigned __int16)*v7;
 									}
-									x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v41 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v41 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v7 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]];
 									str_F2C20ar.dword0x08_width = a1y->word_2;
 									str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -47748,15 +47753,15 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 									v39 = v38 + (unsigned __int16)*v7;
 									if (x_DWORD_F66F0x[v39])
 									{
-										x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v39 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+										x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v39 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									else
 									{
 										if (!sub_71520_mainInitTmaps(*v7 + (unsigned __int8)v38))
 											goto LABEL_178;
-										x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
+										x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
 											+ 10 * ((unsigned __int16)*v7 + (unsigned __int8)x_BYTE_D4750[0x1c + v37])
-											+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+											+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v7 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]];
 									str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -47781,7 +47786,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 									v15 = (unsigned __int16)*v7;
 									v16 = 4 * v15;
 								}
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v15 + v16) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v15 + v16) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v7];
 								goto LABEL_51;
 							case 22:
@@ -47804,16 +47809,16 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 								v17 = (unsigned __int16)*v7 + str_F2C20ar.dword0x14x->byte_0x5C_92;
 								if (x_DWORD_F66F0x[v17])
 								{
-									x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v17 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v17 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								}
 								else
 								{
 									if (!sub_71520_mainInitTmaps(*v7 + str_F2C20ar.dword0x14x->byte_0x5C_92))
 										goto LABEL_178;
-									x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
+									x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
 										+ 10
 										* ((unsigned __int16)*v7 + str_F2C20ar.dword0x14x->byte_0x5C_92)
-										+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+										+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								}
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v7 + str_F2C20ar.dword0x14x->byte_0x5C_92];
 							LABEL_51:
@@ -47932,7 +47937,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 						v57 = (unsigned __int16)*v52;
 						v58 = 4 * v57;
 					LABEL_105:
-						x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v57 + v58) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v57 + v58) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v52];
 						goto LABEL_141;
 					}
@@ -47940,13 +47945,13 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 				case 1:
 					if (x_DWORD_F66F0x[(unsigned __int16)*v52])
 					{
-						x_DWORD_F5730[*(unsigned __int16 *)(10 * (unsigned __int16)*v52 + TMAPS00TAB_BEGIN_BUFFER + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(10 * (unsigned __int16)*v52 + TMAPS00TAB_BEGIN_BUFFER + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					else
 					{
 						if (!sub_71520_mainInitTmaps(*v52))
 							break;
-						x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)*v52 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)*v52 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v52];
 					goto LABEL_141;
@@ -47985,20 +47990,20 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 							//v74 = (int)x_D41A0_BYTEARRAY_4;
 							v75 = *(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v72 + (unsigned __int16)*v52) + 8);
 						}
-						x_DWORD_F5730[v75] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(v75) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v52 + v72];
 						goto LABEL_141;
 					}
 					v77 = (unsigned __int16)*v52 + 15 - v72;
 					if (x_DWORD_F66F0x[v77])
 					{
-						x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v77 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v77 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					else
 					{
 						if (!sub_71520_mainInitTmaps(*v52 + 15 - v72))
 							break;
-						x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)*v52 + 15 - v72) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)*v52 + 15 - v72) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v52 + 15 - v72];
 					str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -48013,13 +48018,13 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 					v80 = v79 + (unsigned __int16)*v52;
 					if (x_DWORD_F66F0x[v80])
 					{
-						x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v80 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v80 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					else
 					{
 						if (!sub_71520_mainInitTmaps(v79 + *v52))
 							break;
-						x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v79 + (unsigned __int16)*v52) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v79 + (unsigned __int16)*v52) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = (type_particle_str*)*x_DWORD_F66F0x[v79 + (unsigned __int16)*v52];
 					str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -48048,7 +48053,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 								+ 10 * ((unsigned __int16)*v52 + (unsigned __int8)x_BYTE_D4750[0xc + v62])
 								+ 8);
 						}
-						x_DWORD_F5730[v70] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(v70) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v52 + (unsigned __int8)x_BYTE_D4750[0xc + v62]];
 						str_F2C20ar.dword0x08_width = a1y->word_2;
 						str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -48072,7 +48077,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 							//v64 = (int)x_D41A0_BYTEARRAY_4;
 							v65 = *(x_WORD *)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int8)x_BYTE_D4750[0xc + v62] + (unsigned __int16)*v52) + 8);
 						}
-						x_DWORD_F5730[v65] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(v65) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v52 + (unsigned __int8)x_BYTE_D4750[0xc + v62]];
 						str_F2C20ar.dword0x08_width = a1y->word_2;
 						str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -48099,7 +48104,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 							//v87 = (int)x_D41A0_BYTEARRAY_4;
 							v88 = *(x_WORD *)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)*v52 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]) + 8);
 						}
-						x_DWORD_F5730[v88] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(v88) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v52 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]];
 						str_F2C20ar.dword0x08_width = a1y->word_2;
 						str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -48114,15 +48119,15 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 						v84 = v83 + (unsigned __int16)*v52;
 						if (x_DWORD_F66F0x[v84])
 						{
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v84 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v84 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						else
 						{
 							if (!sub_71520_mainInitTmaps(*v52 + (unsigned __int8)v83))
 								break;
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
 								+ 10 * ((unsigned __int16)*v52 + (unsigned __int8)x_BYTE_D4750[0x1c + v82])
-								+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v52 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]];
 						str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -48137,13 +48142,13 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 					v59 = (unsigned __int16)*v52;
 					if (x_DWORD_F66F0x[v59])
 					{
-						x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v59 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v59 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					else
 					{
 						if (!sub_71520_mainInitTmaps(v59))
 							break;
-						x_DWORD_F5730[*(unsigned __int16 *)(10 * (unsigned __int16)*v52 + TMAPS00TAB_BEGIN_BUFFER + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(10 * (unsigned __int16)*v52 + TMAPS00TAB_BEGIN_BUFFER + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v52];
 					x_BYTE_F2CC6 = 1;
@@ -48169,15 +48174,15 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 					v61 = (unsigned __int16)*v52 + str_F2C20ar.dword0x14x->byte_0x5C_92;
 					if (x_DWORD_F66F0x[v61])
 					{
-						x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v61 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v61 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					else
 					{
 						if (!sub_71520_mainInitTmaps(*v52 + str_F2C20ar.dword0x14x->byte_0x5C_92))
 							break;
-						x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
+						x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
 							+ 10 * ((unsigned __int16)*v52 + str_F2C20ar.dword0x14x->byte_0x5C_92)
-							+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v52 + str_F2C20ar.dword0x14x->byte_0x5C_92];
 				LABEL_141:
@@ -48408,13 +48413,13 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 									v12 = (unsigned __int16)* v7;
 									v13 = 4 * v12;
 								}
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v12 + v13) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v12 + v13) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)*v7];
 								goto LABEL_51;
 							case 1:
 								if (!x_DWORD_F66F0x[(unsigned __int16)* v7] && !sub_71520_mainInitTmaps(*v7))
 									goto LABEL_178;
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)* v7 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)* v7 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v7];
 								goto LABEL_51;
 							case 2:
@@ -48449,7 +48454,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 										//v26 = (int)x_D41A0_BYTEARRAY_4;
 										v27 = *(x_WORD*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v25 + (unsigned __int16)* v7) + 8);
 									}
-									x_DWORD_F5730[v27] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									x_DWORD_F5730.at(v27) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									a1y = (type_particle_str*)*x_DWORD_F66F0x[v25 + (unsigned __int16)* v7];
 									goto LABEL_51;
 								}
@@ -48465,7 +48470,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 									//v29 = (int)x_D41A0_BYTEARRAY_4;
 									v30 = *(x_WORD*)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)* v7 + 15 - v25) + 8);
 								}
-								x_DWORD_F5730[v30] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(v30) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v7 + 15 - v25];
 								str_F2C20ar.dword0x08_width = a1y->word_2;
 								str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -48489,7 +48494,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 									//v34 = (int)x_D41A0_BYTEARRAY_4;
 									v35 = *(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v32 + (unsigned __int16)* v7) + 8);
 								}
-								x_DWORD_F5730[v35] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(v35) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[v32 + (unsigned __int16)* v7];
 								str_F2C20ar.dword0x08_width = a1y->word_2;
 								str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -48506,15 +48511,15 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 									v23 = v22 + (unsigned __int16)* v7;
 									if (x_DWORD_F66F0x[v23])
 									{
-										x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v23 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+										x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v23 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									else
 									{
 										if (!sub_71520_mainInitTmaps(*v7 + (unsigned __int8)v22))
 											goto LABEL_178;
-										x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
+										x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
 											+ 10 * ((unsigned __int16)* v7 + (unsigned __int8)x_BYTE_D4750[0xc + v18])
-											+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+											+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v7 + (unsigned __int8)x_BYTE_D4750[0xc + v18]];
 									str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -48529,15 +48534,15 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 									v19 = (unsigned __int8)x_BYTE_D4750[0xc + v18] + (unsigned __int16)* v7;
 									if (x_DWORD_F66F0x[v19])
 									{
-										x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v19 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+										x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v19 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									else
 									{
 										if (!sub_71520_mainInitTmaps(*v7 + (unsigned __int8)x_BYTE_D4750[0xc + v18]))
 											goto LABEL_178;
-										x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
+										x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
 											+ 10 * ((unsigned __int16)* v7 + (unsigned __int8)x_BYTE_D4750[0xc + v18])
-											+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+											+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v7 + (unsigned __int8)x_BYTE_D4750[0xc + v18]];
 									str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -48559,7 +48564,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 											goto LABEL_178;
 										v41 = (unsigned __int8)x_BYTE_D4750[0x1c + v37] + (unsigned __int16)* v7;
 									}
-									x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v41 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v41 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v7 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]];
 									str_F2C20ar.dword0x08_width = a1y->word_2;
 									str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -48574,15 +48579,15 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 									v39 = v38 + (unsigned __int16)* v7;
 									if (x_DWORD_F66F0x[v39])
 									{
-										x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v39 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+										x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v39 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									else
 									{
 										if (!sub_71520_mainInitTmaps(*v7 + (unsigned __int8)v38))
 											goto LABEL_178;
-										x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
+										x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
 											+ 10 * ((unsigned __int16)* v7 + (unsigned __int8)x_BYTE_D4750[0x1c + v37])
-											+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+											+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 									}
 									a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v7 + (unsigned __int8)x_BYTE_D4750[0x1c + v37]];
 									str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -48607,7 +48612,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 									v15 = (unsigned __int16)* v7;
 									v16 = 4 * v15;
 								}
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v15 + v16) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v15 + v16) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v7];
 								goto LABEL_51;
 							case 22:
@@ -48630,16 +48635,16 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 								v17 = (unsigned __int16)* v7 + str_F2C20ar.dword0x14x->byte_0x5C_92;
 								if (x_DWORD_F66F0x[v17])
 								{
-									x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v17 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v17 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								}
 								else
 								{
 									if (!sub_71520_mainInitTmaps(*v7 + str_F2C20ar.dword0x14x->byte_0x5C_92))
 										goto LABEL_178;
-									x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
+									x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
 										+ 10
 										* ((unsigned __int16)* v7 + str_F2C20ar.dword0x14x->byte_0x5C_92)
-										+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+										+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 								}
 								a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v7 + str_F2C20ar.dword0x14x->byte_0x5C_92];
 							LABEL_51:
@@ -48758,7 +48763,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 						v57 = (unsigned __int16)* v52;
 						v58 = 4 * v57;
 					LABEL_105:
-						x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v57 + v58) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v57 + v58) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v52];
 						goto LABEL_141;
 					}
@@ -48766,13 +48771,13 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 				case 1:
 					if (x_DWORD_F66F0x[(unsigned __int16)* v52])
 					{
-						x_DWORD_F5730[*(unsigned __int16*)(10 * (unsigned __int16)* v52 + TMAPS00TAB_BEGIN_BUFFER + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(10 * (unsigned __int16)* v52 + TMAPS00TAB_BEGIN_BUFFER + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					else
 					{
 						if (!sub_71520_mainInitTmaps(*v52))
 							break;
-						x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)* v52 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)* v52 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v52];
 					goto LABEL_141;
@@ -48811,20 +48816,20 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 							//v74 = (int)x_D41A0_BYTEARRAY_4;
 							v75 = *(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v72 + (unsigned __int16)* v52) + 8);
 						}
-						x_DWORD_F5730[v75] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(v75) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v52 + v72];
 						goto LABEL_141;
 					}
 					v77 = (unsigned __int16)* v52 + 15 - v72;
 					if (x_DWORD_F66F0x[v77])
 					{
-						x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v77 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v77 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					else
 					{
 						if (!sub_71520_mainInitTmaps(*v52 + 15 - v72))
 							break;
-						x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)* v52 + 15 - v72) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)* v52 + 15 - v72) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v52 + 15 - v72];
 					str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -48839,13 +48844,13 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 					v80 = v79 + (unsigned __int16)* v52;
 					if (x_DWORD_F66F0x[v80])
 					{
-						x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v80 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v80 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					else
 					{
 						if (!sub_71520_mainInitTmaps(v79 + *v52))
 							break;
-						x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v79 + (unsigned __int16)* v52) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v79 + (unsigned __int16)* v52) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = (type_particle_str*)*x_DWORD_F66F0x[v79 + (unsigned __int16)* v52];
 					str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -48874,7 +48879,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 								+ 10 * ((unsigned __int16)* v52 + (unsigned __int8)x_BYTE_D4750[0xc + v62])
 								+ 8);
 						}
-						x_DWORD_F5730[v70] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(v70) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v52 + (unsigned __int8)x_BYTE_D4750[0xc + v62]];
 						str_F2C20ar.dword0x08_width = a1y->word_2;
 						str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -48898,7 +48903,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 							//v64 = (int)x_D41A0_BYTEARRAY_4;
 							v65 = *(x_WORD*)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int8)x_BYTE_D4750[0xc + v62] + (unsigned __int16)* v52) + 8);
 						}
-						x_DWORD_F5730[v65] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(v65) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v52 + (unsigned __int8)x_BYTE_D4750[0xc + v62]];
 						str_F2C20ar.dword0x08_width = a1y->word_2;
 						str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -48925,7 +48930,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 							//v87 = (int)x_D41A0_BYTEARRAY_4;
 							v88 = *(x_WORD*)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)* v52 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]) + 8);
 						}
-						x_DWORD_F5730[v88] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(v88) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v52 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]];
 						str_F2C20ar.dword0x08_width = a1y->word_2;
 						str_F2C20ar.dword0x06_height = a1y->word_4;
@@ -48940,15 +48945,15 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 						v84 = v83 + (unsigned __int16)* v52;
 						if (x_DWORD_F66F0x[v84])
 						{
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v84 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v84 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						else
 						{
 							if (!sub_71520_mainInitTmaps(*v52 + (unsigned __int8)v83))
 								break;
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
 								+ 10 * ((unsigned __int16)* v52 + (unsigned __int8)x_BYTE_D4750[0x1c + v82])
-								+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v52 + (unsigned __int8)x_BYTE_D4750[0x1c + v82]];
 						str_F2C20ar.dword0x08_width = a1y->word_2;
@@ -48963,13 +48968,13 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 					v59 = (unsigned __int16)* v52;
 					if (x_DWORD_F66F0x[v59])
 					{
-						x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v59 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v59 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					else
 					{
 						if (!sub_71520_mainInitTmaps(v59))
 							break;
-						x_DWORD_F5730[*(unsigned __int16*)(10 * (unsigned __int16)* v52 + TMAPS00TAB_BEGIN_BUFFER + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(10 * (unsigned __int16)* v52 + TMAPS00TAB_BEGIN_BUFFER + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y= (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v52];
 					x_BYTE_F2CC6 = 1;
@@ -48995,15 +49000,15 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 					v61 = (unsigned __int16)* v52 + str_F2C20ar.dword0x14x->byte_0x5C_92;
 					if (x_DWORD_F66F0x[v61])
 					{
-						x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v61 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v61 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					else
 					{
 						if (!sub_71520_mainInitTmaps(*v52 + str_F2C20ar.dword0x14x->byte_0x5C_92))
 							break;
-						x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
+						x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
 							+ 10 * ((unsigned __int16)* v52 + str_F2C20ar.dword0x14x->byte_0x5C_92)
-							+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 					}
 					a1y = (type_particle_str*)*x_DWORD_F66F0x[(unsigned __int16)* v52 + str_F2C20ar.dword0x14x->byte_0x5C_92];
 				LABEL_141:
@@ -49180,7 +49185,7 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 							v14 = (unsigned __int16)*v9;
 							v15 = 4 * v14;
 						LABEL_16:
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v14 + v15) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v14 + v15) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							a1 = *x_DWORD_F66F0x[(unsigned __int16)*v9];
 							goto LABEL_47;
 						}
@@ -49188,7 +49193,7 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 					case 1:
 						if (!x_DWORD_F66F0x[(unsigned __int16)*v9] && !sub_71520_mainInitTmaps(*v9))
 							break;
-						x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)*v9 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)*v9 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1 = *x_DWORD_F66F0x[(unsigned __int16)*v9];
 						goto LABEL_47;
 					case 2:
@@ -49213,26 +49218,26 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 						{
 							if (x_DWORD_F66F0x[v26 + (unsigned __int16)*v9])
 							{
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v26 + (unsigned __int16)*v9) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v26 + (unsigned __int16)*v9) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							else
 							{
 								if (!sub_71520_mainInitTmaps(v26 + *v9))
 									break;
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v26 + (unsigned __int16)*v9) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v26 + (unsigned __int16)*v9) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1 = *x_DWORD_F66F0x[v26 + (unsigned __int16)*v9];
 							goto LABEL_47;
 						}
 						if (x_DWORD_F66F0x[(unsigned __int16)*v9 + 15 - v26])
 						{
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)*v9 + 15 - v26) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)*v9 + 15 - v26) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						else
 						{
 							if (!sub_71520_mainInitTmaps(*v9 + 15 - v26))
 								break;
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)*v9 + 15 - v26) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)*v9 + 15 - v26) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1 = *x_DWORD_F66F0x[(unsigned __int16)*v9 + 15 - v26];
 						str_F2C20ar.dword0x08_width = *(unsigned __int16 *)(a1 + 2);
@@ -49247,13 +49252,13 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 						v30 = v29 + (unsigned __int16)*v9;
 						if (x_DWORD_F66F0x[v30])
 						{
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v30 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v30 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						else
 						{
 							if (!sub_71520_mainInitTmaps(v29 + *v9))
 								break;
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v29 + (unsigned __int16)*v9) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v29 + (unsigned __int16)*v9) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1 = *x_DWORD_F66F0x[(unsigned __int16)*v9 + v29];
 						str_F2C20ar.dword0x08_width = *(unsigned __int16 *)(a1 + 2);
@@ -49274,7 +49279,7 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 									break;
 								v24 = (unsigned __int16)*v9 + (unsigned __int8)x_BYTE_D4750[0xc + v19];
 							}
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v24 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v24 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							a1 = *x_DWORD_F66F0x[(unsigned __int16)*v9 + (unsigned __int8)x_BYTE_D4750[0xc + v19]];
 							str_F2C20ar.dword0x08_width = *(unsigned __int16 *)(a1 + 2);
 							str_F2C20ar.dword0x06_height = *(unsigned __int16 *)(a1 + 4);
@@ -49289,15 +49294,15 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 							v21 = v20 + (unsigned __int16)*v9;
 							if (x_DWORD_F66F0x[v21])
 							{
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v21 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v21 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							else
 							{
 								if (!sub_71520_mainInitTmaps(*v9 + (unsigned __int8)v20))
 									break;
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
 									+ 10 * ((unsigned __int16)*v9 + (unsigned __int8)x_BYTE_D4750[0xc + v19])
-									+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1 = *x_DWORD_F66F0x[(unsigned __int16)*v9 + (unsigned __int8)x_BYTE_D4750[0xc + v19]];
 							str_F2C20ar.dword0x08_width = *(unsigned __int16 *)(a1 + 2);
@@ -49315,15 +49320,15 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 							v35 = (unsigned __int16)*v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32];
 							if (x_DWORD_F66F0x[v35])
 							{
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v35 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v35 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							else
 							{
 								if (!sub_71520_mainInitTmaps(*v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]))
 									break;
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
 									+ 10 * ((unsigned __int16)*v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32])
-									+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1 = *x_DWORD_F66F0x[(unsigned __int8)x_BYTE_D4750[0x1c + v32] + (unsigned __int16)*v9];
 							str_F2C20ar.dword0x08_width = *(unsigned __int16 *)(a1 + 2);
@@ -49338,15 +49343,15 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 							v33 = (unsigned __int16)*v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32];
 							if (x_DWORD_F66F0x[v33])
 							{
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v33 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v33 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							else
 							{
 								if (!sub_71520_mainInitTmaps(*v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]))
 									break;
-								x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
+								x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
 									+ 10 * ((unsigned __int16)*v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32])
-									+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1 = *x_DWORD_F66F0x[(unsigned __int16)*v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]];
 							str_F2C20ar.dword0x08_width = *(unsigned __int16 *)(a1 + 2);
@@ -49361,13 +49366,13 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 						v16 = (unsigned __int16)*v9;
 						if (x_DWORD_F66F0x[v16])
 						{
-							x_DWORD_F5730[*(unsigned __int16 *)(10 * v16 + TMAPS00TAB_BEGIN_BUFFER + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16 *)(10 * v16 + TMAPS00TAB_BEGIN_BUFFER + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						else
 						{
 							if (!sub_71520_mainInitTmaps(v16))
 								break;
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)*v9 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)*v9 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						v17 = x_DWORD_F66F0x[(unsigned __int16)*v9];
 						x_BYTE_F2CC6 = 1;
@@ -49393,15 +49398,15 @@ unsigned __int16 sub_3FD60(int a2x)//220d60
 						v18 = v41x->byte_0x5C_92 + (unsigned __int16)*v9;
 						if (x_DWORD_F66F0x[v18])
 						{
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v18 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * v18 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						else
 						{
 							if (!sub_71520_mainInitTmaps(*v9 + v41x->byte_0x5C_92))
 								break;
-							x_DWORD_F5730[*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
+							x_DWORD_F5730.at(*(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER
 								+ 10 * ((unsigned __int16)*v9 + v41x->byte_0x5C_92)
-								+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1 = *x_DWORD_F66F0x[(unsigned __int16)*v9 + v41x->byte_0x5C_92];
 					LABEL_47:
@@ -49540,7 +49545,7 @@ unsigned __int16 sub_3FD60B(/*int a1, */Bit8u* a2)//220d60
 							v14 = (unsigned __int16)* v9;
 							v15 = 4 * v14;
 						LABEL_16:
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v14 + v15) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 2 * (v14 + v15) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							a1 = *x_DWORD_F66F0x[(unsigned __int16)* v9];
 							goto LABEL_47;
 						}
@@ -49548,7 +49553,7 @@ unsigned __int16 sub_3FD60B(/*int a1, */Bit8u* a2)//220d60
 					case 1:
 						if (!x_DWORD_F66F0x[(unsigned __int16)* v9] && !sub_71520_mainInitTmaps(*v9))
 							break;
-						x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)* v9 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+						x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)* v9 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						a1 = *x_DWORD_F66F0x[(unsigned __int16)* v9];
 						goto LABEL_47;
 					case 2:
@@ -49573,26 +49578,26 @@ unsigned __int16 sub_3FD60B(/*int a1, */Bit8u* a2)//220d60
 						{
 							if (x_DWORD_F66F0x[v26 + (unsigned __int16)* v9])
 							{
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v26 + (unsigned __int16)* v9) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v26 + (unsigned __int16)* v9) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							else
 							{
 								if (!sub_71520_mainInitTmaps(v26 + *v9))
 									break;
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v26 + (unsigned __int16)* v9) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v26 + (unsigned __int16)* v9) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1 = *x_DWORD_F66F0x[v26 + (unsigned __int16)* v9];
 							goto LABEL_47;
 						}
 						if (x_DWORD_F66F0x[(unsigned __int16)* v9 + 15 - v26])
 						{
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)* v9 + 15 - v26) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)* v9 + 15 - v26) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						else
 						{
 							if (!sub_71520_mainInitTmaps(*v9 + 15 - v26))
 								break;
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)* v9 + 15 - v26) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * ((unsigned __int16)* v9 + 15 - v26) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1 = *x_DWORD_F66F0x[(unsigned __int16)* v9 + 15 - v26];
 						str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
@@ -49607,13 +49612,13 @@ unsigned __int16 sub_3FD60B(/*int a1, */Bit8u* a2)//220d60
 						v30 = v29 + (unsigned __int16)* v9;
 						if (x_DWORD_F66F0x[v30])
 						{
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v30 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v30 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						else
 						{
 							if (!sub_71520_mainInitTmaps(v29 + *v9))
 								break;
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v29 + (unsigned __int16)* v9) + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (v29 + (unsigned __int16)* v9) + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1 = *x_DWORD_F66F0x[(unsigned __int16)* v9 + v29];
 						str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
@@ -49634,7 +49639,7 @@ unsigned __int16 sub_3FD60B(/*int a1, */Bit8u* a2)//220d60
 									break;
 								v24 = (unsigned __int16)* v9 + (unsigned __int8)x_BYTE_D4750[0xc + v19];
 							}
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v24 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v24 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							a1 = *x_DWORD_F66F0x[(unsigned __int16)* v9 + (unsigned __int8)x_BYTE_D4750[0xc + v19]];
 							str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
 							str_F2C20ar.dword0x06_height = *(unsigned __int16*)(a1 + 4);
@@ -49649,15 +49654,15 @@ unsigned __int16 sub_3FD60B(/*int a1, */Bit8u* a2)//220d60
 							v21 = v20 + (unsigned __int16)* v9;
 							if (x_DWORD_F66F0x[v21])
 							{
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v21 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v21 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							else
 							{
 								if (!sub_71520_mainInitTmaps(*v9 + (unsigned __int8)v20))
 									break;
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
 									+ 10 * ((unsigned __int16)* v9 + (unsigned __int8)x_BYTE_D4750[0xc + v19])
-									+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1 = *x_DWORD_F66F0x[(unsigned __int16)* v9 + (unsigned __int8)x_BYTE_D4750[0xc + v19]];
 							str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
@@ -49675,15 +49680,15 @@ unsigned __int16 sub_3FD60B(/*int a1, */Bit8u* a2)//220d60
 							v35 = (unsigned __int16)* v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32];
 							if (x_DWORD_F66F0x[v35])
 							{
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v35 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v35 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							else
 							{
 								if (!sub_71520_mainInitTmaps(*v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]))
 									break;
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
 									+ 10 * ((unsigned __int16)* v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32])
-									+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1 = *x_DWORD_F66F0x[(unsigned __int8)x_BYTE_D4750[0x1c + v32] + (unsigned __int16)* v9];
 							str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
@@ -49698,15 +49703,15 @@ unsigned __int16 sub_3FD60B(/*int a1, */Bit8u* a2)//220d60
 							v33 = (unsigned __int16)* v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32];
 							if (x_DWORD_F66F0x[v33])
 							{
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v33 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v33 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							else
 							{
 								if (!sub_71520_mainInitTmaps(*v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]))
 									break;
-								x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
+								x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
 									+ 10 * ((unsigned __int16)* v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32])
-									+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+									+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 							}
 							a1 = *x_DWORD_F66F0x[(unsigned __int16)* v9 + (unsigned __int8)x_BYTE_D4750[0x1c + v32]];
 							str_F2C20ar.dword0x08_width = *(unsigned __int16*)(a1 + 2);
@@ -49721,13 +49726,13 @@ unsigned __int16 sub_3FD60B(/*int a1, */Bit8u* a2)//220d60
 						v16 = (unsigned __int16)* v9;
 						if (x_DWORD_F66F0x[v16])
 						{
-							x_DWORD_F5730[*(unsigned __int16*)(10 * v16 + TMAPS00TAB_BEGIN_BUFFER + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16*)(10 * v16 + TMAPS00TAB_BEGIN_BUFFER + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						else
 						{
 							if (!sub_71520_mainInitTmaps(v16))
 								break;
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)* v9 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)* v9 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						v17 = x_DWORD_F66F0x[(unsigned __int16)* v9];
 						x_BYTE_F2CC6 = 1;
@@ -49753,15 +49758,15 @@ unsigned __int16 sub_3FD60B(/*int a1, */Bit8u* a2)//220d60
 						v18 = v41x->byte_0x5C_92 + (unsigned __int16)* v9;
 						if (x_DWORD_F66F0x[v18])
 						{
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v18 + 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER + 10 * v18 + 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						else
 						{
 							if (!sub_71520_mainInitTmaps(*v9 + v41x->byte_0x5C_92))
 								break;
-							x_DWORD_F5730[*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
+							x_DWORD_F5730.at(*(unsigned __int16*)(TMAPS00TAB_BEGIN_BUFFER
 								+ 10 * ((unsigned __int16)* v9 + v41x->byte_0x5C_92)
-								+ 8)] = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
+								+ 8)) = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
 						}
 						a1 = *x_DWORD_F66F0x[(unsigned __int16)* v9 + v41x->byte_0x5C_92];
 					LABEL_47:
@@ -68550,43 +68555,23 @@ int debugcounter_233d56 = 0;
 void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
 {
 	char v1; // al
-	//Bit8u* v2; // ecx
 	unsigned __int16 v3; // dx
-	//Bit8u* v4; // ebx
 	int v2x;
 	int v4x;
 	char *v5; // esi
 	char *v6; // edi
-	//char v7; // al
-	//char v8; // al
-	//int v9; // esi
-	//Bit8u* v10; // edx
-	//int v11; // eax
-	//int v12; // esi
-	//char v13; // dl
-	//char v14; // bl
 	signed __int16 v15; // bx
 	char v16; // cl
 	int v17; // eax
-	//Bit8u* v18; // ebx
 	int v18x;
-	//type_str_0x6E8E* v18x; // ebx
-	//int v19; // eax
 	char* v20; // esi
 	char* v21; // edi
-	//char v22; // al
-	//char v23; // al
 	__int16 v24; // ST08_2
 	__int16 v25; // ST08_2
 	char *v26; // esi
 	char *v27; // edi
-	//char v28; // al
-	//char v29; // al
 	__int16 v30; // ax
-	//int v31; // eax
 	int v32; // edx
-	//Bit8u* v33; // eax
-	//Bit8u* v34; // eax
 	char v35; // al
 	char v36; // dl
 	const char *v37; // edi
@@ -68595,81 +68580,44 @@ void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
 	unsigned int v40; // kr08_4
 	char *v41; // esi
 	char *v42; // edi
-	//char v43; // al
-	//char v44; // al
 	char *v45; // edi
 	char *v46; // esi
-	//char v47; // al
-	//char v48; // al
-	//int v49; // edx
-	//Bit8u* v50; // ecx
 	bool v51; // zf
 	char *v52; // esi
 	char *v53; // edi
-	//char v54; // al
-	//char v55; // al
-	//int v56; // eax
 	__int16 i; // ax
-	//int v58; // edx
 	unsigned __int16 v59; // si
-	//Bit8u* j; // eax
-	//int jx;
-	//Bit8u* v61; // eax
 	int v62; // esi
 	type_str_0x6E8E* v63x; // eax
-	//__int64 v64; // rtt
 	__int16 n; // ax
-	//int v66; // edx
 	type_str_0x6E8E* iix; // eax
 	type_str_0x6E8E* v68x; // eax
-	//Bit8u* v69; // edx
 	type_str_0x6E8E* kx; // eax
-	//char v71; // dl
 	type_str_0x6E8E* lx; // eax
 	type_str_0x6E8E* mx; // eax
 	__int16 v74; // ax
 	int v75; // edx
-	//char v76; // dl
-	//char v77; // ch
 	__int16 v78; // cx
 	type_str_611* v79x; // eax
-	//int v80; // edx
-	//int v81; // edx
 	int v82; // esi
 	char *v83; // edi
 	char *v84; // esi
-	//char v85; // al
-	//char v86; // al
-	//int v87; // eax
-	//int v88; // eax
-	//int v89; // edx
-	//int v90; // eax
 	unsigned __int8 v91; // cl
-	//int v92; // edx
 	char v93; // al
-	//int v94; // eax
 	char v95; // dl
 	type_str_0x6E8E* v96x; // eax
-	//int v97; // edx
 	type_str_0x6E8E* v98x; // eax
-	//int v99; // ecx
-	//__int64 v100; // rax
 	int v100x;
-	//int v101; // ecx
-	//__int64 v102; // rax
 	int v102x;
 	type_str_0x6E8E* v103x; // esi
 	int v104; // esi
-	//int index; // eax
 	const char *v106; // [esp-4h] [ebp-120h]
-	//unsigned __int8 v107; // [esp+0h] [ebp-11Ch]
 	unsigned __int8 v108; // [esp+1h] [ebp-11Bh]
 	unsigned __int8 v109; // [esp+2h] [ebp-11Ah]
 	unsigned __int8 v110; // [esp+3h] [ebp-119h]
 	unsigned __int8 v111; // [esp+4h] [ebp-118h]
 	int v112; // [esp+100h] [ebp-1Ch]
 	type_str_0x6E8E* v113x; // [esp+104h] [ebp-18h]
-	//Bit8u* v114; // [esp+108h] [ebp-14h]
 	int v114x;
 	int v115; // [esp+10Ch] [ebp-10h]
 	unsigned int v116; // [esp+110h] [ebp-Ch]
@@ -68688,10 +68636,8 @@ void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
 		sub_74374();
 		sub_7438A((Bit8u*)D41A0_BYTESTR_0.array_0x6E3E, 0xAu);
 		v1 = 0;
-		//v2 = D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc];
 		v2x = 0;
 		v3 = 0;
-		//v4 = x_D41A0_BYTEARRAY_0 + 11230;
 		v4x = 0;
 		while (1)
 		{
@@ -68730,19 +68676,13 @@ void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
 		if (v1)
 			sub_7438A((Bit8u*)D41A0_BYTESTR_0.array_0x2BDE, 0x84Cu);
 	}
-	//v10 = 2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0;
-	//v11 = (int)x_D41A0_BYTEARRAY_4;
 	D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x012_2BE0_11248++;
-	//v12 = x_D41A0_BYTEARRAY_4_struct.setting_30;
 	x_D41A0_BYTEARRAY_4_struct.byteindex_26++;//232c9e
-	//v13 = x_D41A0_BYTEARRAY_4_struct.byteindex_38400;
 	x_D41A0_BYTEARRAY_4_struct.setting_30++;// = v12 + 1;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_38400)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_38400--;
-	//v14 = x_D41A0_BYTEARRAY_4_struct.byteindex_38401;
 	if (x_D41A0_BYTEARRAY_4_struct.byteindex_38401)
 		x_D41A0_BYTEARRAY_4_struct.byteindex_38401--;
-	//adress 232cd2
 	v15 = 1;
 	while (v15 < 16)
 	{
@@ -68750,23 +68690,16 @@ void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
 		v17 = v15++;
 		x_D41A0_BYTEARRAY_4_struct.byteindex_121[v17] = v16;//fix it - find size of this array
 	}
-	//v114 = D41A0_BYTESTR_0.array_0x6E3E[D41A0_BYTESTR_0.word_0xc];
 	v114x = 0;
-	//v18 = x_D41A0_BYTEARRAY_0 + 11230;
 	v18x = 0;
 	v116 = 0;
 	while (1)
 	{
-		//adress 233d56
-
-
-		//index = (int)x_D41A0_BYTEARRAY_0;
 		if ((unsigned __int16)v116 >= D41A0_BYTESTR_0.word_0xe)
 			return;		
 		v113x = x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[v18x].word_0x00a_2BE4_11240];
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x20)
 		{
-			//a1 = v114;
 			sub_53A40(&D41A0_BYTESTR_0.array_0x6E3E[v114x]);
 		}
 		switch (D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte0)
@@ -69368,26 +69301,10 @@ void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
 		}
 		sub_52D70(v116, (char*)".. CHEAT: access all spells");
 	LABEL_215://233c76
-		//v99 = v113x->dword_0xA4_164;
 		v100x = 2 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte3 - v113x->dword_0xA4_164x->word_0x155_341;
-		
-		//v113x->dword_0xA4_164x->word_0x4_4 = (signed int)(v100x - my_sign(v100x)) >> 2;
-		//int cftemp = 0;
-		//if ((v100x >> 30) & 1)cftemp = 1;
-		//v113x->dword_0xA4_164x->word_0x4_4 = ((v100x - ((v100x>>31) << 2)) - cftemp) >> 2;
 		v113x->dword_0xA4_164x->word_0x4_4 = (v100x - (my_sign32(v100x) << 2) + my_sign32(v100x)) >> 2;
-		
-		//v113x->dword_0xA4_164x->word_0x4_4 = (signed int)(v100 - (__CFSHL__(HIDWORD(v100), 2) + 4 * HIDWORD(v100))) >> 2;
-		//v101 = v113x->dword_0xA4_164;
 		v102x = 2 * D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte4 - v113x->dword_0xA4_164x->word_0x157_343;
-		//v102x = (signed int)(v102x - my_sign(v102x)) >> 2;
-		//cftemp = 0;
-		//if ((v102x >> 30) & 1)cftemp = 1;
-		//v102x = ((v102x - ((v102x >> 31) << 2)) - cftemp) >> 2;
 		v102x = (v102x - (my_sign32(v102x) << 2) + my_sign32(v102x)) >> 2;
-		//LODWORD(v102) = (signed int)(v102 - (__CFSHL__(HIDWORD(v102), 2) + 4 * HIDWORD(v102))) >> 2;
-		
-		//HIDWORD(v102) = (int)v114;
 		v113x->dword_0xA4_164x->word_0x6_6 = v102x;//fix - test it
 		v113x->dword_0xA4_164x->dword_0x0_0 = D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_byte5;
 		v113x->dword_0xA4_164x->word_0x18_24_next_entity = D41A0_BYTESTR_0.array_0x6E3E[v114x].str_0x6E3E_word6;
@@ -69396,13 +69313,10 @@ void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
 		sub_57B20(&D41A0_BYTESTR_0.array_0x2BDE[v18x], v103x);		
 		if (D41A0_BYTESTR_0.array_0x2BDE[v18x].byte_0x846_2BDE)
 			sub_55C60(/*(int)a1, (int)v103,*/ &D41A0_BYTESTR_0.array_0x2BDE[v18x]);
-		//a1 = v114;
-		//v18 += 2124;
 		v18x++;
 		v104 = v116 + 1;
 		memset(&D41A0_BYTESTR_0.array_0x6E3E[v114x], 0, 10);
 		v116 = v104;
-		//v114 += 10;
 		v114x++;
 	}
 }
@@ -69411,40 +69325,22 @@ void sub_51BB0_game_events(/*Bit8u* a1*/)//232bb0
 void sub_52D70(unsigned __int16 a1, char *a2)//233d70
 {
 	char *v2; // esi
-	//int v3; // edx
 	char *v4; // edi
-	//char result; // al
 
 	v2 = a2;
-	//v3 = (int)x_D41A0_BYTEARRAY_0 + 11230 + 2124 * a1;
 	v4 = D41A0_BYTESTR_0.array_0x2BDE[a1].array_0x01c_2BFA_11258;
 	strcpy(v4,v2);
-	/*do
-	{
-		result = *v2;
-		*v4 = *v2;
-		if (!result)
-			break;
-		result = v2[1];
-		v2 += 2;
-		v4[1] = result;
-		v4 += 2;
-	} while (result);*/
 	D41A0_BYTESTR_0.array_0x2BDE[a1].word_0x04d_2C2B_11307 = 100;
 	D41A0_BYTESTR_0.array_0x2BDE[a1].word_0x04f_2C2D_11309 = 1;
-	//return result;
 }
 
 //----- (00052E90) --------------------------------------------------------
 void sub_52E90(type_str_0x2BDE* a1x, signed int a2, char a3)//233e90
 {
-	//int v3; // edx
 	unsigned __int16 v4; // ax
 	__int16 v5; // ax
-	//int v6; // edx
 	unsigned __int16 v8; // [esp+0h] [ebp-4h]
 
-	//v3 = (int)x_D41A0_BYTEARRAY_0;
 	v4 = a1x->byte_0x3DF_2BE4_12221;
 	a1x->byte_0x3DF_2BE4_12221 = a2;
 	v8 = v4;
@@ -69591,63 +69487,37 @@ LABEL_40:
 //----- (00053120) --------------------------------------------------------
 void sub_53120()//234120
 {
-	//int v0; // eax
-
-	//LOBYTE(v0) = (uint8)x_D41A0_BYTEARRAY_4;
 	if (!(x_D41A0_BYTEARRAY_4_struct.byteindex_26 & 7))
 	{
-		//LOBYTE(v0) = x_D41A0_BYTEARRAY_4[52] & 3;
 		if ((x_D41A0_BYTEARRAY_4_struct.byteindex_52 & 3) == 1)
 		{
-			//LOWORD(v0) = sub_10010();
 			if (!sub_10010())
 			{
-				//LOBYTE(v0) = (int)x_D41A0_BYTEARRAY_0;
 				D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].byte_0x004_2BE0_11234 = 2;
 			}
 		}
 	}
-	//return v0;
 }
 
 int debugcounter_234160 = 0;
 //----- (00053160) --------------------------------------------------------
 void sub_53160()//234160
 {
-	//Bit8u* v0; // ebx
-	//int v1; // esi
-	//int v2; // eax
 	__int16 v3; // ax
 	__int16 v4; // dx
-	//int v5; // eax
 	char* v6; // edi
 	char* v7; // esi
-	//char v8; // al
-	//char v9; // al
-	//int result; // eax
-	//x_BYTE *v11; // [esp+4h] [ebp-Ch]
 	unsigned __int16 v12; // [esp+8h] [ebp-8h]
 	char v13; // [esp+Ch] [ebp-4h]
-	/*
-	Bit8u origbyte20 = 0;
-	Bit8u remakebyte20 = 0;
-	int comp20 = compare_with_sequence_D41A0_4((char*)"00234160-0038CF50", (Bit8u*)& x_D41A0_BYTEARRAY_4_struct, 0x38cf50, debugcounter_234160, 0x94c, &origbyte20, &remakebyte20);
-	comp20 = compare_with_sequence_D41A0((char*)"00234160-00356038", (Bit8u*)& D41A0_BYTESTR_0, 0x356038, debugcounter_234160, 0x36e16, &origbyte20, &remakebyte20);
-	debugcounter_234160++;
-	*/
 	int v0index;
 	int v11index;
 
 	v13 = 1;
 	v12 = 0;
-	//v11 = (x_BYTE *)(x_D41A0_BYTEARRAY_0 + 28222);
-	//v0 = x_D41A0_BYTEARRAY_0 + 11230;//0x2bde
 	v0index = 0;
 	v11index = 0;
 	do
 	{
-		//memset((x_BYTE *)(x_D41A0_BYTEARRAY_0 + 28222+ v11index*10), 0, 10);
-		//for (int kk = 0; kk < 10; kk++)
 		D41A0_BYTESTR_0.array_0x6E3E[v11index].str_0x6E3E_byte0 = 0;
 		D41A0_BYTESTR_0.array_0x6E3E[v11index].str_0x6E3E_byte1 = 0;
 		D41A0_BYTESTR_0.array_0x6E3E[v11index].str_0x6E3E_byte2 = 0;
@@ -69657,91 +69527,41 @@ void sub_53160()//234160
 		D41A0_BYTESTR_0.array_0x6E3E[v11index].str_0x6E3E_word6 = 0;
 		D41A0_BYTESTR_0.array_0x6E3E[v11index].str_0x6E3E_word8 = 0;
 
-		//qmemcpy(x_D41A0_BYTEARRAY_4_struct.byteindex_256ar, (void *)v0, 2124);
-		//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar = D41A0_BYTESTR_0.array_0x2BDE[v0index];
-		//qmemcpy(x_D41A0_BYTEARRAY_4_struct.byteindex_256ar, x_D41A0_BYTEARRAY_0 + 11230+2124* v0index, 2124);
 		x_D41A0_BYTEARRAY_4_struct.byteindex_256ar=D41A0_BYTESTR_0.array_0x2BDE[v0index];
-		//memset((void*)v0, 0, 2124);
 		clean_x_D41A0_BYTEARRAY_0_0x2BDE(v0index);
-		//v1 = &x_D41A0_BYTEARRAY_4[0x8CF];
-		//qmemcpy((void *)(v0 + 1999), (void *)(&x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar[0]), 24);
-		//copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7CF(v0index,&x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar[0]);
-		//qmemcpy((void *)(v0 + 2023), (void *)(&x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar[24]), 2);
-		//copyto_x_D41A0_BYTEARRAY_0_0x2BDE_0x7E7(v0index, &x_D41A0_BYTEARRAY_4_struct.byteindex_2255ar[24]);
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x =x_D41A0_BYTEARRAY_4_struct.byteindex_256ar.dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x;
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 			v13 = 0;
 		if (v13)
-			//sub_549A0(v0 + 1609, &x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[1609]);
 			sub_549A0(&D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611, &x_D41A0_BYTEARRAY_4_struct.byteindex_256ar.dword_0x3E6_2BE4_12228.str_611);
-		//v2 = (int)x_D41A0_BYTEARRAY_4;
-		//*(x_DWORD *)(v0 + 24) = x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[24];
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x018_2BDE_11254= x_D41A0_BYTEARRAY_4_struct.byteindex_256ar.dword_0x018_2BDE_11254;
-		//*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + 28222 + v11index * 10) = 1;
 		D41A0_BYTESTR_0.array_0x6E3E[v0index].str_0x6E3E_byte0 = 1;
-		//*(x_WORD *)(v0 + 7) = v12;
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].word_0x007_2BE4_11237 = v12;
 		if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10) && v12 != D41A0_BYTESTR_0.word_0xc)
-			//*(x_BYTE *)(v0 + 9) = 1;
 			D41A0_BYTESTR_0.array_0x2BDE[v0index].byte_0x009_2BE4_11239 = 1;
-		//*(x_WORD *)(v0 + 16) = 32;
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].word_0x010_2BDE_11246 = 32;
-		//*(x_WORD *)(v0 + 477) = 128;
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[0].rotation__2BDE_11701.dd = 128;
-		//v3 = *(x_WORD *)(v0 + 16);
 		v3 = D41A0_BYTESTR_0.array_0x2BDE[v0index].word_0x010_2BDE_11246;
-		//*(x_BYTE *)(v0 + 993) = 2;
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].byte_0x3E1_2BE4_12223 = 2;
 		v4 = 0;
-		//*(x_WORD *)(v0 + 14) = v3 - 1;
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].word_0x00e_2BDE_11244 = v3 - 1;
 		while (v4 < D41A0_BYTESTR_0.array_0x2BDE[v0index].word_0x010_2BDE_11246)
 		{
-			//v5 = 7 * v4++;
 			v4++;
-			//*(x_DWORD *)(v0 + 2 * v5 + 479) = *(x_DWORD *)(v0 + 465);
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(v0index, v4/* + 1*/, get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d1_2BDE_11707(v0index, 0));
 			D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[v4].axis_2BDE_11695 = D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[0].axis_2BDE_11695;
-			//*(x_DWORD *)(v0 + 2 * v5 + 483) = *(x_DWORD *)(v0 + 469);
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(v0index, v4/* + 1*/, get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d5_2BDE_11707(v0index, 0));
-			//D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[v4].axis_2BDE_11695.x = D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[0].axis_2BDE_11695.dd;
-			//*(x_DWORD *)(v0 + 2 * v5 + 487) = *(x_DWORD *)(v0 + 473);
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(v0index, v4/* + 1*/, get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1d9_2BDE_11707(v0index, 0));
-			//D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[v4].axis_2BDE_11695.z = D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[0].axis_2BDE_11695.dd;
-			//*(x_WORD *)(v0 + 2 * v5 + 491) = *(x_WORD *)(v0 + 477);
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x1dd_2BDE_11707(v0index, v4/* + 1*/, get_x_D41A0_BYTEARRAY_0_0x2BDE_0x1dd_2BDE_11707(v0index, 0));
 			D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[v4].rotation__2BDE_11701.dd = D41A0_BYTESTR_0.array_0x2BDE[v0index].struct_0x1d1_2BDE_11695[0].rotation__2BDE_11701.dd;
 		}
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
-			//*(x_BYTE *)(v0 + 1446) = x_BYTE_E131C[v12];
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x5a6(x_BYTE_E131C[v12], x_BYTE_E131C[v12]);
 			D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.byte_0x1C0_448 = x_BYTE_E131C[v12];
-		//v6 = (char *)(v0 + 927);//wizard name
 		v6 = (char*)D41A0_BYTESTR_0.array_0x2BDE[v0index].array_0x39f_2BFA_12157;
-		//adress 2342e4
 		v7 = (char*)off_D93A0_wizards_names2[sub_61790(v12)];
 		strcpy(v6, v7);		
 		strcpy(D41A0_BYTESTR_0.array_0x2BDE[v0index].array_0x39f_2BFA_12157, v7);
-		/*do
-		{
-			v8 = *v7;
-			*v6 = *v7;
-			if (!v8)
-				break;
-			v9 = v7[1];
-			v7 += 2;
-			v6[1] = v9;
-			v6 += 2;
-		} while (v9);*/
-		///*result = */sub_54A50(v12, x_D41A0_BYTEARRAY_0 + 11230 + 2124 * v0index);
 		sub_54A50(v12, v0index);
-		//v0 += 2124;
 		v0index++;
-		//v11 += 10;
 		v11index++;
 		v12++;
 	} while (v12 < 8u);
-	//return result;
 }
 
 //----- (000533B0) --------------------------------------------------------
@@ -69752,7 +69572,6 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 	FILE* levelstabfile; // esi
 	int *v6; // eax
 	int v7; // edi
-	//char v8; // [esp+0h] [ebp-44h]
 	int v9; // [esp+40h] [ebp-4h]
 
 	v2 = (Bit8u*)x_DWORD_E9C38_smalltit;
@@ -69802,12 +69621,7 @@ char sub_533B0_decompress_levels(__int16 a1, type_str_2FECE* a2x)//2343b0
 //----- (00053590) --------------------------------------------------------
 void sub_53590(type_str_2FECE* a1x)//234590
 {
-	//int result; // eax
-
-	//result = *(unsigned __int16 *)(a1 + 2);
-	//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 4) = *(unsigned __int16 *)(a1 + 2);
 	D41A0_BYTESTR_0.dword_0x4 = a1x->word_2FED0; //*(unsigned __int16*)(a1 + 2);
-	//return result;
 }
 
 //----- (00053770) --------------------------------------------------------
@@ -69849,19 +69663,9 @@ void sub_539A0_load_bldgprm()//2349a0
 void sub_53A40(type_str_0x6E3E* a1x)//234a40
 {
 	char v1; // ah
-	//FILE* moviemvidatfile; // eax
-	//int v3; // edx
-	//int v4; // edx
 	char v5; // al
-	//FILE* v6; // ecx
 	char v7; // dh
-	//FILE* v8; // edi
-	//FILE* moviemvidatfile2; // eax
-	//int v10; // edx
-	//int v11; // edx
 	char v12; // ch
-	//FILE* v13; // eax
-	//char v14; // [esp+0h] [ebp-48h]
 	char v15; // [esp+40h] [ebp-8h]
 	char v16; // [esp+44h] [ebp-4h]
 
@@ -69872,14 +69676,11 @@ void sub_53A40(type_str_0x6E3E* a1x)//234a40
 		if (!x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 && !((a1x - &D41A0_BYTESTR_0.array_0x6E3E[0]) / sizeof(type_str_0x6E3E)))
 		{
 			sprintf(printbuffer, "%s/mvi%05d.dat", "movie", x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39);
-			//moviemvidatfile = sub_98817_open(printbuffer, 512);
-			//v3 = (int)x_D41A0_BYTEARRAY_4;
 			x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 = sub_98817_open(printbuffer, 512);
 			if (x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 == NULL || !sub_54D30(x_D41A0_BYTEARRAY_4_struct.moviemvinumber_byte4_39))
 				v15 = 1;
 			if (v15)
 			{
-				//v4 = (int)x_D41A0_BYTEARRAY_4;
 				v5 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
 				x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 = 0;
 				x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = v5 & 0xFB;
@@ -69891,7 +69692,6 @@ void sub_53A40(type_str_0x6E3E* a1x)//234a40
 		}
 		if (v15)
 			goto LABEL_21;
-		//v6 = x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_33;
 		if (!x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35)
 			goto LABEL_21;
 		if (a1x->str_0x6E3E_byte0 != 2 && sub_988A7_read(x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35, (Bit8u*)a1x, 10) == 10)
@@ -69918,7 +69718,6 @@ void sub_53A40(type_str_0x6E3E* a1x)//234a40
 	}
 	if (v1 & 2)
 	{
-		//v8 = x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_33;
 		v16 = 0;
 		if (!x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 && !((a1x - &D41A0_BYTESTR_0.array_0x6E3E[0]) / sizeof(type_str_0x6E3E)))
 		{
@@ -69929,7 +69728,6 @@ void sub_53A40(type_str_0x6E3E* a1x)//234a40
 				v16 = 1;
 			if (v16)
 			{
-				//v11 = (int)x_D41A0_BYTEARRAY_4;
 				v12 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
 				x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 = 0;
 				x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = v12 & 0xFD;
@@ -69941,7 +69739,6 @@ void sub_53A40(type_str_0x6E3E* a1x)//234a40
 		}
 		if (!v16)
 		{
-			//v13 = x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_33;
 			if (x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35)
 			{
 				if (sub_98CAA_write(x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35, (Bit8u*)a1x, 10) != 10)
@@ -69956,43 +69753,26 @@ void sub_53A40(type_str_0x6E3E* a1x)//234a40
 //----- (00053C70) --------------------------------------------------------
 void sub_53C70()//234c70
 {
-	//int result; // eax
-	//int v1; // edx
-
-	//result = (int)x_D41A0_BYTEARRAY_4;
 	x_D41A0_BYTEARRAY_4_struct.byteindex_26 = 0;
-	//v1 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
 	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0;
 	x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 |= 0x1208000;
-	//return result;
 }
 
 //----- (00053CA0) --------------------------------------------------------
 void sub_53CA0()//234ca0
 {
-	//int result; // eax
-
-	//result = (int)x_D41A0_BYTEARRAY_4;
 	x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xFEDF7FFF;
-	//return result;
 }
 
 //----- (00053CC0) --------------------------------------------------------
 void sub_53CC0_close_movie()//234cc0
 {
-	//int result; // eax
-	//char v1; // dl
-
-	//result = (int)x_D41A0_BYTEARRAY_4;
 	if (x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35)
 	{
 		sub_98882_close(x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35);
-		//result = (int)x_D41A0_BYTEARRAY_4;
-		//v1 = x_D41A0_BYTEARRAY_4_struct.setting_byte1_22;
 		x_D41A0_BYTEARRAY_4_struct.moviemvidatfile_byte4_35 = 0;
 		x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xD9;
 	}
-	//return result;
 }
 
 //----- (00053E60) --------------------------------------------------------
@@ -70111,24 +69891,16 @@ char sub_54200_create_user_directories()//235200
 //----- (00054600) --------------------------------------------------------
 void sub_54600_mouse_reset()////235600 mouse reset
 {
-	//int result; // eax
-	//char v1; // [esp+0h] [ebp-38h]
 	__int16 v2; // [esp+1Ch] [ebp-1Ch]
 
 	v2 = 0;
-	//result = int386(0x33, (REGS*)&v2, (REGS*)&v1);//Mouse Reset/Get Mouse Installed Flag //fix
-	//result=1;
 	x_DWORD_E3768 = 0;
-	//return result;
 }
 
 Bit8u BigTextureBuffer[128 * 128 * 160];
 //----- (00054630) --------------------------------------------------------
 void sub_54630_load_psxblock(Bit16u TextSize)//235630
 {
-	//__int16 result; // ax
-
-	//result = a1;
 	switch (TextSize)
 	{
 	case 16:
@@ -70150,9 +69922,6 @@ void sub_54630_load_psxblock(Bit16u TextSize)//235630
 //----- (00054660) --------------------------------------------------------
 void sub_54660_read_and_decompress_sky_and_blocks(MC2LevelType GraphicsType, Bit8u GraphicsSize)//235660
 {
-	//int result; // eax
-
-	//result = a2;
 	switch (GraphicsType)
 	{
 	case 0://basic graphics
@@ -70179,6 +69948,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(MC2LevelType GraphicsType, Bit
 		}
 		sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_skyd00_dat).c_str(), &off_D41A8_sky);//2a51a8
 		/*result = */sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_tmaps00_tab).c_str(), &TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
+    	file_handling->setCurrentTMapsFile(MC2CurrentTMapsFile::TMaps00);
 		break;
 	}
 	case 1://? and night
@@ -70214,6 +69984,7 @@ void sub_54660_read_and_decompress_sky_and_blocks(MC2LevelType GraphicsType, Bit
 		}
 		sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_skyn00_dat).c_str(), &off_D41A8_sky);//2a51a8
 		sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_tmaps10_tab).c_str(), &TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
+    	file_handling->setCurrentTMapsFile(MC2CurrentTMapsFile::TMaps10);
 		break;
 	}
 	case 2://cave
@@ -70238,10 +70009,10 @@ void sub_54660_read_and_decompress_sky_and_blocks(MC2LevelType GraphicsType, Bit
 		}
 		}
 		sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_tmaps20_tab).c_str(), &TMAPS00TAB_BEGIN_BUFFER);//2c7ed0
+    	file_handling->setCurrentTMapsFile(MC2CurrentTMapsFile::TMaps20);
 		break;
 	}
 	}
-	//return result;
 }
 
 //----- (00054800) --------------------------------------------------------
@@ -70270,20 +70041,13 @@ void sub_54800_read_and_decompress_tables(MC2LevelType level_type)//235800
 //----- (000548B0) --------------------------------------------------------
 void sub_548B0(type_str_0x2BDE* a1x)//2358b0
 {
-	//__int16 result; // ax
-	//result = a1x->word_0x007_2BE4_11237;
 	if (a1x->word_0x007_2BE4_11237 == D41A0_BYTESTR_0.word_0xc)
-		/*result = */sub_5BDC0_set_mouse_position(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
-	//return result;
+		sub_5BDC0_set_mouse_position(a1x->dword_0x3E6_2BE4_12228.position_backup_20.x, a1x->dword_0x3E6_2BE4_12228.position_backup_20.y);
 }
 
 //----- (000548F0) --------------------------------------------------------
 void sub_548F0(type_str_0x2BDE* a1x)//2358f0
 {
-	//type_str_0x2BDE* resultx; // eax
-	//__int16 v2; // dx
-
-	//resultx = a1x;
 	if (a1x->word_0x007_2BE4_11237 == D41A0_BYTESTR_0.word_0xc)
 	{
 		if (unk_18058Cstr.x_WORD_1805C2_joystick != 7 && unk_18058Cstr.x_WORD_1805C2_joystick != 1 && unk_18058Cstr.x_WORD_1805C2_joystick != 2)
@@ -70294,12 +70058,8 @@ void sub_548F0(type_str_0x2BDE* a1x)//2358f0
 		else
 		{
 			a1x->dword_0x3E6_2BE4_12228.position_backup_20 = x_WORD_E3760_mouse;
-			//a1x->dword_0x3E6_2BE4_12228.position_backup_20.x = x_WORD_E3760_mouse.x;
-			//a1x->dword_0x3E6_2BE4_12228.position_backup_20.y = x_WORD_E3760_mouse.y;
 		}
-		//a1x->word_0x3FC_2BDE = v2;
 	}
-	//return result;
 }
 
 //----- (00054960) --------------------------------------------------------
@@ -70317,24 +70077,11 @@ void sub_54960()//235960
 //----- (000549A0) --------------------------------------------------------
 void sub_549A0(type_str_611* a1x, type_str_611* a2x)//2359a0
 {
-	//signed int result; // eax
-
-	//qmemcpy((void *)(a1 + 390), (void *)(a2 + 390), 0x18u);
-	//qmemcpy((void *)(a1 + 414), (void *)(a2 + 414), 2u);
 	a1x->array_0x3E9_1001x = a2x->array_0x3E9_1001x;
-	//qmemcpy((void *)a1, (void *)a2, 0x68u);
 	a1x->array_0x263_611x = a2x->array_0x263_611x;
-	//qmemcpy((void *)(a1 + 442), (void *)(a2 + 442), 0x18u);
-	//qmemcpy((void *)(a1 + 466), (void *)(a2 + 466), 2u);
 	a1x->array_0x41D_1053z = a2x->array_0x41D_1053z;
-	//qmemcpy((void *)(a1 + 338), (void *)(a2 + 338), 0x18u);
-	//qmemcpy((void *)(a1 + 362), (void *)(a2 + 362), 2u);
 	a1x->array_0x3B5_949x = a2x->array_0x3B5_949x;
-	//result = 26;
-	//qmemcpy((void *)(a1 + 468), (void *)(a2 + 468), 0x18u);
-	//qmemcpy((void *)(a1 + 492), (void *)(a2 + 492), 2u);
 	a1x->array_0x437_1079x = a2x->array_0x437_1079x;
-	//return result;
 }
 
 int debugcounter_235a50 = 0;
@@ -70342,48 +70089,23 @@ int debugcounter_235a50 = 0;
 void sub_54A50(unsigned __int16 a1, int v0index/*Bit8u* a2*/)//235a50
 {
 	signed int i; // eax
-	//int v3; // eax
 	unsigned __int16 v4; // cx
 	signed int v5; // esi
 	int result; // eax
-	//Bit8u* v7; // ebx
 	char v8; // bl
-	//int v9; // ST00_4
 	bool v10; // zf
-	//Bit8u* v11; // edi
 	signed int v12; // [esp+1Ch] [ebp-14h]
-	//Bit8u* v13; // [esp+20h] [ebp-10h]
-	//Bit8u* v14; // [esp+24h] [ebp-Ch]
 	int v15; // [esp+28h] [ebp-8h]
 	signed int v16; // [esp+2Ch] [ebp-4h]
 
-	/*Bit8u origbyte20 = 0;
-	Bit8u remakebyte20 = 0;
-	int comp20 = compare_with_sequence_D41A0_4((char*)"00235A50-0038CF50", (Bit8u*)& x_D41A0_BYTEARRAY_4_struct, 0x38cf50, debugcounter_235a50, 0x94c, &origbyte20, &remakebyte20);
-	comp20 = compare_with_sequence_D41A0((char*)"00235A50-00356038", (Bit8u*)& D41A0_BYTESTR_0, 0x356038, debugcounter_235a50, 0x36e16, &origbyte20, &remakebyte20);
-	debugcounter_235a50++;*/
-
 	for (i = 0; i < 26; i++)
 	{
-		//*(x_WORD *)(a2 + 2 * i + 1815) = 0;		
-		//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x717(v0index, i, 0);
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x437_1079x.byte[i] = 0;
-		//*(x_BYTE *)(a2 + i + 2024) = 0;//7e8
-		//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7e8(v0index, i, 0);
-		//D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.byte_0x7E8_2BDE[i] = 0;
-		//*(x_BYTE *)(a2 + i + 2076) = 0;//81c
-		//D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.byte_0x81D_2BDE[i] = 0;
-		//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x81c(v0index, i, 0);
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x333_819x.word[i] = 0;
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x403_1027x.byte[i] = 0;
 	}
 	
-	//*(x_WORD *)(a2 + 2103) = -1;//0x837
-	//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x837(v0index, -1);
 	D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x451_1105 = -1;
-	//v3 = (int)x_D41A0_BYTEARRAY_4;
-	//*(x_WORD *)(a2 + 2105) = -1;//0x839
-	//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x839(v0index, -1);
 	D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x453_1107 = -1;
 	if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 		v4 = 0;
@@ -70394,20 +70116,15 @@ void sub_54A50(unsigned __int16 a1, int v0index/*Bit8u* a2*/)//235a50
 	do
 	{
 		result = x_BYTE_D94FF_spell_index[v5];
-		//result = x_WORD_D93C0_bldgprmbuffer[2+0x13d+v5];
-		//v7 = result + 110 * v4 + x_D41A0_BYTEARRAY_0;
 		if (D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x360FBx[result] > 2u)
 			D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x360FBx[result] = 2;
-		//if (*(x_BYTE *)(a2 + 9) == 1)		
 		if (D41A0_BYTESTR_0.array_0x2BDE[v0index].byte_0x009_2BE4_11239 == 1)
 		{
-			//*(x_BYTE *)(a2 + result + 2051) = *(x_BYTE *)(110 * v4 + x_D41A0_BYTEARRAY_0 + result + 221435);//0x803
 			D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.byte[result] = D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x360FBx[result];
 		}
 		else if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 8 || x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
 		{
 			v12 = D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x360FBx[result];
-			//if (*(char *)(a2 + result + 2051) < v12)
 			if (D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.byte[result] < v12)
 			{
 				v16 = D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x360FBx[result];
@@ -70415,34 +70132,20 @@ void sub_54A50(unsigned __int16 a1, int v0index/*Bit8u* a2*/)//235a50
 					v16 = 0;
 				if (v16 > 2)
 					v16 = 2;
-				//*(x_BYTE *)(a2 + result + 2051) = v16;
 				D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x41D_1053z.byte[result] = v16;
-				//*(x_DWORD *)(a2 + 4 * result + 1609) = *(x_DWORD *)&(*xadataspellsdat.var28_begin_buffer)[80 * result + 18 + 26 * v16] + 1;//0x649
-				//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x649(v0index, result, *(x_DWORD *)&(*xadataspellsdat.var28_begin_buffer)[80 * result + 18 + 26 * v16] + 1);
-				//D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x263_611x.dword[result] = *(x_DWORD*)&(*xadataspellsdat.var28_begin_buffer)[80 * result + 18 + 26 * v16] + 1;
 				D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x263_611x.dword[result] = SPELLS_BEGIN_BUFFER_str[result].subspell[v16].dword_0x12 + 1;
 			}
 		}
-		//*(x_BYTE *)(a2 + v5 + 1921) = -1;//781
-		//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x781(v0index, v5, -1);
 		D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x39B_923x.byte[v5] = -1;
 		v8 = 0;
-		//v13 = a2 + result;
-		//if (*(x_BYTE *)(a2 + 9) == 1)
 		if (D41A0_BYTESTR_0.array_0x2BDE[v0index].byte_0x009_2BE4_11239 == 1)
 		{
-			//v9 = (int)x_D41A0_BYTEARRAY_0;
-			//*(x_BYTE *)(a2 + result + 1973) = *(x_BYTE *)(result + 110 * v4 + x_D41A0_BYTEARRAY_0 + 221461);//7b5
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x7B5(v0index, result, *(x_BYTE *)(result + 110 * v4 + x_D41A0_BYTEARRAY_0 + 221461));
 			D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3CF_975x.byte[result] = D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x36115x[result];//  *(x_BYTE*)(result + 110 * v4 + x_D41A0_BYTEARRAY_0 + 221461);
 			if (!D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x360E1x[result])
 				goto LABEL_37;
-			//v10 = *(x_BYTE *)(a2 + result + 1973) == 0;
-			//v10 = get_x_D41A0_BYTEARRAY_0_0x2BDE_0x7B5(v0index, result) == 0;
 			v10 = D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3CF_975x.byte[result]==0;
 			goto LABEL_35;
 		}
-		//v14 = result + 110 * v4 + x_D41A0_BYTEARRAY_0;
 		if (D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x36115x[result])
 			goto LABEL_37;
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 & 0x10)
@@ -70457,18 +70160,14 @@ void sub_54A50(unsigned __int16 a1, int v0index/*Bit8u* a2*/)//235a50
 		}
 		if (x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 >= 0 && x_D41A0_BYTEARRAY_4_struct.levelnumber_43w)
 		{
-			//if (!*(x_BYTE *)(a2 + result + 1999))
 			if (!D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.byte[result])
 				goto LABEL_37;
 		LABEL_36:
 			v8 = 1;
 			goto LABEL_37;
 		}
-		//if (*(x_BYTE *)(a2 + result + 1999))
-		//if(D41A0_BYTESTR_0.str_2FECE[v0index].byte_0x360E1x[result])
 		if (D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.byte[result])
 			goto LABEL_36;
-		//v11 = result + 110 * v4 + x_D41A0_BYTEARRAY_0;
 		if (D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x360E1x[result])
 		{
 			if (!D41A0_BYTESTR_0.str_2FECE.next_0x360D2[v4].byte_0x36115x[result])
@@ -70477,44 +70176,29 @@ void sub_54A50(unsigned __int16 a1, int v0index/*Bit8u* a2*/)//235a50
 	LABEL_37:
 		if (v8)//adress 235cc3
 		{
-			//*(x_WORD *)(a2 + 2 * result + 1817) = 1;//0x719
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x717(v0index, result+1, 1);
 			D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x333_819x.word[result] = 1;
-			//*(x_BYTE *)(a2 + result + 1999) = 1;
 			D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x3E9_1001x.byte[result] = 1;
-			//if (*(signed __int16 *)(a2 + 2103) == -1)
 			if(D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x451_1105==-1)
 			{
-				//*(x_WORD *)(a2 + 2103) = result;
 				D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x451_1105 = result;
 			}
-			//else if (*(signed __int16 *)(a2 + 2105) == -1)
 			else if (D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x453_1107 == -1)
 			{
-				//*(x_WORD *)(a2 + 2105) = result;
 				D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.word_0x453_1107 = result;
 			}
 			result = v15 + 1;
-			//*(x_BYTE *)(a2 + v15 + 1921) = v15;//1921
-			//set_x_D41A0_BYTEARRAY_0_0x2BDE_0x781(v0index, v15, v15);
 			D41A0_BYTESTR_0.array_0x2BDE[v0index].dword_0x3E6_2BE4_12228.str_611.array_0x39B_923x.byte[v15] = v15;
 			v15++;
 		}
 		v5++;
 	} while (v5 < 26);
-	//return result;
 }
 
 //----- (00054D30) --------------------------------------------------------
 char sub_54D30(__int16 a1)//235d30 //in game load
 {
 	FILE* savedfile; // eax
-	//FILE* v2; // ebx
-	//int v3; // eax
-	//x_DWORD *v4; // edi
-	//x_DWORD *v5; // edi
 	char result; // al
-	//char v7; // [esp+0h] [ebp-36h]
 	type_str_0x21AA v8; // [esp+80h] [ebp+4Ah]
 	type_str_0x21AE v9; // [esp+84h] [ebp+4Eh]
 	type_str_0x21B2 v10; // [esp+88h] [ebp+52h]
@@ -70558,10 +70242,6 @@ char sub_54D30(__int16 a1)//235d30 //in game load
 	}
 	sprintf(printbuffer, "%s/%s%03d.dat", "movie", "SLEV", a1);
 	
-	//fix this !!!!
-	//allert_error();
-	//sub_53E60_readfile_and_decompress(printbuffer, &x_D41A0_BYTEARRAY_0);
-	//fix this !!!!
 	Bit8u* D41A0_pointer;
 	D41A0_pointer = (Bit8u*)&D41A0_BYTESTR_0;
 	sub_53E60_readfile_and_decompress(printbuffer, &D41A0_pointer);
@@ -70572,33 +70252,20 @@ char sub_54D30(__int16 a1)//235d30 //in game load
 	D41A0_BYTESTR_0.dword_0x11e6 = -1;
 	sub_71990();
 	sub_473B0();
-	//v3 = (int)x_D41A0_BYTEARRAY_0;
-	//v4 = (x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8586);
 	D41A0_BYTESTR_0.str_0x218A_settings.str_0x218A = v16;
-	//v4++;
-	//v4[0] = v17;
 	D41A0_BYTESTR_0.str_0x218A_settings.str_0x218E = v17;
-	//v4++;
-	//v4[0] = v18;
 	D41A0_BYTESTR_0.str_0x218A_settings.str_0x2192 = v18;
-	//v4[1] = v19;
 	D41A0_BYTESTR_0.str_0x218A_settings.str_0x2196 = v19;
 	D41A0_BYTESTR_0.dword_0x219A = v12;
 	D41A0_BYTESTR_0.dword_0x219E = v13;
 	D41A0_BYTESTR_0.dword_0x21A2 = v14;
 	D41A0_BYTESTR_0.dword_0x21A6 = v15;
-	//v5 = D41A0_BYTESTR_0.byte_0x21AA;
 	D41A0_BYTESTR_0.str_0x21AA=v8;
 	D41A0_BYTESTR_0.str_0x21AE=v9;
 	D41A0_BYTESTR_0.str_0x21B2=v10;
 	D41A0_BYTESTR_0.str_0x21B6=v11;
 	result = v20;
-	//v5[0] = v8;
-	//v5++;
-	//v5[0] = v9;
-	//v5++;
-	//v5[0] = v10;
-	//v5[1] = v11;
+
 	return result;
 }
 
@@ -70738,45 +70405,22 @@ void sub_55100(char a1)//236100
 		}
 	}
 
-	//fix
-	//if (D41A0_BYTESTR_0.str_0x3664C[0].byte_0)
-	//	D41A0_BYTESTR_0.str_0x3664C[0].dword_A = (type_str_0x6E8E*)((Bit32u)D41A0_BYTESTR_0.str_0x3664C[0].dword_A + (Bit32u)v3);//0x36656
-	//fix
-	//23620a
 	for (j = 1; j < 50; j++)
 	{
 		if (D41A0_BYTESTR_0.str_0x3664C[j].byte_0)
 			D41A0_BYTESTR_0.str_0x3664C[j].dword_A = (type_str_0x6E8E*)((Bit32u)D41A0_BYTESTR_0.str_0x3664C[j].dword_A + (Bit32u)v3);//0x36656
 	}
-
-	/*for (j = 1; j < 50; j++)
-	{
-		if (D41A0_BYTESTR_0.str_0x3664C[j].byte_0)
-			D41A0_BYTESTR_0.str_0x3664C[j].dword_A = (type_str_0x6E8E*)((Bit32u)D41A0_BYTESTR_0.str_0x3664C[j].dword_A+ (Bit32u)v3);//0x36656
-		//fix
-		//if (((int)v2 == 1) && (((Bit32u)D41A0_BYTESTR_0.str_0x3664C[j].dword_A < (Bit32u)D41A0_BYTESTR_0.struct_0x6E8E) || ((Bit32u)D41A0_BYTESTR_0.str_0x3664C[j].dword_A >= (Bit32u)& D41A0_BYTESTR_0.struct_0x6E8E[0x3e8])))
-		//	D41A0_BYTESTR_0.str_0x3664C[j].dword_A = NULL;
-		//fix
-	}*/
-	//x_D41A0_BYTEARRAY_0 = (Bit8u*)v1;
-	//return result;
 }
 
 //----- (00055250) --------------------------------------------------------
 char sub_55250(unsigned __int8 a1, char* filenameindex)//236250 //in game save
 {
 	char v1; // bl
-	//Bit8u* v2; // eax
-	//Bit8u* v3; // esi
 	int v4; // edi
 	int v5; // edx
 	long v6; // eax
-	//Bit8u* v7; // ST14_4
-	//char v9; // [esp+0h] [ebp-40h]
 
-	//fix it
 	v5 = 0;
-	//fix it
 
 	//fix for saving
 	for (int indexx = 1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[0x3e8]; indexx++)
@@ -70789,31 +70433,21 @@ char sub_55250(unsigned __int8 a1, char* filenameindex)//236250 //in game save
 
 	v1 = 0;
 	sprintf(printbuffer, "%c:%s/%s/%s%d%s.dat", x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182, "/netherw", "save", "SLEV", a1 + 1, filenameindex);
-	//v2 = x_D41A0_BYTEARRAY_0;
-	//v3 = x_D41A0_BYTEARRAY_0 + 2124 * D41A0_BYTESTR_0.word_0xc;
 	D41A0_BYTESTR_0.dword_0x36DF6 = (x_DWORD)&unk_D7BD6[0x7d6];
-	//v4 = *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 2124 * D41A0_BYTESTR_0.word_0xc + 12621);
 	v4= D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393;
 	v6 = j___clock();
-	//v7 = x_D41A0_BYTEARRAY_0;
 	D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393 = v6 - D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393;
 	
-	//fix !!!!
-	//allert_error();
 	if (sub_98C48_open_nwrite_close(printbuffer, (Bit8u*)&D41A0_BYTESTR_0, 224791) == 224791)
 		v1 = 1;
-	//fix !!!!
 
 	D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393 = v4;
 
-	//fix for saving
 	for (int indexx = 1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[0x3e8]; indexx++)
-		//if (memory_readable(x_DWORD_EA3E4[indexx]->dword_0xA4_164x,4))
 	{
 		if ((Bit32u)x_DWORD_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)//0x014F82E8//0x2c75e28-(Bit32u)&D41A0_BYTESTR_0
 			x_DWORD_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
 	}
-	//fix for saving
 
 	return v1;
 }
@@ -70822,19 +70456,14 @@ char sub_55250(unsigned __int8 a1, char* filenameindex)//236250 //in game save
 bool sub_55320_InGameSave(unsigned __int8 a1, char* filenameindex)//236320 //file index added for develop
 {
 	FILE* savesmapfile; // eax
-	//FILE* v2; // ebx
-	//char v4; // [esp+0h] [ebp-48h]
 	size_t writedsize; // [esp+40h] [ebp-8h]
-	//bool v6; // [esp+44h] [ebp-4h]
 
 	#ifdef DEBUG_LOADSAVE
 		debug_printf("InGameSave-begin\n");
 	#endif //DEBUG_START
 
-	//v6 = 0;
 	sprintf(printbuffer, "%c:%s/%s/%s%d%s.dat", x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182, "/netherw", "save", "SMAP", a1 + 1, filenameindex);
 	savesmapfile = sub_98817_open(printbuffer, 546);
-	//v2 = v1;
 	if (savesmapfile >= 0)
 	{
 		sub_98CAA_write(savesmapfile, (Bit8u*)x_BYTE_10B4E0_terraintype, 0x10000);
@@ -70874,11 +70503,6 @@ char sub_55450(unsigned __int8 a1, int a2, char* filenameindex)//236450 //filein
 char sub_555D0(Bit8u fileindex, int levelindex)//2365d0
 {
 	char v2; // bl
-	//int v3; // eax
-	//int v4; // edx
-	//int v5; // ecx
-	//int v6; // eax
-	//x_DWORD *v7; // edi
 	int v9; // [esp+0h] [ebp-34h]
 	int v10; // [esp+4h] [ebp-30h]
 	int v11; // [esp+8h] [ebp-2Ch]
@@ -70904,16 +70528,10 @@ char sub_555D0(Bit8u fileindex, int levelindex)//2365d0
 		v11 = D41A0_BYTESTR_0.dword_0x21A2;
 		v12 = D41A0_BYTESTR_0.dword_0x21A6;
 		v17 = D41A0_BYTESTR_0.str_0x21AA;
-		//v17 = x_D41A0_BYTEARRAY_4_struct.byteindex_8618;
 		v18 = D41A0_BYTESTR_0.str_0x21AE;
 		v19 = D41A0_BYTESTR_0.str_0x21B2;
 		v20 = D41A0_BYTESTR_0.str_0x21B6;
 		v2 = sub_55750_TestSaveFile(fileindex, levelindex);
-
-		//adress  23662a
-
-		//mouseturnoff = true;
-		//debugcounter_sub_41BD3_subDrawSprite=0;
 
 		if (v2)
 		{
@@ -70930,43 +70548,14 @@ char sub_555D0(Bit8u fileindex, int levelindex)//2365d0
 					sub_55100(2);
 					sub_57680_FixPointersAfterLoad();
 					sub_549A0(&D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.str_611, &x_D41A0_BYTEARRAY_4_struct.byteindex_256ar.dword_0x3E6_2BE4_12228.str_611);
-					//sub_549A0(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11230 + 1609, &x_D41A0_BYTEARRAY_4_struct.byteindex_256ar[1609]);
 					sub_49F90();
-					//v3 = (int)x_D41A0_BYTEARRAY_0;
-					//v4 = 2124 * D41A0_BYTESTR_0.word_0xc;
-					//v5 = (int)x_D41A0_BYTEARRAY_0 + 11230;
 					D41A0_BYTESTR_0.dword_0x11e6 = -1;
 					sub_55AB0(D41A0_BYTESTR_0.word_0xc, &D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc]);
 					sub_71990();
 					sub_473B0();
-
-					//debug
-					/*Bit8u origbyte20;
-					Bit8u remakebyte20;
-					int comp20 = compare_with_sequence_D41A0((char*)"00236708-00356038", (Bit8u*)& D41A0_BYTESTR_0, 0x356038, 0, 0x36e16, &origbyte20, &remakebyte20);*/
-					//debug
-
-
 				}
 			}
 		}
-		//v6 = (int)x_D41A0_BYTEARRAY_0;
-		/*v7 = (x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8586);
-		*v7 = v13;
-		++v7;
-		*v7 = v14;
-		++v7;
-		*v7 = v15;
-		v7[1] = v16;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8602) = v9;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8606) = v10;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8610) = v11;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8614) = v12;
-		D41A0_BYTESTR_0.byte_0x21AA = v17;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8622) = v18;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8626) = v19;
-		*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 8630) = v20;
-		*/
 		D41A0_BYTESTR_0.str_0x218A_settings.str_0x218A=v13;
 		D41A0_BYTESTR_0.str_0x218A_settings.str_0x218E=v14;
 		D41A0_BYTESTR_0.str_0x218A_settings.str_0x2192=v15;
@@ -70987,27 +70576,12 @@ char sub_555D0(Bit8u fileindex, int levelindex)//2365d0
 Bit8u sub_55750_TestSaveFile(Bit8u fileindex, int levelindex)//236750 //load in game
 {
 	FILE* saveslevfile; // eax
-	//FILE* v3; // esi
 	int v4; // eax
 	bool v5; // bl
 	Bit32u filesize2; // edi
 	FILE* savesmapfile; // eax
-	//FILE* v8; // ebx
 	Bit32u filesize; // esi
-	//char v11; // [esp+0h] [ebp-54h]
-	//Bit8u* v12; // [esp+40h] [ebp-14h]
-	//int v13; // [esp+44h] [ebp-10h]
-	//char v14; // [esp+48h] [ebp-Ch]
-	//int v15; // [esp+4Ch] [ebp-8h]
 	Bit8u result; // [esp+50h] [ebp-4h]
-
-	//fix it
-	//v13 = 0;
-	//v15 = 0xe1b7;
-	//fix it
-
-
-	//!!!!v12 fix
 
 	result = 0;
 	sprintf(printbuffer, "%c:%s/%s/%s%d.dat", x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182, "/netherw", "save", "SVER", fileindex + 1);
@@ -71046,10 +70620,7 @@ Bit8u sub_55750_TestSaveFile(Bit8u fileindex, int levelindex)//236750 //load in 
 bool sub_558E0_InGameLoad(Bit8u fileindex)//2368e0
 {
 	FILE* loadfile; // eax
-	//FILE* v2; // ebx
-	//char v4; // [esp+0h] [ebp-48h]
 	int truesize =0; // [esp+40h] [ebp-8h]
-	//bool v6; // [esp+44h] [ebp-4h]
 
 	#ifdef DEBUG_LOADSAVE
 		debug_printf("InGameLoad-begin\n");
@@ -71098,27 +70669,18 @@ char sub_55A10(unsigned __int8 a1)//236a10
 {
 	char v1; // bl
 	int v2; // edx
-	//int v3; // ebx
-	//char v5; // [esp+0h] [ebp-40h]
 
-	//fix it
 	v2 = 0;
-	//fix it
 
 	v1 = 0;
 	sprintf(printbuffer, "%c:%s/%s/%s%d.dat", x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182, "/netherw", "save", "SLEV", a1 + 1);
-	//fix !!!!
-	//allert_error();
 	Bit8u* D41A0_pointer;
 	D41A0_pointer= (Bit8u*)&D41A0_BYTESTR_0;
 	if (sub_53E60_readfile_and_decompress(printbuffer, &D41A0_pointer) == 224791)
 	{
-		//v3 = (int)x_D41A0_BYTEARRAY_0 + 2124 * D41A0_BYTESTR_0.word_0xc;
-		//*(x_DWORD *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 12621) = j___clock() - *(x_DWORD *)(v3 + 12621);
 		D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393 = j___clock() - D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393;
 		v1 = 1;
 	}
-	//fix !!!!
 
 	return v1;
 }
@@ -71195,12 +70757,9 @@ char sub_55C00(__int16 a1)//236c00
 //----- (00055C60) --------------------------------------------------------
 void sub_55C60(/*int a1, int a2, */type_str_0x2BDE* a3x)//236c60
 {
-	//unsigned int result; // eax
 	int v4; // eax
 	__int16 v5; // ax
-	//int v6; // edx
 	char v7; // cl
-	//__int16 v8; // ax
 	__int16 v9; // ax
 	unsigned __int8 v10; // ch
 	char v11; // dl
@@ -71208,13 +70767,10 @@ void sub_55C60(/*int a1, int a2, */type_str_0x2BDE* a3x)//236c60
 	__int16 v13; // dx
 	signed int v14; // [esp+0h] [ebp-4h]
 
-	//fix it
 	v14 = 0;
 	int a1 = 0;
 	int a2 = 0;
-	//fix it
 
-	//result = (unsigned int)x_D41A0_BYTEARRAY_4;
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1))
 	{
 		v4 = abs(a3x->dword_0x3E6_2BE4_12228.word_0x155_341);
@@ -71317,16 +70873,6 @@ void sub_55C60(/*int a1, int a2, */type_str_0x2BDE* a3x)//236c60
 	}
 	//return result;
 }
-
-/*
-cseg01:00055C38 off_55C38       dd offset loc_55CB2     ; DATA XREF: sub_55C60+4Br
-cseg01:00055C3C                 dd offset loc_55CB2
-cseg01:00055C40                 dd offset loc_55CEB
-cseg01:00055C44                 dd offset loc_55CC3
-cseg01:00055C48                 dd offset loc_55CF7
-cseg01:00055C4C                 dd offset loc_55CD7
-cseg01:00055C50                 dd offset loc_55D03
-*/
 
 //----- (00055EB0) --------------------------------------------------------
 void sub_55EB0(__int16 a1)//236eb0
@@ -71682,26 +71228,14 @@ int sub_56730_clean_memory()//237730
 //----- (000567C0) --------------------------------------------------------
 void sub_567C0()//2377c0 // clean level
 {
-	//int result; // eax
-	//int v1; // ebx
-
-	//memset((void*)(&x_D41A0_BYTEARRAY_0[16]), 0, 29);
 	memset(D41A0_BYTESTR_0.array_0x10, 0, 29);
-	//memset((void*)(&x_D41A0_BYTEARRAY_0[45]), 0, 4);
 	D41A0_BYTESTR_0.dword_0x2d = 0;
-	//memset((void*)(&x_D41A0_BYTEARRAY_0[49]), 0, 2);
 	D41A0_BYTESTR_0.word_0x31 = 0;
-	//memset((void*)(&x_D41A0_BYTEARRAY_0[51]), 0, 2);
 	D41A0_BYTESTR_0.word_0x33 = 0;
-	//memset((void*)(&x_D41A0_BYTEARRAY_0[53]), 0, 4);
 	D41A0_BYTESTR_0.dword_0x35=0;
-	//memset((void*)(&x_D41A0_BYTEARRAY_0[569]), 0, 1);
 	D41A0_BYTESTR_0.byte_0x239 = 0;
 	memset(&D41A0_BYTESTR_0.str_0x364D2, 0, sizeof(D41A0_BYTESTR_0.str_0x364D2));
-	//memset((void*)(&x_D41A0_BYTEARRAY_0[9058]), 0, 48);
 	memset(&D41A0_BYTESTR_0.array_0x2362, 0, sizeof(D41A0_BYTESTR_0.array_0x2362));
-	//clean_x_D41A0_BYTEARRAY_0_0x2362();
-	//memset((void*)(&x_D41A0_BYTEARRAY_0[28302]), 0, 168000);
 	memset(D41A0_BYTESTR_0.struct_0x6E8E, 0, 168000);
 
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.byteindex_51), 0, 1);
@@ -71721,12 +71255,9 @@ void sub_567C0()//2377c0 // clean level
 	memset((void*)x_BYTE_12B4E0_shading, 0, 0x10000);
 	memset((void*)x_BYTE_13B4E0_angle, 0, 0x10000);
 	memset((void*)x_DWORD_E9C38_smalltit, 0, 0xfa00);
-	//result = (int)x_D41A0_BYTEARRAY_4;
 	x_D41A0_BYTEARRAY_4_struct.setting_30 = 0;
-	//v1 = *(x_DWORD *)(x_D41A0_BYTEARRAY_4 + 22);
 	x_D41A0_BYTEARRAY_4_struct.byteindex_26 = 0;
 	x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 &= 0xFFFE3FFF;
-	//return result;
 }
 
 int debugcounter_237a30 = 0;
@@ -91238,20 +90769,19 @@ void sub_70BF0_close_tmaps()//251bf0
 int sub_70C60_decompress_tmap(unsigned __int16 index_in_tmaps_tab_file, Bit8u* texture_buffer)//251c60
 {
 	//int v2; // edi
-	int v3; // ebx
 	int result; // eax
 
 	if (x_DWORD_DB73C_tmapsfile == NULL)
 		return (int)x_DWORD_DB73C_tmapsfile;
 	sub_9891E_seek(x_DWORD_DB73C_tmapsfile, *(x_DWORD *)(10 * index_in_tmaps_tab_file + TMAPS00TAB_BEGIN_BUFFER + 4), 0);//lseek
-	v3 = *(Bit32u*)&TMAPS00TAB_BEGIN_BUFFER[10 * (index_in_tmaps_tab_file + 1) + 4] - *(Bit32u*)&TMAPS00TAB_BEGIN_BUFFER[10 * index_in_tmaps_tab_file + 4];
-	if (sub_988A7_read(x_DWORD_DB73C_tmapsfile, texture_buffer, v3) != v3)
+	int compressed_length = *(Bit32u*)&TMAPS00TAB_BEGIN_BUFFER[10 * (index_in_tmaps_tab_file + 1) + 4] - *(Bit32u*)&TMAPS00TAB_BEGIN_BUFFER[10 * index_in_tmaps_tab_file + 4];
+	if (sub_988A7_read(x_DWORD_DB73C_tmapsfile, texture_buffer, compressed_length) != compressed_length)
 		return -1;
 	result = sub_9894C_decompress(texture_buffer, texture_buffer);
 	if (result >= 0)
 	{
 		if (!result)
-			result = v3;
+			result = compressed_length;
 	}
 	else
 	{
@@ -91288,8 +90818,8 @@ char sub_70D20(unsigned __int16 a1)//251d20
 			}
 			sub_71F20(x_DWORD_E9C28_str, x_DWORD_F5F10[i]);
 			x_DWORD_F66F0x[i] = 0;
-			x_DWORD_F5F10[i] = 0;
-			x_DWORD_F5730[i] = 0;
+			x_DWORD_F5F10.at(i) = 0;
+			x_DWORD_F5730.at(i) = 0;
 		}
 	}
 	return 1;
@@ -91320,8 +90850,8 @@ char sub_70E10(unsigned __int16 a1)//251e10
 			}
 			sub_71F20(x_DWORD_E9C28_str, x_DWORD_F5F10[i]);
 			x_DWORD_F66F0x[i] = 0;
-			x_DWORD_F5F10[i] = 0;
-			x_DWORD_F5730[i] = 0;
+			x_DWORD_F5F10.at(i) = 0;
+			x_DWORD_F5730.at(i) = 0;
 		}
 	}
 	return 1;
@@ -91348,7 +90878,7 @@ int sub_70EF0(unsigned __int16 a1)//251ef0
 
 
 //----- (00070F50) --------------------------------------------------------
-void sub_70F50_initTmaps(unsigned __int16 a1)//251f50
+void sub_70F50_initTmaps(unsigned __int16 tmaps_tab_begin_index)//251f50
 {
 	type_animations1* index; // eax
 	Bit8u* index2; // eax
@@ -91397,9 +90927,8 @@ void sub_70F50_initTmaps(unsigned __int16 a1)//251f50
 #endif
 
 	v5 = x_D41A0_BYTEARRAY_4_struct.byteindex_26;
-	//index = (int)TMAPS00TAB_BEGIN_BUFFER;
-	v2 = *(x_WORD *)(10 * a1 + TMAPS00TAB_BEGIN_BUFFER + 8);
-	for (i = *(x_WORD *)(10 * a1 + TMAPS00TAB_BEGIN_BUFFER + 8); i < 0x1F8u; i++)
+	v2 = *(x_WORD *)(10 * tmaps_tab_begin_index + TMAPS00TAB_BEGIN_BUFFER + 8);
+	for (i = *(x_WORD *)(10 * tmaps_tab_begin_index + TMAPS00TAB_BEGIN_BUFFER + 8); i < 0x1F8u; i++)
 	{
 		index2 = 10 * i + TMAPS00TAB_BEGIN_BUFFER;
 		if (v2 != *(x_WORD *)(index2 + 8))
@@ -91464,9 +90993,9 @@ void sub_70F50_initTmaps(unsigned __int16 a1)//251f50
 						*(Bit8u **)index3 = BIG_SPRITES_BUFFERx[i].actdata;
 					}
 					#endif
-					x_DWORD_F5F10[v6] = (int)index3;
+					x_DWORD_F5F10[v6] = index3;
 					x_DWORD_F66F0x[v6] = (Bit32u*)index3;
-					x_DWORD_F5730[v6] = v5;
+					x_DWORD_F5730.at(v6) = v5;
 					index6 = (int)x_DWORD_F66F0x[v6];
 					if (**(Bit8u**)index6 & 1)
 						index = sub_721C0_initTmap(x_DWORD_E9C08x, (int *)index6, i);
@@ -91557,7 +91086,7 @@ unsigned int sub_71090(unsigned int a1)//252090
 		v6 = *(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)v5 + 8);
 		if ((!x_BYTE_F5340.at(v6) || v31) && x_DWORD_F66F0x[v6])
 		{
-			v7 = x_DWORD_F5730[v6];
+			v7 = x_DWORD_F5730.at(v6);
 			v8 = *(unsigned __int16 *)(TMAPS00TAB_BEGIN_BUFFER + 10 * (unsigned __int16)v5 + 8);
 			if (v7 < v26)
 			{
@@ -91628,7 +91157,7 @@ unsigned int sub_71090(unsigned int a1)//252090
 //----- (000712F0) --------------------------------------------------------
 void sub_712F0()//2522f0
 {
-	x_DWORD_E9C28_str = sub_71B40(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230, 0x1F8u, (type_x_DWORD_E9C28_str*)x_D41A0_BYTEARRAY_4_struct.heapbuffer.data());
+	//x_DWORD_E9C28_str = sub_71B40(x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230, 0x1F8u, (type_x_DWORD_E9C28_str*)x_D41A0_BYTEARRAY_4_struct.heapbuffer.data());
 	if (x_DWORD_E9C28_str)
 		x_DWORD_E9C08x = sub_72120(0x1F8u);
 	sub_70A60_open_tmaps();
@@ -92064,6 +91593,7 @@ void sub_71AB0(__int16 a1, char a2)//252ab0
 }
 
 //----- (00071B40) --------------------------------------------------------
+// FIXME: trying to remove type_x_DWORD_E9C28_str
 type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C28_str* a3y)//252b40
 {
 	unsigned __int16 v3;
@@ -92097,7 +91627,7 @@ type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C2
 		a3y->dword_12x = (Bit32u*)&a3y->data[v14];// (Bit32u)(v14 + (Bit8u*)a3y + 26);//must fix for 64 bit version - data
 		a3y->dword_16x = (Bit32u*)&a3y->data[v14+4*a2];//(Bit32u)(4 * a2 + (v14 + (Bit8u*)a3y + 26));//must fix for 64 bit version - data
 		while (--v3 != 0xffff)
-			*(x_DWORD *)(a3y->dword_8_data + 14 * v3 + 4) = 0;
+			*(x_DWORD *)(a3y->dword_8_data + 14 * v3 + 4) = 0; // FIXME: will not work on 64 bit
 	}
 	else
 	{
@@ -92132,13 +91662,12 @@ type_x_DWORD_E9C28_str* sub_71B40(int a1, unsigned __int16 a2, type_x_DWORD_E9C2
 }
 
 //----- (00071CD0) --------------------------------------------------------
+// FIXME: trying to remove type_x_DWORD_E9C28_str 
 signed int sub_71CD0(const type_x_DWORD_E9C28_str &a1y)//252cd0
 {
-	int i; // edx
-
-	for (i = 0; (signed __int16)i < (signed int)a1y.word_22; i++)
+	for (int i = 0; i < (int)a1y.word_22; i++)
 	{
-		if (!*(x_DWORD *)(14 * (signed __int16)i + a1y.dword_8_data + 4))
+		if (!*(x_DWORD *)(14*i + a1y.dword_8_data + 4))
 			return i;
 	}
 	return -1;
@@ -92172,7 +91701,7 @@ Bit8u* sub_71E70(type_x_DWORD_E9C28_str &a1y, unsigned int a2, __int16 a3)//252e
 			v7 = 14 * v4;
 			*(x_WORD *)(a1y.dword_8_data + v7 + 10) = v5;
 			*(x_DWORD *)(a1y.dword_8_data + v7 + 4) = a2;
-			*(x_DWORD *)(a1y.dword_8_data + v7) = a1y.dword_0 + (int)a1y.dword_16x - a1y.dword_4;
+			*(x_DWORD *)(a1y.dword_8_data + v7) = a1y.dword_0 + (int)a1y.dword_16x - a1y.dword_4; // FIXME: broken on 64 bit
 			*(x_WORD *)(a1y.dword_8_data + v7 + 12) = a3;
 			a1y.dword_4 -= a2;
 			*(x_WORD *)(a1y.dword_8_data + v7 + 8) = a1y.word_20;
@@ -92189,21 +91718,19 @@ Bit8u* sub_71E70(type_x_DWORD_E9C28_str &a1y, unsigned int a2, __int16 a3)//252e
 }
 
 //----- (00071F20) --------------------------------------------------------
-__int16 sub_71F20(type_x_DWORD_E9C28_str* a1y, int a2)//252f20
+__int16 sub_71F20(type_x_DWORD_E9C28_str* a1y, Bit8u* a2)//252f20
 {
-	int v2; // eax
+	int v2 = 0; // eax
 	Bit8u* v3; // ecx
 	unsigned __int16 v4; // bx
 	int v5; // esi
 	Bit8u* v6; // ecx
 	unsigned __int16 v7; // cx
-	//int v8; // edi
-	//int v9; // eax
 	const void *v10; // esi
 	char *i; // [esp+4h] [ebp-4h]
 
 	LOWORD(v2) = *(x_WORD *)(a2 + 10);
-	if ((unsigned __int16)v2 < a1y->word_22)
+	if (v2 < a1y->word_22)
 	{
 		v2 = 14 * (unsigned __int16)v2;
 		v3 = v2 + a1y->dword_8_data;
@@ -92221,10 +91748,7 @@ __int16 sub_71F20(type_x_DWORD_E9C28_str* a1y, int a2)//252f20
 				v7 = a1y->word_20;
 				if (v4 >= v7)
 					break;
-				//v8 = 4 * v4;
-				//*(x_DWORD *)(v8 + a1y->dword_12 - 4) = *(x_DWORD *)(v8 + a1y->dword_12);
 				*(x_DWORD*)(v4 + a1y->dword_12x - 1) = *(x_DWORD*)(v4 + a1y->dword_12x);
-				//v9 = *(x_DWORD *)(v8 + a1y->dword_12);
 				*(x_WORD *)(*(x_DWORD*)(v4 + a1y->dword_12x) + 8) = v4 - 1;
 				v10 = *(const void **) * (x_DWORD*)(v4 + a1y->dword_12x);
 				**(x_DWORD **)(v4 + a1y->dword_12x) = (x_DWORD)i;
@@ -92240,9 +91764,6 @@ __int16 sub_71F20(type_x_DWORD_E9C28_str* a1y, int a2)//252f20
 //----- (000720C0) --------------------------------------------------------
 void sub_720C0(type_x_DWORD_E9C28_str** a1y)//2530c0
 {
-	//type_x_DWORD_E9C28_str* v1y; // edx
-
-	//v1y = *a1x;
 	if (*a1y)
 	{
 		if ((*a1y)->word_24 == 1)
@@ -92255,6 +91776,7 @@ void sub_720C0(type_x_DWORD_E9C28_str** a1y)//2530c0
 		*a1y = 0;
 	}
 }
+
 
 //----- (00072120) --------------------------------------------------------
 type_E9C08* sub_72120(unsigned __int16 a1)//253120
@@ -101788,13 +101310,7 @@ unsigned int sub_81CA0(int a1, int a2, __int16 a3, __int16 a4, type_x_BYTE_E25ED
 //----- (00081DB0) --------------------------------------------------------
 void sub_81DB0_read_config()//262db0
 {
-	//signed int result; // eax
 	FILE* configdatfile; // ebx
-	//char v2; // [esp+0h] [ebp-70h]
-	//int v3; // [esp+50h] [ebp-20h]
-	//__int16 v4; // [esp+54h] [ebp-1Ch]
-	//int v5; // [esp+64h] [ebp-Ch]
-	//char v6; // [esp+6Eh] [ebp-2h]
 
 	if (x_D41A0_BYTEARRAY_4_struct.setting_38402 == 1)
 	{
@@ -101802,8 +101318,6 @@ void sub_81DB0_read_config()//262db0
 		configdatfile = sub_98817_open(file_handling->getFilePath(MC2File::config_dat).c_str(), 546);
 		if (configdatfile != NULL)
 		{
-			//qmemcpy(readbuffer, (void *)x_D41A0_BYTEARRAY_4, 20);
-			//qmemcpy(&v5, (void *)x_D41A0_BYTEARRAY_4[20], 2u);
 			qmemcpy(&readbuffer[0], (void *)&x_D41A0_BYTEARRAY_4_struct.dwordindex_0, 4);//fixed
 			qmemcpy(&readbuffer[4], (void *)&x_D41A0_BYTEARRAY_4_struct.wordindex_4, 2);//fixed
 			qmemcpy(&readbuffer[6], (void *)&x_D41A0_BYTEARRAY_4_struct.wordindex_6, 2);//fixed
@@ -101815,19 +101329,7 @@ void sub_81DB0_read_config()//262db0
 			qmemcpy(&readbuffer[14], (void*)&x_D41A0_BYTEARRAY_4_struct.wordindex_14, 2);//fixed
 			qmemcpy(&readbuffer[16], (void *)&x_D41A0_BYTEARRAY_4_struct.dwordindex_16, 4);//fixed
 			qmemcpy(&readbuffer[20], (void*)x_D41A0_BYTEARRAY_4_struct.stubb, 2);//fixed
-
-
-			/*
-			qmemcpy(&readbuffer[22], (void *)x_D41A0_BYTEARRAY_4_struct.setting_byte1_22, 1);//fixed
-			qmemcpy(&readbuffer[23], (void *)x_D41A0_BYTEARRAY_4_struct.setting_byte2_23, 1);//fixed
-			qmemcpy(&readbuffer[24], (void *)x_D41A0_BYTEARRAY_4_struct.setting_byte3_24, 1);//fixed
-			qmemcpy(&readbuffer[25], (void *)x_D41A0_BYTEARRAY_4_struct.setting_byte4_25, 1);//fixed
-			qmemcpy(&readbuffer[26], (void *)x_D41A0_BYTEARRAY_4_struct.byteindex_26, 1);//fixed
-			qmemcpy(&readbuffer[30], (void *)x_D41A0_BYTEARRAY_4_struct.setting_30, 1);//fixed
-			*/
 			qmemcpy(&readbuffer[22], x_BYTE_EB39E_keys, 10);//fixed
-			//qmemcpy((char *)&v5 + 2, &x_BYTE_EB39E_keys, 8u);
-			//qmemcpy(&v6, &x_BYTE_EB39E_keys + 8, 2u);
 			readbuffer[0] = 0xf7;
 			readbuffer[4] = x_D41A0_BYTEARRAY_4_struct.byteindex_179;
 			sub_98CAA_write(configdatfile, readbuffer, 32);
@@ -139520,13 +139022,12 @@ void sub_BD3DD()//29e3dd
 //----- (000BD524) --------------------------------------------------------
 void sub_BD524(__int16 a1, __int16 a2, __int16 a3, __int16 a4, char a5)//29e524
 {
-	//JUMPOUT((int*)&loc_BD550);
-	/*test and fix*/sub_BD542(a1/2, a2/2, a3/2, a4/2, a5);
+	sub_BD542(a1/2, a2/2, a3/2, a4/2, a5);
 
 }
 
 //----- (000BD542) --------------------------------------------------------
-void /*__spoils<ecx>*/ sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4, char a5)//29e542
+void sub_BD542(unsigned __int16 a1, unsigned __int16 a2, unsigned __int16 a3, unsigned __int16 a4, char a5)//29e542
 {
 	signed __int16 v5; // bx
 	unsigned __int16 v6; // cx

@@ -4,6 +4,7 @@
 #include <cstring>
 #include <fstream>
 #include <iostream>
+#include <stdexcept>
 #include <libgen.h>
 #include <limits.h>
 #include <list>
@@ -133,8 +134,15 @@ void FileHandling::init() {
 	}
 
 	// set up texture maps
-	
-
+	m_tmaps.clear();
+	std::vector<MC2CurrentTMapsFile> tmaps = {
+		MC2CurrentTMapsFile::TMaps00,
+		MC2CurrentTMapsFile::TMaps10,
+		MC2CurrentTMapsFile::TMaps20,
+	};
+	for( auto map : tmaps ) {
+		prepareTMapsFile(map);
+	}
 }
 
 void FileHandling::initDirsAndFiles()
@@ -239,41 +247,102 @@ void FileHandling::decompressFile(MC2File file)
 	}
 }
 
-MC2FileInfo& FileHandling::getCurrentTMapsFileDatInfo()
+MC2File FileHandling::getTMapsDatFile(MC2CurrentTMapsFile tmap) const
 {
-	MC2File current_dat = MC2File::data_tmaps00_dat;
-	switch (m_current_tmaps_file) {
+	MC2File dat_file = MC2File::data_tmaps00_dat;
+	switch (tmap) {
 		case MC2CurrentTMapsFile::TMaps00:
-			current_dat = MC2File::data_tmaps00_dat;
+			dat_file = MC2File::data_tmaps00_dat;
 			break;
 		case MC2CurrentTMapsFile::TMaps10:
-			current_dat = MC2File::data_tmaps10_dat;
+			dat_file = MC2File::data_tmaps10_dat;
 			break;
 		case MC2CurrentTMapsFile::TMaps20:
-			current_dat = MC2File::data_tmaps20_dat;
+			dat_file = MC2File::data_tmaps20_dat;
 			break;
 	}
 
-    return m_mc2files[current_dat];
+    return dat_file;
 }
 
-MC2FileInfo& FileHandling::getCurrentTMapsFileTabInfo()
+MC2FileInfo& FileHandling::getCurrentTMapsFileDatInfo() const
 {
-	MC2File current_tab = MC2File::data_tmaps00_tab;
-	switch (m_current_tmaps_file) {
+    return m_mc2files[getTMapsDatFile(m_current_tmaps_file)];
+}
+
+MC2File FileHandling::getTMapsTabFile(MC2CurrentTMapsFile tmap) const
+{
+	MC2File tab_file = MC2File::data_tmaps00_tab;
+	switch (tmap) {
 		case MC2CurrentTMapsFile::TMaps00:
-			current_tab = MC2File::data_tmaps00_tab;
+			tab_file = MC2File::data_tmaps00_tab;
 			break;
 		case MC2CurrentTMapsFile::TMaps10:
-			current_tab = MC2File::data_tmaps10_tab;
+			tab_file = MC2File::data_tmaps10_tab;
 			break;
 		case MC2CurrentTMapsFile::TMaps20:
-			current_tab = MC2File::data_tmaps20_tab;
+			tab_file = MC2File::data_tmaps20_tab;
 			break;
 	}
 
-    return m_mc2files[current_tab];
+    return tab_file;
 }
+
+MC2FileInfo& FileHandling::getCurrentTMapsFileTabInfo() const
+{
+    return m_mc2files[getTMapsTabFile(m_current_tmaps_file)];
+}
+
+void FileHandling::prepareTMapsFile(MC2CurrentTMapsFile map)
+{
+    std::vector<MC2TMapsEntry> tmap_entries;
+
+    const MC2FileInfo& tab_file = m_mc2files[getTMapsTabFile(map)];
+    const MC2FileInfo& dat_file = m_mc2files[getTMapsDatFile(map)];
+
+	// note: the last entry is just a end marker -> skip it
+	for (int i = 0; (10*(i+1)) < tab_file.file_data.size(); ++i) {
+		int uncompressed_size = (int)tab_file.file_data[10*i];
+		uncompressed_size += (int)tab_file.file_data[10*i + 1] << 8;
+		uncompressed_size += (int)tab_file.file_data[10*i + 2] << 16;
+		uncompressed_size += (int)tab_file.file_data[10*i + 3] << 24;
+		int pos_in_tmaps_dat = (int)tab_file.file_data[10*i + 4];
+		pos_in_tmaps_dat += (int)tab_file.file_data[10*i + 5] << 8;
+		pos_in_tmaps_dat += (int)tab_file.file_data[10*i + 6] << 16;
+		pos_in_tmaps_dat += (int)tab_file.file_data[10*i + 7] << 24;
+		int id = (int)tab_file.file_data[10*i + 8];
+		id += (int)tab_file.file_data[10*i + 9] << 8;
+
+		// size == 1 in TAB file seems to indicate non-existing texture
+		if (uncompressed_size > 1) {
+			auto search = dat_file.data_decompressed.find(pos_in_tmaps_dat);
+			if (search == dat_file.data_decompressed.end())
+				throw std::runtime_error(
+					std::string("Referenced data in tab file not found in dat file: ")
+					+ "index = " + std::to_string(i)
+					+ ", pos_in_dat_file = " + std::to_string(pos_in_tmaps_dat)
+					+ ", file = " + tab_file.file_path.string());
+			if (uncompressed_size != search->second.size())
+				throw std::runtime_error(
+					std::string("Uncompressed size of dat and tab mismatch: ")
+					+ "index = " + std::to_string(i)
+					+ ", file = " + tab_file.file_path.string());
+
+			tmap_entries.push_back({
+				uncompressed_size, pos_in_tmaps_dat, id, search->second
+			});
+		}
+		else {
+			data_t empty_dat;
+			tmap_entries.push_back({
+				uncompressed_size, pos_in_tmaps_dat, id, empty_dat
+			});
+		}
+	}
+}
+
+	
+
 
 // original load and decompress functions
 
