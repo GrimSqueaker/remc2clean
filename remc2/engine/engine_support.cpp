@@ -1162,8 +1162,7 @@ typedef struct {
 	int index;
 	int adress;
 } type_compstr;
-//int compindexes[100];//compstr[i].index
-//int compadresses[100];//compstr[i].adress
+
 type_compstr compstr[100];
 int getcompindex(Bit32u adress) {
 	bool finded = false;

@@ -45,10 +45,10 @@ long my_findnext(long hFile, _finddata_t* c_file);
 void my_findclose(long hFile);
 bool file_exists(const char * filename);
 bool fix_file_exists(const char* filename);
-FILE* mycreate(char* path, Bit32u flags);
+FILE* mycreate(const char* path, Bit32u flags);
 Bit32s mymkdir(char* path);
 
-FILE* myopen(char* path, int pmode, Bit32u flags);
+FILE* myopen(const char* path, int pmode, Bit32u flags);
 int myclose(FILE* descriptor);
 Bit32s mylseek(FILE* filedesc, x_DWORD position, char type);
 Bit32s myfseek(FILE* filedesc, x_DWORD position, char type);

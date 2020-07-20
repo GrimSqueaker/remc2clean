@@ -263,7 +263,7 @@ template<class T, class U> int8_t __CFADD__(T x, U y)
 #else
 // The following definition is not quite correct because it always returns
 // uint64_t. The above C++ functions are good, though.
-#define __PAIR__(high, low) (((uint64)(high)<<sizeof(high)*8) | low)
+#define __PAIR__(high, low) (((uint64_t)(high)<<sizeof(high)*8) | low)
 // For C, we just provide macros, they are not quite correct.
 #define __ROL__(x, y) __rotl__(x, y)      // Rotate left
 #define __ROR__(x, y) __rotr__(x, y)      // Rotate right

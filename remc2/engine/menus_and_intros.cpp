@@ -270,10 +270,10 @@ int sub_7AC00_load_and_set_graphics_and_pallette()//25BC00
 			else
 				sub_728A9_clear_graphics_640(x_DWORD_180628b_screen_buffer, 0x1E0u, x_BYTE_EB3A8);
 			sub_8CEDF_install_mouse();
-			sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+			sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 		}
 	}
-	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 	return 0;//fix it sub_8CD27_set_cursor((Bit8u**)**filearray_2aa18c[0]);
 }
 
@@ -428,7 +428,7 @@ void sub_76D10_intros(char a1)//257d10
 		x_BYTE_D41C0 = 1;
 		x_BYTE_D41C1 = 1;
 	}
-	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 	// TODO/FIXME: get rid of this global printbuffer
 	std::strcpy(printbuffer, file_handling->getFilePath(MC2File::intro_intro_dat).c_str());
 	switch (a1)
@@ -489,9 +489,7 @@ void sub_82670()//263670
 	Bit8s* v3; // ebx
 	int16_t v4; // cx
 	type_x_WORD_E2970* v5x; // edi
-	int v6; // eax
 	int v7; // eax
-	int v8; // eax
 	//char v10; // [esp+0h] [ebp-54h]
 	uint8_t v11; // [esp+50h] [ebp-4h]
 
@@ -578,12 +576,12 @@ void sub_82670()//263670
 						x_BYTE_D41C1 = 1;
 						x_BYTE_D41C0 = 1;
 					}
-					sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+					sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 					memset((void*)x_DWORD_180628b_screen_buffer, 0, 640*480);
 					if (x_WORD_180660_VGA_type_resolution != 1)
 					{
 						sub_54600_mouse_reset();
-						v6 = (int)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
+						memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
 						if (x_WORD_180660_VGA_type_resolution & 1)
 							sub_72883_clear_graphics_320((void *)x_DWORD_180628b_screen_buffer, 200, 0);
 						else
@@ -592,7 +590,7 @@ void sub_82670()//263670
 						x_WORD_180660_VGA_type_resolution = 1;
 						sub_90D6E_VGA_set_video_mode_320x200_and_pallette(*xadatapald0dat2.var28_begin_buffer);
 						sub_8CEDF_install_mouse();
-						sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+						sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 					}
 
 					if (x_WORD_180660_VGA_type_resolution & 1)
@@ -626,9 +624,9 @@ void sub_82670()//263670
 					if (v11 != x_WORD_180660_VGA_type_resolution)
 					{
 						sub_54600_mouse_reset();
-						v8 = (int)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
+						memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
 						if (x_WORD_180660_VGA_type_resolution & 1)
-							sub_72883_clear_graphics_320(/*v8, */(void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
+							sub_72883_clear_graphics_320((void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
 						else
 							sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
 						sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
@@ -639,7 +637,7 @@ void sub_82670()//263670
 							sub_90E07_VGA_set_video_mode_640x480_and_pallette(*xadatapald0dat2.var28_begin_buffer);
 						sub_8CEDF_install_mouse();
 						// fix it//LOWORD(v1) = sub_8CD27_set_cursor((Bit8u**)*filearray_2aa18c[0]);
-						sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+						sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 					}
 				}
 			}
@@ -711,7 +709,7 @@ int sub_7ADE0(char a1)//25bde0
 			sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v3);
 		sub_8CEDF_install_mouse();
 	}
-	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 	return 0;//fix it sub_8CD27_set_cursor((Bit8u**)**filearray_2aa18c[0]);
 }
 
@@ -950,9 +948,7 @@ void sub_76930_menus_and_intros(int a2, Bit16u a3)//257930
 //----- (00083250) --------------------------------------------------------
 void sub_83250_play_intros(char a1)//264250
 {
-	int v1; // eax
-
-	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 	memset((void*)x_DWORD_180628b_screen_buffer, 0, 307200);
 	if (x_WORD_180660_VGA_type_resolution != 1)
 	{
@@ -961,21 +957,21 @@ void sub_83250_play_intros(char a1)//264250
 		x_WORD_180660_VGA_type_resolution = 1;
 		sub_90D6E_VGA_set_video_mode_320x200_and_pallette(*xadatapald0dat2.var28_begin_buffer);
 		sub_8CEDF_install_mouse();
-		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 	}
 	sub_76D10_intros(a1);
 	sub_54600_mouse_reset();
-	v1 = (int)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
-	BYTE1(v1) = x_WORD_180660_VGA_type_resolution;
+	Bit8u* v1 = (Bit8u*)memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
+	v1[1] = x_WORD_180660_VGA_type_resolution;
 	if (x_WORD_180660_VGA_type_resolution & 1)
-		sub_72883_clear_graphics_320(/*v1, */(void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
+		sub_72883_clear_graphics_320((void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
 	else
 		sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
 	sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
 	x_WORD_180660_VGA_type_resolution = 8;
 	sub_90E07_VGA_set_video_mode_640x480_and_pallette(*xadatapald0dat2.var28_begin_buffer);
 	sub_8CEDF_install_mouse();
-	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB].posistruct)[0]);
+	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 	sub_6EDB0_set_mouse_position_by_res();
 	sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 4);
 	sub_7B5A0_disable_enable();

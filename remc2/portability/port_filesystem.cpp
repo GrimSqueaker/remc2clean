@@ -59,7 +59,10 @@ std::filesystem::path pathfix(const std::filesystem::path& path)
 {
 	// prefix paths that are releative to the gamedir so that they are absolute paths
 #ifdef __linux__
-	return gamepath / path;
+	if (std::filesystem::exists(path))
+		return path;
+	else
+		return gamepath / path;
 #else
 	if (firstrun)
 	{
@@ -260,7 +263,7 @@ bool file_exists(const char * filename) {
 	return false;
 }
 
-FILE* mycreate(char* path, Bit32u flags) {
+FILE* mycreate(const char* path, Bit32u flags) {
 	FILE *fp;
 	std::filesystem::path abs_path = pathfix(path);//only for DOSBOX version
 	fp = fopen(abs_path.c_str(), "wb+");
@@ -337,7 +340,7 @@ Bit32s /*__cdecl*/ mymkdir(char* path) {
 	return result;
 };
 
-FILE* myopen(char* path, int pmode, Bit32u flags) {
+FILE* myopen(const char* path, int pmode, Bit32u flags) {
 	std::string type;
 	#ifdef __linux__
 	type = "r";

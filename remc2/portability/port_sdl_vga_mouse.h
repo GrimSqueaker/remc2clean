@@ -24,9 +24,9 @@ typedef struct
 } POSITION;
 
 void VGA_Init();
-void VGA_Init(Uint32 flags);
+void VGA_Init(uint32_t flags);
 void VGA_Resize(int width, int height);
-void VGA_Resize(int width, int height, int bpp, Uint32 flags);
+void VGA_Resize(int width, int height, int bpp, uint32_t flags);
 void VGA_Blit(int width, int height, uint8_t* buffer);
 void VGA_Debug_Blit(int width, int height, uint8_t* buffer);
 void VGA_Set_pallette(const uint8_t* pallettebuffer);

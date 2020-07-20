@@ -204,6 +204,8 @@ void FileHandling::loadFileIntoBuffer(MC2File file)
 
 		if(!ifs.read((char*)file_data.data(), size))
 			throw std::runtime_error(file_path.string() + ": " + std::strerror(errno));
+
+		ifs.close();
 	}
 	else
 		std::cerr << "File missing: " << file_path.string() << std::endl;
@@ -265,7 +267,7 @@ MC2File FileHandling::getTMapsDatFile(MC2CurrentTMapsFile tmap) const
     return dat_file;
 }
 
-MC2FileInfo& FileHandling::getCurrentTMapsFileDatInfo() const
+MC2FileInfo& FileHandling::getCurrentTMapsFileDatInfo()
 {
     return m_mc2files[getTMapsDatFile(m_current_tmaps_file)];
 }
@@ -288,7 +290,7 @@ MC2File FileHandling::getTMapsTabFile(MC2CurrentTMapsFile tmap) const
     return tab_file;
 }
 
-MC2FileInfo& FileHandling::getCurrentTMapsFileTabInfo() const
+MC2FileInfo& FileHandling::getCurrentTMapsFileTabInfo()
 {
     return m_mc2files[getTMapsTabFile(m_current_tmaps_file)];
 }
@@ -333,12 +335,14 @@ void FileHandling::prepareTMapsFile(MC2CurrentTMapsFile map)
 			});
 		}
 		else {
-			data_t empty_dat;
+			data_t empty_dat = {0};
 			tmap_entries.push_back({
 				uncompressed_size, pos_in_tmaps_dat, id, empty_dat
 			});
 		}
 	}
+
+    m_tmaps.insert({map, tmap_entries});
 }
 
 	
@@ -1032,4 +1036,5 @@ signed int sub_5C3D0_file_decompress(const Bit8u* input, Bit8u* output)//23d3d0
 	sub_9894C_decompress(input, output);
 	return 1;
 }
-}
+
+} // namespace remc2

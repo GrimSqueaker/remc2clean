@@ -79,7 +79,7 @@ typedef struct {
 } baxis_2d;
 
 typedef union {
-	baxis_2d axis_2d;
+	baxis_2d _axis_2d;
 	Bit16u word;
 }
 uaxis_2d;
@@ -423,16 +423,25 @@ typedef struct {//lenght 2124=0x84C
 } type_str_0x2BDE;//11230 // 84c lenght
 
 
+typedef struct {
+	Bit8u* data_0;
+	uint32_t data_4;
+	uint16_t data_8;
+	int16_t data_10;
+	int16_t data_12;
+} type_x_DWORD_E9C28_data;
+
 typedef struct {//size 26
 	Bit32s dword_0;
 	Bit32s dword_4;
-	Bit8u* dword_8_data;  // points to data[], data is indexed in 14-byte steps
+	//Bit8u* dword_8_data;  // points to data[], data is indexed in 14-byte steps
 	Bit32u* dword_12x;
 	Bit32u* dword_16x;
 	Bit16s word_20;
 	Bit16s word_22;       // stores number of entries in dword_8_data
 	Bit16s word_24;
-	Bit8u data[];
+	//Bit8u data[];
+	std::vector<type_x_DWORD_E9C28_data> data;
 } type_x_DWORD_E9C28_str;
 
 
@@ -684,7 +693,7 @@ type_str_0x360D2;
 typedef struct {
 	Bit8s byte_0;
 	Bit16s word_1;//25973//word_0
-	axis_2d axis_2d;
+	axis_2d _axis_2d;
 }
 type_str_0x36442;
 
@@ -1112,7 +1121,7 @@ typedef struct {
 	Bit8u** begin_buffer;
 	Bit8u** end_buffer;
 	Bit8u** dat_buffer;
-	posistruct** posistruct;
+	posistruct** _posistruct;
 } filearray_struct;
 #pragma pack (16)
 
@@ -1199,7 +1208,7 @@ extern void sub_54600_mouse_reset();
 extern void sub_81DB0_read_config();
 extern void sub_7B5D0();
 extern void sub_8D8F0_sound_proc3_endsample();
-extern void sub_7AA70_load_and_decompres_dat_file(char* a1, Bit8u* a2, int a3, int a4);
+extern void sub_7AA70_load_and_decompres_dat_file(const char* a1, Bit8u* a2, int a3, int a4);
 extern char sub_779E0_lang_setting_dialog(Bit8u* a1);
 extern int sub_98882_close(FILE* a1);
 extern int sub_9891E_seek(FILE* filedesc, int position, char type);
@@ -1213,7 +1222,7 @@ extern x_DWORD fix_filelength(x_DWORD);
 extern long x_filelength(FILE* decriptor);
 extern void stub_fix_it();
 extern void sub_6EBF0(filearray_struct* a1);
-extern FILE* sub_98817_open(char* path, int __pmode);
+extern FILE* sub_98817_open(const char* path, int __pmode);
 extern void sub_9874D_create_index_dattab(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4);
 extern void sub_9874D_create_index_dattab_add(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4,int add);
 extern void sub_98709_create_index_dattab_power(Bit8u* a1, Bit8u* a2, Bit8u* a3, posistruct* a4);

@@ -362,7 +362,8 @@ Bit32s ac_sound_call_driver(AIL_DRIVER* drvr, Bit32s fn, VDI_CALL* in, VDI_CALL*
 	case 0x300: {//AIL_API_install_driver
 		drvr->VHDR_4->VDI_HDR_var10 = (void*)&common_IO_configurations;
 		drvr->VHDR_4->num_IO_configurations_14 = num_IO_configurations;
-		drvr->VHDR_4->environment_string_16 = (Bit32u)&environment_string;
+		// FIXME: types
+		//drvr->VHDR_4->environment_string_16 = (Bit32u)&environment_string;
 		drvr->VHDR_4->VDI_HDR_var46 = service_rate;
 		/*out->AX = 0;
 		out->BX = 0;

@@ -363,7 +363,7 @@ int sub_A3720_AIL_API_install_DIG_INI(/*int a1, */HDIGDRIVER* dig);
 HDIGDRIVER sub_A3600_AIL_API_install_DIG_driver_file(/*int a1, */char* filename, IO_PARMS* IO);
 Bit32s sub_A78F0_AIL_API_install_MDI_INI(HMDIDRIVER *mdi);
 HMDIDRIVER sub_A77D0_AIL_API_install_MDI_INI(char* filename, IO_PARMS* IO);
-FILE* x_creat(char* path, Bit32u flags);//
+FILE* x_creat(const char* path, Bit32u flags);//
 x_DWORD x_setmode(FILE* path, int mode);// weak
 FILE* x_sopen(char* path, int pmode, Bit32u flags);
 x_DWORD x_close(FILE*);// weak
@@ -384,7 +384,7 @@ int sub_ACE8D(x_WORD *a1, int a2, int *a3);
 void sub_AD0E2(x_BYTE *a1, int a2, int *a3, x_BYTE **a4);
 void sub_ACF1A(x_BYTE *a1, int a2, int *a3);
 int _FDFS(void);// weak
-int sub_B33D6(uint64_t a1, int a2, int a3, int a4);
+int sub_B33D6(uint64_t a1, int a2, int32_t a3, int a4);
 int sub_B337C(int a1, int a2, int a3);
 int sub_B37B0(int a1, int a2, int a3);
 int sub_B35DB(int a1, int a2, x_BYTE *a3, int a4);
@@ -394,10 +394,10 @@ int sub_B3ADF(int64_t *a1, x_BYTE *a2);
 int sub_B3605(uint64_t a1, int a2, unsigned int a3, x_BYTE *a4, int a5);
 int sub_B37DA(uint64_t a1, unsigned int a2, unsigned int a3, int a4);
 int16_t sub_B3EAE(int a1, x_BYTE *a2, int a3);
-int sub_B4A2A(int *a1, int a2, int a3);
+// int sub_B4A2A(int *a1, int a2, int a3);
 int sub_B4077(int64_t a1, unsigned int a2, unsigned int a3, int16_t a4, int16_t a5);
 int sub_B423C(int a1, x_BYTE *a2);
-void sub_B49D8(int a1, int a2);
+// void sub_B49D8(int a1, int a2);
 int _DOS4G_hook_init(void);// weak
 int _Phar_hook_init(void);// weak
 int _Ergo_hook_init(x_DWORD, x_DWORD);// weak
@@ -405,7 +405,7 @@ double sub_B5250(char a1, double *a2, double result);
 double sub_B5205(char a1, int a2, int16_t a3, double a4);
 int64_t sub_B522B(int a1, int16_t a2, int _ESI);
 void sub_B5F8F(int16_t a1, Bit16u* a2, Bit32s a3, int16_t* a4);
-int sub_BD320(int result, x_BYTE *a2, x_BYTE *a3, int a4, int a5, int a6);
+int sub_BD320(int result, x_BYTE *a2, x_BYTE *a3, int a4, Bit8u* a5, int a6);
 void sub_B5EFA(int16_t a1, Bit16u* a2, Bit32s a3, int16_t* a4);
 
 type_str_0x6E8E* pre_sub_4A190_axis_3d(Bit32u adress, axis_3d* a1, int type);//pre 22b190

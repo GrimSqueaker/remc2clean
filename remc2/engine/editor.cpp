@@ -255,8 +255,8 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = temparray_0x30311[i];
-		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-			terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.str_0x30311_type;//all entites
+		if ((actfeat._axis2d_4.x > -1) && (actfeat._axis2d_4.x < 256) && (actfeat._axis2d_4.y > -1) && (actfeat._axis2d_4.y < 256))
+			terrfeatlayer[actfeat._axis2d_4.x + actfeat._axis2d_4.y * 256] = actfeat.str_0x30311_type;//all entites
 	}
 
 	for (int i = 0; i < 0x4B0; i++)
@@ -264,8 +264,8 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 		if (temparray_0x30311_selected[i])
 		{
 			type_str_0x30311 actfeat = temparray_0x30311[i];
-			if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-				terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
+			if ((actfeat._axis2d_4.x > -1) && (actfeat._axis2d_4.x < 256) && (actfeat._axis2d_4.y > -1) && (actfeat._axis2d_4.y < 256))
+				terrfeatlayer[actfeat._axis2d_4.x + actfeat._axis2d_4.y * 256] = 0xf0;//selected entity
 		}
 	}
 
@@ -362,10 +362,10 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 		type_str_0x30311 actfeat = temparray_0x30311[i];
 		if ((actfeat.str_0x30311_type == 0xa) && (actfeat.str_0x30311_subtype == 0x1d)&&(actfeat.word_14>0))
 		{
-			int startx = (actfeat.axis2d_4.x-beginx)* (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.word_14].axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.word_14].axis2d_4.y - beginy) * (zoom * 2);
+			int startx = (actfeat._axis2d_4.x-beginx)* (zoom * 2);
+			int starty = (actfeat._axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.word_14]._axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.word_14]._axis2d_4.y - beginy) * (zoom * 2);
 			int lenx = abs(startx - endx);
 			int leny = abs(starty - endy);
 			if (lenx > 0 || leny > 0)
@@ -428,16 +428,16 @@ void fillterrain(kiss_terrain* terrain, float zoom, int beginx, int beginy) {
 		{
 			for (int i = -8; i <= 8; i++)
 			{
-				int actx = (actstage.axis_2d.x - beginx) * (zoom * 2)+i;
-				int acty = (actstage.axis_2d.y - beginy) * (zoom * 2)-i;
+				int actx = (actstage._axis_2d.x - beginx) * (zoom * 2)+i;
+				int acty = (actstage._axis_2d.y - beginy) * (zoom * 2)-i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
 					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
 					scrbuff[4 * (acty * 512 + actx) + 2] = 0;					
 				}
-				actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
-				acty = (actstage.axis_2d.y - beginy) * (zoom * 2) + i;
+				actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
+				acty = (actstage._axis_2d.y - beginy) * (zoom * 2) + i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
@@ -489,13 +489,13 @@ void fillterraincheck(float zoom, int beginx, int beginy) {
 	for (int i = 0; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
-		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-			terrchecklayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.str_0x30311_type;//all entites
+		if ((actfeat._axis2d_4.x > -1) && (actfeat._axis2d_4.x < 256) && (actfeat._axis2d_4.y > -1) && (actfeat._axis2d_4.y < 256))
+			terrchecklayer[actfeat._axis2d_4.x + actfeat._axis2d_4.y * 256] = actfeat.str_0x30311_type;//all entites
 	}
 
 	type_str_0x30311 actfeat = temparray_0x30311[edited_line_old + 1];
-	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-		terrchecklayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
+	if ((actfeat._axis2d_4.x > -1) && (actfeat._axis2d_4.x < 256) && (actfeat._axis2d_4.y > -1) && (actfeat._axis2d_4.y < 256))
+		terrchecklayer[actfeat._axis2d_4.x + actfeat._axis2d_4.y * 256] = 0xf0;//selected entity
 
 	Bit8u* scrbuff = (Bit8u*)mapsurfacecheck->pixels;
 	for (int j = 0; j < 512; j++)
@@ -584,10 +584,10 @@ void fillterraincheck(float zoom, int beginx, int beginy) {
 		type_str_0x30311 actfeat = temparray_0x30311[i];
 		if ((actfeat.str_0x30311_type == 0xa) && (actfeat.str_0x30311_subtype == 0x1d) && (actfeat.word_14 > 0))
 		{
-			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.word_14].axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.word_14].axis2d_4.y - beginy) * (zoom * 2);
+			int startx = (actfeat._axis2d_4.x - beginx) * (zoom * 2);
+			int starty = (actfeat._axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.word_14]._axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.word_14]._axis2d_4.y - beginy) * (zoom * 2);
 			int lenx = abs(startx - endx);
 			int leny = abs(starty - endy);
 			if (lenx > 0 || leny > 0)
@@ -649,16 +649,16 @@ void fillterraincheck(float zoom, int beginx, int beginy) {
 		{
 			for (int i = -8; i <= 8; i++)
 			{
-				int actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
-				int acty = (actstage.axis_2d.y - beginy) * (zoom * 2) - i;
+				int actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
+				int acty = (actstage._axis_2d.y - beginy) * (zoom * 2) - i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
 					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
 					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
 				}
-				actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
-				acty = (actstage.axis_2d.y - beginy) * (zoom * 2) + i;
+				actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
+				acty = (actstage._axis_2d.y - beginy) * (zoom * 2) + i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
@@ -681,13 +681,13 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 	for (int i = 0; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = temparray_0x30311[first_terrain_feature + i];
-		if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-			terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = actfeat.str_0x30311_type;//all entites
+		if ((actfeat._axis2d_4.x > -1) && (actfeat._axis2d_4.x < 256) && (actfeat._axis2d_4.y > -1) && (actfeat._axis2d_4.y < 256))
+			terrfeatlayer[actfeat._axis2d_4.x + actfeat._axis2d_4.y * 256] = actfeat.str_0x30311_type;//all entites
 	}
 
 	type_str_0x30311 actfeat = temparray_0x30311[edited_line_old + 1];
-	if ((actfeat.axis2d_4.x > -1) && (actfeat.axis2d_4.x < 256) && (actfeat.axis2d_4.y > -1) && (actfeat.axis2d_4.y < 256))
-		terrfeatlayer[actfeat.axis2d_4.x + actfeat.axis2d_4.y * 256] = 0xf0;//selected entity
+	if ((actfeat._axis2d_4.x > -1) && (actfeat._axis2d_4.x < 256) && (actfeat._axis2d_4.y > -1) && (actfeat._axis2d_4.y < 256))
+		terrfeatlayer[actfeat._axis2d_4.x + actfeat._axis2d_4.y * 256] = 0xf0;//selected entity
 
 	Bit8u* scrbuff = (Bit8u*)mapsurfacefeat->pixels;
 	for (int j = 0; j < 512; j++)
@@ -776,10 +776,10 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 		type_str_0x30311 actfeat = temparray_0x30311[i];
 		if ((actfeat.str_0x30311_type == 0xa) && (actfeat.str_0x30311_subtype == 0x1d) && (actfeat.word_14 > 0))
 		{
-			int startx = (actfeat.axis2d_4.x - beginx) * (zoom * 2);
-			int starty = (actfeat.axis2d_4.y - beginy) * (zoom * 2);
-			int endx = (temparray_0x30311[actfeat.word_14].axis2d_4.x - beginx) * (zoom * 2);
-			int endy = (temparray_0x30311[actfeat.word_14].axis2d_4.y - beginy) * (zoom * 2);
+			int startx = (actfeat._axis2d_4.x - beginx) * (zoom * 2);
+			int starty = (actfeat._axis2d_4.y - beginy) * (zoom * 2);
+			int endx = (temparray_0x30311[actfeat.word_14]._axis2d_4.x - beginx) * (zoom * 2);
+			int endy = (temparray_0x30311[actfeat.word_14]._axis2d_4.y - beginy) * (zoom * 2);
 			int lenx = abs(startx - endx);
 			int leny = abs(starty - endy);
 			if (lenx > 0 || leny > 0)
@@ -841,16 +841,16 @@ void fillterrainfeat(float zoom, int beginx, int beginy) {
 		{
 			for (int i = -8; i <= 8; i++)
 			{
-				int actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
-				int acty = (actstage.axis_2d.y - beginy) * (zoom * 2) - i;
+				int actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
+				int acty = (actstage._axis_2d.y - beginy) * (zoom * 2) - i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
 					scrbuff[4 * (acty * 512 + actx) + 1] = 255;
 					scrbuff[4 * (acty * 512 + actx) + 2] = 0;
 				}
-				actx = (actstage.axis_2d.x - beginx) * (zoom * 2) + i;
-				acty = (actstage.axis_2d.y - beginy) * (zoom * 2) + i;
+				actx = (actstage._axis_2d.x - beginx) * (zoom * 2) + i;
+				acty = (actstage._axis_2d.y - beginy) * (zoom * 2) + i;
 				if (actx >= 0 && acty >= 0 && actx < 512 && acty < 512)
 				{
 					scrbuff[4 * (acty * 512 + actx)] = 255;//setyellow
@@ -950,7 +950,7 @@ static void terrain_feat_append(kiss_textbox* textbox1, kiss_vscrollbar* vscroll
 	for (int i = first_terrain_feature; i < 0x4B0; i++)
 	{
 		type_str_0x30311 actfeat = temparray_0x30311[i];//D41A0_BYTESTR_0.str_2FECE.array_0x30311[first_terrain_feature + i];
-		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.str_0x30311_type, actfeat.str_0x30311_subtype, actfeat.axis2d_4.x, actfeat.axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.word_12, actfeat.word_14, actfeat.word_16, actfeat.word_18);		
+		sprintf(temp, "%03X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04X|%04XNA", i,actfeat.str_0x30311_type, actfeat.str_0x30311_subtype, actfeat._axis2d_4.x, actfeat._axis2d_4.y, actfeat.DisId, actfeat.word_10, actfeat.word_12, actfeat.word_14, actfeat.word_16, actfeat.word_18);		
 		if(temparray_0x30311_inactive[i])temp[strlen(temp) - 1] = 'I';//set last char as inactive
 		if(temparray_0x30311_selected[i])temp[strlen(temp) - 2] = 'S';//set last char as inactive
 		kiss_array_appendstring(textbox1->array, 0, (char*)"", temp);
@@ -966,7 +966,7 @@ static void terrain_stages_append(kiss_textbox* textbox) {
 	for (int i = 0; i < 8; i++)
 	{
 		type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[i];
-		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage.axis_2d.x, actstage.axis_2d.y);
+		sprintf(temp, "%01X |%02X|%04X|%04X|%04X", i, (Bit8u)actstage.byte_0, actstage.word_1, actstage._axis_2d.x, actstage._axis_2d.y);
 		kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 	}
 	//text_reset(textbox1, vscrollbar1);
@@ -980,7 +980,7 @@ char temp[256];
 for (int i = 0; i < 0xb; i++)
 {
 	type_str_0x3647Ac actstage = D41A0_BYTESTR_0.str_2FECE.array_0x3647A[i];
-	sprintf(temp, "%01X |%02X|%02X|%02X|%02X|%04X|%04X", i, (Bit8u)actstage.str_0x3647A_byte_0, (Bit8u)actstage.str_0x3647A_byte_1, actstage.str_0x3647A_2.axis_2d.x, actstage.str_0x3647A_2.axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
+	sprintf(temp, "%01X |%02X|%02X|%02X|%02X|%04X|%04X", i, (Bit8u)actstage.str_0x3647A_byte_0, (Bit8u)actstage.str_0x3647A_byte_1, actstage.str_0x3647A_2._axis_2d.x, actstage.str_0x3647A_2._axis_2d.y,actstage.str_0x3647C_4.axis.x, actstage.str_0x3647C_4.axis.y);
 	kiss_array_appendstring(textbox->array, 0, (char*)"", temp);
 }
 //text_reset(textbox1, vscrollbar1);
@@ -1365,8 +1365,8 @@ static int button_add_event(kiss_button* button, SDL_Event* e,	int* quit, int* d
 		temparray_0x30311_selected[edited_line_old + 1] = false;
 		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_type);
 		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_subtype);
-		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
-		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
+		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1]._axis2d_4.x);
+		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1]._axis2d_4.y);
 		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
 		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].word_12);
@@ -1387,8 +1387,8 @@ static int button_clean_event(kiss_button* button, SDL_Event* e, int* quit, int*
 		temparray_0x30311_selected[edited_line_old + 1] = false;
 		kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_type);
 		kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_subtype);
-		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
-		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
+		kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1]._axis2d_4.x);
+		kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1]._axis2d_4.y);
 		kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 		kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
 		kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].word_12);
@@ -1501,10 +1501,10 @@ void SetSelected(kiss_terrain* terrain, type_str_0x30311* temp303array, bool* se
 	int count = 0;
 	for (int i = 0; i < 0x4b0; i++)
 	{
-		if ((temp303array[i].axis2d_4.x <= xmax) &&
-			(temp303array[i].axis2d_4.x >= xmin) &&
-			(temp303array[i].axis2d_4.y <= ymax) &&
-			(temp303array[i].axis2d_4.y >= ymin))
+		if ((temp303array[i]._axis2d_4.x <= xmax) &&
+			(temp303array[i]._axis2d_4.x >= xmin) &&
+			(temp303array[i]._axis2d_4.y <= ymax) &&
+			(temp303array[i]._axis2d_4.y >= ymin))
 		{
 			selecedarray[i] = true;
 			count++;
@@ -1523,7 +1523,7 @@ void SetSelected(kiss_terrain* terrain, type_str_0x30311* temp303array, bool* se
 		int finded = -1;
 		for (int i = 0; i < 0x4b0; i++)
 		{
-			int actdist = abs(findx - temp303array[i].axis2d_4.x) + abs(findy - temp303array[i].axis2d_4.y);
+			int actdist = abs(findx - temp303array[i]._axis2d_4.x) + abs(findy - temp303array[i]._axis2d_4.y);
 			if (actdist < dist) {
 				finded = i;
 				dist = actdist;
@@ -2332,8 +2332,8 @@ int main_x(/*int argc, char** argv*/)
 				sprintf(labelIndexWind2.text, "INDEX:%03X", edited_line_old + 1);
 				kiss_hex4edit_update_adress(&hex4edit1feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_type);
 				kiss_hex4edit_update_adress(&hex4edit2feat, &temparray_0x30311[edited_line_old + 1].str_0x30311_subtype);
-				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
-				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
+				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1]._axis2d_4.x);
+				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1]._axis2d_4.y);
 				kiss_hex4edit_update_adress(&hex4edit5feat, &temparray_0x30311[edited_line_old + 1].DisId);
 				kiss_hex4edit_update_adress(&hex4edit6feat, &temparray_0x30311[edited_line_old + 1].word_10);
 				kiss_hex4edit_update_adress(&hex4edit7feat, &temparray_0x30311[edited_line_old + 1].word_12);
@@ -2347,8 +2347,8 @@ int main_x(/*int argc, char** argv*/)
 					select1feat.selected = true;
 				changed2 = true;
 				terrainzoomfeat = 4;
-				float cursorpixx = temparray_0x30311[edited_line_old + 1].axis2d_4.x;
-				float cursorpixy = temparray_0x30311[edited_line_old + 1].axis2d_4.y;
+				float cursorpixx = temparray_0x30311[edited_line_old + 1]._axis2d_4.x;
+				float cursorpixy = temparray_0x30311[edited_line_old + 1]._axis2d_4.y;
 				terrainbeginxfeat = cursorpixx - (terrainfeat.rect.w / 2) / (terrainzoomfeat * 2);
 				terrainbeginyfeat = cursorpixy - (terrainfeat.rect.h / 2) / (terrainzoomfeat * 2);
 			}
@@ -2367,12 +2367,12 @@ int main_x(/*int argc, char** argv*/)
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
 				kiss_hex2edit_update_adress(&hex2edit1check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].byte_0);
 				kiss_hex4edit_update_adress(&hex4edit2check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].word_1);
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y);
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 				terrainzoomcheck = 4;
-				float cursorpixx = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x;
-				float cursorpixy = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y;
+				float cursorpixx = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.x;
+				float cursorpixy = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.y;
 				terrainbeginxcheck = cursorpixx - (terraincheck.rect.w / 2) / (terrainzoomcheck * 2);
 				terrainbeginycheck = cursorpixy - (terraincheck.rect.h / 2) / (terrainzoomcheck * 2);
 			}
@@ -2514,10 +2514,10 @@ int main_x(/*int argc, char** argv*/)
 			int terevfeat = kiss_terrain_eventfeat(&terrainfeat, &e, &draw, mousex, mousey, &tersetposx, &tersetposy);
 			if (terevfeat == 20)
 			{
-				temparray_0x30311[edited_line_old + 1].axis2d_4.x = tersetposx;
-				temparray_0x30311[edited_line_old + 1].axis2d_4.y = tersetposy;
-				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.x);
-				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1].axis2d_4.y);
+				temparray_0x30311[edited_line_old + 1]._axis2d_4.x = tersetposx;
+				temparray_0x30311[edited_line_old + 1]._axis2d_4.y = tersetposy;
+				kiss_hex4edit_update_adress(&hex4edit3feat, &temparray_0x30311[edited_line_old + 1]._axis2d_4.x);
+				kiss_hex4edit_update_adress(&hex4edit4feat, &temparray_0x30311[edited_line_old + 1]._axis2d_4.y);
 				changed2 = true;
 			}
 			if (terevfeat >= 10)
@@ -2529,10 +2529,10 @@ int main_x(/*int argc, char** argv*/)
 			if (terevcheck == 20)
 			{
 				//type_str_0x36442 actstage = D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old];
-				D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x = tersetposx;
-				D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y = tersetposy;
-				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.x);
-				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old].axis_2d.y);
+				D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.x = tersetposx;
+				D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.y = tersetposy;
+				kiss_hex4edit_update_adress(&hex4edit3check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.x);
+				kiss_hex4edit_update_adress(&hex4edit4check, &D41A0_BYTESTR_0.str_2FECE.str_0x36442[edited_line2_old]._axis_2d.y);
 				changed2 = true;
 			}
 			if (terevcheck >= 10)

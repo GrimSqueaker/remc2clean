@@ -75,9 +75,10 @@ if(MSVC)
     set(CMAKE_CXX_FLAGS_XBOX_DEBUG "")
     set(CMAKE_CXX_FLAGS_XBOX_RELEASE "")
 else()
-    add_compile_options(-fpermissive)
+    #add_compile_options(-fpermissive)
     add_compile_options(-Wno-narrowing)
     add_compile_options(-w)
+    add_compile_options(-Wall)
 endif()
 
 ################################################################################
