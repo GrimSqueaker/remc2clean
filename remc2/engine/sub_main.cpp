@@ -23,6 +23,7 @@
   #include "../../findfirst/findfirst.h"
   #include <filesystem>
   #include <iostream>
+  #include <functional>
   void _strupr(char *s)
   {
     char *p = s;
@@ -2862,7 +2863,7 @@ void sub_986E0();
 long j___clock(); // weak
 void sub_98790(uint16_t a1, uint8_t a2);
 FILE* sub_98817_open(const char* path, int __pmode);
-signed int sub_98C48_open_nwrite_close(char* file, Bit8u* buffer, Bit32u count);
+signed int sub_98C48_open_nwrite_close(const char* file, Bit8u* buffer, Bit32u count);
 size_t sub_98CAA_write(FILE* a1, Bit8u* a2, Bit32u a3);
 void sub_99080(char a1);
 int sub_9937E_set_video_mode(int16_t a1);
@@ -3155,7 +3156,7 @@ void /*__spoils<>*/ sub_BCD45(Bit8u* a1, int a2, int a3, int a4, int a5);
 void /*__spoils<ecx>*/ sub_BD1B6(int a1);
 void /*__spoils<ecx>*/ sub_BD2CB(int a1);
 void sub_BD3DD();
-void sub_BD524(int16_t a1, int16_t a2, int16_t a3, int16_t a4,char a5);
+void sub_BD524(uint16_t a1, uint16_t a2, uint16_t a3, uint16_t a4, char a5);
 void sub_BD542(uint16_t a1, uint16_t a2, uint16_t a3, uint16_t a4, char a5);
 void sub_67960(/*type_str_0x6E8E* a1x,*/ type_str_0x6E8E* a2x);
 
@@ -10883,10 +10884,27 @@ int16_t x_WORD_E7C58 = 0; // weak
 Bit32u unk_E7C64x=0; // weak
 double dbl_E7C6E = 1.7976931348623157e+308; // weak
 float flt_E7C76 = 3.4028235e38; // weak
-Bit8u x_BYTE_E7EE0x[700*4*2]; // weak//2b8ee0
 type_str_0x6E8E* x_DWORD_E8840; // weak
 Bit8u x_BYTE_E88E0x[0x20]; // fix it - weak//2b98e0
-Bit8u x_BYTE_E9980x[0x1a0/*2*4*32*/]; // weak//2ba980 max 0x1a0
+
+// FIXED_FROM: Bit8u x_BYTE_E7EE0x[700*4*2]; // weak//2b8ee0
+typedef struct {
+	Bit32s dword0;
+	Bit32s dword4;
+	Bit32s dword8_E9980x_index;
+	Bit32s dword12;
+	Bit8u* ptr16;
+	Bit32s dword20;
+} type_E7EE0x;
+std::array<type_E7EE0x, 100> x_BYTE_E7EE0x;
+
+// FIXED_FROM: Bit8u x_BYTE_E9980x[0x1a0/*2*4*32*/]; // weak//2ba980 max 0x1a0
+typedef struct {
+	Bit8u* pos;
+	int    counter;
+} type_E9980x;
+std::array<type_E9980x, 0x1a0> x_BYTE_E9980x;
+
 std::array<filearray_struct, 4> x_DWORD_E9B20 = { 
 	filearray_2aa18c[filearrayindex_FONTS0DATTAB],
 	filearray_2aa18c[filearrayindex_MSPRDDATTAB],
@@ -11414,30 +11432,40 @@ int16_t sub_10010()
 //----- (00010080) --------------------------------------------------------
 unsigned int sub_10080(int a1, int a2)//1f1080
 {
-	unsigned int i; // edx
-	//int v3; // eax
-	int v4; // ecx
-	Bit8u* v5; // ebx
+	int i;
+	int v4;
 
-	for (i = 1; i < 0x64 && *(Bit32s*)&x_BYTE_E7EE0x[8+4*6*i] != -1; ++i)
+	// FIXED_FROM:
+	//for (i = 1; i < 0x64 && *(Bit32s*)&x_BYTE_E7EE0x[8+4*6*i] != -1; ++i)
+	//	;
+	//*(Bit32s*)&x_BYTE_E7EE0x[4*6*i] = (Bit32u)a1;
+	//*(Bit32s*)&x_BYTE_E7EE0x[8+ 4 * 6 * i] = (Bit32u)a1;
+	//*(Bit32s*)&x_BYTE_E7EE0x[0xc + 4 * 6 * i] = 0;
+	//v4 = (int)*(Bit32s*)&x_BYTE_E7EE0x[8 + 4 * 6 * i];
+	//*(Bit32s*)&x_BYTE_E7EE0x[4 + 4 * 6 * i] = a2;
+	for (i = 1; i < 100 && x_BYTE_E7EE0x.at(i).dword8_E9980x_index != -1; ++i)
 		;
-	//v3 = 3 * i;
-	*(Bit32s*)&x_BYTE_E7EE0x[4*6*i] = (Bit32u)a1;
-	*(Bit32s*)&x_BYTE_E7EE0x[8+ 4 * 6 * i] = (Bit32u)a1;
-	*(Bit32s*)&x_BYTE_E7EE0x[0xc + 4 * 6 * i] = 0;
-	v4 = (int)*(Bit32s*)&x_BYTE_E7EE0x[8 + 4 * 6 * i];
-	*(Bit32s*)&x_BYTE_E7EE0x[4 + 4 * 6 * i] = a2;
-	v5 = (Bit8u*)&(*(Bit32s*)&x_BYTE_E9980x[6*v4]);
-	// FIXME: types
+	x_BYTE_E7EE0x.at(i).dword0 = a1;
+	x_BYTE_E7EE0x.at(i).dword8_E9980x_index = a1;
+	x_BYTE_E7EE0x.at(i).dword12 = 0;
+	v4 = x_BYTE_E7EE0x.at(i).dword8_E9980x_index;
+	x_BYTE_E7EE0x.at(i).dword4 = a2;
+
+	Bit8u* v5 = x_BYTE_E9980x.at(v4).pos; // FIXED_FROM: v5 = (Bit8u*)&(*(Bit32s*)&x_BYTE_E9980x[6*v4]);
+
+	// FIXED_FROM:
 	// *(Bit32s*)&x_BYTE_E7EE0x[0x10+4*6*i] = (Bit32s)v5;
-	*(Bit32s*)&x_BYTE_E7EE0x[0x14+4*6*i] = *(Bit32s*)v5;
+	// *(Bit32s*)&x_BYTE_E7EE0x[0x14+4*6*i] = *(Bit32s*)v5;
+	x_BYTE_E7EE0x.at(i).ptr16 = v5;
+	x_BYTE_E7EE0x.at(i).dword20 = *reinterpret_cast<Bit32s*>(v5);
+
 	return i;
 }
 
 //----- (00010100) --------------------------------------------------------
 void sub_10100(int a1)//1f1100
 {
-	*(Bit32s*)&x_BYTE_E7EE0x[8+4*6*a1] = -1;
+	x_BYTE_E7EE0x.at(a1).dword8_E9980x_index = -1;
 	//return 1;
 }
 
@@ -11447,54 +11475,50 @@ int debugcounter_1f1130;
 signed int sub_10130(int a1, x_DWORD *a2, x_DWORD *a3)//1f1130
 {
 	//int *v3; // eax
-	Bit8u* v4; // edx
+	Bit32u v4; // edx
 	Bit8u* v5; // ecx
-	Bit8u* v6; // ebx
+	Bit32u v6; // ebx
 	Bit8u* v7; // esi
-	Bit8u* v8; // edi
-	Bit8u* v9; // ebx
+	Bit32s v8; // edi
+	Bit32s v9; // ebx
 	signed int result; // eax
 
-	v4 = (Bit8u*)*(Bit32s*)&x_BYTE_E7EE0x[4*6*a1+4*5];
-	v5 = (Bit8u*)*(Bit32s*)&x_BYTE_E7EE0x[4*6*a1+4*4];
-	*a2 = (Bit8s)v4[0];
-	*a3 = (Bit8s)v4[1];
-	v6 = (Bit8u*)*(Bit32s*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 3] + 1;
-	*(Bit32s*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 5] += 4;
-	// FIXME: types
-	// *(Bit32s*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 3] = (Bit32u)v6;
-	// FIXME: types
-	// // if (*(Bit16u*)(v5 + 4) > (Bit32u)v6)
-	// {
-	// 	result = 1;
-	// }
-	// else
-	// {
-	// 	//test and fix it
-	// 	//v7 = v3[4];
-	// 	v7 = (Bit8u*)*(Bit32s*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 4];
-	// 	//v3[3] = 0;
-	// 	*(Bit32s*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 3] = 0;
-	// 	//v8 = v3[2];
-	// 	v8 = (Bit8u*)*(Bit32s*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 2];
-	// 	//v3[4] = v7 + 6;
-	// 	// FIXME: types
-	// 	// *(Bit32s*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 4] = (Bit32s)v7 + 6;
-	// 	v8++;
-	// 	//v9 = v3[1];
-	// 	v9 = (Bit8u*)*(Bit32s*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 1];
-	// 	//v3[2] = v8;
-	// 	// FIXME: types
-	// 	// *(Bit32s*)&x_BYTE_E7EE0x[4 * 6 * a1 + 4 * 2] = (Bit32s)v8;
-	// 	if (v8 <= v9)
-	// 	{
-	// 		result = 1;
-	// 	}
-	// 	else
-	// 	{
-	// 		result = 2;
-	// 	}
-	// }
+	v4 = x_BYTE_E7EE0x.at(a1).dword20;
+	v5 = x_BYTE_E7EE0x.at(a1).ptr16;
+	*a2 = BYTEn(v4, 0);
+	*a3 = BYTEn(v4, 1);
+	v6 = x_BYTE_E7EE0x.at(a1).dword12;
+	x_BYTE_E7EE0x.at(a1).dword20 += 4;
+	x_BYTE_E7EE0x.at(a1).dword12 = v6;
+	if (*(Bit16u*)(v5 + 4) > (Bit32u)v6)
+	{
+		result = 1;
+	}
+	else
+	{
+		//test and fix it
+		//v7 = v3[4];
+		v7 = x_BYTE_E7EE0x.at(a1).ptr16;
+		//v3[3] = 0;
+		x_BYTE_E7EE0x.at(a1).dword12 = 0;
+		//v8 = v3[2];
+		v8 = x_BYTE_E7EE0x.at(a1).dword8_E9980x_index;
+		//v3[4] = v7 + 6;
+		x_BYTE_E7EE0x.at(a1).ptr16 = v7 + 6;
+		v8++;
+		//v9 = v3[1];
+		v9 = x_BYTE_E7EE0x.at(a1).dword4;
+		//v3[2] = v8;
+		x_BYTE_E7EE0x.at(a1).dword8_E9980x_index = v8;
+		if (v8 <= v9)
+		{
+			result = 1;
+		}
+		else
+		{
+			result = 2;
+		}
+	}
 	return result;
 }
 
@@ -11513,13 +11537,12 @@ void sub_101C0()//1f11c0
 	v0 = 0;
 	//fix
 
-  // TODO: what is SEARCH.DAT?
+	// TODO: what is SEARCH.DAT?
 	sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_search_dat).c_str(), xawscreen_351628.var28_begin_buffer);//2A1004,351628->3AA0A4
 	//v1 = 1;
-	for (Bit16u k = 1;k < 100;k++)
-		//while ( v1 < 0x64 )
+	for (int k = 1; k < 100; k++)
 	{
-		*(Bit32s*)&x_BYTE_E7EE0x[8+4*6*k] = -1;
+		x_BYTE_E7EE0x.at(k).dword8_E9980x_index = -1;
 	}
 	//v3/*edx*/ = dword_E9C30[0];//002bac30 //je to v 23c8d0,23cf50,265250,27B32d, nekde u 27b453
 	//result = 0;
@@ -11528,9 +11551,8 @@ void sub_101C0()//1f11c0
 	for (Bit16u k = 0;k < 32;k++)
 	{
 		//v5 = 3 * result;
-		// FIXME: types
-		// *(Bit32s*)&x_BYTE_E9980x[6 * k] = (Bit32s)(*v3.var28_begin_buffer + l);
-		*(Bit16s*)&x_BYTE_E9980x[4 + 6 * k] = 0;
+		x_BYTE_E9980x.at(k).pos = *v3.var28_begin_buffer + l; // FIXED_FROM: *(Bit32s*)&x_BYTE_E9980x[6 * k] = (Bit32s)(*v3.var28_begin_buffer + l);
+		x_BYTE_E9980x.at(k).counter = 0; // FIXED_FROM: *(Bit16s*)&x_BYTE_E9980x[4 + 6 * k] = 0;
 		for (Bit16u j = 0;j < 32;j++)
 		{
 			for (Bit16u i = 0; i < 32; i++)//1F1212
@@ -11548,7 +11570,7 @@ void sub_101C0()//1f11c0
 					*(*v3.var28_begin_buffer+1 +l) = (j - v9);
 					*(*v3.var28_begin_buffer + 2 + l) = k;
 					l += 4;
-					(*(Bit16s*)&x_BYTE_E9980x[4+6*k])++;
+					x_BYTE_E9980x.at(k).counter++; // FIXED_FROM: (*(Bit16s*)&x_BYTE_E9980x[4+6*k])++;
 				}
 			}
 		}
@@ -32389,20 +32411,13 @@ void sub_2BC10_draw_text(char* textbuffer, Bit16s posx, Bit16s posy, Bit8u color
 //----- (0002BC80) --------------------------------------------------------
 void sub_2BC80(Bit16s x1, Bit16s y1, Bit16s x2, Bit16s y2, Bit8u a5)//20cc80
 {
-	//void *v5; // ebx
-	//Bit8u* result; // eax
 	Bit8u* temp_screen_buffer; // ST14_4
-
-	//debug
-	  //loadfromsnapshot((char*)"0160-00253633", (Bit8u*)&a1, 0x354ef8, 2);//4c
-
-	//debug
 
 	if (x_WORD_180660_VGA_type_resolution & 1)
 		sub_90164(x1, y1, x2, y2, a5);
 	else
 		sub_901E4(x1, y1, x2, y2, a5);
-	//result = x_D41A0_BYTEARRAY_0;
+
 	if (D41A0_BYTESTR_0.str_0x218A_settings.str_0x218E.scr_size_0x2190 == 1)
 	{
 		temp_screen_buffer = x_DWORD_180628b_screen_buffer;
@@ -32411,35 +32426,30 @@ void sub_2BC80(Bit16s x1, Bit16s y1, Bit16s x2, Bit16s y2, Bit8u a5)//20cc80
 			sub_90164(x1, y1, x2, y2, a5);
 		else
 			sub_901E4(x1, y1, x2, y2, a5);
-		//result = (Bit8u)x_DWORD_180628b_screen_buffer;
 		x_DWORD_180628b_screen_buffer = (Bit8u*)temp_screen_buffer;
 	}
-	//return result;
 }
 
 //----- (0002BD10) --------------------------------------------------------
 void sub_2BD10_draw_line(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t a5)//20cd10
 {
-	void *v5; // ebx
-	//int result; // eax
+	std::function<void(uint16_t, uint16_t, uint16_t, uint16_t, char)> func_draw_exitmenu;
+
 	Bit8u* temp_screen_buffer; // ST14_4
 
-	// FIXME: types
-	// // if (x_WORD_180660_VGA_type_resolution & 1)
-	// 	v5 = sub_BD524;
-	// else
-	// 	v5 = sub_BD542;
-	((void(*)(x_DWORD, x_DWORD, x_DWORD, x_DWORD, x_DWORD))v5)(a1, a2, a3, a4, a5);
-	//result = (int)x_D41A0_BYTEARRAY_0;
+	if (x_WORD_180660_VGA_type_resolution & 1)
+		func_draw_exitmenu = &sub_BD524;
+	else
+		func_draw_exitmenu = &sub_BD542;
+	func_draw_exitmenu(a1, a2, a3, a4, a5);
+
 	if (D41A0_BYTESTR_0.str_0x218A_settings.str_0x218E.scr_size_0x2190 == 1)
 	{
 		temp_screen_buffer = x_DWORD_180628b_screen_buffer;
 		x_DWORD_180628b_screen_buffer = (Bit8u*)x_DWORD_E9C3C;
-		((void(*)(x_DWORD, x_DWORD, x_DWORD, x_DWORD, x_DWORD))v5)(a1, a2, a3, a4, a5);
-		//result = v7;
+		func_draw_exitmenu(a1, a2, a3, a4, a5);
 		x_DWORD_180628b_screen_buffer = temp_screen_buffer;
 	}
-	//return result;
 }
 
 
@@ -69859,14 +69869,19 @@ char sub_54200_create_user_directories()//235200
 	if (readbuffer[0] != 60)
 		v0h = 1;
 	outtext((char*)"\n");//235277 - 29EBED
+
+	auto copyfile = [](auto& from, auto& to) -> bool {
+		return std::filesystem::copy_file(from, to, std::filesystem::copy_options::overwrite_existing );
+	};
+
 	if (v0h || sub_53EF0_fileexist(file_handling->getFilePath(MC2File::cdata_tmaps00_dat).c_str(), file_handling->getFilePath(MC2File::data_tmaps00_dat).c_str()))
 	{
 		x_BYTE_D41AD_skip_screen = 0;//fix can not exit from setup
 		//fix it - whne file not exist
 		outtext((char*)"Creating Setup Directories: TMAPS0-0 ..");//2352E4 -29EBED
 		x_DWORD_F4720 = gettextposition();//2352EC - 29E953
-		no_error &= std::filesystem::copy_file(file_handling->getFilePath(MC2File::cdata_tmaps00_dat), file_handling->getFilePath(MC2File::data_tmaps00_dat));
-		no_error &= std::filesystem::copy_file(file_handling->getFilePath(MC2File::cdata_tmaps00_tab), file_handling->getFilePath(MC2File::data_tmaps00_tab));
+		no_error &= copyfile(file_handling->getFilePath(MC2File::cdata_tmaps00_dat), file_handling->getFilePath(MC2File::data_tmaps00_dat));
+		no_error &= copyfile(file_handling->getFilePath(MC2File::cdata_tmaps00_tab), file_handling->getFilePath(MC2File::data_tmaps00_tab));
 		outtext((char*)"\n");//235343 - 29EBED
 	}
 	if (no_error)
@@ -69876,8 +69891,8 @@ char sub_54200_create_user_directories()//235200
 			//fix it - whne file not exist
 			outtext((char*)"Creating Setup Directories: TMAPS1-0 ..");
 			x_DWORD_F4720 = gettextposition();
-			no_error &= std::filesystem::copy_file(file_handling->getFilePath(MC2File::cdata_tmaps10_dat), file_handling->getFilePath(MC2File::data_tmaps10_dat));
-			no_error &= std::filesystem::copy_file(file_handling->getFilePath(MC2File::cdata_tmaps10_tab), file_handling->getFilePath(MC2File::data_tmaps10_tab));
+			no_error &= copyfile(file_handling->getFilePath(MC2File::cdata_tmaps10_dat), file_handling->getFilePath(MC2File::data_tmaps10_dat));
+			no_error &= copyfile(file_handling->getFilePath(MC2File::cdata_tmaps10_tab), file_handling->getFilePath(MC2File::data_tmaps10_tab));
 			outtext((char*)"\n");
 		}
 	}
@@ -69888,8 +69903,8 @@ char sub_54200_create_user_directories()//235200
 			//fix it - whne file not exist
 			outtext((char*)"Creating Setup Directories: TMAPS2-0 ..");
 			x_DWORD_F4720 = gettextposition();
-			no_error &= std::filesystem::copy_file(file_handling->getFilePath(MC2File::cdata_tmaps20_dat), file_handling->getFilePath(MC2File::data_tmaps20_dat));
-			no_error &= std::filesystem::copy_file(file_handling->getFilePath(MC2File::cdata_tmaps20_tab), file_handling->getFilePath(MC2File::data_tmaps20_tab));
+			no_error &= copyfile(file_handling->getFilePath(MC2File::cdata_tmaps20_dat), file_handling->getFilePath(MC2File::data_tmaps20_dat));
+			no_error &= copyfile(file_handling->getFilePath(MC2File::cdata_tmaps20_tab), file_handling->getFilePath(MC2File::data_tmaps20_tab));
 			outtext((char*)"\n");
 		}
 	}
@@ -69899,16 +69914,15 @@ char sub_54200_create_user_directories()//235200
 		x_DWORD_F4720 = gettextposition();
 		if (!std::filesystem::exists(file_handling->getFilePath(MC2File::levels_levels_dat))) {
 			// TODO: check if LEVELS.* always has to be copied (looks like this was the case in the original)
-			no_error &= std::filesystem::copy_file(file_handling->getFilePath(MC2File::clevels_levels_dat), file_handling->getFilePath(MC2File::levels_levels_dat));
-			no_error &= std::filesystem::copy_file(file_handling->getFilePath(MC2File::clevels_levels_tab), file_handling->getFilePath(MC2File::levels_levels_tab));
+			no_error &= copyfile(file_handling->getFilePath(MC2File::clevels_levels_dat), file_handling->getFilePath(MC2File::levels_levels_dat));
+			no_error &= copyfile(file_handling->getFilePath(MC2File::clevels_levels_tab), file_handling->getFilePath(MC2File::levels_levels_tab));
 		}
 		outtext((char*)"\n");
 	}
 	if (no_error && v0h)
 	{
 		readbuffer[0] = 60;
-		// FIXME: types
-		// sub_98C48_open_nwrite_close(file_handling->getFilePath(MC2File::cdata_version_dat).c_str(), readbuffer, 4);
+		sub_98C48_open_nwrite_close(file_handling->getFilePath(MC2File::cdata_version_dat).c_str(), readbuffer, 4);
 	}
 
 	return no_error;
@@ -76387,7 +76401,7 @@ signed int sub_5C1B0_set_any_variables2()//23A05 - 23D1B0
 	D41A0_BYTESTR_0.str_0x218A_settings.str_0x2196.flat_0x2199 = 0;
 	//x_D41A0_BYTEARRAY_0[14] = 2;
 	D41A0_BYTESTR_0.word_0xe = 2;;
-	strcpy(x_D41A0_BYTEARRAY_4_struct.byteindex_145ar, "NETHERW");
+	//strcpy(x_D41A0_BYTEARRAY_4_struct.byteindex_145ar, "NETHERW");
 	x_D41A0_BYTEARRAY_4_struct.byteindex_184w = 256;
 	//v5 = '\0';
 	x_D41A0_BYTEARRAY_4_struct.byteindex_218w = 25;
@@ -114521,7 +114535,7 @@ char sub_98BAF_read_huftable(int a1)//279baf
 }
 
 //----- (00098C48) --------------------------------------------------------
-signed int sub_98C48_open_nwrite_close(char* filename, Bit8u* buffer, Bit32u count)//279c48
+signed int sub_98C48_open_nwrite_close(const char* filename, Bit8u* buffer, Bit32u count)//279c48
 {
 	int result; // ST14_4
 	FILE* file; // [esp+4h] [ebp-8h]
@@ -139285,10 +139299,9 @@ void sub_BD3DD()//29e3dd
 }
 
 //----- (000BD524) --------------------------------------------------------
-void sub_BD524(int16_t a1, int16_t a2, int16_t a3, int16_t a4, char a5)//29e524
+void sub_BD524(uint16_t a1, uint16_t a2, uint16_t a3, uint16_t a4, char a5)//29e524
 {
 	sub_BD542(a1/2, a2/2, a3/2, a4/2, a5);
-
 }
 
 //----- (000BD542) --------------------------------------------------------

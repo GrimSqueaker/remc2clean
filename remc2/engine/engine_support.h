@@ -485,7 +485,7 @@ typedef struct {
 	char savestring_89[32];
 	Bit8u byteindex_121[16];//0x79//x_D41A0_BYTEARRAY_4_struct.byteindex_121
 	Bit8u stubi[8];
-	char byteindex_145ar[32];//x_D41A0_BYTEARRAY_4_struct.byteindex_145ar
+	//char byteindex_145ar[32];//x_D41A0_BYTEARRAY_4_struct.byteindex_145ar
 
 	Bit8u byteindex_177;//0xb1//x_D41A0_BYTEARRAY_4_struct.byteindex_177
 	Bit8u byteindex_178;//0xb2//x_D41A0_BYTEARRAY_4_struct.byteindex_178
