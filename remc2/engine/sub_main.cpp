@@ -2630,7 +2630,7 @@ void sub_833C0();
 void sub_83B50();
 void sub_83CC0(char a1);
 char sub_83E00(int a1, int a2);
-int sub_84000(int a1);
+void sub_84000(Bit8u* a1);
 void sub_84050();
 bool sub_84250_load_file_array(int psindex);
 void sub_844A0_sound_proc5();
@@ -102093,24 +102093,20 @@ void sub_83E80_freemem4(Bit8u* a1)//264e80
 		v2 = 0;
 		while (v1)
 		{
-			// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-			// // if ((int)a1 == v1[0])//fix
-			// {
-			// 	v2 = 1;
-			// 	*((x_BYTE *)v1 + 16) = 0;
-			// 	break;
-			// }
+			if (*a1 == v1[0])//fix
+			{
+				v2 = 1;
+				*((x_BYTE *)v1 + 16) = 0;
+				break;
+			}
 			v1 = (Bit8u*)(int *)v1[2];
 		}
 		if (v2 == 1)
 		{
 			for (i = (int*)&x_DWORD_17ECA0; i; i = (int *)i[2])
 			{
-				// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-				// // if (!*((x_BYTE *)i + 16))
-				// 	sub_84000((int)i);
+				if (!*((x_BYTE *)i + 16))
+					sub_84000(reinterpret_cast<Bit8u*>(i));
 			}
 		}
 		//sub_85350(); //fix
@@ -102118,13 +102114,11 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 }
 
 //----- (00084000) --------------------------------------------------------
-int sub_84000(int a1)//265000
+void sub_84000(Bit8u* a1)//265000
 {
-	int result; // eax
 	int v2; // edx
 	int v3; // ebx
 
-	result = a1;
 	if (*(x_DWORD *)(a1 + 12))
 	{
 		*(x_BYTE *)(a1 + 16) = 0;
@@ -102139,7 +102133,6 @@ int sub_84000(int a1)//265000
 			*(x_DWORD *)(a1 + 4) = 0;
 		}
 	}
-	return result;
 }
 
 //----- (00084050) --------------------------------------------------------

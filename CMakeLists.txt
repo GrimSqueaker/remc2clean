@@ -77,7 +77,6 @@ if(MSVC)
 else()
     #add_compile_options(-fpermissive)
     add_compile_options(-Wno-narrowing)
-    add_compile_options(-w)
     add_compile_options(-Wall)
 endif()
 
