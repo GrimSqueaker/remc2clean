@@ -334,7 +334,7 @@ signed int sub_74767(int16_t *a1, x_BYTE *a2, Bit8u* a3);
 unsigned char __readgsx_BYTE(unsigned long Offset);
 unsigned short __readgsx_WORD(unsigned long Offset);
 int sub_7F6A0(int a1, int a2, int16_t a3, int16_t a4, char *a5, x_BYTE *a6, uint8_t a7);
-unsigned int sub_81CA0(int a1, int a2, int16_t a3, int16_t a4, type_x_BYTE_E25ED_db_str* a5);
+void sub_81CA0(int a1, int a2, int16_t a3, int16_t a4, type_x_BYTE_E25ED_db_str* a5);
 signed int sub_7E5A0_pre_draw(int a1, int a2, int16_t a3, int16_t a4, Bit8u* a5, int16_t a6, int16_t a7);
 void sub_81260(int a1, int a2, Bit8s* a3, int16_t a4, int16_t a5);
 void sub_82510(/*int16_t a1*//*, int *a2*/);

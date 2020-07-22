@@ -2622,7 +2622,6 @@ void sub_80C30_draw_texts(int16_t a1, int16_t a2, int16_t a3);
 int sub_812D0_drawDotBitmap(int16_t a1, int16_t a2);
 void sub_81360_draw_bitmap_line(Bit16s a1, Bit16s a2, Bit16s a3, Bit16s a4, int16_t a5);
 void sub_81760_new_game_subdraw(type_unk_E17CC_str_0x194* a1);
-// unsigned int sub_81CA0(int a1, int a2, int16_t a3, int16_t a4, int a5);
 void sub_81EE0_draw_and_sound_dragon_and_fire(int a1, int a2, int a3, int16_t a4, int16_t a5, int16_t a6);
 type_x_WORD_E2970* sub_824B0(int16_t a1);
 void sub_82AB0(uint8_t a1);
@@ -55200,16 +55199,14 @@ void sub_46B40()//227b40
 }
 
 //----- (00046DD0) --------------------------------------------------------
-void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)//227DD0
+void sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)//227DD0
 {
 	int v4; // edx
 	v4 = 0;
 
-	// FIXME
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// TODO: Skip sound and music for the moment.
 	//       Replace all the DOS-based sound stuff in the future.
-	std::cerr << "FIXME: Sound disabled for the moment" << std::endl;
+	std::cerr << "FIXME: Sound disabled for the moment" << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	sub_70910_print_string((char*)"FIXME: Sound disabled for the moment\0");
 	x_BYTE_E37FD = 0;
 	x_BYTE_E3799_sound_card = 0;
@@ -55231,9 +55228,6 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 		}
 		else
 		{
-			//&v8, sizeof(&v8)
-			//v8 - 355204
-		  //sprintf(sounddir, 512, "%s/%s", "/netherw", "sound");
 			sprintf(printbuffer, "%s/%s", "/netherw", "sound");
 			sub_90EA0(x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182 - 64, printbuffer);
 			/*v3 = */sub_70910_print_string((char*)"Initialise Sound\0");
@@ -55245,21 +55239,16 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 		}
 		if (x_BYTE_E3798_sound_active2 || x_BYTE_E37FC_music)
 		{
-			//x_DWORD_F42A4_sound_timer = sub_92600_AIL_register_timer(sub_46820_simple_timer);
-			//sub_92930_AIL_set_timer_frequency(x_DWORD_F42A4_sound_timer, 0x78u);
-			//sub_92BA0_AIL_start_timer(x_DWORD_F42A4_sound_timer);
 			x_BYTE_D4B51 = 1;
 		}
 		else
 		{
 			sub_6FDA0();
 		}
-		//v5 = x_BYTE_E3798_sound_active2;
 		if (!x_BYTE_E3798_sound_active2 && !x_BYTE_E37FC_music && x_BYTE_E2A28_speek)
 		{
 			sub_86860_speak_Sound(x_WORD_1803EC);
 			sub_86BD0_freemem1();
-			//v6 = x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 0xBF;
 			x_BYTE_E2A28_speek = x_BYTE_E3798_sound_active2;
 			(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24) &= 0xBF;
 		}
@@ -98937,32 +98926,20 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 	char v6; // al
 	int v7x; // eax
 	type_x_WORD_E2970* v8x; // eax
-	//char *v9; // eax
 	int v9x;
-	//int v10x; // ecx
-	//int v11x; // edx
-	//Bit16s* v12; // eax
 	int v12x;
 	int v13; // ecx
 	int16_t v14; // dx
-	//x_WORD *v15; // eax
 	int v15x;
 	int16_t v16; // cx
-	//int16_t *i; // eax
 	int v18; // ecx
-	//x_WORD *j; // eax
 	int jx = 0;
 	int v20; // edx
-	//int v21; // eax
 	int v22; // edx
 	int16_t v23; // cx
-	//int v24; // eax
 	int v25; // ST18_4
 	int v26; // ST14_4
 	int v28; // edx
-	//int16_t v29; // cx
-	//Bit16s nextposx; // dx
-	//Bit16s nextposy; // dx
 	int v32; // edx
 	signed int v33; // eax
 	int16_t v34; // dx
@@ -98971,44 +98948,28 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 	int v37; // edx
 	signed int v38; // eax
 	signed int v39; // eax
-	//char v41; // ch
 	char v42; // cl
 	int v43; // ecx
-	//uint8_t *v44; // edi
 	int v44x;
-	//int v45; // eax
 	type_x_WORD_E2970* v46x; // eax
-	//x_WORD *v47; // edi
 	int16_t v48; // ST10_2
 	int16_t v49; // ST0C_2
 	int16_t v50; // ST08_2
 	int16_t v51; // ax
-	//int v52; // eax
 	int16_t v54; // [esp-Ch] [ebp-68h]
 	Bit16s v55[10]; // [esp+0h] [ebp-5Ch]
-	//int16_t v56; // [esp+Ah] [ebp-52h] //5
-	//int16_t v57; // [esp+Ch] [ebp-50h] //6
-	//int16_t v58; // [esp+Eh] [ebp-4Eh] //7
-	//int16_t v59; // [esp+10h] [ebp-4Ch] //8
 	int v60; // [esp+2Ch] [ebp-30h]
-	//x_WORD *v61; // [esp+30h] [ebp-2Ch]
 	int v61x;
-	//x_WORD *k; // [esp+34h] [ebp-28h]
-	//x_WORD *v63; // [esp+38h] [ebp-24h]
 	int v63x;
-	//x_WORD *v64; // [esp+3Ch] [ebp-20h]
 	int v64x;
 	int v65; // [esp+40h] [ebp-1Ch]
 	int v66; // [esp+44h] [ebp-18h]
 	int v67; // [esp+48h] [ebp-14h]
 	int v68; // [esp+4Ch] [ebp-10h]
 	int v69; // [esp+50h] [ebp-Ch]
-	//char *v70; // [esp+54h] [ebp-8h]
 	int v70x;
 	int v71; // [esp+58h] [ebp-4h]
 
-
-	//fix it
 	v22 = 0;
 	v28 = 0;
 	v32 = 0;
@@ -99016,7 +98977,6 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 	v37 = 0;
 	v38 = 0;
 	v39 = 0;
-	//fix it
 
 	v6 = *a5;
 	v71 = 0;
@@ -99024,7 +98984,6 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 	switch (v6)
 	{
 	case 1://prepare 
-		//v12 = (Bit16s*)unk_E17CC_0x194;
 		v12x = 0;
 		v13 = 0;
 		v61x = -1;
@@ -99038,14 +98997,11 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 				v67 = v13;
 				*posy = v14;
 			}
-			//v12 += 11;
 			v12x++;
 			v13++;
 		}
-		//adress 25fc6f
 		if ((v61x!=-1) && x_DWORD_17DB70str.x_WORD_17DB8A != -1 && v67 != x_DWORD_17DB70str.x_WORD_17DB8A)
 		{
-			//v15 = (x_WORD*)unk_E17CC_0x194;
 			v15x = 0;
 			v16 = 0;
 			while (unk_E17CC_str_0x194[v15x].word_4)
@@ -99057,13 +99013,11 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 					*a5 = 3;
 					break;
 				}
-				//v15 += 11;
 				v15x++;
 				v16++;
 			}
 			if (*a5 != 3)
 			{
-				//for (i = x_WORD_E2970; i[6]; i = (int16_t *)((char *)i + 17))
 				for(int ii=0;x_WORD_E2970x[ii].word_12;ii++)
 				{
 					if (x_DWORD_17DB70str.x_WORD_17DB8A == x_WORD_E2970x[ii].word_6)
@@ -99084,12 +99038,9 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 		if (x_DWORD_17DB70str.x_WORD_17DB8A == -1)
 		{
 			v18 = 0;
-			//for (j = (x_WORD*)unk_E17CC_0x194;/**(Bit32s*)&*/j[2] != 0; j += 11)
-			for (jx = 0;/**(Bit32s*)&*/unk_E17CC_str_0x194[jx].word_4 != 0; jx++)
+			for (jx = 0; unk_E17CC_str_0x194[jx].word_4 != 0; jx++)
 			{
 				v66 = v18;
-				/*if ( !j[2] )
-				  break;*/
 				if (unk_E17CC_str_0x194[jx].byte_18_act == 2)
 				{
 					*a3 = unk_E17CC_str_0x194[jx].word_4;
@@ -99097,12 +99048,11 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 					if (v66)
 					{
 						*a5 = 2;
-						/*j = (x_WORD *)*/sub_7E8D0(a6, *a3, *a4, *posx, *posy, 4, 4);
+						sub_7E8D0(a6, *a3, *a4, *posx, *posy, 4, 4);
 					}
 					else
 					{
 						*posx = unk_E17CC_str_0x194[jx].word_4;
-						//LOWORD(j) = j[3];
 						*posy = unk_E17CC_str_0x194[jx].word_6;
 						*a5 = 3;
 						if (*posy > 480)
@@ -99115,10 +99065,7 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 						{
 							x_DWORD_17DE28str.x_WORD_17DE30_posx = *posx;
 							x_DWORD_17DE28str.x_WORD_17DE32_posy = *posy;
-							//v21 = (int)x_D41A0_BYTEARRAY_4;
 							x_DWORD_17DE28str.x_BYTE_17DE34 = ((x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 0x40) != 0) + 1;
-							//v21 = x_DWORD_17DE28str.x_BYTE_17DE34;
-							//j = (x_WORD *)j___clock();
 							x_DWORD_17DE28str.x_DWORD_17DE28 = j___clock();
 						}
 					}
@@ -99132,10 +99079,7 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 		else
 		{
 			memset(&x_DWORD_17DE28str, 0, 13);
-			//j = (x_WORD*)&unk_E17CC[0x194];
 			v23 = 0;
-			//while ( j[2] )
-			//for (j = (x_WORD*)unk_E17CC_0x194;j[2] != 0; j += 11)
 			for (jx = 0; unk_E17CC_str_0x194[jx].word_4 != 0; jx++)
 			{
 				if (unk_E17CC_str_0x194[jx].byte_18_act == 2)
@@ -99144,15 +99088,11 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 					{
 						x_DWORD_17DE28str.x_WORD_17DE30_posx = *posx;
 						x_DWORD_17DE28str.x_WORD_17DE32_posy = *posy;
-						//v24 = (int)x_D41A0_BYTEARRAY_4;
 						x_DWORD_17DE28str.x_BYTE_17DE34 = ((x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 0x40) != 0) + 1;
-						//LOBYTE(v24) = x_DWORD_17DE28str.x_BYTE_17DE34;
-						//j = (x_WORD *)j___clock();
 						x_DWORD_17DE28str.x_DWORD_17DE28 = j___clock();
 					}
 					break;
 				}
-				//j += 11;
 				v23++;
 			}
 		}
@@ -99177,7 +99117,6 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 	case 3:
 		if (x_DWORD_17DB70str.x_BYTE_17DB8E)
 			goto LABEL_92;
-		//x_WORD_E29D6 = x_DWORD_17DEE4_mouse_positionx;
 		x_WORD_E29D6_not_movex = 1;
 		if (x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx)//mousex>0
 		{
@@ -99190,8 +99129,6 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 			*posx -= x_DWORD_17DB70str.x_WORD_17DB82_shift_step;//shift position by step
 		}
 		x_WORD_E29D6_not_movex = 0;//add
-		//x_WORD_E29D6 = v29;
-		//*posx = nextposx;
 	LABEL_75:
 		if (x_DWORD_17DE38str.x_DWORD_17DEE8_mouse_positiony)//mousey>0
 		{
@@ -99258,7 +99195,6 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 			x_DWORD_17DE38str.x_BYTE_17DF11_last_key_status = 0;
 			x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode = 0;
 		}
-		//v9 = (char *)unk_E17CC_0x194;
 		v9x = 0;
 		v64x = -1;
 		v70x = 0;
@@ -99269,14 +99205,11 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 				v64x = v9x;
 				break;
 			}
-			//v9 += 22;
 			v9x++;
 			v70x++;
 		}
-		//v10x = v64x;
 		if (v64x!=-1)
 		{
-			//LOWORD(v9) = v64[2];
 			unk_E17CC_str_0x194[v64x-1].byte_18_act = 2;
 			v70x = unk_E17CC_str_0x194[v64x].word_4;
 			unk_E17CC_str_0x194[v64x].word_4 = 0;
@@ -99284,7 +99217,6 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 		sub_81760_new_game_subdraw(&unk_E17CC_str_0x194[v9x]);
 		if (v64x!=-1)
 		{
-			//v11x = v64x;
 			unk_E17CC_str_0x194[v64x - 1].byte_18_act = 1;
 			unk_E17CC_str_0x194[v64x].word_4 = v70x;
 		}
@@ -99293,16 +99225,12 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 		{
 			sub_85C8B_draw_new_game_map_background(x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, x_DWORD_180628b_screen_buffer, *posx, *posy, 160, 480);//draw game word map
 			sub_7D400_draw_texts_and_play_sounds(*posx, *posx, *posy, *a5);//draw helps, cursor, flags
-			// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-			// /*LOWORD(v38) = */sub_81EE0_draw_and_sound_dragon_and_fire(*posx, v37, (int)posy, (int16_t)a5, *posx, *posy); // fair animation
+			sub_81EE0_draw_and_sound_dragon_and_fire(*posx, v37, *posy, *a5, *posx, *posy); // fair animation
 			//LOBYTE(v38) = x_DWORD_17DB70str.x_BYTE_17DB8E;
 			//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 			if (x_DWORD_17DB70str.x_BYTE_17DB8E)
 			{
-				// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-				// v38 = sub_80D40_move_graphics_and_play_sounds((int16_t)posx, *posx, *posy, x_DWORD_17DB70str.x_WORD_17DB84, x_DWORD_17DB70str.x_WORD_17DB86, x_DWORD_17DB70str.x_WORD_17DB88);
+				v38 = sub_80D40_move_graphics_and_play_sounds(*posx, *posx, *posy, x_DWORD_17DB70str.x_WORD_17DB84, x_DWORD_17DB70str.x_WORD_17DB86, x_DWORD_17DB70str.x_WORD_17DB88);
 				//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 				v71 = v38;
 				if (v38)
@@ -99332,15 +99260,11 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 			//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 			sub_7D400_draw_texts_and_play_sounds(*posx, *posx, *posy, *a5);//draw helps, cursor, flags
 			//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
-			// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-			// /*LOWORD(v33) = */sub_81EE0_draw_and_sound_dragon_and_fire(*posx, v32, (int)posy, (int16_t)a5, *posx, *posy);
+			sub_81EE0_draw_and_sound_dragon_and_fire(*posx, v32, *posy, *a5, *posx, *posy);
 			//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 			if (x_DWORD_17DB70str.x_BYTE_17DB8E)
 			{
-				// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-				// v33 = sub_80D40_move_graphics_and_play_sounds((int16_t)posx, *posx, *posy, x_DWORD_17DB70str.x_WORD_17DB84, x_DWORD_17DB70str.x_WORD_17DB86, x_DWORD_17DB70str.x_WORD_17DB88);
+				v33 = sub_80D40_move_graphics_and_play_sounds(*posx, *posx, *posy, x_DWORD_17DB70str.x_WORD_17DB84, x_DWORD_17DB70str.x_WORD_17DB86, x_DWORD_17DB70str.x_WORD_17DB88);
 				v71 = v33;
 				if (v33)
 					x_DWORD_17DB70str.x_BYTE_17DB8E = 0;
@@ -99366,9 +99290,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 			}
 		}
 	LABEL_108:
-		// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-		// v39 = sub_7E320_draw_bitmaps_and_play_sounds(v34, (int)a5);//four buttons in corners and helps
+		v39 = sub_7E320_draw_bitmaps_and_play_sounds(v34, *a5);//four buttons in corners and helps
 		
 		v69 = v39;
 		if (!x_DWORD_17DB70str.x_BYTE_17DB8E && !v71 && !v39)
@@ -99447,9 +99369,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 								x_DWORD_17DB70str.x_WORD_17DB84 = unk_E17CC_str_0x194[v44x].word_12_x;
 								x_DWORD_17DB70str.x_WORD_17DB86 = unk_E17CC_str_0x194[v44x].word_14_y;
 								x_DWORD_17DB70str.x_WORD_17DB88 = unk_E17CC_str_0x194[v44x].byte_18_act;
-								// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-								// sub_80D40_move_graphics_and_play_sounds((int16_t)posx, *posx, *posy, unk_E17CC_str_0x194[v44x].word_12_x, unk_E17CC_str_0x194[v44x].word_14_y, unk_E17CC_str_0x194[v44x].byte_18_act);
+								sub_80D40_move_graphics_and_play_sounds(*posx, *posx, *posy, unk_E17CC_str_0x194[v44x].word_12_x, unk_E17CC_str_0x194[v44x].word_14_y, unk_E17CC_str_0x194[v44x].byte_18_act);
 								//v45 = (int)x_D41A0_BYTEARRAY_4;
 								x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
 								x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v68;
@@ -99497,9 +99417,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 								v49 = *posy;
 								v50 = *posx;
 								x_DWORD_17DB70str.x_WORD_17DB88 = 1;
-								// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-								// sub_80D40_move_graphics_and_play_sounds((int16_t)posx, v50, v49, v48, x_DWORD_17DB70str.x_WORD_17DB86, 1);
+								sub_80D40_move_graphics_and_play_sounds(*posx, v50, v49, v48, x_DWORD_17DB70str.x_WORD_17DB86, 1);
 								v51 = x_WORD_E2970x[v47i].word_6;
 								x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
 								x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = v51;
@@ -101133,7 +101051,7 @@ void sub_81760_new_game_subdraw(type_unk_E17CC_str_0x194* a1x)//262760
 }
 
 //----- (00081CA0) --------------------------------------------------------
-unsigned int sub_81CA0(int a1, int a2, int16_t a3, int16_t a4, type_x_BYTE_E25ED_db_str* a5x)//262ca0
+void sub_81CA0(int a1, int a2, int16_t a3, int16_t a4, type_x_BYTE_E25ED_db_str* a5x)//262ca0
 {
 	unsigned int result; // eax
 	uint8_t v6; // dl
@@ -101185,20 +101103,17 @@ unsigned int sub_81CA0(int a1, int a2, int16_t a3, int16_t a4, type_x_BYTE_E25ED
 		{
 			result = a5x->word_22;
 			a5x->byte_20 = 1;
-			// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-			// // if (result != -1)
-			// 	result = (unsigned int)sub_8F100_sound_proc19(
-			// 		0,
-			// 		a5x->word_24,
-			// 		(uint8_t)x_BYTE_E1324,
-			// 		64,
-			// 		0x64u,
-			// 		a5x->word_28,
-			// 		a5x->word_26);
+			if (result != -1)
+				sub_8F100_sound_proc19(
+					0,
+					a5x->word_24,
+					(uint8_t)x_BYTE_E1324,
+					64,
+					0x64u,
+					a5x->word_28,
+					a5x->word_26);
 		}
 	}
-	return result;
 }
 
 //----- (00081DB0) --------------------------------------------------------
