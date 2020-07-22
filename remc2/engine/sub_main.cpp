@@ -2499,7 +2499,7 @@ void sub_7373D(int16_t a1);
 int16_t sub_739AD(int16_t a1);
 int16_t sub_73AA1(int16_t a1);
 int16_t sub_73D11(int16_t a1);
-uint16_t sub_74006(uint16_t a1, int a2, unsigned int a3);
+uint16_t sub_74006(uint16_t a1, Bit8u* a2, unsigned int a3);
 void sub_7404E(uint16_t a1, Bit8u* a2, unsigned int a3);
 int16_t sub_74374();
 void sub_7438A(Bit8u* a1, unsigned int a2);
@@ -2514,14 +2514,14 @@ signed int sub_74A11();
 int sub_74A86(x_BYTE *a1, Bit8u* a2);
 int sub_74B19(x_BYTE *a1);
 signed int sub_74B75(int16_t a1);
-int sub_74C9D(unsigned int a1, int a2);
-void sub_74D41(unsigned int a1, int a2, unsigned int a3);
+int sub_74C9D(Bit8u* a1, Bit8u* a2);
+void sub_74D41(Bit8u* a1, Bit8u* a2, unsigned int a3);
 signed int sub_74DD4(unsigned int a1, int a2, uint16_t a3);
-int sub_74E6D(unsigned int a1, int a2, int a3);
-int sub_74EF1(unsigned int a1, int a2, unsigned int a3);
+int sub_74E6D(Bit8u* a1, Bit8u* a2, int a3);
+int sub_74EF1(Bit8u* a1, Bit8u* a2, unsigned int a3);
 int16_t sub_74F76();
 signed int sub_74FE1(int16_t a1);
-int sub_75044(unsigned int a1);
+int sub_75044(Bit8u* a1);
 HSAMPLE* sub_75110(int16_t a1, int16_t a2, int16_t a3, uint16_t a4, int16_t a5);
 HSAMPLE* sub_75160(int16_t a1, int16_t a2, int16_t a3, uint16_t a4, int16_t a5);
 HSAMPLE* sub_751B0(int16_t a1, int16_t a2, int16_t a3, uint16_t a4, int16_t a5);
@@ -2654,8 +2654,8 @@ int sub_85C42(int a1, int a2, int a3, int a4, int a5, uint8_t a6);
 void sub_85C8B_draw_new_game_map_background(Bit8u* a1, Bit8u* a2, int a3, int a4, int a5, int a6);
 // void /*__spoils<ecx>*/ sub_85CC3_draw_round_frame(unsigned int a1, int a2, uint16_t *a3);
 int sub_85E40();
-int16_t sub_85EB0_alloc_memory(int16_t a1);
-int16_t sub_85F00_free_memory(int16_t a1);
+Bit8u* sub_85EB0_alloc_memory(int16_t a1);
+int16_t sub_85F00_free_memory();
 int sub_85F60(int a1);
 bool sub_85FD0();
 int sub_86010();
@@ -3161,10 +3161,6 @@ void sub_67960(/*type_str_0x6E8E* a1x,*/ type_str_0x6E8E* a2x);
 
 //-------------------------------------------------------------------------
 // Data declarations
-
-//_UNKNOWN loc_4AFFE; // weak
-//Bit8u algn_4BB85[11] = { '\x8D', '\x80', '\0', '\0', '\0', '\0', '\x8D', 'R', '\0', '\x8B', '\0' }; // weak
-Bit8u algn_4BB85[11] = {0x8d, 0x80, 0x00, 0x00, 0x00, 0x00, 0x8d, 0x52, 0x00, 0x8b, 0x00};
 
 Bit16u x_WORD_727B0[0xe0] = { 
 0x0001,0x0002,0x0002,0x0004,0x0005,0x0008,0x000B,0x0010,
@@ -9160,7 +9156,9 @@ Bit32s off_DBF50[0x1000] =  // weak//x_DWORD_DB750[0x200]//2acf50 //speed table2
 		0x0000FFFB, 0x0000FFFD, 0x0000FFFF, 0x00010000
 };
 
-Bit8u* x_DWORD_DDF50_texture_adresses[0x100] /*= { 0,32 }*/; // weak
+//Bit8u* x_DWORD_DDF50_texture_adresses[0x100] /*= { 0,32 }*/; // weak
+std::array<Bit8u*, 0x100> x_DWORD_DDF50_texture_adresses;
+
 //2aef50
 //int x_DWORD_DDF54 = 32; // weak
 Bit16u x_WORD_DE350[0x101] = { //speed table3//2af350 tang?
@@ -10106,8 +10104,8 @@ int x_DWORD_E2A1C = 0; // weak
 char x_BYTE_E2A20 = 0; // weak
 Bit8u* x_WORD_E2A24 = 0; // weak
 char x_BYTE_E2A28_speek = 0; // weak
-int x_DWORD_E2A6C = 0; // weak
-int x_DWORD_E2A70 = 0; // weak
+Bit8u* x_DWORD_E2A6C = nullptr; // weak
+Bit8u* x_DWORD_E2A70 = nullptr; // weak
 char x_BYTE_E29E0 = 1; // weak
 
 
@@ -11106,7 +11104,6 @@ int x_DWORD_17FEC0; // weak
 int x_DWORD_17FEC4; // weak
 int x_DWORD_17FEC8; // weak
 int x_DWORD_17FECC; // weak
-int x_DWORD_17FF0C; // weak
 int x_DWORD_17FF10; // weak
 int x_DWORD_17FF14; // weak
 int16_t x_WORD_17FF18; // weak
@@ -13251,6 +13248,7 @@ void sub_12780()//1f3780
 			
 			v4x = D41A0_BYTESTR_0.array_0x365F4[resultx+1].str_0x3647C_4.pointer_0x6E8E;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // if (v4x && ((int)v4x>0xffff) && (v4x->dword_0x8 < 0 || v4x->struct_byte_0xc_12_15.byte[1] & 4))
 			// 	goto LABEL_11;
 				
@@ -17310,6 +17308,7 @@ void sub_17A00_mouse_and_keys_events(/*Bit8u* a1,*/ signed int a2, int16_t a3)//
 			{
 				//v15 = (Bit8u*)v12x->dword_0xA4_164;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// _wcpp_1_unwind_leave__120(/*v13, */v14, (Bit32u)v12x->dword_0xA4_164x);
 				v16 = v12x->dword_0xA4_164x->str_611.byte_0x457_1111;
 				//a1 = &v15[611];
@@ -18588,6 +18587,7 @@ int sub_1A5B0_getLangStrings(int a1, int *a2, int *a3)//1fb5b0
 	int result; // eax
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// result = (int)a2;
 	switch (a1)
 	{
@@ -23279,6 +23279,7 @@ void sub_203D0(type_str_0x6E8E* a1x)//2013d0
 					LOBYTE(v23) = a1x->byte_0x3E_62;
 					//v24 = a1x->dword_0xA0_160;
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// v25 = (int)v23 / a1x->dword_0xA0_160x->word_160_0x1a_26 % 3;
 					if (v25 < 1)
 					{
@@ -24397,6 +24398,7 @@ void sub_21AB0(type_str_0x6E8E* a1x)//202ab0
 					*((x_BYTE *)v5 + 67) = 10;
 					*((x_BYTE *)v5 + 68) = 0;
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// *((x_DWORD *)v5 + 40) = (x_DWORD)&unk_D7BD6[0x83c];
 					v5[21] = 800;
 					v34 = 15;
@@ -24410,6 +24412,7 @@ void sub_21AB0(type_str_0x6E8E* a1x)//202ab0
 					*((x_BYTE *)v6 + 67) = 10;
 					*((x_BYTE *)v6 + 68) = 23;
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// *((x_DWORD *)v6 + 40) = (x_DWORD)&unk_D7BD6[0x83c];
 					v6[21] = 800;
 					v34 = 23;
@@ -24479,6 +24482,7 @@ void sub_21AB0(type_str_0x6E8E* a1x)//202ab0
 					LOWORD(v11) = v32;
 					v13x->word_0x1C_28 = v32;
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// v13x->word_0x20_32 = (Bit16s)v11;
 					v13x->byte_0x45_69 = v30;
 				}
@@ -31482,6 +31486,7 @@ void sub_2A940(type_str_0x6E8E* a1x, type_str_0x6E8E* a2x)//20b940
 		a2x->word_0x82_130 = 192;
 		a2x->byte_0x46_70 = 0;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// a2x->word_0x22_34 = (x_WORD)v3;
 		a1x->struct_byte_0xc_12_15.byte[1] |= 8u;
 	}
@@ -31599,6 +31604,7 @@ void sub_2AA90(/*type_str_0x6E8E* a1x,*/ type_str_0x6E8E* a2x, type_str_0x6E8E* 
 			break;
 		}
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // if (v6)
 		// 	sub_57FA0(&v12x, v19, (short)(Bit16s*)(a1y + v17), 96);
 		sub_57CF0(v7x, &v12x);
@@ -33739,9 +33745,11 @@ char sub_2DFD0(int16_t a1, int16_t a2, posistruct a3, uint8_t a4)//20efd0
 		v19 = a3.height / 2;
 		v4 = a2 / 2 * x_DWORD_18062C_resolution_x + a1 / 2;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v5 = (x_BYTE *)(v4 + (int)x_DWORD_180628b_screen_buffer);
 		v6 = a3.data;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // for (i = v4 + (int)x_DWORD_180628b_screen_buffer; v19; v6 += v14)
 		// {
 		// 	while (1)
@@ -33779,11 +33787,14 @@ char sub_2DFD0(int16_t a1, int16_t a2, posistruct a3, uint8_t a4)//20efd0
 	{
 		v18 = a3.height;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// LOBYTE(v4) = (int)x_DWORD_180628b_screen_buffer;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v9 = (x_BYTE *)((int)x_DWORD_180628b_screen_buffer + a1 + x_DWORD_18062C_resolution_x * a2);
 		v10 = a3.data;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v17 = (int)x_DWORD_180628b_screen_buffer + a1 + x_DWORD_18062C_resolution_x * a2;
 		if (a3.height)
 		{
@@ -33959,6 +33970,7 @@ int sub_2E790(int16_t a1, int a2, int a3, int a4, uint8_t a5)//20f790
 				break;
 			++v9;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // *(x_BYTE *)((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * (int16_t)result + v10) = x_BYTE_F6EE0_tablesx[0x4000+256 * a5
 			// 	+ *(uint8_t *)((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * (int16_t)result + v10)];
 		}
@@ -34001,6 +34013,7 @@ int sub_2E850(int16_t a1, int a2, int a3, int a4, uint8_t a5)//20f850
 				break;
 			v9++;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // *(x_BYTE *)((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * (int16_t)result + v10) = x_BYTE_F6EE0_tablesx[256 * a5
 			// 	+ *(uint8_t *)((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * (int16_t)result + v10)];
 		}
@@ -39843,6 +39856,7 @@ void sub_36FC0(type_str_0x6E8E* a1x)//217fc0
 				while (v4 > v21)
 				{
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// // if (*v16 != 0xff)
 					// 	sub_45DC0((Bit8u)v16, v14, v15x, *v16);
 					v15x._axis_2d.x++;
@@ -44549,6 +44563,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 									v248x[2] = v70[6];
 									v248x[3] = v70[7];
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[1];
 									x_BYTE_E126D = 5;
 									//if (v68[38] & 1)
@@ -44634,6 +44649,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 								v248x[2] = v81[6];
 								v248x[3] = v81[7];
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v80x].byte41];
 								if (str_E9C38_smalltit[v80x].word38 & 1)
 								{
@@ -44728,6 +44744,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 									v248x[2] = v95[6];
 									v248x[3] = v95[7];
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[1];
 									v96 = str_E9C38_smalltit[v94x].word38;
 									x_BYTE_E126D = 5;
@@ -44811,8 +44828,10 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 									v248x[3] = v108[7];
 									LOBYTE(v108) = str_E9C38_smalltit[v107x].word38;
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v107x].byte41];
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// // if ((uint8_t)v108 & 1)
 									// {
 									// 	sub_B6253_draw_triangle(&v248x[18], &v248x[12], &v248x[0]);
@@ -45023,6 +45042,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 							v248x[7] = str_E9C38_smalltit[v134x-40].dword28;
 							//v248x[10] = (int)*(x_DWORD *)str_E9C38_smalltit[v134x-40].dword32;
 							// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 							// v248x[10] = (int)*(x_DWORD**)&str_E9C38_smalltit[v134x - 40].dword32;
 							v138 = str_E9C38_smalltit[v134x-40].word38 | v137 | v136;
 							v248x[0] = str_E9C38_smalltit[v134x-41].dword24;
@@ -45071,10 +45091,12 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 										v248x[2] = v146[6];
 										v248x[3] = v146[7];
 										// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 										// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v143x].byte41];
 										LOBYTE(v146) = str_E9C38_smalltit[v143x].word38;
 										x_BYTE_E126D = 5;
 										// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 										// // if ((uint8_t)v146 & 1)
 										// {
 										// 	sub_B6253_draw_triangle(&v248x[18], &v248x[0], &v248x[12]);
@@ -45122,6 +45144,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 								v152 = str_E9C38_smalltit[v151x -40].dword32;
 								v151x -= 40;
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// v248x[10] = (int)(x_DWORD *)v152;
 								v153 = str_E9C38_smalltit[v151x].word38;
 								//v248x[0] = *(x_DWORD *)(v151 - 20);
@@ -45168,6 +45191,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 											x_BYTE_E126D = 5;
 											BYTE1(v158) = str_E9C38_smalltit[v155x].word38;
 											// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 											// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[v159];
 											if (BYTE1(v158) & 1)
 											{
@@ -45250,6 +45274,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 						//BYTE1(v171) = *(x_BYTE *)(v169 + 38);
 						//v172 = v169 + 1760;
 						// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 						// v248x[10] = (int)(x_DWORD*)v168;
 						v170 = str_E9C38_smalltit[v169x].word38;
 						v248x[0] = str_E9C38_smalltit[v169x-1].dword16;
@@ -45284,6 +45309,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 								v248x[2] = v176[6];
 								v248x[3] = v176[7];
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v172x].byte41];
 								if (str_E9C38_smalltit[v172x].word38 & 1)
 								{
@@ -45312,6 +45338,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 								v248x[2] = v175[6];
 								v248x[3] = v175[7];
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v172x].byte41];
 								if (str_E9C38_smalltit[v172x].word38 & 1)
 								{
@@ -45363,6 +45390,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 							//v182 = *(x_BYTE *)(v178 - 1678);
 							//v248x[10] = (int) * (x_DWORD *)str_E9C38_smalltit[v178x - 39].dword32;
 							// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 							// v248x[10] = (int)*(x_DWORD **)&str_E9C38_smalltit[v178x - 39].dword32;
 							v182 = str_E9C38_smalltit[v178x - 39].word38;
 							v183 = v182 | v180 | v179;
@@ -45408,6 +45436,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 									v248x[3] = v195[7];
 									v196 = str_E9C38_smalltit[v190x].word38;
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v190x].byte41];
 									if (v196 & 1)
 									{
@@ -45437,6 +45466,7 @@ void sub_3C080_draw_terrain_and_particles(/*int a1, int a2,*/ int16_t a3, int16_
 									v248x[3] = v193[7];
 									v194 = str_E9C38_smalltit[v190x].word38;
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v190x].byte41];
 									if (v194 & 1)
 									{
@@ -45665,6 +45695,7 @@ LABEL_259:
 			v224 = str_E9C38_smalltit[v218x-40].dword32;
 			v225x = v218x - 40;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v248x[10] = (int)(x_DWORD *)v224;
 			v226 = str_E9C38_smalltit[v225x].word38;
 			v248x[0] = str_E9C38_smalltit[v225x-1].dword16;
@@ -45698,6 +45729,7 @@ LABEL_259:
 				v248x[2] = v230[6];
 				v248x[3] = v230[7];
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v227x].byte41];
 				if (str_E9C38_smalltit[v227x].word38 & 1)
 				{//adress 21ddf0
@@ -45776,6 +45808,7 @@ LABEL_259:
 					v248x[2] = v246[6];
 					v248x[3] = v246[7];
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[str_E9C38_smalltit[v243x].byte41];
 					if (str_E9C38_smalltit[v243x].word38 & 1)
 					{
@@ -46365,6 +46398,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 									v248x[2] = v70[6];
 									v248x[3] = v70[7];
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[1];
 									x_BYTE_E126D = 5;
 									if (v68[38] & 1)
@@ -46396,6 +46430,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 						v248x[6] = *(x_DWORD*)(j - 1744);
 						v248x[7] = *(x_DWORD*)(j - 1740);
 						// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 						// v248x[10] = (int) * (x_DWORD * *)(j - 1728);
 						v74 = *(x_BYTE*)(j - 1722);
 						v75 = v74 | v73 | v71;
@@ -46432,6 +46467,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 								v248x[2] = v81[6];
 								v248x[3] = v81[7];
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[*(uint8_t*)(v80 + 41)];
 								if (v80[38] & 1)
 								{
@@ -46469,6 +46505,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 							v248x[7] = *(x_DWORD*)(v83 - 1688);
 							v86 = v84;
 							// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 							// v248x[10] = (int) * (x_DWORD * *)(v83 - 1684);
 							v87 = *(x_BYTE*)(v83 - 1678);
 							v88 = v87 | v85 | v84;
@@ -46504,6 +46541,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 									v248x[2] = v95[6];
 									v248x[3] = v95[7];
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[1];
 									v96 = *(x_BYTE*)(v94 + 38);
 									x_BYTE_E126D = 5;
@@ -46533,6 +46571,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 							v248x[6] = *(x_DWORD*)(v94 - 1700);
 							v248x[7] = *(x_DWORD*)(v94 - 1696);
 							// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 							// v248x[10] = (int) * (x_DWORD * *)(v94 - 1684);
 							v102 = *(x_BYTE*)(v94 - 1678);
 							v248x[0] = *(x_DWORD*)(v94 - 1744);
@@ -46570,8 +46609,10 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 									v248x[3] = v108[7];
 									LOBYTE(v108) = *(x_BYTE*)(v107 + 38);
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[*(uint8_t*)(v107 + 41)];
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// // if ((uint8_t)v108 & 1)
 									// {
 									// 	sub_B6253_draw_triangle(&v248x[18], &v248x[12], &v248x[0]);
@@ -46751,6 +46792,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 							v248x[6] = *(x_DWORD*)(v134 - 1736);
 							v248x[7] = *(x_DWORD*)(v134 - 1732);
 							// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 							// v248x[10] = (int) * (x_DWORD * *)(v134 - 1728);
 							v138 = *(x_BYTE*)(v134 - 1722) | v137 | v136;
 							v248x[0] = *(x_DWORD*)(v134 - 1780);
@@ -46791,10 +46833,12 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 										v248x[2] = v146[6];
 										v248x[3] = v146[7];
 										// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 										// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[*(uint8_t*)(v143 + 41)];
 										LOBYTE(v146) = *(x_BYTE*)(v143 + 38);
 										x_BYTE_E126D = 5;
 										// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 										// // if ((uint8_t)v146 & 1)
 										// {
 										// 	sub_B6253_draw_triangle(&v248x[18], &v248x[0], &v248x[12]);
@@ -46833,6 +46877,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 								v152 = *(x_DWORD*)(v151 - 1728);
 								v151 -= 1760;
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// v248x[10] = (int)(x_DWORD*)v152;
 								v153 = *(x_BYTE*)(v151 + 38);
 								v248x[0] = *(x_DWORD*)(v151 - 20);
@@ -46873,6 +46918,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 											x_BYTE_E126D = 5;
 											BYTE1(v158) = *(x_BYTE*)(v155 + 38);
 											// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 											// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[v159];
 											if (BYTE1(v158) & 1)
 											{
@@ -46922,6 +46968,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 						v168 = *(x_DWORD*)(v161 - 1728);
 						v169 = v161 - 1760;
 						// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 						// v248x[10] = (int)(x_DWORD*)v168;
 						v170 = *(x_BYTE*)(v169 + 38);
 						v248x[0] = *(x_DWORD*)(v169 - 28);
@@ -46956,6 +47003,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 								v248x[2] = v176[6];
 								v248x[3] = v176[7];
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[*(uint8_t*)(v172 + 41)];
 								if (*(x_BYTE*)(v172 + 38) & 1)
 								{
@@ -46984,6 +47032,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 								v248x[2] = v175[6];
 								v248x[3] = v175[7];
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[*(uint8_t*)(v172 + 41)];
 								if (*(x_BYTE*)(v172 + 38) & 1)
 								{
@@ -47019,6 +47068,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 							v248x[7] = *(x_DWORD*)(v178 - 1696);
 							v181 = v179;
 							// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 							// v248x[10] = (int) * (x_DWORD * *)(v178 - 1684);
 							v182 = *(x_BYTE*)(v178 - 1678);
 							v183 = v182 | v180 | v179;
@@ -47060,6 +47110,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 									v248x[3] = v195[7];
 									v196 = *(x_BYTE*)(v190 + 38);
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[*(uint8_t*)(v190 + 41)];
 									if (v196 & 1)
 									{
@@ -47089,6 +47140,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 									v248x[3] = v193[7];
 									v194 = *(x_BYTE*)(v190 + 38);
 									// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 									// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[*(uint8_t*)(v190 + 41)];
 									if (v194 & 1)
 									{
@@ -47136,6 +47188,7 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 				v25y = (Bit32u*)v278;
 				*(x_DWORD*)(v278 + 8) = -(v248x[26] * ((v113 >> 4) + 0x8000) >> 10) - a6;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// // if (!(x_BYTE_13B4E0_angle[v111] & 8)
 				// 	|| (v114 = (Bit32s*)v25y, v25y = (Bit32u*)(v25y[1] - (v113 >> 10)), v115 = v248x[31], v114[1] = (x_DWORD)v25y, v115 >= 14464))
 				// {
@@ -47313,6 +47366,7 @@ LABEL_259:
 			v224 = *(x_DWORD*)(v218 - 1728);
 			v225 = v218 - 1760;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v248x[10] = (int)(x_DWORD*)v224;
 			v226 = *(x_BYTE*)(v225 + 38);
 			v248x[0] = *(x_DWORD*)(v225 - 28);
@@ -47346,6 +47400,7 @@ LABEL_259:
 				v248x[2] = v230[6];
 				v248x[3] = v230[7];
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[*(uint8_t*)(v227 + 41)];
 				if (*(x_BYTE*)(v227 + 38) & 1)
 				{//adress 21ddf0
@@ -47385,6 +47440,7 @@ LABEL_259:
 				v248x[7] = *(x_DWORD*)(v232 - 1696);
 				v235 = v233;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v248x[10] = (int) * (x_DWORD * *)(v232 - 1684);
 				v236 = *(x_BYTE*)(v232 - 1678);
 				v237 = v236 | v234 | v233;
@@ -47424,6 +47480,7 @@ LABEL_259:
 					v248x[2] = v246[6];
 					v248x[3] = v246[7];
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// x_DWORD_DE55C_ActTexture = (int)x_DWORD_DDF50_texture_adresses[*(uint8_t*)(v243 + 41)];
 					if (*(x_BYTE*)(v243 + 38) & 1)
 					{
@@ -47871,6 +47928,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 								v43 = str_F2C20ar.dword0x00;
 								v44 = a1y->byte_0 | 8;
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// str_F2C20ar.dword0x02_data = (int)a1y->data_6;
 								a1y->byte_0 = v44;
 								if (v43 == 0x2000)
@@ -48237,6 +48295,7 @@ void sub_3E360_draw_particles(/*int a1x, */int a2x)//21f360
 					a1y->byte_0 |= 8u;
 					v91 = v90x->struct_byte_0xc_12_15.byte[2];
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// str_F2C20ar.dword0x02_data = (int)(a1y->data_6);
 					if (v91 & 0x380)
 					{
@@ -48399,6 +48458,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 	int v100; // [esp+1Ch] [ebp-4h]
 
 	// FIXME: segfault just after label LABEL_73 when accessing a1y
+std::cout << "FIXME: @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	std::cerr << "FIXME: Skip particles for the moment" << std::endl;
 	return;
 
@@ -48703,6 +48763,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 								v43 = str_F2C20ar.dword0x00;
 								v44 = a1y->byte_0 | 8;
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// str_F2C20ar.dword0x02_data = (int)(a1y->data_6);
 								a1y->byte_0 = v44;
 								if (v43 == 0x2000)
@@ -49069,6 +49130,7 @@ void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2)//21f360
 					a1y->byte_0 |= 8u;
 					v91 = v90x->struct_byte_0xc_12_15.byte[2];
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// str_F2C20ar.dword0x02_data = (int)(a1y->data_6);
 					if (v91 & 0x380)
 					{
@@ -50060,9 +50122,11 @@ int /*__fastcall*/ sub_40D10()//221d10//fix vga
 	HIWORD(v1) = 0;
 	v30 = (int *)&loc_A0000_vga_buffer;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v28 = (int)x_DWORD_180628b_screen_buffer;
 	v27 = 200;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v29 = (Bit8u)x_DWORD_E9C3C;
 	while (v27)
 	{
@@ -50276,6 +50340,7 @@ void sub_40F80()//221f80
 	{
 		v13 = (signed int)(uint16_t)x_DWORD_DE564 >> 2;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v15 = (Bit8u)x_DWORD_E9C3C;
 		v17 = x_DWORD_DE558;
 		v0 = (uint16_t)x_DWORD_DE568 / 2;
@@ -50349,6 +50414,7 @@ void sub_40F80()//221f80
 		if (x_BYTE_D478C)
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_BD2CB((int)unk_F0A20x);
 		}
 		else if (x_WORD_180660_VGA_type_resolution & 1)
@@ -50367,6 +50433,7 @@ void sub_40F80()//221f80
 	else if (x_BYTE_D478C)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_BD1B6((int)unk_F0A20x);
 	}
 	else if (x_WORD_180660_VGA_type_resolution & 1)
@@ -50908,6 +50975,7 @@ void sub_41BD3_subDrawSprite(unsigned int a1)//222bd3 //draw particle / billboar
 
 	int jy;
 
+std::cout << "FIXME: @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	return; // FIXME
 
 	#ifdef TEST_BIG_SPRITES//real size is 4xsmaller
@@ -51945,6 +52013,7 @@ void sub_41BD3_subDrawSprite(unsigned int a1)//222bd3 //draw particle / billboar
 
 			//               screen-Y                                            screen-X
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v122 = (int)(str_F2C20ar.dword0x03_screenX * x_DWORD_DE560_ScreenWidth + str_F2C20ar.dword0x04_screenY + x_DWORD_DE558);
 			//height
 			while (str_F2C20ar.dword0x0c_realHeight)
@@ -54965,6 +55034,7 @@ void sub_46830_main_loop(/*Bit16s* a1, */signed int a2, uint16_t a3)//227830
 				{
 					v10 = sub_5BE80_test_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// a3 = (int)x_DWORD_180628b_screen_buffer;
 					sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v10);
 				}
@@ -55136,6 +55206,7 @@ void /*__fastcall*/ sub_46DD0_init_sound_and_music(/*int a1, int a2, char* a3*/)
 	v4 = 0;
 
 	// FIXME
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// TODO: Skip sound and music for the moment.
 	//       Replace all the DOS-based sound stuff in the future.
 	std::cerr << "FIXME: Sound disabled for the moment" << std::endl;
@@ -55274,6 +55345,7 @@ void sub_46F80()//227f80
 	LABEL_15:
 		v8 = *(x_DWORD *)v1;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v2 = (int)(v1 + 4);
 		v9 = *(x_DWORD *)v2;
 		v2 += 4;
@@ -55285,6 +55357,7 @@ void sub_46F80()//227f80
 LABEL_16:
 	result = (char *)sub_53E60_readfile_and_decompress(printbuffer, &x_DWORD_180628b_screen_buffer);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if ((signed int)result > 0)
 	// {
 	// 	v4 = (int)(result + 8);
@@ -55819,12 +55892,14 @@ void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
 			{
 				if (!v7)
 				{
+std::cout << "FIXME: files @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					sub_53E60_readfile_and_decompress("data/pald-0.dat", xadatapald0dat2.var28_begin_buffer);
 					sub_53E60_readfile_and_decompress("data/clrd-0.dat", xadataclrd0dat.var28_begin_buffer);
 				}
 			}
 			else if (v7 <= 1u)
 			{
+std::cout << "FIXME: files @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				if (D41A0_BYTESTR_0.str_2FECE.byte_0x2FED2 & 2)
 					sub_53E60_readfile_and_decompress("data/palf-0.dat", xadatapald0dat2.var28_begin_buffer);
 				else
@@ -55833,6 +55908,7 @@ void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
 			}
 			else if (v7 == 2)
 			{
+std::cout << "FIXME: files @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				sub_53E60_readfile_and_decompress("data/palc-0.dat", xadatapald0dat2.var28_begin_buffer);
 				sub_53E60_readfile_and_decompress("data/clrc-0.dat", xadataclrd0dat.var28_begin_buffer);
 			}
@@ -56963,6 +57039,7 @@ int16_t sub_48DF0(char a1, char a2, char a3, char a4)//229df0
 signed int sub_48E60(int16_t a1, int16_t a2, int16_t a3, uint16_t a4)//229e60
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return sub_48F20(a1, a2, a3, a4, (int)x_BYTE_11B4E0_height);
 }
 
@@ -56970,6 +57047,7 @@ signed int sub_48E60(int16_t a1, int16_t a2, int16_t a3, uint16_t a4)//229e60
 signed int sub_48E90(int16_t a1, int16_t a2, int16_t a3, uint16_t a4)//229e90
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return sub_48FD0(a1, a2, a3, a4, (int)x_BYTE_11B4E0_height);
 }
 
@@ -56977,6 +57055,7 @@ signed int sub_48E90(int16_t a1, int16_t a2, int16_t a3, uint16_t a4)//229e90
 signed int sub_48EC0(int16_t a1, int16_t a2, int16_t a3, uint16_t a4)//229ec0
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return sub_48F20(a1, a2, a3, a4, (int)x_BYTE_14B4E0);
 }
 
@@ -56984,6 +57063,7 @@ signed int sub_48EC0(int16_t a1, int16_t a2, int16_t a3, uint16_t a4)//229ec0
 signed int sub_48EF0(int16_t a1, int16_t a2, int16_t a3, uint16_t a4)//229ef0
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return sub_48FD0(a1, a2, a3, a4, (int)x_BYTE_14B4E0);
 }
 
@@ -59134,6 +59214,7 @@ void pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1_6E8E,int type)//pre
 	switch (adress)
 	{
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // 	case 0x1f3910: {
 	// 		sub_12910(a1_6E8E);
 	// 		break;
@@ -60836,6 +60917,7 @@ void pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1_6E8E,int type)//pre
 	}*/
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // case 0x20cc10: {
 	// 	sub_2BC10_draw_text((char*)a1_6E8E,0,0,0);		 
 	// 	break;
@@ -62380,11 +62462,13 @@ void pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1_6E8E,int type)//pre
 	}
 	case 0x24fde0: {
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_6EDE0_set_mouse_position2((short)a1_6E8E,0);		 
 		break;
 	}
 	case 0x24ff10: {
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_6EF10_set_mouse_minmax((short)a1_6E8E,0,0,0);		 
 		break;
 	}
@@ -69777,9 +69861,8 @@ int sub_53E60_readfile_and_decompress(const char* path, Bit8u** a2)//234E60
 	FILE* file; // ebx
 	Bit32u v4; // esi
 	file = sub_98817_open((char*)path, 0x200);//234E72 - 279817
-	// FIXME: types
-	// result = (x_DWORD)file;
-	if (result != NULL)
+	result = -1;
+	if (file)
 	{
 		v4 = x_filelength(file);//234E82 - 2798DA
 		sub_988A7_read(file, *a2, v4);//234E8F - 2798A7
@@ -70285,6 +70368,7 @@ char sub_54F00(int16_t a1)//235f00 //in game save
 	sprintf(printbuffer, "%s/%s%03d.dat", "movie", "SLEV", a1);
 	//v1 = (Bit8u*)x_D41A0_BYTEARRAY_0;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// D41A0_BYTESTR_0.dword_0x36DF6 = (Bit32u)&unk_D7BD6[0x7d6];
 	
 	sub_98C48_open_nwrite_close(printbuffer, (Bit8u*)&D41A0_BYTESTR_0, 224791);
@@ -70365,10 +70449,12 @@ void sub_55100(char a1)//236100
 	//fix !!!!
 	//allert_error();
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = v2* (Bit32u)D41A0_BYTESTR_0.struct_0x6E8E;
 	//D41A0_BYTESTR_0.struct_0x6E8E[59]
 	v4 = 0;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v5 = v2* (Bit32u)D41A0_BYTESTR_0.str_2FECE.array_0x30311;
 	//fix
 
@@ -70380,6 +70466,7 @@ void sub_55100(char a1)//236100
 			if ((v7 < 5)&& (v7 > 0))
 			{
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// // if (!(D41A0_BYTESTR_0.struct_0x3654C[v4].str_3654D_byte1 & 1))
 				// {
 				// 	if ((v7 == 1) || (v7 == 2) || (v7 == 4))
@@ -70406,6 +70493,7 @@ void sub_55100(char a1)//236100
 				//v11 = D41A0_BYTESTR_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E;
 				//if (D41A0_BYTESTR_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E >= x_DWORD_EA3E4[0] && D41A0_BYTESTR_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E < x_DWORD_EA3E4[0x3e8])
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// D41A0_BYTESTR_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E = (type_str_0x6E8E*)((Bit32u)D41A0_BYTESTR_0.array_0x365F4[i].str_0x3647C_4.pointer_0x6E8E+ (Bit32u)v3);
 			}
 		}
@@ -70414,6 +70502,7 @@ void sub_55100(char a1)//236100
 	for (j = 1; j < 50; j++)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // if (D41A0_BYTESTR_0.str_0x3664C[j].byte_0)
 		// 	D41A0_BYTESTR_0.str_0x3664C[j].dword_A = (type_str_0x6E8E*)((Bit32u)D41A0_BYTESTR_0.str_0x3664C[j].dword_A + (Bit32u)v3);//0x36656
 	}
@@ -70441,6 +70530,7 @@ char sub_55250(uint8_t a1, char* filenameindex)//236250 //in game save
 	v1 = 0;
 	sprintf(printbuffer, "%c:%s/%s/%s%d%s.dat", x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182, "/netherw", "save", "SLEV", a1 + 1, filenameindex);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// D41A0_BYTESTR_0.dword_0x36DF6 = (x_DWORD)&unk_D7BD6[0x7d6];
 	v4= D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dword_0x3E6_2BE4_12228.dword_0x189_393;
 	v6 = j___clock();
@@ -70454,6 +70544,7 @@ char sub_55250(uint8_t a1, char* filenameindex)//236250 //in game save
 	for (int indexx = 1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[0x3e8]; indexx++)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // if ((Bit32u)x_DWORD_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)//0x014F82E8//0x2c75e28-(Bit32u)&D41A0_BYTESTR_0
 		// 	x_DWORD_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
 	}
@@ -71918,6 +72009,7 @@ void sub_57680_FixPointersAfterLoad()//238680
 		//if (memory_readable(x_DWORD_EA3E4[indexx]->dword_0xA4_164x,4))
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // if ((Bit32u)x_DWORD_EA3E4[indexx]->dword_0xA4_164x == 0x2c75e28)//0x014F82E8//0x2c75e28-(Bit32u)&D41A0_BYTESTR_0
 			// 	x_DWORD_EA3E4[indexx]->dword_0xA4_164x = unk_F42B0x;
 		}
@@ -71939,6 +72031,7 @@ void sub_57680_FixPointersAfterLoad()//238680
 	}*/
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // for(int indexx=1; x_DWORD_EA3E4[indexx] < x_DWORD_EA3E4[0x3e8]; indexx++)
 	// 	if (x_DWORD_EA3E4[indexx]->byte_0x3F_63)
 	// 		x_DWORD_EA3E4[indexx]->dword_0xA0_160x = (type_str_160*)((Bit32u)x_DWORD_EA3E4[indexx]->dword_0xA0_160x - D41A0_BYTESTR_0.dword_0x36DF6 + &unk_D7BD6[0x7d6]);
@@ -75726,27 +75819,17 @@ void sub_5B7A0_prepare_textures()//23C7A0
 	if(x_BYTE_D41B5_texture_size==128)
 		BLOCK32DAT_BEGIN_BUFFER = BigTextureBuffer;
 
-	//x_BYTE_D41B5_texture_size = 16;
-
-	//v0 = x_BYTE_D41B5;
 	sub_3B4D0_fill_unk_D4350_256(x_BYTE_D41B5_texture_size);//21C4D0
-	//v1 = 256 % (256 / x_BYTE_D41B5_texture_size);
-	v2 = (int*)x_DWORD_DDF50_texture_adresses;
+
+	int texture_index = 0;
 	for ( int ypos = 0; ypos < (signed int)(256 / (256 / x_BYTE_D41B5_texture_size)); ypos++ )
 	{
 	  for (int xpos = 0;xpos < (256 / x_BYTE_D41B5_texture_size);xpos++)
 	  {
-		//v6 = v1 * x_BYTE_D41B5_texture_size + BLOCK32DAT_BEGIN_BUFFER;
-		//v7 = i * x_BYTE_D41B5_texture_size << 8;
-		//v2++;
-		//v4 = v7 + v6;		
-		// FIXME: types
-		// *(v2) = (int)((ypos * x_BYTE_D41B5_texture_size << 8)+ (xpos * x_BYTE_D41B5_texture_size) + BLOCK32DAT_BEGIN_BUFFER);
-		//xpos++;
-		v2++;
+		x_DWORD_DDF50_texture_adresses[texture_index] = ((ypos * x_BYTE_D41B5_texture_size << 8)+ (xpos * x_BYTE_D41B5_texture_size) + BLOCK32DAT_BEGIN_BUFFER);
+		texture_index++;
 	  }
 	}
-	//_wcpp_1_unwind_leave__93(i, v1, v0, (x_DWORD)v2, v6, v7);// fix//23C830
 	sub_5B840_load_pallette_and_help_pallette();//23C840
 	BLOCK32DAT_BEGIN_BUFFER = oldbuf;
 }
@@ -79442,6 +79525,7 @@ signed int sub_609E0(type_str_0x6E8E* a1x)//2419e0
 			return 2;
 		}
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// _wcpp_1_unwind_leave__100((int32_t)a1x, a1x->str_0x5E_94.dword_0x5E_94);
 		a1x->str_0x5E_94.word_0x62_98 = 0;
 		v5 = a1x->word_0x1A_26;
@@ -79738,6 +79822,7 @@ void sub_60F00()//241f00
 			goto LABEL_24;
 	LABEL_23:
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v3a = (int)sub_61000(v4x);
 		goto LABEL_24;
 	}
@@ -80899,8 +80984,10 @@ void sub_627F0_draw_minimap_entites_a(int a1, int a2, int16_t a3, int16_t a4, in
 		if (!v11)
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v109 = (uint8_t)*xadataclrd0dat.var28_begin_buffer;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v106 = (uint8_t)*xadataclrd0dat.var28_begin_buffer;
 			v108 = 28;
 			v107 = -24;
@@ -80934,8 +81021,10 @@ LABEL_10:
 		a6 >>= 1;
 	}
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v99 = v9 * x_DWORD_18062C_resolution_x + (int)x_DWORD_180628b_screen_buffer + v8;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v100 = (int)(v9 * x_DWORD_18062C_resolution_x + x_DWORD_E9C3C + v8);
 	LODWORD(v13) = 0x10000;
 	HIDWORD(v13) = 0x10000 >> 31;
@@ -81562,8 +81651,10 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, in
 		a8 *= 2;
 	}
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v70 = v11 * x_DWORD_18062C_resolution_x + (int)x_DWORD_180628b_screen_buffer + v10;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v71 = (int)(v11 * x_DWORD_18062C_resolution_x + x_DWORD_E9C3C + v10);
 	if (a10)
 	{
@@ -81595,6 +81686,7 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, in
 			*v20 = v19;
 			v21 = v18 - v65;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v22 = (int)v79;
 			v17[1] = v18 - v65;
 			*(x_WORD *)(v22 + 2) = v21;
@@ -81792,9 +81884,11 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, in
 				v62 = x_BYTE_F6EE0_tablesx[0x4000+v61];
 				*v57 = v62;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v63 = (char *)x_InterlockedExchange((long*)&v64, (int32_t)(v57 + 1));
 				*v63 = v62;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v57 = (char *)x_InterlockedExchange((long*)&v64, (int32_t)(v63 + 1));
 				v56 += v66;
 				v58 += v67;
@@ -81940,6 +82034,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, in
 	v74 = x_WORD_F4960;
 	v24 = a4 - (v23 + v12 * (v21 / v12)) / 2;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// index = (int)v60;
 	v73 = v24;
 	v71 = v60;
@@ -84091,6 +84186,7 @@ char sub_66D00(type_str_0x6E8E* a1x)//247d00
 			/*LOBYTE(v2) = */sub_88D00();
 		}
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// return (char)v2x;
 		return '\0';
 	}
@@ -84178,6 +84274,7 @@ LABEL_18:
 		}
 	}
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return (char)v2x;
 	return '\0';
 }
@@ -84304,6 +84401,7 @@ void sub_66FD0(type_str_0x6E8E* a1x)//247fd0
 		{
 			//v8 = (Bit8u*)(*(x_DWORD *)(a1 + 8) - 1);
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// a1x->dword_0x8 = (x_DWORD)(Bit8u*)(a1x->dword_0x8 - 1);
 			if (a1x->dword_0x8 >= 0)
 				goto LABEL_28;
@@ -89849,6 +89947,7 @@ int sub_6F1C0(type_str_0x6E8E* a1x)//2501c0
 	else
 		return D41A0_BYTESTR_0.byte_0x36E01;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return (int)&D41A0_BYTESTR_0.struct_0x3659C[resultx];
 	return 0;
 }
@@ -90370,9 +90469,11 @@ int sub_6FE90(uint8_t *a1, unsigned int a2)//250e90
 	v2 = a1;
 	v3 = 0;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if ((unsigned int)a1 >= a2)
 	// 	return 0;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	v5 = *v2++;
@@ -90557,6 +90658,7 @@ void sub_6FEC0()//250ec0
 		{
 			sprintf(printbuffer, "s%7.7d,u%01d", v45[1], *((uint8_t *)v45 + 16));
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // if (x_DWORD_17E0A4[3 * *((uint8_t *)v45 + 17)])
 			// 	v47 = (uint8_t)*xadataclrd0dat.var28_begin_buffer;
 			// else
@@ -90770,6 +90872,7 @@ int sub_70C60_decompress_tmap(uint16_t index_in_tmaps_tab_file, Bit8u* texture_b
 	return tmap.uncompressed_size;
 
 	// FIXME: check if some called functions became obsolete
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 //	int result; // eax
 //
 //	if (x_DWORD_DB73C_tmapsfile == NULL)
@@ -90995,6 +91098,7 @@ void sub_70F50_initTmaps(uint16_t tmaps_tab_begin_index)//251f50
 					x_DWORD_F66F0x[v6] = (Bit32u*)buffer_tmap;
 					x_DWORD_F5730.at(v6) = v5;
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// index6 = (int)x_DWORD_F66F0x[v6];
 					if (**(Bit8u**)index6 & 1)
 						index = sub_721C0_initTmap(x_DWORD_E9C08x, (int *)index6, i);
@@ -91762,6 +91866,7 @@ int16_t sub_71F20(type_x_DWORD_E9C28_str* a1y, Bit8u* a2)//252f20
 
 			std::cerr << "Fix tmaps preparation in sub_71F20" << std::endl;
 			// FIXME: stuff below
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			//v2 = *(x_DWORD *)(a1y->dword_8_data + v2);
 			//for (i = (char *)v2; ; i += v2)
 			//{
@@ -91872,6 +91977,7 @@ type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int *a2, int16_t a3)//2531
 	v9 = *(x_WORD *)(v8 + *a2 + 6);
 	//v10 = 28 * v12;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// a1x->dword_2[v12].dword_4 = (x_DWORD)a2;
 	a1x->dword_2[v12].word_12 = 6;
 	a1x->dword_2[v12].word_14 = v8 + 6;
@@ -92092,82 +92198,34 @@ void sub_727F0(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4)//fix
 //----- (00072883) --------------------------------------------------------
 void sub_72883_clear_graphics_320(void *a2, uint16_t a3, char a4)//253883
 {
-	//int v4; // eax
-
-	/*LOBYTE(a1) = a4;//0
-	BYTE1(a1) = a4;//0*/
-	//v4 = (a4 << 24) + (a4 << 16);
-	/*LOBYTE(v4) = a4;
-	BYTE1(v4) = a4;*/
-	//v4 = (v4 & 0xff) + ((v4 & 0xff) << 16);
 	memset32(a2, a4/*+a4<<8+a4<<16+a4<<16*/, 4*80 * a3);
 }
 
 //----- (000728A9) --------------------------------------------------------
 void sub_728A9_clear_graphics_640(void *a2, uint16_t a3, char a4)//2538a9
 {
-	/*
-cseg01:000728AF                 mov     edi, [ebp+arg_0]
-cseg01:000728B6                 imul    ecx, [ebp+arg_4]*0A0h
-cseg01:000728BC                 mov     eax=(257*[ebp+arg_8])<<10
-cseg01:000728C5                 mov     al, [ebp+arg_8]
-cseg01:000728C8                 mov     ah, [ebp+arg_8]
-	*/
-
-	//memset32(a2, a4*257*256, a3*160);
-
-	//memset32(a2, 640 * 480, a3 * 160);//fixed
-	//11 800 fffffff7 355142
-	//00,00,00,00 12c00 1e0*a0 3aa0a4
 	memset32(a2, a4, 4 * 160 * a3);
-	//3aa0a4,1E0,0
-
-
-	  /*LOBYTE(a1) = a4;
-	  BYTE1(a1) = a4;
-	  v4 = a1 << 16;
-	  LOBYTE(v4) = a4;
-	  BYTE1(v4) = a4;
-	  memset32(a2, v4, 160 * a3);*/
 }
 
 void sub_728A9_clear_graphics_alt(void* a2, uint16_t a3, char a4)//2538a9
 {
-	
 	memset32(a2, a4, alt_resolution_width * a3);
 }
 
 //----- (00072C40) --------------------------------------------------------
 void sub_72C40_draw_bitmap_640_setcolor(Bit16s posx, Bit16s posy, posistruct a3, Bit8u color)//253c40
 {
-	//Bit16u v4; // dx
-	//Bit8u* v5; // esi
-	//int result; // eax
-	//int v7; // [esp+4h] [ebp-4h]
-
-	//fix it
-	//v7 = 0;
-	//fix it
-
-	//v4 = *(x_WORD *)(a3 + 4);
-	//v5 = *(Bit8u **)a3;
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		sub_8F920(a3.width, a3.height, posy, posx, a3.data, color, 0);
-		//result = v7;
 	}
 	else
 	{
 		if (x_WORD_180660_VGA_type_resolution & 8)
 		{
-			/*doublebyte tempdblbyte;
-			tempdblbyte.byte1 = a3.sizex;
-			tempdblbyte.byte2 = a3.sizey;*/
 			sub_8F935_bitmap_draw_final(a3.width, a3.height, posy, posx, a3.data, color, 0);
 		}
-		//result = v7;
 	}
-	//return result;
 }
 
 //----- (00072CB0) --------------------------------------------------------
@@ -92383,6 +92441,7 @@ int sub_7308F(int16_t *a1, Bit8u* a2, int16_t a3)
 			v3 = x_DWORD_E12AE[x_WORD_E1276];
 			LOBYTE(v3) = *(x_BYTE *)(v3 + 3);
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// *(x_BYTE *)(x_DWORD_E12AE[i] + 3) = (int8_t)v3;
 		}
 	}
@@ -92390,6 +92449,7 @@ int sub_7308F(int16_t *a1, Bit8u* a2, int16_t a3)
 	if (x_WORD_E1276)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // if (!sub_72FBB(v4, (int)v3, a1))
 		// 	x_WORD_E12A6 = 1;
 	}
@@ -92470,9 +92530,8 @@ void sub_7373D(int16_t a1)
 					v3[i] = x_BYTE_E12CE[i] == 1;
 				for (i = 0; x_WORD_E127A > i; i++)
 				{
-					// FIXME: types
-					// // if (v3[i] == 1)
-					// 	sub_74006(i, (int)v3, 8u);
+					if (v3[i] == 1)
+						sub_74006(i, v3, 8u);
 				}
 				result = (Bit8u*)sub_73669(a1);
 			}
@@ -92584,6 +92643,7 @@ int16_t sub_73AA1(int16_t a1)
 				for (i = 0; x_WORD_E127A > i; i++)
 				{
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// // if (v4[i] == 1)
 					// 	sub_74006(i, (int)v4, 8u);
 				}
@@ -92640,6 +92700,7 @@ int16_t sub_73AA1(int16_t a1)
 		}
 	}
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return (int)v1;
 	return 0;
 }
@@ -92677,16 +92738,15 @@ int16_t sub_73D11(int16_t a1)
 }
 
 //----- (00074006) --------------------------------------------------------
-uint16_t sub_74006(uint16_t a1, int a2, unsigned int a3)
+uint16_t sub_74006(uint16_t a1, Bit8u* a2, unsigned int a3)
 {
 	uint16_t result; // ax
 
 	if (x_BYTE_E1274)
 	{
 		result = a1;
-		// FIXME: types
-		// // if (x_BYTE_E12CE[a1] == 1)
-		// 	result = sub_74EF1((unsigned int)x_DWORD_E12AE[a1], a2, a3);
+		if (x_BYTE_E12CE[a1] == 1)
+			result = sub_74EF1(x_DWORD_E12AE[a1], a2, a3);
 	}
 	return result;
 }
@@ -92694,16 +92754,11 @@ uint16_t sub_74006(uint16_t a1, int a2, unsigned int a3)
 //----- (0007404E) --------------------------------------------------------
 void sub_7404E(uint16_t a1, Bit8u* a2, unsigned int a3)
 {
-	//uint16_t result; // ax
-
 	if (x_BYTE_E1274)
 	{
-		//result = a1;
-		// FIXME: types
-		// // if (x_BYTE_E12CE[a1] == 1)
-		// 	/*result = */sub_74D41((unsigned int)x_DWORD_E12AE[a1], (int)a2, a3);
+		if (x_BYTE_E12CE[a1] == 1)
+			sub_74D41(x_DWORD_E12AE[a1], a2, a3);
 	}
-	//return result;
 }
 
 //----- (00074374) --------------------------------------------------------
@@ -92734,6 +92789,7 @@ void sub_7438A(Bit8u* a1x, unsigned int a2_lenght)
 				if (j >= x_WORD_E1278)
 					break;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// // if (j != x_WORD_E1276)
 				// 	sub_74006(j, (int)a1x, a2_lenght * x_WORD_E1278);
 			}
@@ -92741,6 +92797,7 @@ void sub_7438A(Bit8u* a1x, unsigned int a2_lenght)
 		else
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_74006(x_WORD_E12A8, (int)(a1x + a2_lenght * x_WORD_E1276), a2_lenght);
 			/*result = */sub_7404E(x_WORD_E12A8, a1x, a2_lenght * x_WORD_E1278);
 		}
@@ -92868,12 +92925,15 @@ signed int sub_74767(int16_t *a1, x_BYTE *a2, Bit8u* a3)
 	//fix it
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// strcpy(a2 + 26, (const char*)a3);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // while (strlen(a2 + 26) < 0xFu)
 	// 	strcat(a2 + 26, " ");
 	a2[0] = -80;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (sub_75044((unsigned int)a2) == -1)
 	// 	return -99;
 	// while (a2[49] == -1 && !x_WORD_E12A6)
@@ -92893,6 +92953,7 @@ int sub_74809(int16_t a1)
 	*(x_BYTE *)(x_DWORD_E12AE[a1] + 42) = 0;
 	*(x_BYTE *)(x_DWORD_E12AE[a1] + 43) = 0;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (sub_75044((unsigned int)x_DWORD_E12AE[a1]) == -1)
 	// 	v2 = -99;
 	// else
@@ -92907,8 +92968,10 @@ signed int sub_748F7(int16_t a1)
 		return -*(uint8_t *)(x_DWORD_E12AA + 49);
 	*(x_BYTE *)x_DWORD_E12AA = 53;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// *(x_WORD *)(x_DWORD_E12AA + 6) = (unsigned int)x_DWORD_E12AE[a1] >> 4;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (sub_75044((unsigned int)x_DWORD_E12AA) != -1)
 	// {
 	// 	do
@@ -92924,18 +92987,9 @@ signed int sub_748F7(int16_t a1)
 //----- (00074A11) --------------------------------------------------------
 signed int sub_74A11()//255a11
 {
-	int16_t v0; // dx
-
-	//fix it
-	v0 = 0;
-	//fix it
-
-	/*if ( !dos_getvect(92) && !v0 )
-	  return -1;*/ //fix
 	*(x_BYTE *)x_DWORD_E12AA = 127;
-	// FIXME: types
-	// // if (sub_75044((unsigned int)x_DWORD_E12AA) == -1)//push ebx:1a6f44,push esi:1a7358,push edi:1a7358,push ebp:355234
-	// 	return -1;
+	if (sub_75044(x_DWORD_E12AA) == -1)
+		return -1;
 	if (*(x_BYTE *)(x_DWORD_E12AA + 1) == 3)
 		return 0;
 	return -1;
@@ -92945,12 +92999,15 @@ signed int sub_74A11()//255a11
 int sub_74A86(x_BYTE *a1, Bit8u* a2)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// strcpy(a1 + 26, (const char*)a2);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // while (strlen(a1 + 26) < 0xFu)
 	// 	strcat(a1 + 26, " ");
 	*a1 = -79;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (sub_75044((unsigned int)a1) == -1)
 	// 	return -99;
 	while (a1[49] == -1)
@@ -92963,6 +93020,7 @@ int sub_74B19(x_BYTE *a1)
 {
 	*a1 = -110;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (sub_75044((unsigned int)a1) == -1)
 	// 	return -99;
 	while (a1[49] == -1)
@@ -92986,6 +93044,7 @@ signed int sub_74B75(int16_t a1)
 	*(x_BYTE *)(x_DWORD_E12AE[a1] + 42) = 0;
 	*(x_BYTE *)(x_DWORD_E12AE[a1] + 43) = 0;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (sub_75044((unsigned int)x_DWORD_E12AE[a1]) != -1)
 	// {
 	// 	*(x_WORD *)(x_DWORD_E12AE[a1] + 4) = 0;
@@ -92995,11 +93054,10 @@ signed int sub_74B75(int16_t a1)
 }
 
 //----- (00074C9D) --------------------------------------------------------
-int sub_74C9D(unsigned int a1, int a2)
+int sub_74C9D(Bit8u* a1, Bit8u* a2)
 {
 	*(x_BYTE *)a1 = -107;
-	// FIXME: types
-	// *(x_WORD *)(a1 + 6) = (unsigned int)x_DWORD_E1282 >> 4;
+	*(x_WORD *)(a1 + 6) = *reinterpret_cast<x_WORD*>(x_DWORD_E1282) >> 4; // FIXED_FROM *(x_WORD *)(a1 + 6) = (unsigned int)x_DWORD_E1282 >> 4;
 	*(x_WORD *)(a1 + 8) = 2048;
 	if (sub_75044(a1) == -1)
 		return -99;
@@ -93012,13 +93070,13 @@ int sub_74C9D(unsigned int a1, int a2)
 }
 
 //----- (00074D41) --------------------------------------------------------
-void sub_74D41(unsigned int a1, int a2, unsigned int a3)
+void sub_74D41(Bit8u* a1, Bit8u* a2, unsigned int a3)
 {
 	int v3; // eax
 	int v5; // [esp+0h] [ebp-10h]
 	int v6; // [esp+4h] [ebp-Ch]
 	unsigned int v7; // [esp+8h] [ebp-8h]
-	int v8; // [esp+Ch] [ebp-4h]
+	Bit8u* v8; // [esp+Ch] [ebp-4h]
 
 	v8 = a2;
 	v7 = 0;
@@ -93039,13 +93097,12 @@ void sub_74D41(unsigned int a1, int a2, unsigned int a3)
 }
 
 //----- (00074DD4) --------------------------------------------------------
-signed int sub_74DD4(unsigned int a1, int a2, uint16_t a3)
+signed int sub_74DD4(Bit8u* a1, int a2, uint16_t a3)
 {
 	signed int v4; // [esp+0h] [ebp-4h]
 
 	*(x_BYTE *)a1 = -107;
-	// FIXME: types
-	// *(x_WORD *)(a1 + 6) = (unsigned int)x_DWORD_E1286[a3] >> 4;
+	*(x_WORD *)(a1 + 6) = *reinterpret_cast<x_WORD*>(x_DWORD_E1286[a3]) >> 4; // FIXED_FROM: *(x_WORD *)(a1 + 6) = (unsigned int)x_DWORD_E1286[a3] >> 4;
 	*(x_WORD *)(a1 + 8) = 2048;
 	if (sub_75044(a1) == -1)
 		v4 = -99;
@@ -93055,12 +93112,11 @@ signed int sub_74DD4(unsigned int a1, int a2, uint16_t a3)
 }
 
 //----- (00074E6D) --------------------------------------------------------
-int sub_74E6D(unsigned int a1, int a2, int a3)
+int sub_74E6D(Bit8u* a1, Bit8u* a2, int a3)
 {
 	memcpy((void*)x_DWORD_E127E, (void*)a2, a3);
 	*(x_BYTE *)a1 = -108;
-	// FIXME: types
-	// *(x_WORD *)(a1 + 6) = (unsigned int)x_DWORD_E127E >> 4;
+	*(x_WORD *)(a1 + 6) = *reinterpret_cast<x_WORD*>(x_DWORD_E127E) >> 4; // FIXED_FROM: *(x_WORD *)(a1 + 6) = (unsigned int)x_DWORD_E127E >> 4;
 	*(x_WORD *)(a1 + 8) = a3;
 	if (sub_75044(a1) == -1)
 		return -99;
@@ -93070,10 +93126,10 @@ int sub_74E6D(unsigned int a1, int a2, int a3)
 }
 
 //----- (00074EF1) --------------------------------------------------------
-int sub_74EF1(unsigned int a1, int a2, unsigned int a3)
+int sub_74EF1(Bit8u* a1, Bit8u* a2, unsigned int a3)
 {
 	unsigned int v5; // [esp+4h] [ebp-Ch]
-	int v6; // [esp+8h] [ebp-8h]
+	Bit8u* v6; // [esp+8h] [ebp-8h]
 	int16_t v7; // [esp+Ch] [ebp-4h]
 
 	v6 = a2;
@@ -93121,7 +93177,7 @@ signed int sub_74FE1(int16_t a1)
 }
 
 //----- (00075044) --------------------------------------------------------
-int sub_75044(unsigned int a1)//256044
+int sub_75044(Bit8u* a1)//256044
 {
 	/* fix it
   char v2; // [esp+0h] [ebp-7Ch]
@@ -93508,6 +93564,7 @@ signed int sub_75650()//VR something
 		if (v3)
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // if (sub_754C0(v3, &x_DWORD_17D648, (int)x_BYTE_17D440))
 			// {
 			// 	sub_75AB0();
@@ -93519,6 +93576,7 @@ signed int sub_75650()//VR something
 			// 	x_DWORD_17D6A8 = 0;
 			// 	x_DWORD_17D698 = 0;
 			// 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// 	// x_DWORD_17D6AC = (int)&unk_17D540;
 			// 	while (x_DWORD_17D698 < x_DWORD_17D648)
 			// 	{
@@ -93528,6 +93586,7 @@ signed int sub_75650()//VR something
 			// 		x_DWORD_17D698 += x_DWORD_17D6A4;
 			// 	}
 			// 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// 	// // if (sub_75540(x_DWORD_17D640, (int)x_BYTE_17D440))
 			// 	// {
 			// 	// 	sub_75AB0();
@@ -93572,6 +93631,7 @@ signed int sub_75910()
 	uint8_t v2; // al
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (sub_755B0(x_DWORD_17D640, &x_DWORD_17D648, (int)&unk_17D540))
 	// {
 	// 	sub_75AB0();
@@ -94340,6 +94400,7 @@ int16_t sub_7678D()//animate sprite
 		}
 		v6 = v0;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v3 = (char *)v0 + v10 - 1;
 		if (x_BYTE_E2A20 == 1)
 		{
@@ -94358,6 +94419,7 @@ int16_t sub_7678D()//animate sprite
 			{
 				LOBYTE(result) = *(x_BYTE *)v1;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v4 = (char *)v1 + 1;
 				result = (uint8_t)result;
 				v0 = (x_WORD *)((char *)v0 + (uint8_t)result);
@@ -94389,6 +94451,7 @@ int16_t sub_7678D()//animate sprite
 		--v9;
 	} while (v9);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// x_DWORD_E1308 = (int)v1;
 	return result;
 }
@@ -94648,6 +94711,7 @@ char /*__fastcall*/ sub_77680(/*int a1, */int a2, int16_t *a3)//258680
 		sub_7B5A0_disable_enable();
 		memset(x_DWORD_17DE38str.x_BYTE_17DE68x, 0, 88);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// memset(sub_7308F, 0, 80);
 		x_DWORD_17DE38str.x_WORD_17DEF6 = 5;
 		x_DWORD_17DE38str.x_WORD_17DEEC = 0;
@@ -94695,6 +94759,7 @@ char /*__fastcall*/ sub_77680(/*int a1, */int a2, int16_t *a3)//258680
 				}
 			}
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // if (!(x_BYTE)a3)
 			// {
 			// 	sub_90B27_VGA_pal_fadein_fadeout((Bit8u*)x_DWORD_17DE38str.x_DWORD_17DE38, 0x20u, 0);
@@ -94975,6 +95040,7 @@ char sub_779E0_lang_setting_dialog(Bit8u* a1x)//2589E0
 	if (x_WORD_180660_VGA_type_resolution & 1)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v15 = (int)x_DWORD_180628b_screen_buffer;
 		sub_72883_clear_graphics_320(/*(int)x_DWORD_180628b_screen_buffer, */(void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
 	}
@@ -95441,6 +95507,7 @@ char sub_78730_save_game_dialog(x_WORD *a1)//259730
 			v41 = v61;
 			v42 = sub_6FC10_letter_width();
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_7F6A0((int16_t)(v63 + 3 * v42), v43, v63 + 3 * v42, v41, v40, v39, v37);
 		}
 	}
@@ -95839,7 +95906,6 @@ char sub_79610_set_keys_dialog()//25a610
 		v5 = v2[0];
 		v6 = x_DWORD_E9C4C_langindexbuffer[v2[6]];
 		v2 += 9;//ok
-		// FIXME: types
 		sub_7FCB0_draw_text_with_border(v2[0], v6, v5, v39, v4, 4, 0, 0);
 	}
 	x_DWORD_180628b_screen_buffer = temp_screen_buffer;
@@ -95894,7 +95960,6 @@ char sub_79610_set_keys_dialog()//25a610
 			if (!v14[7])
 			{
 				sub_79E10(v28, *v13);
-				// FIXME: types
 				sub_7FCB0_draw_text_with_border(*v13, v28, v43, v42, v14[1], 4, 0, 0);
 			}
 			v13++;
@@ -95911,7 +95976,6 @@ char sub_79610_set_keys_dialog()//25a610
 				{
 					memset(v28, 0, 60);
 					sub_79E10((char*)v28, *m);
-					// FIXME: types
 					sub_7FCB0_draw_text_with_border(*v2, v28, v43, v42, v2[1], 4, 0, 0);
 					if (v37 > 0x32)
 					{
@@ -97149,6 +97213,7 @@ int /*__fastcall*/ sub_7C230(int a1, int a2, int16_t *a3)//25d230
 	v5 = (x_WORD *)sub_7BF20_draw_scroll_dialog(x_WORD_E1F70);
 	v7 = v5;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if ((x_WORD)v5)
 	// {
 	// 	x_WORD_E131A = 1;
@@ -97170,6 +97235,7 @@ int /*__fastcall*/ sub_7C230(int a1, int a2, int16_t *a3)//25d230
 		sub_75200_VGA_Blit640(480);
 	sub_7A060_get_mouse_and_keyboard_events();
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return (int16_t)v7;
 	return 0;
 }
@@ -97187,6 +97253,7 @@ signed int sub_7C390()//25d390
 	char *v7; // [esp+4h] [ebp-4h]
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v6 = (int)x_DWORD_E9C38_smalltit;
 	x_DWORD_E9C38_smalltit = (Bit8u*)x_D41A0_BYTEARRAY_4_struct.heapbuffer.data();
 	v7 = (char *)(x_DWORD_E9C38_smalltit[307200]);
@@ -97222,6 +97289,7 @@ signed int sub_7C390()//25d390
 			if ((uint16_t)x_DWORD_17DE38str.x_WORD_17DF02 < 0xFFu)
 				goto LABEL_13;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_7C7C0((uint8_t)x_DWORD_17DE38str.x_WORD_17DEF2, (int)x_DWORD_E9C38_smalltit);
 			x_DWORD_17DE38str.x_WORD_17DEF6 = 1;
 			v2 = (Bit16s*)& off_E1BAC[0x1b8];
@@ -97229,6 +97297,7 @@ signed int sub_7C390()//25d390
 			break;
 		case 3:
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_7C720(x_DWORD_17DE38str.x_WORD_17DEF4, v7);
 			x_DWORD_17DE38str.x_WORD_17DF02 += 16;
 			sub_7C800(x_DWORD_17DE38str.x_WORD_17DF02);
@@ -97240,6 +97309,7 @@ signed int sub_7C390()//25d390
 			break;
 		case 5:
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_7C7C0((uint8_t)x_DWORD_17DE38str.x_WORD_17DEF2, (int)x_DWORD_E9C38_smalltit);
 			x_DWORD_17DE38str.x_WORD_17DF02 = 255;
 			sub_7C9D0(255);
@@ -97260,8 +97330,10 @@ signed int sub_7C390()//25d390
 		}
 		sub_7C140_draw_text_background(382, 18, 16, 16, 0);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sprintf((char *const)(int)x_DWORD_17DE38str.x_DWORD_17DE50, "%d", (uint16_t)x_DWORD_17DE38str.x_WORD_17DEFA);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_7FAE0_draw_text((char *)(int)x_DWORD_17DE38str.x_DWORD_17DE50, 382, 398, 18, 0);
 		sub_7D380();
 		sub_7D310();
@@ -97307,6 +97379,7 @@ int sub_7C720(uint8_t a1, x_BYTE *a2)//25d720
 	if (v5 + v4 > 640)
 		v4 = v5 + v4 - 640;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return sub_85BF5(a2, (int)x_DWORD_E9C38_smalltit, v4, v3, v5, v6);
 	return 0;
 }
@@ -97386,6 +97459,7 @@ void sub_7C800(int16_t a1)//25d800
 	v13 = v7 + 3;
 	v14 = v9[3];
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v15 = (int)(v9 + 3);
 	if (v12 < v14)
 		*v13 = (uint16_t)(v14 * v1) >> 8;
@@ -97419,8 +97493,10 @@ void sub_7C9D0(int16_t a1)//25d9d0
 	if ((uint16_t)a1 > 0xFFu)
 		v1 = 255;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v7 = (int)x_DWORD_17DE38str.x_DWORD_17DE38 + 765;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // for (i = (uint8_t *)(x_DWORD_17DE38str.x_DWORD_17DE38 + 477);
 	// 	(unsigned int)i < v7;
 	// 	*(i - 1) = v3 - ((uint16_t)(v3 * v1) >> 8))
@@ -97431,11 +97507,13 @@ void sub_7C9D0(int16_t a1)//25d9d0
 	// 	i += 3;
 	// }
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v4 = (int)x_DWORD_17DE38str.x_DWORD_17DE38;
 	*(x_BYTE *)(x_DWORD_17DE38str.x_DWORD_17DE38 + 447) -= (uint16_t)(v1 * *(uint8_t *)(x_DWORD_17DE38str.x_DWORD_17DE38 + 447)) >> 8;
 	*(x_BYTE *)(v4 + 448) -= (uint16_t)(v1 * *(uint8_t *)(v4 + 448)) >> 8;
 	*(x_BYTE *)(v4 + 449) -= (uint16_t)(v1 * *(uint8_t *)(v4 + 449)) >> 8;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v5 = (int)x_DWORD_17DE38str.x_DWORD_17DE38;
 	*(x_BYTE *)(x_DWORD_17DE38str.x_DWORD_17DE38 + 444) -= (uint16_t)(v1 * *(uint8_t *)(x_DWORD_17DE38str.x_DWORD_17DE38 + 444)) >> 8;
 	*(x_BYTE *)(v5 + 445) -= (uint16_t)(v1 * *(uint8_t *)(v5 + 445)) >> 8;
@@ -97813,6 +97891,7 @@ void sub_7D380()//25e380
 	//char v2; // [esp+0h] [ebp-28h]
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_85C42((int)x_DWORD_180628b_screen_buffer, 246, 14, 109, 14, 0x9Fu);
 	sub_6FC50(1);
 	v0 = x_DWORD_17DE38str.x_BYTE_17DE68x[0xa + 11 * x_DWORD_17DE38str.x_WORD_17DEFC];
@@ -99215,12 +99294,14 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 			sub_85C8B_draw_new_game_map_background(x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, x_DWORD_180628b_screen_buffer, *posx, *posy, 160, 480);//draw game word map
 			sub_7D400_draw_texts_and_play_sounds(*posx, *posx, *posy, *a5);//draw helps, cursor, flags
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// /*LOWORD(v38) = */sub_81EE0_draw_and_sound_dragon_and_fire(*posx, v37, (int)posy, (int16_t)a5, *posx, *posy); // fair animation
 			//LOBYTE(v38) = x_DWORD_17DB70str.x_BYTE_17DB8E;
 			//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 			if (x_DWORD_17DB70str.x_BYTE_17DB8E)
 			{
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v38 = sub_80D40_move_graphics_and_play_sounds((int16_t)posx, *posx, *posy, x_DWORD_17DB70str.x_WORD_17DB84, x_DWORD_17DB70str.x_WORD_17DB86, x_DWORD_17DB70str.x_WORD_17DB88);
 				//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 				v71 = v38;
@@ -99252,11 +99333,13 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 			sub_7D400_draw_texts_and_play_sounds(*posx, *posx, *posy, *a5);//draw helps, cursor, flags
 			//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// /*LOWORD(v33) = */sub_81EE0_draw_and_sound_dragon_and_fire(*posx, v32, (int)posy, (int16_t)a5, *posx, *posy);
 			//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 			if (x_DWORD_17DB70str.x_BYTE_17DB8E)
 			{
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v33 = sub_80D40_move_graphics_and_play_sounds((int16_t)posx, *posx, *posy, x_DWORD_17DB70str.x_WORD_17DB84, x_DWORD_17DB70str.x_WORD_17DB86, x_DWORD_17DB70str.x_WORD_17DB88);
 				v71 = v33;
 				if (v33)
@@ -99284,6 +99367,7 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 		}
 	LABEL_108:
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v39 = sub_7E320_draw_bitmaps_and_play_sounds(v34, (int)a5);//four buttons in corners and helps
 		
 		v69 = v39;
@@ -99364,6 +99448,7 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 								x_DWORD_17DB70str.x_WORD_17DB86 = unk_E17CC_str_0x194[v44x].word_14_y;
 								x_DWORD_17DB70str.x_WORD_17DB88 = unk_E17CC_str_0x194[v44x].byte_18_act;
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// sub_80D40_move_graphics_and_play_sounds((int16_t)posx, *posx, *posy, unk_E17CC_str_0x194[v44x].word_12_x, unk_E17CC_str_0x194[v44x].word_14_y, unk_E17CC_str_0x194[v44x].byte_18_act);
 								//v45 = (int)x_D41A0_BYTEARRAY_4;
 								x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
@@ -99413,6 +99498,7 @@ int sub_7EAE0_new_game_draw(Bit16s* posx, Bit16s* posy, int16_t* a3, int16_t* a4
 								v50 = *posx;
 								x_DWORD_17DB70str.x_WORD_17DB88 = 1;
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// sub_80D40_move_graphics_and_play_sounds((int16_t)posx, v50, v49, v48, x_DWORD_17DB70str.x_WORD_17DB86, 1);
 								v51 = x_WORD_E2970x[v47i].word_6;
 								x_DWORD_17DB70str.x_BYTE_17DB8E = 1;
@@ -100143,6 +100229,7 @@ int sub_7FCB0_draw_text_with_border(int a1, char* a2, Bit32s a3, Bit32s a4, int 
 				sub_6FC50(1/*v86*/);				
 				v58 = (x_BYTE *)(v99 + 640 * a1);
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v59 = (int)x_DWORD_180628b_screen_buffer;
 				for (v57 = 0;v57 < xy_DWORD_17DED4_spritestr[274].height;v57++)
 				{
@@ -101099,6 +101186,7 @@ unsigned int sub_81CA0(int a1, int a2, int16_t a3, int16_t a4, type_x_BYTE_E25ED
 			result = a5x->word_22;
 			a5x->byte_20 = 1;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // if (result != -1)
 			// 	result = (unsigned int)sub_8F100_sound_proc19(
 			// 		0,
@@ -101122,6 +101210,7 @@ void sub_81DB0_read_config()//262db0
 	{
 		memset(readbuffer, 0, 32);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// configdatfile = sub_98817_open(file_handling->getFilePath(MC2File::config_dat).c_str(), 546);
 		if (configdatfile != NULL)
 		{
@@ -102066,9 +102155,11 @@ char sub_83E00(int a1, int a2)//264e00
 		i[3] = a1;
 		v5 = *(x_DWORD *)(a1 + 8);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // if (v5)
 		// 	*(x_DWORD *)(v5 + 12) = (x_DWORD)i;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// *(x_DWORD *)(a1 + 8) = (x_DWORD)i;
 	}
 	return 1;
@@ -102088,6 +102179,7 @@ void sub_83E80_freemem4(Bit8u* a1)//264e80
 		while (v1)
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // if ((int)a1 == v1[0])//fix
 			// {
 			// 	v2 = 1;
@@ -102101,6 +102193,7 @@ void sub_83E80_freemem4(Bit8u* a1)//264e80
 			for (i = (int*)&x_DWORD_17ECA0; i; i = (int *)i[2])
 			{
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// // if (!*((x_BYTE *)i + 16))
 				// 	sub_84000((int)i);
 			}
@@ -102318,6 +102411,7 @@ void sub_844A0_sound_proc5()//2654a0
 			v1 += 32;
 			++v0;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// *(x_DWORD *)(v1 - 14) = (int32_t)x_DWORD_E37A8_sound_buffer1 + v2;
 		}
 	}
@@ -102936,6 +103030,7 @@ void sub_85070()//266070 // fix it 34FCA0
 		for (k = 4096; k >= 16; k -= 16)
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v14 = (int)malloc(k * sizeof(Bit8u));
 			v15 = 3 * v5;
 			x_DWORD_17E0A0[3 * v5] = (char*)v14;
@@ -102958,15 +103053,18 @@ void sub_85070()//266070 // fix it 34FCA0
 		{
 			v19 = 18 * l;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// *(int *)((char *)&x_DWORD_17ECA0 + v19) = (int)x_DWORD_17E0A0[3 * l];
 			*(int *)((char *)&x_DWORD_17ECA4 + v19) = x_DWORD_17E0A8[3 * l];
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // if (l)
 			// 	*(int *)((char *)&x_DWORD_17ECAC + v19) = (int)&x_DWORD_17ECA0 + 18 * (l - 1);
 			// else
 			// 	*(int *)((char *)&x_DWORD_17ECAC + v19) = 0;
 			v20 = 9 * l;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// *(int *)((char *)&x_DWORD_17ECA8 + 2 * v20) = (int)&x_DWORD_17ECA0 + 18 * (l + 1);
 			x_BYTE_17ECB0[2 * v20] = 0;
 			x_BYTE_17ECB1[2 * v20] = l;
@@ -103133,8 +103231,10 @@ int16_t sub_856D0(int a1, int a2, int16_t a3, int a4)//2666d0
 	}
 	v14 = (int16_t)x_DWORD_18062C_resolution_x;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v15 = (int)&v11[(int16_t)x_DWORD_18062C_resolution_x];
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v29 = (int)&v11[(int16_t)x_DWORD_18062C_resolution_x];
 	LOWORD(v15) = v37;
 	LOWORD(v9) = BYTE1(v9);
@@ -103190,6 +103290,7 @@ int16_t sub_856D0(int a1, int a2, int16_t a3, int a4)//2666d0
 		if (v22 > v37)
 			v22 = v37;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v31 = (int)&v11[v22];
 		v23 = *(char *)v8;
 		v24 = v8 + 1;
@@ -103320,6 +103421,7 @@ LABEL_22:
 				LOWORD(v14) = *(char *)v8;
 				v15 -= v14;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v32 = (int)&v11[(uint8_t)v9];
 				v30 = *(char *)v8 + v8 + 1;
 				v14 = *(x_WORD *)(a1 + 4) & 0xC000;
@@ -103453,6 +103555,7 @@ unsigned int *sub_85AF0(int a1)//266af0
 	if (*(x_DWORD *)a1 < *(x_DWORD *)(a1 + 4))
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // do
 		// {
 		// 	v2 = *(x_DWORD *)(a1 + 8);
@@ -103785,18 +103888,6 @@ void sub_85CC3_draw_round_frame(Bit16u* buffer)//266cc3
 //----- (00085E40) --------------------------------------------------------
 int sub_85E40()//266e40
 {
-	/*int16_t result; // ax
-
-	if ( x_WORD_E2A24 )
-	  return 1;
-	x_DWORD_17FF10 = 4096;//ax
-	x_DWORD_17FF0C = 256;//bx - size
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
-	x_WORD_E2A24 = x_DWORD_17FF0C;//2B3A24 AA0
-	x_WORD_17FF5A = x_WORD_17FF18;//350F5A 1C8
-	LOBYTE(result) = x_DWORD_17FF24 == 0;//desriptor
-	HIBYTE(result) = 0;
-	return result;*/
 	int size = 0x1000;
 	if (x_WORD_E2A24)//==0
 		return 1;
@@ -103805,42 +103896,14 @@ int sub_85E40()//266e40
 }
 
 //----- (00085EB0) --------------------------------------------------------
-int sub_85EB0_alloc_memory(int32_t a1)//266eb0 //malloc
+Bit8u* sub_85EB0_alloc_memory(int32_t a1)//266eb0 //malloc
 {
-	/*int16_t result; // ax
-
-	LOWORD(x_DWORD_17FF10) = a1;
-	LOWORD(x_DWORD_17FF0C) = 256;
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
-	if ( x_DWORD_17FF24 )
-	  result = 0;
-	else
-	  result = x_DWORD_17FF0C;
-	return result;*/
-
-	// FIXME: types
-	// x_DWORD_17FF0C = (int)malloc(a1 * 16 * sizeof(Bit8u));
-
-	//if (x_DWORD_17FF0C > 0)return a1;
-	return x_DWORD_17FF0C;
-	//return (Bit8u*)malloc(a1*sizeof(Bit8u));
+	return (Bit8u*)malloc(a1 * 16 * sizeof(Bit8u));
 }
 
 //----- (00085F00) --------------------------------------------------------
-int16_t sub_85F00_free_memory(int16_t a1)//266f00
+int16_t sub_85F00_free_memory()//266f00
 {
-	/*int16_t result; // ax
-
-	x_WORD_17FF18 = a1;
-	LOWORD(x_DWORD_17FF0C) = 0x100;
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
-	if ( x_DWORD_17FF24 )
-	  myprintf("fdm:error freeing %lx\n");
-	LOBYTE(result) = x_DWORD_17FF24 == 0;
-	HIBYTE(result) = 0;
-	return result;*/
-
-	//int16_t result; // ax
 	free((void*)x_DWORD_17FF24);
 	if (x_DWORD_17FF24)
 	{
@@ -103859,9 +103922,6 @@ int sub_85F60(int a1)//266f60
 //----- (00085FD0) --------------------------------------------------------
 bool sub_85FD0()//266fd0
 {
-	//int v0; // ax
-	// 2B3A6C - D5020000A11A0000
-	//x_DWORD_E2A6C
 	x_DWORD_E2A6C = sub_85EB0_alloc_memory(0x2);
 	x_DWORD_E2A70 = sub_85EB0_alloc_memory(0x100);
 	return x_DWORD_E2A6C && x_DWORD_E2A70;
@@ -103872,13 +103932,9 @@ int sub_86010()//267010
 {
 	x_DWORD_17FF38 = 0;//nemeni se
 	x_DWORD_17FF44 = 0x1500;//nemeni se
-	x_DWORD_17FF0C = 0x300;//nemeni se
 	x_DWORD_17FF10 = 0x2f;//nemeni se
 	x_DWORD_17FF14 = 0;//nemeni se
 	x_DWORD_17FF20 = x_DWORD_17FF28;//350f28 //nemeni se
-	/*
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
-	*/
 	if (x_DWORD_17FF10 == 0)x_DWORD_17FF38 = 0;
 
 	x_WORD_1803EA = x_DWORD_17FF38;//0
@@ -103889,289 +103945,282 @@ int sub_86010()//267010
 //----- (00086180) --------------------------------------------------------
 int16_t sub_86180(uint16_t a1)//267180
 {
-	int v1; // ecx
-	int16_t result; // ax
-	char *v3; // esi
-	int v4; // ebx
-	int16_t v5; // ax
+	// FIXME: pointer arithmetic
+std::cout << "FIXME: pointer arithmetic @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+	// int v1; // ecx
+	// int16_t result; // ax
+	// char *v3; // esi
+	// int v4; // ebx
+	// int16_t v5; // ax
 
-	if (!x_DWORD_E2A6C)
-		return 0;
-	v1 = x_DWORD_E2A70;
-	if (!x_DWORD_E2A70)
-		return 0;
-	v3 = (char *)(16 * x_DWORD_E2A6C);
-	*v3 = 26;
-	v3[1] = 0;
-	v3[2] = 3;
-	*(x_WORD *)(v3 + 3) = 0;
-	v3[13] = 0;
-	*((x_WORD *)v3 + 9) = 5;
-	*((x_WORD *)v3 + 10) = 0;
-	*(x_DWORD *)(v3 + 22) = 0;
-	v4 = 16 * v1;
-	*(x_DWORD *)(v3 + 14) = v1 << 16;
-	v5 = x_DWORD_E2A6C;
-	*(x_BYTE *)(16 * v1) = 6;
-	x_WORD_17FF4A = v5;
-	x_DWORD_17FF38 = 0;
-	x_DWORD_17FF10 = 47;
-	x_DWORD_17FF14 = 0;
-	x_DWORD_17FF40 = a1;
-	x_DWORD_17FF44 = 0x1510;
-	x_DWORD_17FF0C = 0x300;
-	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//return display params
-	qmemcpy(unk_1803C0x, v3, 0x1Au);
-	result = x_WORD_1803C3;
-	unk_180498 = *(x_DWORD *)v4;
-	*((x_BYTE *)&unk_180498 + 4) = *(x_BYTE *)(v4 + 4);
-	return result;
+	// if (!x_DWORD_E2A6C)
+	// 	return 0;
+	// v1 = x_DWORD_E2A70;
+	// if (!x_DWORD_E2A70)
+	// 	return 0;
+	// v3 = (char *)(16 * x_DWORD_E2A6C);
+	// *v3 = 26;
+	// v3[1] = 0;
+	// v3[2] = 3;
+	// *(x_WORD *)(v3 + 3) = 0;
+	// v3[13] = 0;
+	// *((x_WORD *)v3 + 9) = 5;
+	// *((x_WORD *)v3 + 10) = 0;
+	// *(x_DWORD *)(v3 + 22) = 0;
+	// v4 = 16 * v1;
+	// *(x_DWORD *)(v3 + 14) = v1 << 16;
+	// v5 = x_DWORD_E2A6C;
+	// *(x_BYTE *)(16 * v1) = 6;
+	// x_WORD_17FF4A = v5;
+	// x_DWORD_17FF38 = 0;
+	// x_DWORD_17FF10 = 47;
+	// x_DWORD_17FF14 = 0;
+	// x_DWORD_17FF40 = a1;
+	// x_DWORD_17FF44 = 0x1510;
+	// x_DWORD_17FF20 = x_DWORD_17FF28;
+	// qmemcpy(unk_1803C0x, v3, 0x1Au);
+	// result = x_WORD_1803C3;
+	// unk_180498 = *(x_DWORD *)v4;
+	// *((x_BYTE *)&unk_180498 + 4) = *(x_BYTE *)(v4 + 4);
+	// return result;
 }
 
 //----- (00086270) --------------------------------------------------------
 int16_t sub_86270(uint16_t a1)//267270
 {
-	int v1; // ecx
-	int16_t result; // ax
-	char *v3; // esi
-	int v4; // ebx
+	// FIXME: pointer arithmetic
+std::cout << "FIXME: pointer arithmetic @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+	// int v1; // ecx
+	// int16_t result; // ax
+	// char *v3; // esi
+	// int v4; // ebx
 
-	if (!x_DWORD_E2A6C)
-		return 0;
-	v1 = x_DWORD_E2A70;
-	if (!x_DWORD_E2A70)
-		return 0;
-	v3 = (char *)(16 * x_DWORD_E2A6C);
-	*v3 = 26;
-	v3[1] = 0;
-	v3[2] = 3;
-	*(x_WORD *)(v3 + 3) = 0;
-	v3[13] = 0;
-	*((x_WORD *)v3 + 9) = 7;
-	*((x_WORD *)v3 + 10) = 0;
-	*(x_DWORD *)(v3 + 22) = 0;
-	v4 = 16 * v1;
-	*(x_DWORD *)(v3 + 14) = v1 << 16;
-	*(x_BYTE *)(16 * v1) = 10;
-	x_WORD_17FF58 = 0;
-	x_WORD_17FF56 = 0;
-	x_WORD_17FF4A = x_DWORD_E2A6C;
-	x_DWORD_17FF38 = 0;
-	x_DWORD_17FF14 = 0;
-	x_DWORD_17FF10 = 47;
-	x_DWORD_17FF40 = a1;
-	x_DWORD_17FF44 = 0x1510;
-	x_DWORD_17FF0C = 0x300;
-	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//Return Physical Display Parms
-	qmemcpy(unk_1803C0x, v3, 0x1Au);
-	result = x_WORD_1803C3;
-	*unk_180470ar = *(x_DWORD *)v4;
-	*((x_WORD *)unk_180470ar + 2) = *(x_WORD *)(v4 + 4);
-	*((x_BYTE *)unk_180470ar + 6) = *(x_BYTE *)(v4 + 6);
-	return result;
+	// if (!x_DWORD_E2A6C)
+	// 	return 0;
+	// v1 = x_DWORD_E2A70;
+	// if (!x_DWORD_E2A70)
+	// 	return 0;
+	// v3 = (char *)(16 * x_DWORD_E2A6C);
+	// *v3 = 26;
+	// v3[1] = 0;
+	// v3[2] = 3;
+	// *(x_WORD *)(v3 + 3) = 0;
+	// v3[13] = 0;
+	// *((x_WORD *)v3 + 9) = 7;
+	// *((x_WORD *)v3 + 10) = 0;
+	// *(x_DWORD *)(v3 + 22) = 0;
+	// v4 = 16 * v1;
+	// *(x_DWORD *)(v3 + 14) = v1 << 16;
+	// *(x_BYTE *)(16 * v1) = 10;
+	// x_WORD_17FF58 = 0;
+	// x_WORD_17FF56 = 0;
+	// x_WORD_17FF4A = x_DWORD_E2A6C;
+	// x_DWORD_17FF38 = 0;
+	// x_DWORD_17FF14 = 0;
+	// x_DWORD_17FF10 = 47;
+	// x_DWORD_17FF40 = a1;
+	// x_DWORD_17FF44 = 0x1510;
+	// x_DWORD_17FF20 = x_DWORD_17FF28;
+	// qmemcpy(unk_1803C0x, v3, 0x1Au);
+	// result = x_WORD_1803C3;
+	// *unk_180470ar = *(x_DWORD *)v4;
+	// *((x_WORD *)unk_180470ar + 2) = *(x_WORD *)(v4 + 4);
+	// *((x_BYTE *)unk_180470ar + 6) = *(x_BYTE *)(v4 + 6);
+	// return result;
 }
 
 //----- (00086370) --------------------------------------------------------
 int16_t sub_86370(uint16_t a1, char a2)//267370
 {
-	int v2; // ecx
-	int16_t result; // ax
-	char *v4; // esi
-	int v5; // ebx
+	// FIXME: pointer arithmetic
+std::cout << "FIXME: pointer arithmetic @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+	// int v2; // ecx
+	// int16_t result; // ax
+	// char *v4; // esi
+	// int v5; // ebx
 
-	if (!x_DWORD_E2A6C)
-		return 0;
-	v2 = x_DWORD_E2A70;
-	if (!x_DWORD_E2A70)
-		return 0;
-	v4 = (char *)(16 * x_DWORD_E2A6C);
-	*v4 = 26;
-	v4[1] = 0;
-	v4[2] = 3;
-	*(x_WORD *)(v4 + 3) = 0;
-	v4[13] = 0;
-	*((x_WORD *)v4 + 9) = 7;
-	*((x_WORD *)v4 + 10) = 0;
-	*(x_DWORD *)(v4 + 22) = 0;
-	v5 = 16 * v2;
-	*(x_DWORD *)(v4 + 14) = v2 << 16;
-	*(x_BYTE *)v5 = 11;
-	*(x_BYTE *)(v5 + 1) = a2;
-	x_DWORD_17FF38 = 0;
-	x_DWORD_17FF10 = 47;
-	x_WORD_17FF4A = x_DWORD_E2A6C;
-	x_DWORD_17FF14 = 0;
-	x_DWORD_17FF40 = a1;
-	x_DWORD_17FF44 = 0x1510;
-	x_DWORD_17FF0C = 0x300;
-	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick, nebo grafika
-	qmemcpy(unk_1803C0x, v4, 0x1Au);
-	result = x_WORD_1803C3;
-	*unk_180484ar = *(x_DWORD *)v5;
-	*((x_WORD *)&unk_180484ar + 2) = *(x_WORD *)(v5 + 4);
-	*((x_BYTE *)&unk_180484ar + 6) = *(x_BYTE *)(v5 + 6);
-	return result;
+	// if (!x_DWORD_E2A6C)
+	// 	return 0;
+	// v2 = x_DWORD_E2A70;
+	// if (!x_DWORD_E2A70)
+	// 	return 0;
+	// v4 = (char *)(16 * x_DWORD_E2A6C);
+	// *v4 = 26;
+	// v4[1] = 0;
+	// v4[2] = 3;
+	// *(x_WORD *)(v4 + 3) = 0;
+	// v4[13] = 0;
+	// *((x_WORD *)v4 + 9) = 7;
+	// *((x_WORD *)v4 + 10) = 0;
+	// *(x_DWORD *)(v4 + 22) = 0;
+	// v5 = 16 * v2;
+	// *(x_DWORD *)(v4 + 14) = v2 << 16;
+	// *(x_BYTE *)v5 = 11;
+	// *(x_BYTE *)(v5 + 1) = a2;
+	// x_DWORD_17FF38 = 0;
+	// x_DWORD_17FF10 = 47;
+	// x_WORD_17FF4A = x_DWORD_E2A6C;
+	// x_DWORD_17FF14 = 0;
+	// x_DWORD_17FF40 = a1;
+	// x_DWORD_17FF44 = 0x1510;
+	// x_DWORD_17FF20 = x_DWORD_17FF28;
+	// qmemcpy(unk_1803C0x, v4, 0x1Au);
+	// result = x_WORD_1803C3;
+	// *unk_180484ar = *(x_DWORD *)v5;
+	// *((x_WORD *)&unk_180484ar + 2) = *(x_WORD *)(v5 + 4);
+	// *((x_BYTE *)&unk_180484ar + 6) = *(x_BYTE *)(v5 + 6);
+	// return result;
 }
 
 //----- (00086460) --------------------------------------------------------
 void sub_86460(Bit16u a1)//267460
 {
-	int v1; // ecx
-	//int16_t result; // ax
-	char *v3; // esi
-	int v4; // ebx
-	int16_t v5; // ax
+	// FIXME: pointer arithmetic
+std::cout << "FIXME: pointer arithmetic @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+	// int v1; // ecx
+	// //int16_t result; // ax
+	// char *v3; // esi
+	// int v4; // ebx
+	// int16_t v5; // ax
 
-	if (!x_DWORD_E2A6C)
-		return;
-	v1 = x_DWORD_E2A70;
-	if (!x_DWORD_E2A70)
-		return;
-	v3 = (char *)(16 * x_DWORD_E2A6C);
-	*v3 = 26;
-	v3[1] = 0;
-	v3[2] = 3;
-	*(x_WORD *)(v3 + 3) = 0;
-	v3[13] = 0;
-	*((x_WORD *)v3 + 9) = 11;
-	*((x_WORD *)v3 + 10) = 0;
-	*(x_DWORD *)(v3 + 22) = 0;
-	v4 = 16 * v1;
-	*(x_DWORD *)(v3 + 14) = v1 << 16;
-	v5 = x_DWORD_E2A6C;
-	*(x_BYTE *)(16 * v1) = 12;
-	x_WORD_17FF4A = v5;
-	x_DWORD_17FF38 = 0;
-	x_DWORD_17FF10 = 47;
-	x_DWORD_17FF14 = 0;
-	x_DWORD_17FF40 = a1;
-	x_DWORD_17FF44 = 0x1510;
-	x_DWORD_17FF0C = 0x300;
-	x_DWORD_17FF20 = x_DWORD_17FF28;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick nebo grafika
-	qmemcpy(unk_1803C0x, v3, 0x1Au);
-	//result = x_WORD_1803C3;
-	*unk_18048Bar = *(x_DWORD *)v4;
-	*((x_DWORD *)&unk_18048Bar + 1) = *(x_DWORD *)(v4 + 4);
-	*((x_WORD *)&unk_18048Bar + 4) = *(x_WORD *)(v4 + 8);
-	*((x_BYTE *)&unk_18048Bar + 10) = *(x_BYTE *)(v4 + 10);
-	//return result;
+	// if (!x_DWORD_E2A6C)
+	// 	return;
+	// v1 = x_DWORD_E2A70;
+	// if (!x_DWORD_E2A70)
+	// 	return;
+	// v3 = (char *)(16 * x_DWORD_E2A6C);
+	// *v3 = 26;
+	// v3[1] = 0;
+	// v3[2] = 3;
+	// *(x_WORD *)(v3 + 3) = 0;
+	// v3[13] = 0;
+	// *((x_WORD *)v3 + 9) = 11;
+	// *((x_WORD *)v3 + 10) = 0;
+	// *(x_DWORD *)(v3 + 22) = 0;
+	// v4 = 16 * v1;
+	// *(x_DWORD *)(v3 + 14) = v1 << 16;
+	// v5 = x_DWORD_E2A6C;
+	// *(x_BYTE *)(16 * v1) = 12;
+	// x_WORD_17FF4A = v5;
+	// x_DWORD_17FF38 = 0;
+	// x_DWORD_17FF10 = 47;
+	// x_DWORD_17FF14 = 0;
+	// x_DWORD_17FF40 = a1;
+	// x_DWORD_17FF44 = 0x1510;
+	// x_DWORD_17FF20 = x_DWORD_17FF28;
+	// qmemcpy(unk_1803C0x, v3, 0x1Au);
+	// //result = x_WORD_1803C3;
+	// *unk_18048Bar = *(x_DWORD *)v4;
+	// *((x_DWORD *)&unk_18048Bar + 1) = *(x_DWORD *)(v4 + 4);
+	// *((x_WORD *)&unk_18048Bar + 4) = *(x_WORD *)(v4 + 8);
+	// *((x_BYTE *)&unk_18048Bar + 10) = *(x_BYTE *)(v4 + 10);
+	// //return result;
 }
 
 //----- (00086550) --------------------------------------------------------
 int sub_86550()//267550
 {
-	/*x_DWORD_17FF38 = 0;
-	x_DWORD_17FF44 = 5388;
-	x_DWORD_17FF0C = 768;
-	x_DWORD_17FF10 = 47;
-	x_DWORD_17FF14 = 0;
-	x_DWORD_17FF20 = (int)&unk_17FF28;
-	int386(49, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
-	return x_DWORD_17FF38;*/
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return (int)malloc(768 * sizeof(Bit8u));
 }
 
 //----- (00086780) --------------------------------------------------------
 char sub_86780(uint16_t a1, int a2, int a3)//267780
 {
-	char *v4; // esi
+	// FIXME: pointer arithmetic
+std::cout << "FIXME: pointer arithmetic @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+	// char *v4; // esi
 
-	if (!x_BYTE_E2A28_speek)
-		return 0;
-	if (!x_DWORD_E2A6C || !x_DWORD_E2A70)
-		return 0;
-	v4 = (char *)(16 * x_DWORD_E2A70);
-	*v4 = 22;
-	v4[1] = 0;
-	v4[2] = -124;
-	*(x_WORD *)(v4 + 3) = 0;
-	v4[13] = 0;
-	*(x_DWORD *)(v4 + 14) = a2;
-	*(x_DWORD *)(v4 + 18) = a3;
-	x_DWORD_17FF38 = 0;
-	x_DWORD_17FF10 = 47;
-	x_DWORD_17FF14 = 0;
-	x_WORD_17FF4A = x_DWORD_E2A70;
-	x_DWORD_17FF20 = x_DWORD_17FF28;
-	x_DWORD_17FF40 = a1;
-	x_DWORD_17FF0C = 0x300;
-	x_DWORD_17FF44 = 0x1510;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//joystick nebo grafika
-	qmemcpy(unk_1803A8x, v4, 0x16u);
-	return x_WORD_1803AB;
+	// if (!x_BYTE_E2A28_speek)
+	// 	return 0;
+	// if (!x_DWORD_E2A6C || !x_DWORD_E2A70)
+	// 	return 0;
+	// v4 = (char *)(16 * x_DWORD_E2A70);
+	// *v4 = 22;
+	// v4[1] = 0;
+	// v4[2] = -124;
+	// *(x_WORD *)(v4 + 3) = 0;
+	// v4[13] = 0;
+	// *(x_DWORD *)(v4 + 14) = a2;
+	// *(x_DWORD *)(v4 + 18) = a3;
+	// x_DWORD_17FF38 = 0;
+	// x_DWORD_17FF10 = 47;
+	// x_DWORD_17FF14 = 0;
+	// x_WORD_17FF4A = x_DWORD_E2A70;
+	// x_DWORD_17FF20 = x_DWORD_17FF28;
+	// x_DWORD_17FF40 = a1;
+	// x_DWORD_17FF44 = 0x1510;
+	// qmemcpy(unk_1803A8x, v4, 0x16u);
+	// return x_WORD_1803AB;
 }
 
 //----- (00086860) --------------------------------------------------------
 char sub_86860_speak_Sound(uint16_t a1)//267860
 {
-	int v2; // esi
-	int16_t v3; // ax
+	// FIXME: pointer arithmetic
+std::cout << "FIXME: pointer arithmetic @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+	// int v2; // esi
+	// int16_t v3; // ax
 
-	if (!x_BYTE_E2A28_speek)
-		return 0;
-	if (!x_DWORD_E2A6C || !x_DWORD_E2A70)
-		return 0;
-	v2 = 16 * x_DWORD_E2A70;
-	*(x_BYTE *)v2 = 13;
-	v3 = x_DWORD_E2A70;
-	*(x_BYTE *)(v2 + 1) = 0;
-	*(x_BYTE *)(v2 + 2) = -123;
-	*(x_WORD *)(v2 + 3) = 0;
-	x_WORD_17FF4A = v3;
-	x_DWORD_17FF38 = 0;
-	x_DWORD_17FF10 = 47;
-	x_DWORD_17FF14 = 0;
-	x_DWORD_17FF20 = x_DWORD_17FF28;
-	x_DWORD_17FF40 = a1;
-	x_DWORD_17FF0C = 0x300;
-	x_DWORD_17FF44 = 0x1510;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);//Return Physical Display Parms
-	*unk_180452ar = *(x_DWORD *)v2;
-	v2 += 4;
-	*((x_DWORD *)unk_180452ar + 1) = *(x_DWORD *)v2;
-	v2 += 4;
-	*((x_DWORD *)unk_180452ar + 2) = *(x_DWORD *)v2;
-	*((x_BYTE *)unk_180452ar + 12) = *(x_BYTE *)(v2 + 4);
-	return x_WORD_180455;
+	// if (!x_BYTE_E2A28_speek)
+	// 	return 0;
+	// if (!x_DWORD_E2A6C || !x_DWORD_E2A70)
+	// 	return 0;
+	// v2 = 16 * x_DWORD_E2A70;
+	// *(x_BYTE *)v2 = 13;
+	// v3 = x_DWORD_E2A70;
+	// *(x_BYTE *)(v2 + 1) = 0;
+	// *(x_BYTE *)(v2 + 2) = -123;
+	// *(x_WORD *)(v2 + 3) = 0;
+	// x_WORD_17FF4A = v3;
+	// x_DWORD_17FF38 = 0;
+	// x_DWORD_17FF10 = 47;
+	// x_DWORD_17FF14 = 0;
+	// x_DWORD_17FF20 = x_DWORD_17FF28;
+	// x_DWORD_17FF40 = a1;
+	// x_DWORD_17FF44 = 0x1510;
+	// *unk_180452ar = *(x_DWORD *)v2;
+	// v2 += 4;
+	// *((x_DWORD *)unk_180452ar + 1) = *(x_DWORD *)v2;
+	// v2 += 4;
+	// *((x_DWORD *)unk_180452ar + 2) = *(x_DWORD *)v2;
+	// *((x_BYTE *)unk_180452ar + 12) = *(x_BYTE *)(v2 + 4);
+	// return x_WORD_180455;
 }
 
 //----- (00086930) --------------------------------------------------------
 char sub_86930(uint16_t a1)//267930
 {
-	int v2; // esi
-	int16_t v3; // ax
+	// FIXME: pointer arithmetic
+std::cout << "FIXME: pointer arithmetic @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+	// int v2; // esi
+	// int16_t v3; // ax
 
-	if (!x_BYTE_E2A28_speek)
-		return 0;
-	if (!x_DWORD_E2A6C || !x_DWORD_E2A70)
-		return 0;
-	v2 = 16 * x_DWORD_E2A70;
-	*(x_BYTE *)v2 = 13;
-	v3 = x_DWORD_E2A70;
-	*(x_BYTE *)(v2 + 1) = 0;
-	*(x_BYTE *)(v2 + 2) = -120;
-	*(x_WORD *)(v2 + 3) = 0;
-	x_WORD_17FF4A = v3;
-	x_DWORD_17FF38 = 0;
-	x_DWORD_17FF10 = 47;
-	x_DWORD_17FF14 = 0;
-	x_DWORD_17FF20 = x_DWORD_17FF28;
-	x_DWORD_17FF40 = a1;
-	x_DWORD_17FF0C = 0x300;
-	x_DWORD_17FF44 = 0x1510;
-	//int386(0x31, (REGS*)&x_DWORD_17FF0C, (REGS*)&x_DWORD_17FF0C);
-	*unk_180460ar = *(x_DWORD *)v2;
-	v2 += 4;
-	*((x_DWORD *)unk_180460ar + 1) = *(x_DWORD *)v2;
-	v2 += 4;
-	*((x_DWORD *)unk_180460ar + 2) = *(x_DWORD *)v2;
-	*((x_BYTE *)unk_180460ar + 12) = *(x_BYTE *)(v2 + 4);
-	return x_WORD_180463;
+	// if (!x_BYTE_E2A28_speek)
+	// 	return 0;
+	// if (!x_DWORD_E2A6C || !x_DWORD_E2A70)
+	// 	return 0;
+	// v2 = 16 * x_DWORD_E2A70;
+	// *(x_BYTE *)v2 = 13;
+	// v3 = x_DWORD_E2A70;
+	// *(x_BYTE *)(v2 + 1) = 0;
+	// *(x_BYTE *)(v2 + 2) = -120;
+	// *(x_WORD *)(v2 + 3) = 0;
+	// x_WORD_17FF4A = v3;
+	// x_DWORD_17FF38 = 0;
+	// x_DWORD_17FF10 = 47;
+	// x_DWORD_17FF14 = 0;
+	// x_DWORD_17FF20 = x_DWORD_17FF28;
+	// x_DWORD_17FF40 = a1;
+	// x_DWORD_17FF44 = 0x1510;
+	// *unk_180460ar = *(x_DWORD *)v2;
+	// v2 += 4;
+	// *((x_DWORD *)unk_180460ar + 1) = *(x_DWORD *)v2;
+	// v2 += 4;
+	// *((x_DWORD *)unk_180460ar + 2) = *(x_DWORD *)v2;
+	// *((x_BYTE *)unk_180460ar + 12) = *(x_BYTE *)(v2 + 4);
+	// return x_WORD_180463;
 }
 
 //----- (00086A00) --------------------------------------------------------
@@ -104279,9 +104328,9 @@ bool sub_86BD0_freemem1()//267bd0
 	char result; // al
 	result = 1;//fix it
 	if (x_DWORD_E2A6C)//2B3A6C - D5020000A11A0000
-		result = sub_85F00_free_memory(x_DWORD_E2A6C);//264CDC - 266070 
+		result = sub_85F00_free_memory();//264CDC - 266070 
 	if (x_DWORD_E2A70)
-		result = sub_85F00_free_memory(x_DWORD_E2A70);
+		result = sub_85F00_free_memory();
 	x_BYTE_E2A28_speek = 0;
 	x_DWORD_E2A6C = 0;
 	x_DWORD_E2A70 = 0;
@@ -104292,6 +104341,7 @@ bool sub_86BD0_freemem1()//267bd0
 void sub_86EA0(/*int a1, int a2, int a3*/ HMDIDRIVER user)//267ea0
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_47760(/*a1, */(Bit32u)user/*, a3*/);
 	//return 0;
 }
@@ -104690,6 +104740,7 @@ void sub_87610()//268610
 	{
 		v0 = &v8;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_89AC0(&v8, str_unk_1804B0ar.word_0x86);
 	}
 	str_unk_1804B0ar.type_sub_0[0].byte_0x30 = (*xadataclrd0dat.var28_begin_buffer)[0xfff];
@@ -106406,15 +106457,19 @@ void sub_89420(type_sub_str_unk_1804B0ar* a1x, const char *a2)//26a420
 				result = (v5 + a1x->word_0x10 - 1) / a1x->word_0x10;
 				v9 = 0;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v6 = (unsigned int)a2;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v7 = (unsigned int)&a2[v3 - 1];
 				while (v6 < v7)
 				{
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// // for (i = (x_BYTE *)(result + v6); *i != 32 && (unsigned int)i < v7; i--)
 					// 	;
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// v6 = (unsigned int)(i + 1);
 					v9++;
 				}
@@ -106731,6 +106786,7 @@ void sub_89AC0(x_BYTE *a1, int a2)//26aac0
 		if ((uint16_t)a2 <= 0x5Cu)
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sprintf(a1, "[F1] %s", x_DWORD_E9C4C_langindexbuffer[14]);//Toggle help on / off
 			return;
 		}
@@ -106738,6 +106794,7 @@ void sub_89AC0(x_BYTE *a1, int a2)//26aac0
 		{
 			v3 = sub_61790((uint8_t)str_unk_1804B0ar.byte_0xa8);
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// /*result = */sprintf(a1, (const char *)x_DWORD_E9C4C_langindexbuffer[353], (&off_D93A0_wizards_names2)[v3]);//Number of times you have killed %s
 		}
 		else
@@ -106788,6 +106845,7 @@ Bit16s sub_89B60_aplicate_setting(Bit8u a1)//26ab60
 	case 4u:
 		memset(unk_180560x, 0, 44);//fix it
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_8BB40((int)unk_180560x, 8);
 		v3 = unk_180560x[0x18] == 0;
 		goto LABEL_10;
@@ -106808,12 +106866,14 @@ Bit16s sub_89B60_aplicate_setting(Bit8u a1)//26ab60
 	case 0xBu:
 		memset(unk_180560x, 0, 44);//fix it
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_8BB40((int)unk_180560x, 4);
 		v3 = unk_180560x[0x18] == 0;
 	LABEL_10:
 		if (!v3)//fix it
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_8BBE0((int)unk_180560x);
 			v1 = 1;
 			v2 = a1;
@@ -106999,11 +107059,13 @@ int sub_89D10_analyze_keys()//26ad10
 	LABEL_53:
 		unk_18058Cstr.x_WORD_1805C0_arrow_keys = 0;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_8BBE0((int)unk_180560x);
 		goto LABEL_54;
 	case 6:
 		memset(&v56, 0, 50);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_8C140(*(x_WORD *)x_DWORD_E36C4, (int)&v56);
 		unk_18058Cstr.x_DWORD_180590 = *(x_DWORD *)(x_DWORD_E36C4 + 4);
 		v28 = *(x_WORD *)(x_DWORD_E36C4 + 62);
@@ -107807,6 +107869,7 @@ int sub_89D10_analyze_keys()//26ad10
 	LABEL_217:
 		unk_18058Cstr.x_WORD_1805C0_arrow_keys = 0;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_8BBE0((int)unk_180560x);
 		goto LABEL_218;
 	default:
@@ -107896,6 +107959,7 @@ LABEL_16:
 	sub_9B498(v10);
 	myprintf("%s.\n");
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_8BA10((int)v9x, v5, (int *)a1.unk_1805CE, v9x, v1);
 	myprintf(v9x);
 	myprintf("\n");
@@ -108004,6 +108068,7 @@ char sub_8B880(int *a1, char a2, signed int a3, int a4)//26c880
 		v4 = 3;
 	LABEL_7:
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v6 = (int)calloc(1, 90);
 		*a1 = v6;
 		if (v6)
@@ -108062,23 +108127,28 @@ char sub_8B980(int a1, int a2, x_DWORD **a3, int a4)//26c980
 	//fix it
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v4 = j_j___clock(a1, a2, (x_DWORD)a3);
 	sub_9CBBC(*a3);
 	do
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v7 = j_j___clock(v5, v6, (x_DWORD)a3);
 		sub_9AEEC(a3, (char *)&off_D1F10);
 		do
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// // if (!sub_9C9D0((int)*a3) && sub_9C938(*a3) == 79)
 			// 	return 0;
 			v9 = sub_9ADB4(1);
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v11 = sub_9AE04(/*v9,*/ v10, (int)a3, v7, v9);
 		} while (!v11);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v5 = sub_9AE04(/*v11,*/ a4, (int)a3, v4, a4);
 	} while (!v5);
 	return 3;
@@ -108110,17 +108180,20 @@ char sub_8BA10(int a1, int a2, int *a3, char *a4, int a5)//26ca10
 	//fix it
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v5 = j_j___clock(a1, a2, (x_DWORD)a4);
 	sub_9CBBC((x_DWORD *)*a3);
 	while (2)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v18 = j_j___clock(v6, v7, (x_DWORD)a4);
 		sub_9AEEC((x_DWORD **)a3, (char *)&off_D1F78);
 		do
 		{
 			sub_9AEEC((x_DWORD **)a3, (char *)&off_D1F78);
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_9AE90(v8, v9, (int)a4, a3, a4, 60, a5);
 			v10 = *a4;
 			a4[59] = 0;
@@ -108141,9 +108214,11 @@ char sub_8BA10(int a1, int a2, int *a3, char *a4, int a5)//26ca10
 			}
 			v15 = sub_9ADB4(1);
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v17 = sub_9AE04(/*v18,*/ v16, (int)a4, v18, v15);
 		} while (!v17);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v6 = sub_9AE04(/*v17,*/ a5, (int)a4, v5, a5);
 		if (!v6)
 			continue;
@@ -108588,6 +108663,7 @@ void sub_8C0E0(uint8_t(/*__fastcall*/ *a1)(signed int))//26d0e0
 	while (!(unk_180560x[0x1a] & 1))
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v1 = sub_8BBE0((int)unk_180560x);
 		if (a1 && a1(v1))
 			return;
@@ -108595,6 +108671,7 @@ void sub_8C0E0(uint8_t(/*__fastcall*/ *a1)(signed int))//26d0e0
 	while (unk_180560x[0x1a] & 1)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v2 = sub_8BBE0((int)unk_180560x);
 		if (a1)
 		{
@@ -109264,6 +109341,7 @@ void sub_8D290_init_sound(/*char* a1*//*, int a2, int a3*/)//26e290
 	if (v7)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sscanf((char *const)v7, "%s %x %d %d %d", (unsigned int)&v6);
 		x_DWORD_180B48 = sub_93330_AIL_install_DIG_driver_file(/*(int)a1, */&v6, &v5);
 		if (!x_DWORD_180B48)
@@ -109572,6 +109650,7 @@ void /*__fastcall*/ sub_8D970_init_music(/*char* a1*//*int a1, int a2, char* a3*
 	if (v7)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sscanf((char *const)v7, "%s %x %d %d %d", (unsigned int)&v6);
 		x_DWORD_180C7C = sub_95850_AIL_install_MDI_driver_file(/*a1,*/ &v6, &v5);
 		if (!x_DWORD_180C7C)
@@ -109767,6 +109846,7 @@ void sub_8E160_sound_proc15_startsequence(int16_t a1, uint16_t a2)//26f160
 		}
 		sub_95C00_AIL_init_sequence(x_DWORD_180C78, (Bit8u*)*(Bit32u*)(x_DWORD_E3808_music_header + 32 * a1 + 18), 0, a1);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_97670_AIL_register_trigger_callback(x_DWORD_180C78, sub_8E0D0);
 		/*for ( i = 0; i < 0x10u; i++ )
 		{
@@ -109830,8 +109910,10 @@ int16_t sub_8E673()
 	int16_t result; // ax
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_8F023(x_DWORD_E3840, (int)&x_WORD_E3828, 2u);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_8F023(x_DWORD_E3840, (int)x_DWORD_E9C38_smalltit, 8u);
 	while (1)
 	{
@@ -109840,8 +109922,10 @@ int16_t sub_8E673()
 			break;
 		--x_WORD_E3828;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_8F023(x_DWORD_E3840, (int)&x_DWORD_E3824, 4u);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_8F023(x_DWORD_E3840, (int)&x_WORD_E381C, 2u);
 		switch (x_WORD_E381C)
 		{
@@ -109874,6 +109958,7 @@ int16_t sub_8E736()//26f736
 	int16_t result; // ax
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_8F023(x_DWORD_E3840, (int)x_DWORD_E9C38_smalltit, x_DWORD_E3824 - 6);
 	x_WORD_E381E = *(x_WORD *)x_DWORD_E9C38_smalltit;
 	x_WORD_E3820 = *(x_WORD *)(x_DWORD_E9C38_smalltit + 2);
@@ -109886,6 +109971,7 @@ int16_t sub_8E736()//26f736
 int sub_8E799()//26f799
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return sub_8F023(x_DWORD_E3840, (int)x_DWORD_180628b_screen_buffer, x_DWORD_E3824 - 6);
 }
 
@@ -109893,6 +109979,7 @@ int sub_8E799()//26f799
 int sub_8E7B7()//26f7b7
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return sub_8F023(x_DWORD_E3840, (int)x_DWORD_E9C38_smalltit, x_DWORD_E3824 - 6);
 }
 
@@ -109974,6 +110061,7 @@ int16_t sub_8E871()//26f871
 
 	v11 = (uint16_t)x_WORD_E3820;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_8F023(x_DWORD_E3840, (int)x_DWORD_E9C38_smalltit, x_DWORD_E3824 - 6);
 	v0 = (x_WORD *)x_DWORD_180628b_screen_buffer;
 	v10 = *(x_WORD *)x_DWORD_E9C38_smalltit;
@@ -109999,6 +110087,7 @@ int16_t sub_8E871()//26f871
 			{
 				v3 = *(x_BYTE *)v1;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v4 = (char *)v1 + 1;
 				v0 = (x_WORD *)((char *)v0 + v3);
 				v5 = *v4;
@@ -110054,9 +110143,11 @@ int sub_8E948()//26f948
 
 	v0 = (uint16_t)x_WORD_E3820;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v1 = sub_8F023(x_DWORD_E3840, (int)x_DWORD_E9C38_smalltit, x_DWORD_E3824 - 6);
 	LOWORD(v1) = *(x_WORD *)x_DWORD_E9C38_smalltit;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v13 = v0 * v1 + (int)x_DWORD_180628b_screen_buffer;
 	v2 = (char *)(x_DWORD_E9C38_smalltit + 4);
 	v15 = *(x_WORD *)(x_DWORD_E9C38_smalltit + 2);
@@ -110068,10 +110159,12 @@ int sub_8E948()//26f948
 		{
 			v5 = (uint8_t)*v2;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v6 = v2 + 1;
 			v7 = (char *)(v5 + v3);
 			v8 = *v6;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v9 = v6 + 1;
 			if ((v8 & 0x80u) != 0)
 			{
@@ -110080,6 +110173,7 @@ int sub_8E948()//26f948
 				v2 = v9 + 1;
 				memset(v7, v11, v10);
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v3 = (int)&v7[v10];
 			}
 			else
@@ -110087,6 +110181,7 @@ int sub_8E948()//26f948
 				qmemcpy(v7, v9, v8);
 				v2 = &v9[v8];
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// v3 = (int)&v7[v8];
 			}
 		}
@@ -110114,6 +110209,7 @@ char sub_8E9EF()//26f9ef
 	v10 = x_WORD_E3820;
 	v0 = x_WORD_E3822;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_8F023(x_DWORD_E3840, (int)x_DWORD_E9C38_smalltit, x_DWORD_E3824 - 6);
 	v1 = (x_BYTE *)x_DWORD_180628b_screen_buffer;
 	v2 = (char *)x_DWORD_E9C38_smalltit;
@@ -110277,6 +110373,7 @@ void sub_8EC90_get_music_sequence_count()//26fc90 // set index
 		for (x_WORD_E3804 = 0;v1 < x_DWORD_E380C; x_WORD_E3804++)
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// *(x_DWORD *)(v1 + 18) += (int)x_DWORD_E3810_music_data;
 			v1 += 32;
 		}
@@ -111963,6 +112060,7 @@ int sub_9025C(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint16_t a5, int16
 	if (a4 >= v8)
 		a4 = 2 * x_DWORD_180630_screen_height;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // v10 = (x_BYTE *)(320 * ((unsigned int)(uint16_t)a2 >> 1)
 	// 	+ (int)x_DWORD_180628b_screen_buffer
 	// 	+ ((unsigned int)(uint16_t)a1 >> 1));
@@ -112685,6 +112783,7 @@ void sub_915A0_sound_proc23()
 	if (!x_DWORD_E39BC)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_9D590_lock_linear_region((Bit8u*)sub_915A0_sound_proc23, (unsigned int)sub_986A0_unlock_linear_region);
 		sub_9D710((Bit8u*)&x_DWORD_181BF4, 4);
 		sub_9D710((Bit8u*)&x_DWORD_181BF8, 4);
@@ -113144,6 +113243,7 @@ void sub_93830_AIL_init_sample(HSAMPLE S/*HSAMPLE S*/)//AIL_init_sample //274830
 	x_DWORD_181C04++;
 	v2 = x_DWORD_181BF4 && (x_DWORD_181C04 == 1 || x_DWORD_181BF8) && !sub_A16A2() && sub_916F0_sound_proc24();
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (v2)
 	// 	dbgfprintf(x_DWORD_181BF0_AIL_debugfile, "AIL_init_sample(0x%X)\n", (char)S);
 	/*result = */sub_A38E0_init_sample(S);
@@ -113897,6 +113997,7 @@ bool sub_986A0_unlock_linear_region()//2796a0
 	if (x_DWORD_E39BC)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// result = sub_9D650((unsigned int)sub_915A0_sound_proc23, (unsigned int)sub_986A0_unlock_linear_region);
 		x_DWORD_E39BC = 0;
 	}
@@ -114808,6 +114909,7 @@ char sub_9B038(int *a1, char *a2, int a3)//27C038
 
 	sub_9AEEC((x_DWORD **)a1, a2);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return sub_9AFC4(v3, v4, (int)a1, a1, a3);
 	return '\0';
 }
@@ -114877,6 +114979,7 @@ char sub_9B274(int *a1, int a2)//27C274
 	//fix it
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (sub_9AE90((int)&v9, a2, (int)a1, a1, &v9, 12, a2))
 	// {
 	// 	sub_9CBBC((x_DWORD *)*a1);
@@ -115059,6 +115162,7 @@ x_WORD *sub_9B688(int a1)//27C688
 		}
 		result = (x_WORD *)x_inp(*(x_DWORD *)(a1 + 28) + 5);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // if ((uint8_t)result & 0x20)
 		// {
 		// 	if (*(x_DWORD *)(a1 + 24))
@@ -115152,6 +115256,7 @@ int sub_9BBFC_unlock_and_free_memory(int a1)//27CBFC
 		sub_9B5B4_unlock_mem_region(*(x_DWORD *)(a1 + 4), *(x_DWORD *)(*(x_DWORD *)a1 + 4) >> 16);
 	}
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// return (int)memset((void*)a1, 0, 10);
 	return 0;
 }
@@ -115170,6 +115275,7 @@ signed int sub_9BC68_allocate_and_lock_memory(x_WORD *a1, int a2, unsigned int a
 	//fix it
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// *(x_DWORD *)a2 = (x_DWORD)a1;
 	if (*(x_DWORD *)(a2 + 4))
 		goto LABEL_5;
@@ -115287,6 +115393,7 @@ int sub_9BE18(int a1, int a2, char a3, unsigned int a4, unsigned int a5)//27CE18
 			v13 = *(x_DWORD *)(a1 + 44) & 0xF;
 			//int386(0x31, (REGS*)&v10, (REGS*)&v10);//Set Real Mode Interrupt Vector
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_9B540_lock_linear_mem_region((unsigned int)sub_9B628, (char *)sub_9BAB0 - (char *)sub_9B628);
 			if (a3 & 1)
 			{
@@ -115353,6 +115460,7 @@ signed int sub_9C810(x_DWORD *a1, char a2)
 			v5[1] = 0;
 		v3 = v5[2]++;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_9B688((int)a1);
 		//sub_AC44B();
 		return 1;
@@ -115711,17 +115819,21 @@ int sub_9D770(char* a1, char a2)//27e770
 			return 0;
 	}
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v12 = sub_9D380(v10, 60, a2, (int)&v8, 4);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v12 = sub_9D380(v10, v8, a2, (int)&v13, 2);
 	if (!strcmp((const char*)&v13, "LX"))
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_9D380(v10, v8, a2, (int)&v3, 172);
 		v12 = v4 + v8;
 		for (i = 0; i < v5; i++)
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v12 = sub_9D380(v10, v12, a2, (int)&v6, 24);
 			v7 += v6;
 		}
@@ -115824,6 +115936,7 @@ void sub_9E1B0()
 	if (!x_DWORD_E3E3C)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_9D590_lock_linear_region((Bit8u*)sub_9E1B0, (unsigned int)sub_9EDD0);
 		sub_9D710((Bit8u*)x_DWORD_181C50, 64);
 		sub_9D710((Bit8u*)x_DWORD_181DAC, 76);
@@ -115869,6 +115982,7 @@ int sub_9E2B0(char* a1, int a2, x_DWORD *a3)
 		}
 	}
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (a3)
 	// 	*a3 = i + (int)a1;
 	return v5 * v6;
@@ -116212,6 +116326,7 @@ bool sub_9EDD0()
 	if (x_DWORD_E3E3C)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // sub_9D650((unsigned int)sub_9E1B0, (unsigned int)sub_9EDD0);
 		// sub_9D740((unsigned int)x_DWORD_181C50, 64);
 		// sub_9D740((unsigned int)x_DWORD_181DAC, 76);
@@ -116560,6 +116675,7 @@ void sub_9F740(char* a1)//280740
 	FILE* file;
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (x_BYTE_E37FC_music && !_stricmp(unk_180BE0, "SBAWE32.MDI") && !_stricmp(&x_BYTE_180C84_drivertype, "w"))
 	// {
 	// 	if (x_BYTE_E3815 == 1)
@@ -116598,6 +116714,7 @@ void sub_9F740(char* a1)//280740
 	// 						for (i = 0; (int16_t)__readgsx_WORD(*(unsigned int *)v6) > i; i++)
 	// 						{
 	// 							// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// 							// // if (dos_read(file, x_DWORD_181E2C, (uint16_t)x_WORD_181E30, 512, (x_DWORD)&v8)
 	// 							// 	|| sub_9F4F0((int *)x_DWORD_180C7C, x_DWORD_181E2C, x_WORD_181E30, 1u).AX != -1)//fix
 	// 							// {
@@ -116611,6 +116728,7 @@ void sub_9F740(char* a1)//280740
 	// 						{
 	// 							x_lseek(file, __readgsx_DWORD(*(x_DWORD *)v6 + 6), 0);
 	// 							// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// 							// // if (!dos_read(
 	// 							// 	file,
 	// 							// 	x_DWORD_181E26,
@@ -116883,12 +117001,14 @@ signed int sub_A12C5_sound_proc_irq(int a1, int a2, int16_t a3)//2822c5
 	if (x_DWORD_E3FF8 == -1)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// x_DWORD_A128C = (int)((char *)&unk_E4004 - ((unsigned int)&unk_E4004 & 0xFFFFFFF0) + 512);
 		x_WORD_A1286 = 0;
 		x_WORD_A1277 = 0;
 		x_WORD_A12AC = 0;
 		x_WORD_A12B3 = a3;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// x_WORD_A12A2 = (int16_t)((char *)&x_DWORD_A1270 - ((unsigned int)&x_DWORD_A1270 & 0xFFFFFFF0) + 74);
 		x_DWORD_E3FF8 = a1;
 		//fix it:__asm { int     31h; DPMI Services   ax=func xxxxh }
@@ -117107,6 +117227,7 @@ void sub_A1F90()//282f90
 	if (!x_DWORD_E4A90)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_9D590_lock_linear_region((Bit8u*)sub_A1F90, (unsigned int)sub_A4260);
 		sub_9D710((Bit8u*)x_BYTE_E4A0C, 128);
 		sub_9D710((Bit8u*)&x_DWORD_E4A8C, 4);
@@ -117489,6 +117610,7 @@ LABEL_33:
 		if (a1->half_buffer_size_4 > v17)
 			a1->half_buffer_size_4 = v17;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v12 = (int)a1->DMA_seg_8;
 		if (x_DWORD_181DAC[18])
 		{
@@ -117690,6 +117812,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 					if (!i)
 						qmemcpy(&unk_181D90, (void*)v32, 0x18u);
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// // if (sub_A2C80(v26, v32))
 					// {
 					// 	v28 = 1;
@@ -117720,6 +117843,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 					{
 						v2 = v26->DMA_sel_9;
 						// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 						// v3 = (int)v26->DMA_seg_8;
 						sub_9D560((Bit8u*)v26->DMA_buf_10);
 					}
@@ -117764,6 +117888,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 								v26->n_samples_24 = 0;
 								v12 = v26->DMA_sel_9;
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// v13 = (int)v26->DMA_seg_8;
 								sub_9D560((Bit8u*)v26->DMA_buf_10);
 								sub_9D490_free4(v26->samples_23, sizeof(_SAMPLE) * v26->n_samples_24);
@@ -117777,8 +117902,10 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 								//sub_92930_AIL_set_timer_frequency(v26->timer_3, x_DWORD_181DAC[0]);//00352DAC not zero!
 								//sub_92BA0_AIL_start_timer(v26->timer_3);
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// v26->var36_aildrv = (x_DWORD)sub_A2DE0;
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// v26->var40_aildrv = (x_DWORD)v26;
 								sub_B0C1A(v26);
 								//dma sub_B0B87(v26, 0);//fix
@@ -117795,6 +117922,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 							v26->n_samples_24 = 0;
 							v9 = v26->DMA_sel_9;
 							// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 							// v10 = (int)v26->DMA_seg_8;
 							sub_9D560((Bit8u*)v26->DMA_buf_10);
 							sub_9D490_free4(v26->samples_23, v26->build_size_19);
@@ -117811,6 +117939,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 						v26->n_samples_24 = 0;
 						v7 = v26->DMA_sel_9;
 						// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 						// v8 = (int)v26->DMA_seg_8;
 						sub_9D560((Bit8u*)v26->DMA_buf_10);
 						sub_9D490_free4(v26, 140);
@@ -117821,6 +117950,7 @@ HDIGDRIVER sub_A2EA0(AIL_DRIVER* a1, IO_PARMS IO)//283ea0
 				{
 					v4 = v26->DMA_sel_9;
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// v5 = (int)v26->DMA_seg_8;
 					sub_9D560((Bit8u*)v26->DMA_buf_10);
 					sub_9D490_free4(v26, 140);
@@ -118499,6 +118629,7 @@ bool sub_A4260()//285260
 	if (x_DWORD_E4A90)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // sub_9D650((unsigned int)sub_A1F90, (unsigned int)sub_A4260);
 		// sub_9D740((unsigned int)x_BYTE_E4A0C, 128);
 		// sub_9D740((unsigned int)&x_DWORD_E4A8C, 4);
@@ -118522,6 +118653,7 @@ void sub_A4330()//285330
 	if (!x_DWORD_E4A94)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_9D590_lock_linear_region((Bit8u*)sub_A4330, (unsigned int)sub_A4CB0);
 		x_DWORD_E4A94 = 1;
 	}
@@ -118559,6 +118691,7 @@ void sub_A43E0(HSAMPLE S)//2853e0
 		if (*(x_BYTE *)v1 <= 9u)
 			break;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// *(x_DWORD *)(S + 2168) = (x_DWORD)(char *)v1 + sub_A4370(v1) + 4;
 	}
 	//JUMPOUT(__CS__, (int*) *(&off_A4400 + *(uint8_t *)v1));
@@ -118635,6 +118768,7 @@ HSAMPLE sub_A4970(int a1, Bit8u* a2, int a3)//285970
 	else
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v6->sam_var[542] = *(uint16_t *)(a2 + 20) + (int)a2;
 		v6->sam_var[545] = a3;
 		v6->sam_var[546] = a3 == -1;
@@ -118708,6 +118842,7 @@ bool sub_A4CB0()//285cb0
 	if (x_DWORD_E4A94)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// result = sub_9D650((unsigned int)sub_A4330, (unsigned int)sub_A4CB0);
 		x_DWORD_E4A94 = 0;
 	}
@@ -118722,6 +118857,7 @@ void sub_A4CF0()//285cf0
 	if (!x_DWORD_E4B1C)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_9D590_lock_linear_region((Bit8u*)sub_A4CF0, (unsigned int)sub_A9280);
 		sub_9D710((Bit8u*)aSample, 128);
 		sub_9D710((Bit8u*)&x_DWORD_E4B18, 4);
@@ -119144,6 +119280,7 @@ void sub_A5850(HSEQUENCE S, char a2, unsigned int a3, signed int a4, int a5)//28
 	//result = S->chan_map_37[4 * v8];
 	v9 = S->chan_map_37[4 * v8];
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // if (v13 == 176 || v13 == 192 || v13 == 224)
 	// 	result = (HMDIDRIVER)sub_A5530((int)&S->shadow_53, v8 | v13, a3, a4);
 	if (v13 != 176)
@@ -119211,9 +119348,11 @@ void sub_A5850(HSEQUENCE S, char a2, unsigned int a3, signed int a4, int a5)//28
 				if (result)
 				{
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// sub_98170_AIL_map_sequence_channel((int32_t*)S, v8 + 1, (int)result);
 					result = (HMDIDRIVER)(x_DWORD *)S;
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// v7->var23_aildrvx[(int)v12] = S;
 				}
 			}
@@ -119548,6 +119687,7 @@ void sub_A6530(HMDIDRIVER a1)//287530
 								x_DWORD_181ED8 = sub_A5040(&x_DWORD_181EB0);
 								x_DWORD_181ED8 += x_DWORD_181EB0 - *(_DWORD *)(x_DWORD_181EB8 + 20);
 								// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 								// sub_A4FD0((int)a1, *(_DWORD *)(x_DWORD_181EB8 + 20), x_DWORD_181ED8);
 								*(_DWORD *)(x_DWORD_181EB8 + 20) += x_DWORD_181ED8;
 							}
@@ -119818,10 +119958,12 @@ HMDIDRIVER sub_A6FB0_sound_proc26(AIL_DRIVER* a1, IO_PARMS *a2)//287fb0
 				{
 					//_dupenv_s((char**)v15,(size_t*)sizeof(v11),(char*)v11);
 					// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 					// v15 = mygetenv((const char*)v11);
 					if (v15)
 					{
 						// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 						// // if (*v15)
 						// 	strncpy((char*)v12->DST_2, v15, 128);
 					}
@@ -120468,6 +120610,7 @@ void sub_A8180_AIL_API_resume_sequence_orig(x_DWORD *a1)//289180
 			}
 		}
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // for (j = 0; j < 16; j++)
 		// 	sub_A5FD0((int)a1, j);
 		a1[1] = 4;
@@ -121028,6 +121171,7 @@ int sub_A8EA0(x_DWORD *a1, int a2)
 
 	v4 = a2 - 1;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// result = (int)&a1[a2 - 1];
 	if (*(x_DWORD *)(result + 32) == 1)
 	{
@@ -121059,6 +121203,7 @@ int sub_A8EA0(x_DWORD *a1, int a2)
 				sub_A5FD0(a1[v4 + 40], v4);
 		}
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// result = (int)a1;
 		--*(x_DWORD *)(result + 20);
 	}
@@ -121080,8 +121225,10 @@ int sub_A9080(x_DWORD *a1, int a2, int a3)
 			if ((x_DWORD *)result != a1)
 			{
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// result = (int)a1;
 				// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				// *(x_DWORD *)(*a1 + 4 * a3 + 92) = (x_DWORD)a1;
 			}
 		}
@@ -121157,6 +121304,7 @@ bool sub_A9280()
 	if (x_DWORD_E4B1C)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// // sub_9D650((unsigned int)sub_A4CF0, (unsigned int)sub_A9280);
 		// sub_9D740((unsigned int)aSample, 128);
 		// sub_9D740((unsigned int)&x_DWORD_E4B18, 4);
@@ -121184,6 +121332,7 @@ void sub_A9590()
 	if (!x_DWORD_E4B2C)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_9D590_lock_linear_region((Bit8u*)sub_A9590, (unsigned int)sub_AA620);
 		x_DWORD_E4B2C = 1;
 	}
@@ -121416,10 +121565,13 @@ x_DWORD *sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 		*v10 = a2;
 		v10[2] = a3;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v10[3] = sub_97A60_AIL_register_event_callback(a2, (int)sub_A9C50);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v10[4] = sub_97BB0_AIL_register_timbre_callback(a2, (int)sub_A9C00);
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// *(x_DWORD *)(a2 + 436) = (x_DWORD)v10;
 		for (i = 0; i < 16; i++)
 		{
@@ -121438,6 +121590,7 @@ x_DWORD *sub_AA310(int a1, int a2, int a3, signed int a4)//28b310
 			if (v10[325] >= v5)
 				break;
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v10[v10[325] + 309] = (x_DWORD)sub_93510_AIL_allocate_sample_handle((HDIGDRIVER)v10[1]);
 			if (!v10[v10[325] + 309])
 				break;
@@ -121477,6 +121630,7 @@ bool sub_AA620()//28b620
 	if (x_DWORD_E4B2C)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// result = sub_9D650((unsigned int)sub_A9590, (unsigned int)sub_AA620);
 		x_DWORD_E4B2C = 0;
 	}
@@ -121582,6 +121736,7 @@ signed int sub_AC250(int a1, int a2, int a3, int a4, int a5, x_DWORD *a6, x_DWOR
 						v9 = sub_B11E8(x_DWORD_1821A0, a2);
 						v10 = sub_B11E8(x_DWORD_1821B8, a3);
 						// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 						// // v11 = sub_B11E8(
 						// 	x_DWORD_1821D0,
 						// 	((uint64_t)(51471 * a4) >> 32 != 0) + ((uint64_t)(51471 * a4) >> 14));
@@ -121662,6 +121817,7 @@ int16_t sub_AC70E()//28d70e
 		sub_AC7D9();
 		//__ES__ = x_WORD_E3B9A;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// *MK_FP(x_WORD_E3B9A, (unsigned int)v0) = v1;
 		v0[1] = v2;
 		LOWORD(v3) = sub_AC843();
@@ -121678,11 +121834,13 @@ int16_t sub_AC70E()//28d70e
 		else if (x_BYTE_E4CB2 == 1)
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// LOWORD(v3) = _hook387(0, x_WORD_E3B98, (x_DWORD)v0);
 		}
 		else
 		{
 			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// v3 = _hook387(0, 0, (x_DWORD)v0);
 			if ((x_BYTE)v3 != 1)
 				;// LOWORD(v3) = sub_AC7F6(v3, v6, (int)v0);
@@ -123861,6 +124019,7 @@ int16_t sub_AFB28(int a1, x_WORD *a2, x_WORD *a3, signed int *a4)
 int sub_AFB7E(int result, x_DWORD *a2, x_BYTE *a3)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -123878,6 +124037,7 @@ int sub_AFB7E(int result, x_DWORD *a2, x_BYTE *a3)
 int sub_AFB9F(int result, x_DWORD *a2, x_BYTE *a3)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -123896,6 +124056,7 @@ int sub_AFB9F(int result, x_DWORD *a2, x_BYTE *a3)
 int sub_AFBC3(int result, int16_t a2, x_DWORD *a3, x_BYTE *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -123916,6 +124077,7 @@ int sub_AFBC3(int result, int16_t a2, x_DWORD *a3, x_BYTE *a4)
 int sub_AFBF5(int result, int16_t a2, x_DWORD *a3, x_BYTE *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -123938,6 +124100,7 @@ int16_t sub_AFC27(x_DWORD *a1, x_WORD *a2)
 	int16_t result; // ax
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a2 >= x_DWORD_E4E24)
@@ -123956,6 +124119,7 @@ int16_t sub_AFC4B(x_DWORD *a1, x_WORD *a2)
 	int16_t result; // ax
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a2 >= x_DWORD_E4E24)
@@ -123976,6 +124140,7 @@ int16_t sub_AFC72(x_DWORD *a1, x_WORD *a2)
 	int16_t v3; // bx
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a2 >= x_DWORD_E4E24)
@@ -123997,6 +124162,7 @@ int16_t sub_AFCA6(x_DWORD *a1, x_WORD *a2)
 	int16_t v3; // bx
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a2 >= x_DWORD_E4E24)
@@ -124015,6 +124181,7 @@ int16_t sub_AFCA6(x_DWORD *a1, x_WORD *a2)
 int16_t sub_AFCDA(int16_t result, x_DWORD *a2, x_BYTE *a3)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124030,6 +124197,7 @@ int16_t sub_AFCDA(int16_t result, x_DWORD *a2, x_BYTE *a3)
 int16_t sub_AFCF6(int16_t result, x_DWORD *a2, x_BYTE *a3)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124046,6 +124214,7 @@ int16_t sub_AFCF6(int16_t result, x_DWORD *a2, x_BYTE *a3)
 int16_t sub_AFD15(int16_t result, int16_t a2, x_DWORD *a3, x_BYTE *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124064,6 +124233,7 @@ int16_t sub_AFD15(int16_t result, int16_t a2, x_DWORD *a3, x_BYTE *a4)
 int16_t sub_AFD3C(int16_t result, int16_t a2, x_DWORD *a3, x_BYTE *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124084,6 +124254,7 @@ int16_t sub_AFD63(x_DWORD *a1, int16_t *a2)
 	int16_t result; // ax
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a2 >= x_DWORD_E4E24)
@@ -124102,6 +124273,7 @@ int16_t sub_AFD82(x_DWORD *a1, int16_t *a2)
 	int16_t result; // ax
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a2 >= x_DWORD_E4E24)
@@ -124122,6 +124294,7 @@ int16_t sub_AFDA4(x_DWORD *a1, int16_t *a2)
 	int16_t v3; // bx
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a2 >= x_DWORD_E4E24)
@@ -124143,6 +124316,7 @@ int16_t sub_AFDCD(x_DWORD *a1, int16_t *a2)
 	int16_t result; // ax
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a2 >= x_DWORD_E4E24)
@@ -124161,6 +124335,7 @@ int16_t sub_AFDCD(x_DWORD *a1, int16_t *a2)
 int sub_AFDF6(int result, unsigned int a2, x_DWORD *a3, x_BYTE *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124179,6 +124354,7 @@ int sub_AFDF6(int result, unsigned int a2, x_DWORD *a3, x_BYTE *a4)
 int sub_AFE22(int result, unsigned int a2, x_DWORD *a3, x_BYTE *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124200,6 +124376,7 @@ int sub_AFE51(int result, unsigned int a2, int16_t a3, x_DWORD *a4, x_BYTE *a5)
 	int v5; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124224,6 +124401,7 @@ int sub_AFE91(int result, unsigned int a2, int16_t a3, x_DWORD *a4, x_BYTE *a5)
 	int v5; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124249,6 +124427,7 @@ int16_t sub_AFED1(unsigned int a1, x_DWORD *a2, x_WORD *a3)
 	int v4; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124270,6 +124449,7 @@ int16_t sub_AFF03(unsigned int a1, x_DWORD *a2, x_WORD *a3)
 	int v4; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124293,6 +124473,7 @@ int16_t sub_AFF38(unsigned int a1, x_DWORD *a2, x_WORD *a3)
 	int v5; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124317,6 +124498,7 @@ int16_t sub_AFF7A(unsigned int a1, x_DWORD *a2, x_WORD *a3)
 	int v5; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124337,6 +124519,7 @@ int16_t sub_AFF7A(unsigned int a1, x_DWORD *a2, x_WORD *a3)
 int16_t sub_AFFBC(int16_t result, unsigned int a2, x_DWORD *a3, x_BYTE *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124354,6 +124537,7 @@ int16_t sub_AFFBC(int16_t result, unsigned int a2, x_DWORD *a3, x_BYTE *a4)
 int16_t sub_AFFE3(int16_t result, unsigned int a2, x_DWORD *a3, x_BYTE *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124374,6 +124558,7 @@ int16_t sub_B000D(int16_t result, unsigned int a2, int16_t a3, x_DWORD *a4, x_BY
 	int v5; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124396,6 +124581,7 @@ int16_t sub_B0042(int16_t result, unsigned int a2, int16_t a3, x_DWORD *a4, x_BY
 	int v5; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124419,6 +124605,7 @@ int16_t sub_B0077(unsigned int a1, x_DWORD *a2, int16_t *a3)
 	int v4; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124440,6 +124627,7 @@ int16_t sub_B00A4(unsigned int a1, x_DWORD *a2, int16_t *a3)
 	int v4; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124463,6 +124651,7 @@ int16_t sub_B00D4(unsigned int a1, x_DWORD *a2, int16_t *a3)
 	int v5; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124487,6 +124676,7 @@ int16_t sub_B010B(unsigned int a1, x_DWORD *a2, int16_t *a3)
 	int v5; // ebp
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124507,6 +124697,7 @@ int16_t sub_B010B(unsigned int a1, x_DWORD *a2, int16_t *a3)
 char sub_B0142(int a1, int a2, x_DWORD *a3, x_BYTE *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124522,6 +124713,7 @@ char sub_B0142(int a1, int a2, x_DWORD *a3, x_BYTE *a4)
 char sub_B015E(int a1, int a2, x_DWORD *a3, x_BYTE *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124538,6 +124730,7 @@ char sub_B015E(int a1, int a2, x_DWORD *a3, x_BYTE *a4)
 char sub_B0184(int a1, int a2, int a3, x_DWORD *a4, x_BYTE *a5)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124556,6 +124749,7 @@ char sub_B0184(int a1, int a2, int a3, x_DWORD *a4, x_BYTE *a5)
 char sub_B01AE(int a1, int a2, int a3, x_DWORD *a4, x_BYTE *a5)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124574,6 +124768,7 @@ char sub_B01AE(int a1, int a2, int a3, x_DWORD *a4, x_BYTE *a5)
 char sub_B01D9(int a1, int a2, int a3, x_DWORD *a4, x_BYTE *a5)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124592,6 +124787,7 @@ char sub_B01D9(int a1, int a2, int a3, x_DWORD *a4, x_BYTE *a5)
 char sub_B0203(int a1, int a2, int a3, x_DWORD *a4, x_BYTE *a5)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124610,6 +124806,7 @@ char sub_B0203(int a1, int a2, int a3, x_DWORD *a4, x_BYTE *a5)
 int sub_B022E(int result, x_DWORD *a2, x_DWORD *a3, x_WORD *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124627,6 +124824,7 @@ int sub_B022E(int result, x_DWORD *a2, x_DWORD *a3, x_WORD *a4)
 int sub_B0258(int result, x_DWORD *a2, x_DWORD *a3, x_WORD *a4)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124647,6 +124845,7 @@ int sub_B0292(int result, x_DWORD *a2, x_DWORD *a3, x_WORD *a4)
 	int16_t v4; // bx
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124668,6 +124867,7 @@ int sub_B02D5(int result, x_DWORD *a2, x_DWORD *a3, x_WORD *a4)
 	int16_t v4; // bx
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124689,6 +124889,7 @@ int sub_B0319(int result, x_DWORD *a2, x_DWORD *a3, x_WORD *a4)
 	int16_t v4; // bx
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124710,6 +124911,7 @@ int sub_B035C(int result, x_DWORD *a2, x_DWORD *a3, x_WORD *a4)
 	int16_t v4; // bx
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -124731,6 +124933,7 @@ int16_t sub_B03A0(x_DWORD *a1, x_DWORD *a2, int16_t *a3)
 	int16_t result; // ax
 
 // FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// // do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124749,6 +124952,7 @@ int16_t sub_B03C5(x_DWORD *a1, x_DWORD *a2, int16_t *a3)
 	int16_t result; // ax
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124769,6 +124973,7 @@ int16_t sub_B03FA(x_DWORD *a1, x_DWORD *a2, int16_t *a3)
 	int16_t v4; // bx
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124790,6 +124995,7 @@ int16_t sub_B0432(x_DWORD *a1, x_DWORD *a2, int16_t *a3)
 	int16_t v4; // bx
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124811,6 +125017,7 @@ int16_t sub_B046B(x_DWORD *a1, x_DWORD *a2, int16_t *a3)
 	int16_t result; // ax
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124832,6 +125039,7 @@ int16_t sub_B04A3(x_DWORD *a1, x_DWORD *a2, int16_t *a3)
 	int16_t result; // ax
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a3 >= x_DWORD_E4E24)
@@ -124850,6 +125058,7 @@ int16_t sub_B04A3(x_DWORD *a1, x_DWORD *a2, int16_t *a3)
 char sub_B04DC(int a1, int a2, unsigned int a3, x_DWORD *a4, x_BYTE *a5)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124867,6 +125076,7 @@ char sub_B04DC(int a1, int a2, unsigned int a3, x_DWORD *a4, x_BYTE *a5)
 char sub_B0503(int a1, int a2, unsigned int a3, x_DWORD *a4, x_BYTE *a5)
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124887,6 +125097,7 @@ char sub_B0534(int a1, int a2, unsigned int a3, int a4, x_DWORD *a5, x_BYTE *a6)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a6 >= x_DWORD_E4E24)
@@ -124909,6 +125120,7 @@ char sub_B056C(int a1, int a2, unsigned int a3, int a4, x_DWORD *a5, x_BYTE *a6)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a6 >= x_DWORD_E4E24)
@@ -124931,6 +125143,7 @@ char sub_B05A5(int a1, int a2, unsigned int a3, int a4, x_DWORD *a5, x_BYTE *a6)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a6 >= x_DWORD_E4E24)
@@ -124953,6 +125166,7 @@ char sub_B05DD(int a1, int a2, unsigned int a3, int a4, x_DWORD *a5, x_BYTE *a6)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a6 >= x_DWORD_E4E24)
@@ -124975,6 +125189,7 @@ int sub_B0616(int result, x_DWORD *a2, unsigned int a3, x_DWORD *a4, x_WORD *a5)
 	int v5; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -124996,6 +125211,7 @@ int sub_B064E(int result, x_DWORD *a2, unsigned int a3, x_DWORD *a4, x_WORD *a5)
 	int v5; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -125019,6 +125235,7 @@ int sub_B0696(int result, x_DWORD *a2, unsigned int a3, x_DWORD *a4, x_WORD *a5)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -125043,6 +125260,7 @@ int sub_B06E7(int result, x_DWORD *a2, unsigned int a3, x_DWORD *a4, x_WORD *a5)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -125067,6 +125285,7 @@ int sub_B0739(int result, x_DWORD *a2, unsigned int a3, x_DWORD *a4, x_WORD *a5)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -125091,6 +125310,7 @@ int sub_B078A(int result, x_DWORD *a2, unsigned int a3, x_DWORD *a4, x_WORD *a5)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a5 >= x_DWORD_E4E24)
@@ -125115,6 +125335,7 @@ int16_t sub_B07DC(x_DWORD *a1, unsigned int a2, x_DWORD *a3, int16_t *a4)
 	int v5; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -125136,6 +125357,7 @@ int16_t sub_B080F(x_DWORD *a1, unsigned int a2, x_DWORD *a3, int16_t *a4)
 	int v5; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -125159,6 +125381,7 @@ int16_t sub_B0852(x_DWORD *a1, unsigned int a2, x_DWORD *a3, int16_t *a4)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -125183,6 +125406,7 @@ int16_t sub_B0898(x_DWORD *a1, unsigned int a2, x_DWORD *a3, int16_t *a4)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -125207,6 +125431,7 @@ int16_t sub_B08DF(x_DWORD *a1, unsigned int a2, x_DWORD *a3, int16_t *a4)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -125231,6 +125456,7 @@ int16_t sub_B0925(x_DWORD *a1, unsigned int a2, x_DWORD *a3, int16_t *a4)
 	int v6; // ebp
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// do
 	// {
 	// 	if ((unsigned int)a4 >= x_DWORD_E4E24)
@@ -125274,6 +125500,7 @@ int sub_B0B87(HDIGDRIVER a1, int a2)
 	{
 		x_DWORD_E4E1C |= 8u;
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// v5 = (Bit8u*)(a2 * (a1->half_buffer_size_4 >> 1) + (int)a1->DMA_11_12[0]);//fix
 	}
 	else
@@ -125304,8 +125531,10 @@ void sub_B0C1A(HDIGDRIVER a1)
 void sub_B0C46()
 {
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_9D590_lock_linear_region((Bit8u*)&x_DWORD_E4E1C, (unsigned int)&x_WORD_E4E3C);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_9D590_lock_linear_region((Bit8u*)off_AEB40, (unsigned int)sub_B0C46);
 }
 
@@ -125332,11 +125561,13 @@ signed int sub_B1138(signed int *a1, signed int a2)
 	signed int v5; // eax
 
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// result = (int)calloc(a2, 4);
 	*a1 = result;
 	if (result)
 	{
 		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// result = (int)calloc(a2, 4);
 		a1[1] = result;
 		if (result)
@@ -125374,6 +125605,7 @@ int sub_B11E8(x_DWORD *a1, int a2)
 	v2 = (x_DWORD *)a1[3];
 	v3 = v2;
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// a1[3] = (x_DWORD)(v2 + 1);
 	*v2 = a2;
 	if (*a1 + 4 * a1[2] == a1[3])
@@ -125846,6 +126078,7 @@ int sub_B1FB5(int a1, int a2, signed int *a3)
 
 	sub_B3BA6(*a3, a1 + 108);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = sub_B337C(a2 + a1 + 28, a1 + 108, (int)a3);
 	return (*(int(/*__fastcall*/ **)(int, int, int))(a1 + 118))(v3, v4, a2 + a1 + 28);
 }
@@ -125862,6 +126095,7 @@ int sub_B1FD4(int a1, int a2, signed int *a3)
 
 	sub_B3BA6(*a3, a1 + 108);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = sub_B37B0(a2 + a1 + 28, a1 + 108, (int)a3);
 	return (*(int(/*__fastcall*/ **)(int, int, int))(a1 + 118))(v3, v4, a2 + a1 + 28);
 }
@@ -125907,6 +126141,7 @@ int sub_B2069(int a1, int a2, signed int *a3)
 
 	sub_B3BA6(*a3, a1 + 108);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = sub_B35DB(a2 + a1 + 28, a1 + 108, (x_BYTE *)a1, (int)a3);
 	return (*(int(/*__fastcall*/ **)(int, int, int))(a1 + 118))(v3, v4, a2 + a1 + 28);
 }
@@ -125923,6 +126158,7 @@ int sub_B2088(int a1, int a2, signed int *a3)
 
 	sub_B3BA6(*a3, a1 + 108);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = sub_B35DB(a1 + 108, a2 + a1 + 28, (x_BYTE *)a1, (int)a3);
 	return (*(int(/*__fastcall*/ **)(int, int, int))(a1 + 118))(v3, v4, a2 + a1 + 28);
 }
@@ -125978,6 +126214,8 @@ char sub_B2121(int a1, int16_t *a2)
 	v18 = *a2;
 	*(x_WORD *)a1 = *a2;
 	v19 = v18 & 0x300;
+	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// if (v19 == 768)
 	// {
 	// 	;// *(x_DWORD*)(a1 + 118) = (x_DWORD)sub_B1C58;
@@ -125985,11 +126223,13 @@ char sub_B2121(int a1, int16_t *a2)
 	// else if (v19 == 512)
 	// {
 	// 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// 	// *(x_DWORD *)(a1 + 118) = (x_DWORD)sub_B1DC8;
 	// }
 	// else
 	// {
 	// 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// 	// *(x_DWORD *)(a1 + 118) = (x_DWORD)sub_B1D8C;
 	// }
 	return 1;
@@ -126021,6 +126261,7 @@ int sub_B2183(int a1, int a2, int *a3)
 
 	sub_B399A(*a3, a1 + 108);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = sub_B337C(a2 + a1 + 28, a1 + 108, (int)a3);
 	return (*(int(/*__fastcall*/ **)(int, int, int))(a1 + 118))(v3, v4, a2 + a1 + 28);
 }
@@ -126037,6 +126278,7 @@ int sub_B21A2(int a1, int a2, int *a3)
 
 	sub_B399A(*a3, a1 + 108);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = sub_B37B0(a2 + a1 + 28, a1 + 108, (int)a3);
 	return (*(int(/*__fastcall*/ **)(int, int, int))(a1 + 118))(v3, v4, a2 + a1 + 28);
 }
@@ -126105,6 +126347,7 @@ char sub_B22AF(x_WORD *a1, int a2, x_DWORD *a3, int a4, int16_t a5, int a6, int 
 	v19 = *(x_DWORD *)((char *)a1 + a2 + 32);
 	v20 = *(x_DWORD *)((char *)a1 + a2 + 34);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_B3C6B((unsigned int)a1 + a2 + 28, *a1 & 0xC00);
 	sub_B392B((int*)a1 + a2 + 28);
 	*a3 = v21;
@@ -126143,6 +126386,7 @@ int sub_B230F(int a1, int a2, int64_t *a3)
 
 	sub_B39E0(*a3, a1 + 108, (x_BYTE *)a1);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = sub_B337C(a2 + a1 + 28, a1 + 108, (int)a3);
 	return (*(int(/*__fastcall*/ **)(int, int, int))(a1 + 118))(v3, v4, a2 + a1 + 28);
 }
@@ -126159,6 +126403,7 @@ int sub_B2332(int a1, int a2, int64_t *a3)
 
 	sub_B39E0(*a3, a1 + 108, (x_BYTE *)a1);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = sub_B37B0(a2 + a1 + 28, a1 + 108, (int)a3);
 	return (*(int(/*__fastcall*/ **)(int, int, int))(a1 + 118))(v3, v4, a2 + a1 + 28);
 }
@@ -126315,6 +126560,7 @@ int sub_B256E(int a1, int a2, int16_t *a3)
 
 	sub_B399A(*a3, a1 + 108);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = sub_B337C(a2 + a1 + 28, a1 + 108, (int)a3);
 	return (*(int(/*__fastcall*/ **)(int, int, int))(a1 + 118))(v3, v4, a2 + a1 + 28);
 }
@@ -126331,6 +126577,7 @@ int sub_B258F(int a1, int a2, int16_t *a3)
 
 	sub_B399A(*a3, a1 + 108);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// v3 = sub_B37B0(a2 + a1 + 28, a1 + 108, (int)a3);
 	return (*(int(/*__fastcall*/ **)(int, int, int))(a1 + 118))(v3, v4, a2 + a1 + 28);
 }
@@ -126399,6 +126646,7 @@ char sub_B26AC(x_WORD *a1, int a2, x_WORD *a3, int a4, int16_t a5, int a6, int a
 	v22 = *(x_DWORD *)((char *)a1 + a2 + 32);
 	v21 = *(x_DWORD *)((char *)a1 + a2 + 34);
 	// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_B3C6B((unsigned int)a1 + a2 + 28, *a1 & 0xC00);
 	sub_B392B((int*)a1 + a2 + 28);
 	if ((int16_t)v18 != v18)
@@ -126621,6 +126869,7 @@ char sub_B2912(int a1, int a2, int16_t bx0, int a3, int16_t a4, int a5, int a6, 
 	*(x_DWORD *)(a1 + 108) = x_DWORD_B184C[0];
 	*(x_DWORD *)(a1 + 112) = x_DWORD_B184C[1];
 	// FIXME: function pointer arithmetic
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	//*(x_WORD *)(a1 + 116) = (x_WORD)off_B1854;
 	v20 = sub_B3542(a2 + a1 + 28, a1 + 108);
 	v18 = *(x_WORD *)(a1 + 4) & 0xB8FF;
@@ -128265,6 +128514,7 @@ int16_t /*__spoils<ecx>*/ sub_B3EAE(int a1, x_BYTE *a2, int a3)//294eae
 			*(x_WORD *)(v3 + 8) = v18;
 		}
 		// FIXME: called with wrong types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// result = sub_B4A2A((int *)v3, (int)&x_WORD_B3D9E, a3);
 		v8 = v21 & 1;
 		v22 = v21 >> 1;
@@ -128514,6 +128764,7 @@ int sub_B423C(int a1, x_BYTE *a2)//29523c
 	*(x_DWORD *)(v2 + 4) = v13;
 	*(x_WORD *)(v2 + 8) = 16382;
 	// FIXME: called with wrong type
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_B49D8((int)&x_DWORD_B41B8, v8);
 	v16 = v14;
 	v17 = v15;
@@ -128521,6 +128772,7 @@ int sub_B423C(int a1, x_BYTE *a2)//29523c
 	v19 = *(x_DWORD *)(v2 + 4);
 	LOWORD(v8) = *(x_WORD *)(v2 + 8);
 	// FIXME: called with wrong type
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// sub_B49D8((int)&x_WORD_B419A, v8);
 	v8 = __ROL4__(v8, 16);
 	LOWORD(v8) = 16382;
@@ -128642,12 +128894,14 @@ int sub_B44D4(int a1, int a2)//2954d4
 			LOWORD(v7) = *(x_WORD *)(v6 + 8);
 			sub_B37DA(*(_QWORD *)v6, *(x_DWORD *)(v6 + 4), *(x_DWORD *)v6, v7);
 			// FIXME: called with wrong type
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_B49D8((int)x_DWORD_B4468 + 10 * v21, v7);
 			v24 = v12;
 			v25 = v7;
 			v10 = v11;
 		}
 		// FIXME: called with wrong types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// if (!(x_BYTE)v10 || HIBYTE(v10) == 1)
 		// 	sub_B4A2A((int *)v6, (int)&x_WORD_B440E[5 * v21], v7);
 	}
@@ -128865,6 +129119,7 @@ int /*__fastcall*/ sub_B4718(int a1, int a2, int a3, int a4)//295718
 	*(x_WORD *)(v4 + 8) = v26;
 	v30 = v44;
 	v31 = sub_B46F0; // FIXME: no function pointers
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	while (v30)
 	{
 		v11 = v30 & 1;
@@ -128887,6 +129142,7 @@ int /*__fastcall*/ sub_B4718(int a1, int a2, int a3, int a4)//295718
 			v30 = v44;
 		}
 		// v31 = (int(*)())((char *)v31 + 10);  // FIXME: no pointer arithmetic with function pointers
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	}
 	v36 = v45;
 	*(x_WORD *)(v4 + 8) += v45;
