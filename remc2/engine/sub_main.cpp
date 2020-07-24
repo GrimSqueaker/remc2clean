@@ -91323,7 +91323,7 @@ type_E9C08* sub_72120(uint16_t a1)//253120
 
 	v1 = a1;
 	sub_83CC0(9);
-	v2x = (type_E9C08*)malloc(6);
+	v2x = (type_E9C08*)malloc(sizeof(type_E9C08));
 	v3x = v2x;
 	if (v2x && (v4 = (type_animations1*)malloc(28 * a1), (v2x->dword_2 = v4) != 0))
 	{
@@ -97307,15 +97307,11 @@ int debugcounter_7D400=0;
 //----- (0007D400) --------------------------------------------------------
 void sub_7D400_draw_texts_and_play_sounds(int a1, int16_t a2, int16_t a3, char a4)//25e400
 {
-	//x_WORD *v4; // ebx
 	int v4x;
 	int v5; // edx
-	//int16_t v6; // cx
-	//Bit8u* i; // ebx
 	int ix;
 	uint8_t v8; // al
 	char v9; // cl
-	//x_WORD *jj; // ebx
 	uint16_t v11; // ax
 	int v12; // edx
 	char v13; // dl
@@ -97324,64 +97320,40 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, int16_t a2, int16_t a3, char a
 	Bit16s v16; // eax
 	int v17; // eax
 	int v18x; // edi
-	//char *v20; // eax
 	int v20x;
-	//char *v21; // edx
 	int v21x;
-	//x_WORD *v22; // eax
 	int v22x;
 	int16_t v23; // bx
-	//int16_t *k; // eax
 	Bit16u v25[18]; // [esp+0h] [ebp-54h]
-	//int16_t v26; // [esp+2h] [ebp-52h] v25[1]
-	//int16_t v27; // [esp+4h] [ebp-50h] v25[2]
-	//int16_t v28; // [esp+6h] [ebp-4Eh] v25[3]
-	//int16_t v29; // [esp+8h] [ebp-4Ch] v25[4]
-	//int16_t v30; // [esp+Ch] [ebp-48h] v25[5]
-	//int16_t v31; // [esp+Eh] [ebp-46h] v25[6]
 	Bit16s v32; // [esp+10h] [ebp-44h]
-	//int v33; // [esp+24h] [ebp-30h]//22
 	Bit8s v33x[22];
-	//int16_t v34; // [esp+30h] [ebp-24h]//v33x[0xc]
-	//int16_t v35; // [esp+32h] [ebp-22h]//v33x[0xe]
-	//int v36; // [esp+34h] [ebp-20h]//v33x[0x10]
 
 	Bit8u* v37; // [esp+3Ch] [ebp-18h]
 	Bit8u* v38; // [esp+40h] [ebp-14h]
 	posistruct* v38s;
 	int v39; // [esp+44h] [ebp-10h]
-	//x_WORD *v40; // [esp+48h] [ebp-Ch]
-	//char *v41; // [esp+4Ch] [ebp-8h]
 	int v40x;
 	int v41x;
 	int v42; // [esp+50h] [ebp-4h]
 
-	//fix it
 	v5 = 0;
 	v12 = 0;
 	v14 = 0;
 	v15 = 0;
-	//fix it
 
 	debugcounter_7D400++;
 
 	v42 = -1;
-	//v4 = (x_WORD*)x_BYTE_E25ED_db;
 	v4x = 0;
 	v41x = -1;
 	v40x = -1;
 	v39 = j___clock();
 	while (x_BYTE_E25ED_db_str[v4x].word_8)
 	{
-		//if (x_WORD_E1964x[0x21E] != 1 || x_BYTE_E25ED_db_str[v4x].word_12 != 85 && x_BYTE_E25ED_db_str[v4x].word_12 != 86)
 		if (unk_E17CC_str_0x194[24].byte_18_act != 1 || x_BYTE_E25ED_db_str[v4x].word_12 != 85 && x_BYTE_E25ED_db_str[v4x].word_12 != 86)
 			sub_81CA0(a2, v5, a2, a3, &x_BYTE_E25ED_db_str[v4x]);
-		//v4 += 15;
 		v4x++;
 	}
-	//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
-	//for (i = unk_E17CC_0x194; *((x_WORD *)i + 2); i += 22)//draw new game flag
-	//unk_E17CC_str_0x194
 	for (ix = 0; unk_E17CC_str_0x194[ix].word_4; ix++)//draw new game flag
 	{
 		v8 = unk_E17CC_str_0x194[ix].byte_18_act;
@@ -97389,7 +97361,6 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, int16_t a2, int16_t a3, char a
 		{
 			if (v8 <= 1u)
 			{
-				//v41 = (char*)i;
 				v41x = ix;
 				sub_7E5A0_pre_draw(a2, v5, a2, a3, (Bit8u*)&unk_E17CC_str_0x194[ix], 37, 43);
 			}
@@ -97399,7 +97370,6 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, int16_t a2, int16_t a3, char a
 				if (a4 == 3 || a4 == 5)
 				{
 					v9 = unk_E17CC_str_0x194[ix].byte_19;
-					//v40 = (x_WORD*)i;
 					v40x = ix;
 					if (v9)
 					{
@@ -97427,8 +97397,6 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, int16_t a2, int16_t a3, char a
 		if (unk_E17CC_str_0x194[ix].byte_18_act == 2)
 			break;
 	}
-	//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
-	//for (jj = x_WORD_E2970; jj[6]; jj = (x_WORD *)((char *)jj + 17))
 	for(int jjx=0; x_WORD_E2970x[jjx].word_12;jjx++)
 	{
 		v11 = x_WORD_E2970x[jjx].word_12;
@@ -97483,8 +97451,6 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, int16_t a2, int16_t a3, char a
 			x_WORD_E2970x[jjx].dword_0 = *(x_DWORD *)v33x;
 		}
 	}
-	//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
-	//LOBYTE(j) = a4;
 	if (a4 == 3 && x_D41A0_BYTEARRAY_4_struct.byteindex_10 == 1)
 	{
 		v38 = x_DWORD_17DE38str.x_DWORD_17DEC0;
@@ -97494,19 +97460,12 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, int16_t a2, int16_t a3, char a
 
 		v38s = xy_DWORD_17DEC0_spritestr;//fixed
 		xy_DWORD_17DEC0_spritestr = xy_DWORD_17DEC8_spritestr;//fixed
-		/*
-		posistruct* xy_DWORD_17DED4_spritestr;
-posistruct* xy_DWORD_17DEC0_spritestr;
-posistruct* xy_DWORD_17DEC8_spritestr;
-		*/
 
-		//HIWORD(v16) = HIWORD(x_DWORD_17DECC);
 		if (x_DWORD_17DB70str.x_WORD_17DB74 == 0)
 		{
 			if (!x_DWORD_17DB70str.x_WORD_17DB74)
 			{
 				v16 = v40x != -1;
-				//BYTE1(v16) = 0;
 				v17 = v16 + 1;
 				x_DWORD_17DB70str.x_WORD_17DB74 = v17;
 				x_DWORD_17DB70str.x_DWORD_17DB70 = j___clock();
@@ -97571,23 +97530,19 @@ posistruct* xy_DWORD_17DEC8_spritestr;
 		x_DWORD_17DE38str.x_DWORD_17DEC4 = v37;
 		xy_DWORD_17DEC0_spritestr = v38s;
 	}
-	//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 	if (x_DWORD_17DB70str.x_BYTE_17DB8E)
 		return;
 
 	if (x_DWORD_17DB70str.x_WORD_17DB8A != -1)
 	{
-		//v20 = (char *)unk_E17CC_0x194;
 		v20x = 0;
 		v21x = -1;
 		while (unk_E17CC_str_0x194[v20x].word_4)
 		{
 			if (unk_E17CC_str_0x194[v20x].byte_18_act == 1)
 				v21x = v20x;
-			//v20 += 22;
 			v20x++;
 		}
-		//v22 = (x_WORD*)unk_E17CC_0x194;
 		v22x = 0;
 		v23 = 0;
 		while (unk_E17CC_str_0x194[v22x].word_4)
@@ -97597,12 +97552,9 @@ posistruct* xy_DWORD_17DEC8_spritestr;
 				sub_7DA70(unk_E17CC_str_0x194[v22x].word_12_x, unk_E17CC_str_0x194[v22x].word_14_y, unk_E17CC_str_0x194[v21x].word_12_x, unk_E17CC_str_0x194[v21x].word_14_y, a2, a3);
 				return;
 			}
-			//v22 += 11;
 			v22x++;
-			//++v23;
 			v23++;
 		}
-		//for (k = x_WORD_E2970; k[6]; k = (int16_t *)((char *)k + 17))
 		for(int kk=0; x_WORD_E2970x[kk].word_12;kk++)
 		{
 			if (x_DWORD_17DB70str.x_WORD_17DB8A == x_WORD_E2970x[kk].word_6)
@@ -97613,16 +97565,17 @@ posistruct* xy_DWORD_17DEC8_spritestr;
 		}
 		return;
 	}
-	//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 	if ((v41x!=-1) && (v40x!=-1))
 	{
 		sub_7DA70(unk_E17CC_str_0x194[v41x].word_12_x, unk_E17CC_str_0x194[v41x].word_14_y, unk_E17CC_str_0x194[v40x].word_12_x, unk_E17CC_str_0x194[v40x].word_14_y, a2, a3);
 		return;
 	}
-	//VGA_Debug_Blit(640, 480, x_DWORD_180628b_screen_buffer);
 	if ((v41x != -1) && (v40x != -1))
 		return;
-	sub_7DA70(unk_E17CC_str_0x194[v41x].word_12_x, unk_E17CC_str_0x194[v41x].word_14_y, unk_E17CC_str_0x194[23].word_12_x, unk_E17CC_str_0x194[23].word_14_y, a2, a3);
+
+// FIXME: value, reached with v41x == -1
+std::cout << "FIXME: values @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+	//sub_7DA70(unk_E17CC_str_0x194[v41x].word_12_x, unk_E17CC_str_0x194[v41x].word_14_y, unk_E17CC_str_0x194[23].word_12_x, unk_E17CC_str_0x194[23].word_14_y, a2, a3);
 }
 
 //----- (0007DA70) --------------------------------------------------------
