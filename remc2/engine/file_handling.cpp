@@ -880,8 +880,10 @@ int do_unpack_data(vars_t *v)
 	if (crc_block(v->input, v->input_offset, v->packed_size) != v->packed_crc)
 		return 4;
 
-	v->mem1 = (uint8_t*)malloc(0xFFFF);
-	v->decoded = (uint8_t*)malloc(0xFFFF);
+	v->mem1 = (uint8_t*)malloc(0x10000);
+	v->decoded = (uint8_t*)malloc(0x10000);
+	//v->mem1 = (uint8_t*)malloc(0xFFFF);
+	//v->decoded = (uint8_t*)malloc(0xFFFF);
 	v->pack_block_start = &v->mem1[0xFFFD];
 	v->window = &v->decoded[v->dict_size];
 

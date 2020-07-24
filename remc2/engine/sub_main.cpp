@@ -103483,6 +103483,7 @@ char sub_86860_speak_Sound(uint16_t a1)//267860
 {
 	// FIXME: pointer arithmetic
 std::cout << "FIXME: pointer arithmetic @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+return '\0';
 	// int v2; // esi
 	// int16_t v3; // ax
 
