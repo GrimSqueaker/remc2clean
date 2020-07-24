@@ -136,12 +136,22 @@ if (UNIX)
     #)
     #target_compile_options(${PROJECT_NAME} PRIVATE
     #)
-    #target_link_options(${PROJECT_NAME} PRIVATE
-    #)
+    if (USE_SANITIZERS)
+    target_link_options(${PROJECT_NAME} PRIVATE
+        -fsanitize=address
+        -fsanitize=pointer-compare
+        -fsanitize=pointer-subtract
+        -fsanitize=leak
+        -fsanitize=undefined
+        -static-libasan
+        -static-liblsan
+        -static-libubsan
+    )
+    endif ()
     target_link_libraries(${PROJECT_NAME} PUBLIC 
         ${SDL2_LIBRARIES}
         ${SDL_MIXER_LIBRARY}
-	SDL2
+    	SDL2
         ${PNG_LIBRARY}
         findfirst
     )

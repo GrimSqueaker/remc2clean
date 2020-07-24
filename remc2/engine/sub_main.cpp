@@ -1245,7 +1245,6 @@ char sub_15910(type_str_0x6E8E* a1);
 void sub_159E0();
 // unsigned int sub_15CB0(unsigned int a1, int a2);
 void sub_15D20(type_str_0x6E8E* a1);
-// char sub_15D40(int16_t a1, int a2, int a3);
 bool sub_15E60(type_str_0x6E8E* a1);
 char sub_15EE0();
 signed int sub_15F20(type_str_0x6E8E* a1, int16_t a2, signed int a3);
@@ -2475,7 +2474,7 @@ int16_t sub_71F20(type_x_DWORD_E9C28_str* a1, Bit8u* a2);
 void sub_720C0(type_x_DWORD_E9C28_str** a1);
 
 type_E9C08* sub_72120(uint16_t a1);
-type_animations1* sub_721C0_initTmap(type_E9C08* a1, int *a2, int16_t a3);
+type_animations1* sub_721C0_initTmap(type_E9C08* a1, Bit32u* a2, int16_t a3);
 void sub_72350(type_animations1* a1);
 uint16_t sub_723B0(type_animations1* a1, char a2);
 x_DWORD *sub_72410(x_DWORD *a1);
@@ -3509,7 +3508,6 @@ int x_DWORD_D40BC[51] =  // weak//min 16*3 //2a50bc
 
 Bit8u* x_DWORD_D4188 = 0; // weak
 Bit8u* x_DWORD_D418C=0; // weak
-int x_DWORD_D4190 = 0; // weak
 Bit8u* x_DWORD_D4198 = 0; // weak
 char x_BYTE_D419C_level_num = -1; // weak
 char x_BYTE_D419D_fonttype = 1; // weak
@@ -12102,10 +12100,9 @@ int sub_10C80(type_str_0x6E8E* a1x, uint8_t a2, uint16_t a3)//1f1c80
 
 			if (sub_10750(a1x, jjx))
 			{
-				//v6 = 0;v21 = 0; //fix it
-			  //v6 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(jj + 70) + 4);
+// FIXME: filearray
+std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				v6 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[jjx->byte_0x46_70].width;//fix it;
-			  //v21 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(jj + 70) + 5);
 				v21 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[jjx->byte_0x46_70].height;//fix it;
 				if (x_WORD_180660_VGA_type_resolution == 1)
 				{
@@ -12116,6 +12113,8 @@ int sub_10C80(type_str_0x6E8E* a1x, uint8_t a2, uint16_t a3)//1f1c80
 				v20 = (a1x->array_0x4C_76.y >> 8) - (v21 >> 1);
 				if ((v20 + v22) % 2)
 					v22++;
+// FIXME: filearray
+std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				if (*((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[jjx->byte_0x46_70].data
 							  + 2
 							  * ((a1x->array_0x4C_76.x >> 8) - v22 + ((a1x->array_0x4C_76.y >> 8) - v20) * v6)) != -1 )
@@ -12197,6 +12196,8 @@ void sub_46B40_alt()//227b40
   sub_54600_mouse_reset();
 
   //here must have alternative arrays
+// FIXME: filearray
+std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
   sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
   sub_6EBF0(&filearray_2aa18c[filearrayindex_MSPRD00DATTAB]);
   sub_6EBF0(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);
@@ -12219,6 +12220,8 @@ void sub_46B40_alt()//227b40
   }
   sub_47160();//reload graphics
   //here must have alternative arrays
+// FIXME: filearray
+std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
   sub_6EB90(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
   sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);
   //
@@ -12249,6 +12252,8 @@ void sub_46B40_alt()//227b40
   else
     sub_728A9_clear_graphics_alt((void*)x_DWORD_180628b_screen_buffer, alt_resolution_height, v3);
   sub_8CEDF_install_mouse();
+// FIXME: filearray
+std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
   sub_8CD27_set_cursor(*(*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct));
   x_D41A0_BYTEARRAY_4_struct.byteindex_51 = 2;
   if (x_WORD_180660_VGA_type_resolution == 1)
@@ -33443,7 +33448,7 @@ void sub_2D710_draw_top_menu(type_str_0x6E8E* a1x)//20e710
 	//v1 = *(uint8_t *)(*filearray_2aa18c[6] + 244) + 2;
 	v1 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[40].width+2;
 	//adress 20e7db
-	v18 = *(Bit32u*)&x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4];
+	v18 = x_D41A0_BYTEARRAY_4_struct.byteindex_242ar_4;
 	//v20 = a1x->dword_0xA4_164;
 	v2x = x_DWORD_EA3E4[a1x->dword_0xA4_164x->word_0x3A_58];
 	v23x = v2x;
@@ -55269,7 +55274,6 @@ void sub_46F50_sound_proc7()//227f50
 //----- (00046F80) --------------------------------------------------------
 void sub_46F80()//227f80
 {
-	uint8_t v0; // al
 	char *v1; // esi
 	int v2; // esi
 	char *result; // eax
@@ -55278,106 +55282,88 @@ void sub_46F80()//227f80
 	unsigned int v6; // esi
 	unsigned int v7; // esi
 	int v8; // [esp+0h] [ebp-2h]
-	int v9; // [esp+4h] [ebp+2h]
-	int v10; // [esp+8h] [ebp+6h]
-	int v11; // [esp+Ch] [ebp+Ah]
-	int16_t v12; // [esp+10h] [ebp+Eh]
-	//char v13; // [esp+40h] [ebp+3Eh]
 	int v14; // [esp+80h] [ebp+7Eh]
 
+	MC2File web_dat;
+	MC2File web_tab;
+
 	sub_47130();
-	v0 = D41A0_BYTESTR_0.str_2FECE.byte_level_type;
-	if (v0 >= 1u)
-	{
-		if (v0 <= 1u)
-		{
-			if (x_WORD_180660_VGA_type_resolution == 1)
-			{
-				strcpy(printbuffer, "data/mwebn0-0.dat");
-				v1 = (char*)"data/mwebn0-0.tab";
-			}
-			else
-			{
-				strcpy(printbuffer, "data/hwebn0-0.dat");
-				v1 = (char*)"data/hwebn0-0.tab";
-			}
-		}
-		else
-		{
-			if (v0 != 2)
-				goto LABEL_16;
-			if (x_WORD_180660_VGA_type_resolution == 1)
-			{
-				strcpy(printbuffer, "data/mwebc0-0.dat");
-				v1 = (char*)"data/mwebc0-0.tab";
-			}
-			else
-			{
-				strcpy(printbuffer, "data/hwebc0-0.dat");
-				v1 = (char*)"data/hwebc0-0.tab";
-			}
-		}
-		goto LABEL_15;
+	MC2LevelType level_type = D41A0_BYTESTR_0.str_2FECE.byte_level_type;
+	if (level_type == MC2LevelType::Day && x_WORD_180660_VGA_type_resolution == 1) {
+		web_dat = MC2File::data_mwebd00_dat;
+		web_tab = MC2File::data_mwebd00_tab;
 	}
-	if (!v0)
-	{
-		if (x_WORD_180660_VGA_type_resolution == 1)
-		{
-			strcpy(printbuffer, "data/mwebd0-0.dat");
-			v1 = (char*)"data/mwebd0-0.tab";
-		}
-		else
-		{
-			strcpy(printbuffer, "data/hwebd0-0.dat");
-			v1 = (char*)"data/hwebd0-0.tab";
-		}
-	LABEL_15:
-		v8 = *(x_DWORD *)v1;
-		// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-		// v2 = (int)(v1 + 4);
-		v9 = *(x_DWORD *)v2;
-		v2 += 4;
-		v10 = *(x_DWORD *)v2;
-		v2 += 4;
-		v11 = *(x_DWORD *)v2;
-		v12 = *(x_WORD *)(v2 + 4);
+	else if (level_type == MC2LevelType::Day && x_WORD_180660_VGA_type_resolution != 1) {
+		web_dat = MC2File::data_hwebd00_dat;
+		web_tab = MC2File::data_hwebd00_tab;
 	}
-LABEL_16:
-	result = (char *)sub_53E60_readfile_and_decompress(printbuffer, &x_DWORD_180628b_screen_buffer);
-	// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-	// // if ((signed int)result > 0)
-	// {
-	// 	v4 = (int)(result + 8);
-	// 	LOBYTE(v4) = v4 & 0xF8;
-	// 	v14 = v4;
-	// 	Bit8u* x = &x_DWORD_180628b_screen_buffer[v4];
-	// 	result = (char *)sub_53E60_readfile_and_decompress((char*)&v8, &x); //fix it
-	// 	v5 = result;
-	// 	if ((signed int)result > 0)
-	// 	{
-	// 		// FIXME: types
-	// 		// v6 = (unsigned int)&result[v14];
-	// 		// FIXME: types
-	// 		// result = (char *)malloc((int)&result[v14]);
-	// 		x_DWORD_D4188 = (Bit8u*)result;
-	// 		if (result)
-	// 		{
-	// 			qmemcpy(result, (void *)x_DWORD_180628b_screen_buffer, v6);
-	// 			x_DWORD_D418C = &x_DWORD_D4188[v14];
-	// 			// FIXME: types
-	// 			// v7 = (unsigned int)&v5[(int)x_DWORD_D4188 + v14];
-	// 			// FIXME: types
-	// 			// x_DWORD_D4190 = (int)&v5[(int)x_DWORD_D4188 + v14];
-	// 			if (x_WORD_180660_VGA_type_resolution & 1)
-	// 				sub_98709_create_index_dattab_power((Bit8u*)x_DWORD_D4188 + v14, (Bit8u*)v7, (Bit8u*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
-	// 			else
-	// 				sub_9874D_create_index_dattab((Bit8u*)(x_DWORD_D4188 + v14), (Bit8u*)v7, (Bit8u*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
-	// 		}
-	// 	}
-	// }
-	//return result;
+	else if (level_type == MC2LevelType::Night && x_WORD_180660_VGA_type_resolution == 1) {
+		web_dat = MC2File::data_mwebn00_dat;
+		web_tab = MC2File::data_mwebn00_tab;
+	}
+	else if (level_type == MC2LevelType::Night && x_WORD_180660_VGA_type_resolution != 1) {
+		web_dat = MC2File::data_hwebn00_dat;
+		web_tab = MC2File::data_hwebn00_tab;
+	}
+	else if (level_type == MC2LevelType::Cave && x_WORD_180660_VGA_type_resolution == 1) {
+		web_dat = MC2File::data_mwebc00_dat;
+		web_tab = MC2File::data_mwebc00_tab;
+	}
+	else if (level_type == MC2LevelType::Cave && x_WORD_180660_VGA_type_resolution != 1) {
+		web_dat = MC2File::data_hwebc00_dat;
+		web_tab = MC2File::data_hwebc00_tab;
+	}
+	//	strcpy(printbuffer, "data/hwebd0-0.dat");
+	//	v1 = (char*)"data/hwebd0-0.tab";
+
+	// FIXME: dattab loading
+std::cout << "FIXME: dattab loading @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+
+//      INFOS: dat loaded into x_DWORD_180628b_screen_buffer 
+//      INFOS: tab loaded into x_DWORD_180628b_screen_buffer[v4] = x
+//      INFOS: x_DWORD_D4188 is assigned the tab buffer
+//      INFOS: x_DWORD_D4190 is assigned the tab buffer -> not needed
+//      INFOS: sub_9874D_create_index_dattab((Bit8u*)(x_DWORD_D4188 + v14), (Bit8u*)v7, (Bit8u*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
+//      //void sub_9874D_create_index_dattab(Bit8u* tabbuffer, Bit8u* tabbufferend, Bit8u* datbuffer, posistruct* dattabindex)//27974d
+//      //{
+//      
+//      
+//      	v8 = *(x_DWORD *)v1;
+//      
+//      	result = (char *)sub_53E60_readfile_and_decompress(printbuffer, &x_DWORD_180628b_screen_buffer);
+//      	// FIXME: types
+//      std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+//      	// // if ((signed int)result > 0)
+//      	// {
+//      	// 	v4 = (int)(result + 8);
+//      	// 	LOBYTE(v4) = v4 & 0xF8;
+//      	// 	v14 = v4;
+//      	// 	Bit8u* x = &x_DWORD_180628b_screen_buffer[v4];
+//      	// 	result = (char *)sub_53E60_readfile_and_decompress((char*)&v8, &x); //fix it
+//      	// 	v5 = result;
+//      	// 	if ((signed int)result > 0)
+//      	// 	{
+//      	// 		// FIXME: types
+//      	// 		// v6 = (unsigned int)&result[v14];
+//      	// 		// FIXME: types
+//      	// 		// result = (char *)malloc((int)&result[v14]);
+//      	// 		x_DWORD_D4188 = (Bit8u*)result;
+//      	// 		if (result)
+//      	// 		{
+//      	// 			qmemcpy(result, (void *)x_DWORD_180628b_screen_buffer, v6);
+//      	// 			x_DWORD_D418C = &x_DWORD_D4188[v14];
+//      	// 			// FIXME: types
+//      	// 			// v7 = (unsigned int)&v5[(int)x_DWORD_D4188 + v14];
+//      	// 			// FIXME: types
+//      	// 			// x_DWORD_D4190 = (int)&v5[(int)x_DWORD_D4188 + v14];
+//      	// 			if (x_WORD_180660_VGA_type_resolution & 1)
+//      	// 				sub_98709_create_index_dattab_power((Bit8u*)x_DWORD_D4188 + v14, (Bit8u*)v7, (Bit8u*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
+//      	// 			else
+//      	// 				sub_9874D_create_index_dattab((Bit8u*)(x_DWORD_D4188 + v14), (Bit8u*)v7, (Bit8u*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
+//      	// 		}
+//      	// 	}
+//      	// }
+//      	//return result;
 }
 
 //----- (00047130) --------------------------------------------------------
@@ -55388,7 +55374,6 @@ void sub_47130()//228130
 		sub_83E80_freemem4(x_DWORD_D4188);
 		x_DWORD_D4188 = 0;
 		x_DWORD_D418C = 0;
-		x_DWORD_D4190 = 0;
 	}
 }
 
@@ -55505,8 +55490,6 @@ void sub_47320_in_game_loop(signed int a1)//228320
 
 		sub_47560_draw_and_events_in_game(/*2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0, 2124 * D41A0_BYTESTR_0.word_0xc,*/ v1, a1, x_DWORD_17DB54_game_turn2);
 		v3 = v2 + 5;
-		/*while (v3 > x_DWORD_17DB54_game_turn2)
-			;*/ // timer only for origin sound 
 		if (v1 < 2)
 		{
 			sub_8E020_sound_proc14_stopsequence();
@@ -55515,7 +55498,6 @@ void sub_47320_in_game_loop(signed int a1)//228320
 			v1++;
 		}
 	}
-	//return (int)result;
 }
 
 //----- (000473B0) --------------------------------------------------------
@@ -57279,48 +57261,26 @@ int debugcounter_22a270 = 0;
 
 void sub_49270_generate_level_features(type_str_2FECE* a1x)//22a270
 {
-	//debug
-//x_WORD_15B4E0_source 32c4e0
-//x_BYTE_11B4E0_height 2ec4e0
-//x_BYTE_13B4E0_angle 30c4e0
-//x_BYTE_10B4E0_terraintype 2dc4e0
-//x_BYTE_12B4E0_shading 2fc4e0
 	Bit8u origbyte = 0;
 	Bit8u remakebyte = 0;
 	sub_49830(a1x);
-	//adress 22A27D
 	sub_49290(a1x, 1);
 }
 
 //----- (00049290) --------------------------------------------------------
 void sub_49290(type_str_2FECE* a1x, char a2)//22a290
 {
-	//Bit16u* i; // ebx
 	int ix;
-	//Bit16u v3; // ax
-	///Bit16u* j; // ebx
 	int jx;
 	Bit16u v5; // cx
-	//Bit16u v6; // ax
-	//Bit16u* k; // ebx
 	int kx;
 	Bit16u v8; // dx
-	//Bit16u v9; // ax
-	//Bit16u* l; // ebx
 	int lx;
-	//Bit16u v11; // ax
-	//Bit16u* m; // ebx
 	int mx;
 	Bit16u v13; // ax
-	//Bit16u v14; // ax
-	//Bit16u* n; // ebx
 	int nx;
-	//Bit16u v16; // ax
-	//Bit16u* ii; // ebx
 	int iix;
-	//Bit16u v18; // ax
 
-	//for (i = (Bit16u*)(a1 + 1111); (Bit8u*)i < a1 + 25091; i += 10)
 	for (ix = 1; ix<0x4b0; ix++)
 	{
 		if (a1x->array_0x30311[ix].DisId == 0xffff && a1x->array_0x30311[ix].str_0x30311_type == 0x000a && a1x->array_0x30311[ix].str_0x30311_subtype == 0x52)
@@ -57328,17 +57288,12 @@ void sub_49290(type_str_2FECE* a1x, char a2)//22a290
 			sub_49540(a1x, &a1x->array_0x30311[ix]);
 			if (a2)
 				a1x->array_0x30311[ix].str_0x30311_type = 0;
-			/*else
-				v3 = a1x->array_0x30311[ix].str_0x30311_type;
-			a1x->array_0x30311[ix].str_0x30311_type = v3;*/
 		}
 	}
 	sub_498A0();//adress 22a2de
 	Bit8u origbyte = 0;
 	Bit8u remakebyte = 0;
 
-	//	compsize = compare_with_snapshot((char*)"0160-00256200-2", x_DWORD_180628b_screen_buffer, 0x3aa0a4, 640 * height, &origbyte, &remakebyte);//4c
-	//for (j = (Bit16u*)(a1 + 1111); (Bit8u*)j < a1 + 25091; j += 10)
 	for (jx = 1; jx < 0x4b0; jx++)
 	{
 		if (a1x->array_0x30311[jx].DisId == 0xffff && a1x->array_0x30311[jx].str_0x30311_type == 0x000a)
@@ -57361,16 +57316,12 @@ void sub_49290(type_str_2FECE* a1x, char a2)//22a290
 				sub_49540(a1x, &a1x->array_0x30311[jx]);//22a357
 				if (a2)
 					a1x->array_0x30311[jx].str_0x30311_type = 0;
-				/*else
-					v6 = a1x->array_0x30311[jx].str_0x30311_type;
-				a1x->array_0x30311[jx].str_0x30311_type = v6;*/
 			}
 		}
 	}
 	origbyte = 0;
 	remakebyte = 0;
 	sub_498A0();//22a383
-	//for (k = (Bit16u*)(a1 + 1111); (Bit8u*)k < a1 + 25091; k += 10)
 	for (kx = 1; kx < 0x4b0; kx++) 
 	{
 		if (a1x->array_0x30311[kx].DisId == 0xffff && a1x->array_0x30311[kx].str_0x30311_type == 0x000a)
@@ -57381,14 +57332,10 @@ void sub_49290(type_str_2FECE* a1x, char a2)//22a290
 				sub_49540(a1x, &a1x->array_0x30311[kx]);
 				if (a2)
 					a1x->array_0x30311[kx].str_0x30311_type = 0;
-				/*else
-					v9 = a1x->array_0x30311[kx].str_0x30311_type;
-				a1x->array_0x30311[kx].str_0x30311_type = v9;*/
 			}
 		}
 	}
 	sub_498A0();//adress 22a3d7
-	//for (l = (Bit16u*)(a1 + 1111); (Bit8u*)l < a1 + 25091; l += 10)
 	for (lx = 1; lx < 0x4b0; lx++)
 	{
 		if (a1x->array_0x30311[lx].DisId == 0xffff && a1x->array_0x30311[lx].str_0x30311_type == 0x000e && a1x->array_0x30311[lx].str_0x30311_subtype == 0x0002)
@@ -57396,14 +57343,10 @@ void sub_49290(type_str_2FECE* a1x, char a2)//22a290
 			sub_49540(a1x, &a1x->array_0x30311[lx]);
 			if (a2)
 				a1x->array_0x30311[lx].str_0x30311_type = 0;
-			/*else
-				v11 = a1x->array_0x30311[lx].str_0x30311_type;
-			a1x->array_0x30311[lx].str_0x30311_type = v11;*/
 		}
 	}
 	sub_498A0();//22a422
 
-	//for (m = (Bit16u*)(a1 + 1111); (Bit8u*)m < a1 + 25091; m += 10)
 	for (mx = 1; mx < 0x4b0; mx++)
 	{
 		if (a1x->array_0x30311[mx].DisId == 0xffff && a1x->array_0x30311[mx].str_0x30311_type == 0x000a)
@@ -57414,14 +57357,10 @@ void sub_49290(type_str_2FECE* a1x, char a2)//22a290
 				sub_49540(a1x, &a1x->array_0x30311[mx]);
 				if (a2)
 					a1x->array_0x30311[mx].str_0x30311_type = 0;
-				/*else
-					v14 = a1x->array_0x30311[mx].str_0x30311_type;
-				a1x->array_0x30311[mx].str_0x30311_type = v14;*/
 			}
 		}
 	}
 	sub_498A0();//adress 22a476
-	//for (n = (Bit16u*)(a1 + 1111); (Bit8u*)n < a1 + 25091; n += 10)
 	for (nx = 1; nx < 0x4b0; nx++)
 	{
 		if (a1x->array_0x30311[nx].DisId == 0xffff && a1x->array_0x30311[nx].str_0x30311_type == 0x000a && a1x->array_0x30311[nx].str_0x30311_subtype == 0x002d && x_WORD_D93C0_bldgprmbuffer[2+4 * a1x->array_0x30311[nx].word_14] & 0x10)
@@ -57429,15 +57368,10 @@ void sub_49290(type_str_2FECE* a1x, char a2)//22a290
 			sub_49540(a1x, &a1x->array_0x30311[nx]);
 			if (a2)
 				a1x->array_0x30311[nx].str_0x30311_type = 0;
-			/*else
-				v16 = a1x->array_0x30311[nx].str_0x30311_type;
-			a1x->array_0x30311[nx].str_0x30311_type = v16;*/
 		}
 	}
 	sub_498A0();//adress 22a4d1
 	
-	//	compsize = compare_with_snapshot((char*)"0160-00256200-2", x_DWORD_180628b_screen_buffer, 0x3aa0a4, 640 * height, &origbyte, &remakebyte);//4c
-	//for (ii = (Bit16u*)(a1 + 1111); (Bit8u*)ii < a1 + 25091; ii += 10)
 	for (iix = 1; iix < 0x4b0; iix++) 
 	{
 		if (a1x->array_0x30311[iix].DisId == 0xffff && a1x->array_0x30311[iix].str_0x30311_type == 0x000a && a1x->array_0x30311[iix].str_0x30311_subtype == 0x002d && !(x_WORD_D93C0_bldgprmbuffer[2+4 * a1x->array_0x30311[iix].word_14] & 0x10))
@@ -57445,9 +57379,6 @@ void sub_49290(type_str_2FECE* a1x, char a2)//22a290
 			sub_49540(a1x, &a1x->array_0x30311[iix]);
 			if (a2)
 				a1x->array_0x30311[iix].str_0x30311_type = 0;
-			/*else
-				v18 = a1x->array_0x30311[iix].str_0x30311_type;
-			a1x->array_0x30311[iix].str_0x30311_type = v18;*/
 		}
 	}
 	sub_498A0();//adress 22a52c
@@ -59202,1698 +59133,1724 @@ void pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1_6E8E,int type)//pre
 #endif
 	switch (adress)
 	{
-// FIXME: types
+		case 0x1f3910: {
+			sub_12910(a1_6E8E);
+			break;
+		}
+		case 0x1f3a70: {
+			sub_12A70(a1_6E8E);
+			break;
+		}
+		case 0x1f3e70: {
+			sub_12E70(a1_6E8E);
+			break;
+		}
+		case 0x1f3ff0: {
+			sub_12FF0(a1_6E8E);
+			break;	
+		}
+		case 0x1f4100: {
+			sub_13100(a1_6E8E);
+			break;
+		}
+
+		case 0x1f41f0: {
+			sub_131F0(a1_6E8E);
+			break;
+		}
+		case 0x1f4270: {
+			sub_13270(a1_6E8E);
+			break;
+		}
+		case 0x1f43b0: {
+			sub_133B0(a1_6E8E);
+			break;
+		}
+		case 0x1f45c0: {
+			sub_135C0(a1_6E8E);
+			break;
+		}
+		case 0x1f4710: {
+			sub_13710(a1_6E8E);
+			break;
+		}
+
+		case 0x1f4830: {
+			sub_13830(a1_6E8E);
+			break;
+		}
+		case 0x1f4850: {
+			sub_13850(a1_6E8E);
+			break;
+		}
+		case 0x1f4870: {
+			sub_13870(a1_6E8E);
+			break;
+		}
+		case 0x1f4890: {
+			sub_13890(a1_6E8E);
+			break;
+		}
+		case 0x1f4b00: {
+			sub_13B00(a1_6E8E);
+			break;
+		}
+
+		case 0x1f4c50: {
+			sub_13C50(a1_6E8E);
+			break;
+		}
+		case 0x1f4ce0: {
+			sub_13CE0(a1_6E8E);
+			break;
+		}
+		case 0x1f4dc0: {
+			sub_13DC0(a1_6E8E);
+			break;
+		}
+		case 0x1f4e40: {
+			sub_13E40(a1_6E8E);
+			break;
+		}
+		case 0x1f5030: {
+			sub_14030(a1_6E8E);
+			break;
+		}
+
+		case 0x1f5250: {
+			sub_14250(a1_6E8E);
+			break;
+		}
+		case 0x1f5530: {
+			sub_14530(a1_6E8E);
+			break;
+		}
+		case 0x1f5630: {
+			sub_14630(a1_6E8E);
+			break;
+		}
+		/*case 0x1f56c0: {
+			sub_146C0(a1_6E8E,0);
+			break;
+		}*/
+		case 0x1f56f0: {
+			sub_146F0(a1_6E8E);
+			break;
+		}
+
+		case 0x1f58e0: {
+			sub_148E0(a1_6E8E);
+			break;
+		}
+		/*case 0x1f5b10: {
+			sub_14B10(a1_6E8E,0);
+			break;
+		}
+		case 0x1f5bd0: {
+			sub_14BD0(a1_6E8E,0);
+			break;
+		}*/
+		case 0x1f5c40: {
+			sub_14C40(a1_6E8E);
+			break;
+		}
+		/*case 0x1f5c60: {
+			sub_14C60(a1_6E8E,0);
+			break;
+		}*/
+
+		case 0x1f5c90: {
+			sub_14C90(a1_6E8E,0,0,0);
+			break;
+		}
+		case 0x1f5e10: {
+			sub_14E10(a1_6E8E,0);
+			break;
+		}
+		case 0x1f6170: {
+			sub_15170(a1_6E8E,0);
+			break;
+		}
+		case 0x1f65e0: {
+			sub_155E0(a1_6E8E);
+			break;
+		}
+		case 0x1f66f0: {
+			sub_156F0(a1_6E8E,0);
+			break;
+		}
+
+		case 0x1f6730: {
+			sub_15730(a1_6E8E,0);
+			break;
+		}
+		case 0x1f6760: {
+			sub_15760(a1_6E8E,0);
+			break;
+		}
+		case 0x1f6790: {
+			sub_15790(a1_6E8E);
+			break;
+		}
+		case 0x1f6910: {
+			sub_15910(a1_6E8E);
+			break;
+		}
+		case 0x1f69e0: {
+			sub_159E0();			 
+			break;
+		}
+
+		case 0x1f6cb0: {
+			sub_15CB0(a1_6E8E);
+			break;
+		}
+		case 0x1f6d20: {
+			sub_15D20(a1_6E8E);			 
+			break;
+		}
+		case 0x1f6d40: {
+			// FIXME: types
 std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-	// // 	case 0x1f3910: {
-	// 		sub_12910(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f3a70: {
-	// 		sub_12A70(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f3e70: {
-	// 		sub_12E70(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f3ff0: {
-	// 		sub_12FF0(a1_6E8E);
-	// 		break;	
-	// 	}
-	// 	case 0x1f4100: {
-	// 		sub_13100(a1_6E8E);
-	// 		break;
-	// 	}
+			// sub_15D40((short)a1_6E8E,0,0);
+			break;
+		}
+		case 0x1f6e60: {
+			sub_15E60(a1_6E8E);
+			break;
+		}
+		case 0x1f6ee0: {
+			sub_15EE0();
+			break;
+		}
 
-	// 	case 0x1f41f0: {
-	// 		sub_131F0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f4270: {
-	// 		sub_13270(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f43b0: {
-	// 		sub_133B0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f45c0: {
-	// 		sub_135C0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f4710: {
-	// 		sub_13710(a1_6E8E);
-	// 		break;
-	// 	}
+		case 0x1f6f20: {
+			sub_15F20(a1_6E8E,0,0);
+			break;
+		}
+		case 0x1f6fc0: {
+			sub_15FC0(a1_6E8E);
+			break;
+		}
+		case 0x1f71a0: {
+			sub_161A0(a1_6E8E);
+			break;
+		}
+		case 0x1f74b0: {
+			sub_164B0(a1_6E8E);
+			break;
+		}
+		case 0x1f7580: {
+			sub_16580(a1_6E8E);
+			break;
+		}
 
-	// 	case 0x1f4830: {
-	// 		sub_13830(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f4850: {
-	// 		sub_13850(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f4870: {
-	// 		sub_13870(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f4890: {
-	// 		sub_13890(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f4b00: {
-	// 		sub_13B00(a1_6E8E);
-	// 		break;
-	// 	}
+		case 0x1f7730: {
+			sub_16730(a1_6E8E,0);
+			break;
+		}
+		case 0x1f79c0: {
+			sub_169C0(a1_6E8E);
+			break;
+		}
+		/*case 0x1f7ca0: {
+			sub_16CA0(a1_6E8E,0,0);
+			break;
+		}*/
+		/*case 0x1f7e70: {
+			sub_16E70((Bit8u*)a1_6E8E,0);
+			break;
+		}*/
+		case 0x1f7fc0: {
+			sub_16FC0(a1_6E8E,0);
+			break;
+		}
 
-	// 	case 0x1f4c50: {
-	// 		sub_13C50(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f4ce0: {
-	// 		sub_13CE0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f4dc0: {
-	// 		sub_13DC0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f4e40: {
-	// 		sub_13E40(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f5030: {
-	// 		sub_14030(a1_6E8E);
-	// 		break;
-	// 	}
+		case 0x1f8060: {
+			sub_16730(a1_6E8E,0);			 
+			break;
+		}
+		case 0x1f8190: {
+			sub_169C0(a1_6E8E);			 
+			break;
+		}
+		/*case 0x1f8a00: {
+			sub_16CA0(a1_6E8E,0,0);			 
+			break;
+		}*/
+		/*case 0x1f9aa0: {
+			sub_16E70((Bit8u*)a1_6E8E,0);			 
+			break;
+		}*/
+		case 0x1f9b30: {
+			sub_16FC0(a1_6E8E,0);			 
+			break;
+		}
 
-	// 	case 0x1f5250: {
-	// 		sub_14250(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f5530: {
-	// 		sub_14530(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f5630: {
-	// 		sub_14630(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	/*case 0x1f56c0: {
-	// 		sub_146C0(a1_6E8E,0);
-	// 		break;
-	// 	}*/
-	// 	case 0x1f56f0: {
-	// 		sub_146F0(a1_6E8E);
-	// 		break;
-	// 	}
+		case 0x1f9bb0: {
+			sub_18BB0();			 
+			break;
+		}
+		case 0x1f9da0: {
+			sub_18DA0(a1_6E8E,0,0);
+			break;
+		}
+		case 0x1f9f80: {
+			sub_18F80(a1_6E8E);			 
+			break;
+		}
+		case 0x1fa1b0: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_191B0((short)a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fa760: {
+			sub_19760_set_message((const char*)a1_6E8E,0,0);			 
+			break;
+		}
 
-	// 	case 0x1f58e0: {
-	// 		sub_148E0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	/*case 0x1f5b10: {
-	// 		sub_14B10(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1f5bd0: {
-	// 		sub_14BD0(a1_6E8E,0);
-	// 		break;
-	// 	}*/
-	// 	case 0x1f5c40: {
-	// 		sub_14C40(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	/*case 0x1f5c60: {
-	// 		sub_14C60(a1_6E8E,0);
-	// 		break;
-	// 	}*/
+		case 0x1fa7f0: {
+			sub_197F0();			 
+			break;
+		}
+		case 0x1faa50: {
+			sub_19A50();			 
+			break;
+		}
+		case 0x1faab0: {
+			sub_19AB0();			 
+			break;
+		}
+		case 0x1faca0: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_19CA0_sound_proc5((unsigned char)a1_6E8E);			 
+			break;
+		}
+		case 0x1fad60: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_19D60((int)a1_6E8E/*,0*/);			 
+			break;
+		}
 
-	// 	case 0x1f5c90: {
-	// 		sub_14C90(a1_6E8E,0,0,0);
-	// 		break;
-	// 	}
-	// 	case 0x1f5e10: {
-	// 		sub_14E10(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1f6170: {
-	// 		sub_15170(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1f65e0: {
-	// 		sub_155E0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f66f0: {
-	// 		sub_156F0(a1_6E8E,0);
-	// 		break;
-	// 	}
+		case 0x1fae00: {
+			sub_19E00();			 
+			break;
+		}
+		case 0x1fb030: {
+			sub_1A030();			 
+			break;
+		}
+		case 0x1fb070: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_1A070((int)a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fb280: {
+			sub_1A280();			 
+			break;
+		}
+		case 0x1fb4a0: {
+			sub_1A4A0();
+			break;
+		}
 
-	// 	case 0x1f6730: {
-	// 		sub_15730(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1f6760: {
-	// 		sub_15760(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1f6790: {
-	// 		sub_15790(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f6910: {
-	// 		sub_15910(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f69e0: {
-	// 		sub_159E0();			 
-	// 		break;
-	// 	}
-
-	// 	case 0x1f6cb0: {
-	// 		sub_15CB0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f6d20: {
-	// 		sub_15D20(a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1f6d40: {
-	// 		sub_15D40((short)a1_6E8E,0,0);
-	// 		break;
-	// 	}
-	// 	case 0x1f6e60: {
-	// 		sub_15E60(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f6ee0: {
-	// 		sub_15EE0();
-	// 		break;
-	// 	}
-
-	// 	case 0x1f6f20: {
-	// 		sub_15F20(a1_6E8E,0,0);
-	// 		break;
-	// 	}
-	// 	case 0x1f6fc0: {
-	// 		sub_15FC0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f71a0: {
-	// 		sub_161A0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f74b0: {
-	// 		sub_164B0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1f7580: {
-	// 		sub_16580(a1_6E8E);
-	// 		break;
-	// 	}
-
-	// 	case 0x1f7730: {
-	// 		sub_16730(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1f79c0: {
-	// 		sub_169C0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	/*case 0x1f7ca0: {
-	// 		sub_16CA0(a1_6E8E,0,0);
-	// 		break;
-	// 	}*/
-	// 	/*case 0x1f7e70: {
-	// 		sub_16E70((Bit8u*)a1_6E8E,0);
-	// 		break;
-	// 	}*/
-	// 	case 0x1f7fc0: {
-	// 		sub_16FC0(a1_6E8E,0);
-	// 		break;
-	// 	}
-
-	// 	case 0x1f8060: {
-	// 		sub_16730(a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1f8190: {
-	// 		sub_169C0(a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	/*case 0x1f8a00: {
-	// 		sub_16CA0(a1_6E8E,0,0);			 
-	// 		break;
-	// 	}*/
-	// 	/*case 0x1f9aa0: {
-	// 		sub_16E70((Bit8u*)a1_6E8E,0);			 
-	// 		break;
-	// 	}*/
-	// 	case 0x1f9b30: {
-	// 		sub_16FC0(a1_6E8E,0);			 
-	// 		break;
-	// 	}
-
-	// 	case 0x1f9bb0: {
-	// 		sub_18BB0();			 
-	// 		break;
-	// 	}
-	// 	case 0x1f9da0: {
-	// 		sub_18DA0(a1_6E8E,0,0);
-	// 		break;
-	// 	}
-	// 	case 0x1f9f80: {
-	// 		sub_18F80(a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fa1b0: {
-	// 		sub_191B0((short)a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fa760: {
-	// 		sub_19760_set_message((const char*)a1_6E8E,0,0);			 
-	// 		break;
-	// 	}
-
-	// 	case 0x1fa7f0: {
-	// 		sub_197F0();			 
-	// 		break;
-	// 	}
-	// 	case 0x1faa50: {
-	// 		sub_19A50();			 
-	// 		break;
-	// 	}
-	// 	case 0x1faab0: {
-	// 		sub_19AB0();			 
-	// 		break;
-	// 	}
-	// 	case 0x1faca0: {
-	// 		sub_19CA0_sound_proc5((unsigned char)a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fad60: {
-	// 		sub_19D60((int)a1_6E8E/*,0*/);			 
-	// 		break;
-	// 	}
-
-	// 	case 0x1fae00: {
-	// 		sub_19E00();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fb030: {
-	// 		sub_1A030();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fb070: {
-	// 		sub_1A070((int)a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fb280: {
-	// 		sub_1A280();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fb4a0: {
-	// 		sub_1A4A0();
-	// 		break;
-	// 	}
-
-	// 	case 0x1fb5b0: {
-	// 		sub_1A5B0_getLangStrings((int)a1_6E8E,0,0);
-	// 		break;
-	// 	}
-	// 	case 0x1fb7a0: {
-	// 		sub_1A7A0_fly_asistant();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fb8a0: {
-	// 		sub_1A8A0();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fb970: {
-	// 		sub_1A970_change_game_settings((char)a1_6E8E,0,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc280: {
-	// 		sub_1B280_run_intro_events((Bit8u*)a1_6E8E);			 
-	// 		break;
-	// 	}
+		case 0x1fb5b0: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_1A5B0_getLangStrings((int)a1_6E8E,0,0);
+			break;
+		}
+		case 0x1fb7a0: {
+			sub_1A7A0_fly_asistant();			 
+			break;
+		}
+		case 0x1fb8a0: {
+			sub_1A8A0();			 
+			break;
+		}
+		case 0x1fb970: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_1A970_change_game_settings((char)a1_6E8E,0,0);			 
+			break;
+		}
+		case 0x1fc280: {
+			sub_1B280_run_intro_events((Bit8u*)a1_6E8E);			 
+			break;
+		}
 
 	
-	// 	case 0x1fc2e6: {
-	// 		sub_loc_1B2E6();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc2f7: {
-	// 		sub_loc_1B2F7((Bit8u*)a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc316: {
-	// 		sub_loc_1B316((Bit8u)a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc334: {
-	// 		sub_loc_1B334((Bit8u*)a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc352: {
-	// 		sub_loc_1B352((Bit8u*)a1_6E8E);			 
-	// 		break;
-	// 	}
+		case 0x1fc2e6: {
+			sub_loc_1B2E6();			 
+			break;
+		}
+		case 0x1fc2f7: {
+			sub_loc_1B2F7((Bit8u*)a1_6E8E);			 
+			break;
+		}
+		case 0x1fc316: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_loc_1B316((Bit8u)a1_6E8E);			 
+			break;
+		}
+		case 0x1fc334: {
+			sub_loc_1B334((Bit8u*)a1_6E8E);			 
+			break;
+		}
+		case 0x1fc352: {
+			sub_loc_1B352((Bit8u*)a1_6E8E);			 
+			break;
+		}
 
 
-	// 	case 0x1fc36c: {
-	// 		sub_loc_1B36C();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc37d: {
-	// 		sub_loc_1B37D((Bit8u*)a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc398: {
-	// 		sub_loc_1B398((Bit8u*)a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc3c9: {
-	// 		sub_loc_1B3C9((Bit8u*)a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc413: {
-	// 		sub_loc_1B413();			 
-	// 		break;
-	// 	}
+		case 0x1fc36c: {
+			sub_loc_1B36C();			 
+			break;
+		}
+		case 0x1fc37d: {
+			sub_loc_1B37D((Bit8u*)a1_6E8E);			 
+			break;
+		}
+		case 0x1fc398: {
+			sub_loc_1B398((Bit8u*)a1_6E8E);			 
+			break;
+		}
+		case 0x1fc3c9: {
+			sub_loc_1B3C9((Bit8u*)a1_6E8E);			 
+			break;
+		}
+		case 0x1fc413: {
+			sub_loc_1B413();			 
+			break;
+		}
 
 
-	// 	case 0x1fc424: {
-	// 		sub_loc_1B424((Bit16u)a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc450: {
-	// 		sub_loc_1B450();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc461: {
-	// 		sub_loc_1B461((Bit16u)a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc4a0: {
-	// 		sub_loc_1B4A0((Bit16u)a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc4df: {
-	// 		sub_loc_1B4DF((Bit16u)a1_6E8E,0);			 
-	// 		break;
-	// 	}
+		case 0x1fc424: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_loc_1B424((Bit16u)a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fc450: {
+			sub_loc_1B450();			 
+			break;
+		}
+		case 0x1fc461: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_loc_1B461((Bit16u)a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fc4a0: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_loc_1B4A0((Bit16u)a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fc4df: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_loc_1B4DF((Bit16u)a1_6E8E,0);			 
+			break;
+		}
 
 
-	// 	case 0x1fc51e: {
-	// 		sub_loc_1B51E((Bit8u*)a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc54a: {
-	// 		sub_loc_1B54A((Bit16u)a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc589: {
-	// 		sub_loc_1B589();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc5a7: {
-	// 		sub_loc_1B5A7();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc5bc: {
-	// 		sub_loc_1B5BC((int)a1_6E8E);			 
-	// 		break;
-	// 	}
+		case 0x1fc51e: {
+			sub_loc_1B51E((Bit8u*)a1_6E8E);			 
+			break;
+		}
+		case 0x1fc54a: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_loc_1B54A((Bit16u)a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fc589: {
+			sub_loc_1B589();			 
+			break;
+		}
+		case 0x1fc5a7: {
+			sub_loc_1B5A7();			 
+			break;
+		}
+		case 0x1fc5bc: {
+			// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			// sub_loc_1B5BC((int)a1_6E8E);			 
+			break;
+		}
 
-	// 	case 0x1fc5cb: {
-	// 		sub_loc_1B5CB();			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc5f0: {
-	// 		sub_1B5F0();
-	// 		break;
-	// 	}
-	// 	case 0x1fc6b0: {
-	// 		sub_1B6B0(a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fc7a0: {
-	// 		sub_1B7A0_tile_compare((axis_3d*)a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1fc830: {
-	// 		sub_1B830((axis_3d*)a1_6E8E);
-	// 		break;
-	// 	}
-
-
-
-	// 	case 0x1fc8c0: {
-	// 		sub_1B8C0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1fcd90: {
-	// 		sub_1BD90(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1fcf90: {
-	// 		sub_1BF90(a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fd310: {
-	// 		sub_1C310(a1_6E8E,0,0);
-	// 		break;
-	// 	}
-	// 	case 0x1fd560: {
-	// 		sub_1C560(a1_6E8E,0);			 
-	// 		break;
-	// 	}
-
-
-	// 	case 0x1fd890: {
-	// 		sub_1C890(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1fd930: {
-	// 		sub_1C930(a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fd980: {
-	// 		sub_1C980(a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fdc20: {
-	// 		sub_1CC20(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1fdce0: {
-	// 		sub_1CCE0(a1_6E8E,0);
-	// 		break;
-	// 	}
-
-
-	// 	case 0x1fdda0: {
-	// 		sub_1CDA0(a1_6E8E, 0);
-	// 		break;
-	// 	}
-	// 	case 0x1fde80: {
-	// 		sub_1CE80(a1_6E8E, 0);
-	// 		break;
-	// 	}
-	// 	case 0x1fded0: {
-	// 		sub_1CED0(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1fdf20: {
-	// 		sub_1CF20(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1fe0e0: {
-	// 		sub_1D0E0(a1_6E8E,0);
-	// 		break;
-	// 	}
-
-
-	// 	case 0x1fe1a0: {
-	// 		sub_1D1A0(a1_6E8E, 0);
-	// 		break;
-	// 	}
-	// 	case 0x1fe260: {
-	// 		sub_1D260(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1fe460: {
-	// 		sub_1D460(a1_6E8E,0);
-	// 		break;
-	// 	}
-	// 	case 0x1fe5d0: {
-	// 		sub_1D5D0(a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fe700: {
-	// 		sub_1D700(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
+		case 0x1fc5cb: {
+			sub_loc_1B5CB();			 
+			break;
+		}
+		case 0x1fc5f0: {
+			sub_1B5F0();
+			break;
+		}
+		case 0x1fc6b0: {
+			sub_1B6B0(a1_6E8E);			 
+			break;
+		}
+		case 0x1fc7a0: {
+			sub_1B7A0_tile_compare((axis_3d*)a1_6E8E);
+			break;
+		}
+		case 0x1fc830: {
+			sub_1B830((axis_3d*)a1_6E8E);
+			break;
+		}
 
 
 
-	// 	case 0x1fe7c0: {
-	// 		sub_1D7C0(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fe880: {
-	// 		sub_1D880(a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fe8a0: {
-	// 		sub_1D8A0(a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fe8c0: {
-	// 		sub_1D8C0(a1_6E8E,0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1febf0: {
-	// 		sub_1DBF0(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
+		case 0x1fc8c0: {
+			sub_1B8C0(a1_6E8E);
+			break;
+		}
+		case 0x1fcd90: {
+			sub_1BD90(a1_6E8E,0);
+			break;
+		}
+		case 0x1fcf90: {
+			sub_1BF90(a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fd310: {
+			sub_1C310(a1_6E8E,0,0);
+			break;
+		}
+		case 0x1fd560: {
+			sub_1C560(a1_6E8E,0);			 
+			break;
+		}
 
 
-	// 	case 0x1feda0: {
-	// 		sub_1DDA0(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1ff000: {
-	// 		sub_1E000(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1ff020: {
-	// 		sub_1E020(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1ff040: {
-	// 		sub_1E040(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1ff1c0: {
-	// 		sub_1E1C0(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
+		case 0x1fd890: {
+			sub_1C890(a1_6E8E,0);
+			break;
+		}
+		case 0x1fd930: {
+			sub_1C930(a1_6E8E);			 
+			break;
+		}
+		case 0x1fd980: {
+			sub_1C980(a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fdc20: {
+			sub_1CC20(a1_6E8E,0);
+			break;
+		}
+		case 0x1fdce0: {
+			sub_1CCE0(a1_6E8E,0);
+			break;
+		}
 
 
-	// 	case 0x1ff320: {
-	// 		sub_1E320(a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1ff3e0: {
-	// 		sub_1E3E0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1ff4d0: {
-	// 		sub_1E4D0(a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1ff580: {
-	// 		sub_1E580(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1ff700: {
-	// 		sub_1E700(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
+		case 0x1fdda0: {
+			sub_1CDA0(a1_6E8E, 0);
+			break;
+		}
+		case 0x1fde80: {
+			sub_1CE80(a1_6E8E, 0);
+			break;
+		}
+		case 0x1fded0: {
+			sub_1CED0(a1_6E8E,0);
+			break;
+		}
+		case 0x1fdf20: {
+			sub_1CF20(a1_6E8E,0);
+			break;
+		}
+		case 0x1fe0e0: {
+			sub_1D0E0(a1_6E8E,0);
+			break;
+		}
 
 
-	// 	case 0x1ff9c0: {
-	// 		sub_1E9C0(a1_6E8E, 0);			 
-	// 		break;
-	// 	}
-	// 	case 0x1ffd30: {
-	// 		sub_1ED30(a1_6E8E, 0);
-	// 		break;
-	// 	}
-	// 	case 0x1ffee0: {
-	// 		sub_1EEE0(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1fff20: {
-	// 		sub_1EF20(a1_6E8E);			 
-	// 		break;
-	// 	}
-	// 	case 0x1fff40: {
-	// 		sub_1EF40(a1_6E8E);
-	// 		break;
-	// 	}
-
-
-	// 	case 0x1fff70: {
-	// 		sub_1EF70(a1_6E8E);
-	// 		break;
-	// 	}
-	// 	case 0x1fffd0: {
-	// 		sub_1EFD0(a1_6E8E);
-	// 		break;
-	// 	}
+		case 0x1fe1a0: {
+			sub_1D1A0(a1_6E8E, 0);
+			break;
+		}
+		case 0x1fe260: {
+			sub_1D260(a1_6E8E,0);
+			break;
+		}
+		case 0x1fe460: {
+			sub_1D460(a1_6E8E,0);
+			break;
+		}
+		case 0x1fe5d0: {
+			sub_1D5D0(a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fe700: {
+			sub_1D700(a1_6E8E, 0);			 
+			break;
+		}
 
 
 
-
-	// case 0x200000: {
-	// 	sub_1F000(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x200020: {
-	// 	sub_1F020(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x200040: {
-	// 	sub_1F040(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2000c0: {
-	// 	sub_1F0C0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x200300: {
-	// 	sub_1F300(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x200340: {
-	// 	sub_1F340(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2003c0: {
-	// 	sub_1F3C0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200440: {
-	// 	sub_1F440(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200470: {
-	// 	sub_1F470(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2004f0: {//begin of goat kill
-	// 	sub_1F4F0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x200510: {//end of goat kill
-	// 	sub_1F510(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200530: {
-	// 	sub_1F530(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2005b0: {
-	// 	sub_1F5B0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200630: {
-	// 	sub_1F630(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200660: {
-	// 	sub_1F660(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x2006d0: {
-	// 	sub_1F6D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200800: {
-	// 	sub_1F800(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200830: {//maybe bee dead
-	// 	sub_1F830(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200850: {
-	// 	sub_1F850(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2008a0: {
-	// 	sub_1F8A0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x200950: {
-	// 	sub_1F950(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200970: {
-	// 	sub_1F970(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200990: {
-	// 	sub_1F990(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2009e0: {
-	// 	sub_1F9E0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200a00: {
-	// 	sub_1FA00(a1_6E8E);		 
-	// 	break;
-	// }
+		case 0x1fe7c0: {
+			sub_1D7C0(a1_6E8E, 0);			 
+			break;
+		}
+		case 0x1fe880: {
+			sub_1D880(a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fe8a0: {
+			sub_1D8A0(a1_6E8E,0);			 
+			break;
+		}
+		case 0x1fe8c0: {
+			sub_1D8C0(a1_6E8E,0);			 
+			break;
+		}
+		case 0x1febf0: {
+			sub_1DBF0(a1_6E8E, 0);			 
+			break;
+		}
 
 
-	// case 0x200a20: {
-	// 	sub_1FA20(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200a50: {
-	// 	sub_1FA50(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200a70: {
-	// 	sub_1FA70(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200aa0: {
-	// 	sub_1FAA0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x200f40: {//get scroll5-help
-	// 	sub_1FF40(a1_6E8E);		 
-	// 	break;
-	// }
+		case 0x1feda0: {
+			sub_1DDA0(a1_6E8E, 0);			 
+			break;
+		}
+		case 0x1ff000: {
+			sub_1E000(a1_6E8E, 0);			 
+			break;
+		}
+		case 0x1ff020: {
+			sub_1E020(a1_6E8E, 0);			 
+			break;
+		}
+		case 0x1ff040: {
+			sub_1E040(a1_6E8E, 0);			 
+			break;
+		}
+		case 0x1ff1c0: {
+			sub_1E1C0(a1_6E8E, 0);			 
+			break;
+		}
 
 
-	// case 0x200fe0: {
-	// 	sub_1FFE0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201010: {
-	// 	sub_20010(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201040: {
-	// 	sub_20040(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201060: {
-	// 	sub_20060(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2010f0: {
-	// 	sub_200F0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x201140: {//get scroll3
-	// 	sub_20140(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201370: {
-	// 	sub_20370(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2013d0: {
-	// 	sub_203D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201940: {
-	// 	sub_20940(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201c50: {
-	// 	sub_20C50(a1_6E8E);		 
-	// 	break;
-	// }
+		case 0x1ff320: {
+			sub_1E320(a1_6E8E);			 
+			break;
+		}
+		case 0x1ff3e0: {
+			sub_1E3E0(a1_6E8E);
+			break;
+		}
+		case 0x1ff4d0: {
+			sub_1E4D0(a1_6E8E);			 
+			break;
+		}
+		case 0x1ff580: {
+			sub_1E580(a1_6E8E, 0);			 
+			break;
+		}
+		case 0x1ff700: {
+			sub_1E700(a1_6E8E, 0);			 
+			break;
+		}
 
 
-	// case 0x201e50: {
-	// 	sub_20E50(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201e80: {
-	// 	sub_20E80(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201ea0: {
-	// 	sub_20EA0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201ec0: {
-	// 	sub_20EC0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201f20: {
-	// 	sub_20F20(a1_6E8E);		 
-	// 	break;
-	// }
+		case 0x1ff9c0: {
+			sub_1E9C0(a1_6E8E, 0);			 
+			break;
+		}
+		case 0x1ffd30: {
+			sub_1ED30(a1_6E8E, 0);
+			break;
+		}
+		case 0x1ffee0: {
+			sub_1EEE0(a1_6E8E);
+			break;
+		}
+		case 0x1fff20: {
+			sub_1EF20(a1_6E8E);			 
+			break;
+		}
+		case 0x1fff40: {
+			sub_1EF40(a1_6E8E);
+			break;
+		}
 
 
-	// case 0x201f60: {
-	// 	sub_20F60(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201f80: {
-	// 	sub_20F80(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x201fc0: {
-	// 	sub_20FC0(a1_6E8E);		 
-	// 	break;
-	// }
+		case 0x1fff70: {
+			sub_1EF70(a1_6E8E);
+			break;
+		}
+		case 0x1fffd0: {
+			sub_1EFD0(a1_6E8E);
+			break;
+		}
 
 
-	// case 0x202030: {
-	// 	sub_21030(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x202490: {
-	// 	sub_21490(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x202850: {
-	// 	sub_21850(a1_6E8E);
+
+
+	case 0x200000: {
+		sub_1F000(a1_6E8E);
+		break;
+	}
+	case 0x200020: {
+		sub_1F020(a1_6E8E);
+		break;
+	}
+	case 0x200040: {
+		sub_1F040(a1_6E8E);
+		break;
+	}
+	case 0x2000c0: {
+		sub_1F0C0(a1_6E8E);
+		break;
+	}
+	case 0x200300: {
+		sub_1F300(a1_6E8E);
+		break;
+	}
+
+	case 0x200340: {
+		sub_1F340(a1_6E8E);		 
+		break;
+	}
+	case 0x2003c0: {
+		sub_1F3C0(a1_6E8E);		 
+		break;
+	}
+	case 0x200440: {
+		sub_1F440(a1_6E8E);		 
+		break;
+	}
+	case 0x200470: {
+		sub_1F470(a1_6E8E);		 
+		break;
+	}
+	case 0x2004f0: {//begin of goat kill
+		sub_1F4F0(a1_6E8E);		 
+		break;
+	}
+
+	case 0x200510: {//end of goat kill
+		sub_1F510(a1_6E8E);		 
+		break;
+	}
+	case 0x200530: {
+		sub_1F530(a1_6E8E);		 
+		break;
+	}
+	case 0x2005b0: {
+		sub_1F5B0(a1_6E8E);		 
+		break;
+	}
+	case 0x200630: {
+		sub_1F630(a1_6E8E);		 
+		break;
+	}
+	case 0x200660: {
+		sub_1F660(a1_6E8E);		 
+		break;
+	}
+
+	case 0x2006d0: {
+		sub_1F6D0(a1_6E8E);		 
+		break;
+	}
+	case 0x200800: {
+		sub_1F800(a1_6E8E);		 
+		break;
+	}
+	case 0x200830: {//maybe bee dead
+		sub_1F830(a1_6E8E);		 
+		break;
+	}
+	case 0x200850: {
+		sub_1F850(a1_6E8E);		 
+		break;
+	}
+	case 0x2008a0: {
+		sub_1F8A0(a1_6E8E);		 
+		break;
+	}
+
+	case 0x200950: {
+		sub_1F950(a1_6E8E);		 
+		break;
+	}
+	case 0x200970: {
+		sub_1F970(a1_6E8E);		 
+		break;
+	}
+	case 0x200990: {
+		sub_1F990(a1_6E8E);		 
+		break;
+	}
+	case 0x2009e0: {
+		sub_1F9E0(a1_6E8E);		 
+		break;
+	}
+	case 0x200a00: {
+		sub_1FA00(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x200a20: {
+		sub_1FA20(a1_6E8E);		 
+		break;
+	}
+	case 0x200a50: {
+		sub_1FA50(a1_6E8E);		 
+		break;
+	}
+	case 0x200a70: {
+		sub_1FA70(a1_6E8E);		 
+		break;
+	}
+	case 0x200aa0: {
+		sub_1FAA0(a1_6E8E);		 
+		break;
+	}
+	case 0x200f40: {//get scroll5-help
+		sub_1FF40(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x200fe0: {
+		sub_1FFE0(a1_6E8E);		 
+		break;
+	}
+	case 0x201010: {
+		sub_20010(a1_6E8E);		 
+		break;
+	}
+	case 0x201040: {
+		sub_20040(a1_6E8E);		 
+		break;
+	}
+	case 0x201060: {
+		sub_20060(a1_6E8E);		 
+		break;
+	}
+	case 0x2010f0: {
+		sub_200F0(a1_6E8E);		 
+		break;
+	}
+
+	case 0x201140: {//get scroll3
+		sub_20140(a1_6E8E);		 
+		break;
+	}
+	case 0x201370: {
+		sub_20370(a1_6E8E);
+		break;
+	}
+	case 0x2013d0: {
+		sub_203D0(a1_6E8E);		 
+		break;
+	}
+	case 0x201940: {
+		sub_20940(a1_6E8E);		 
+		break;
+	}
+	case 0x201c50: {
+		sub_20C50(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x201e50: {
+		sub_20E50(a1_6E8E);		 
+		break;
+	}
+	case 0x201e80: {
+		sub_20E80(a1_6E8E);		 
+		break;
+	}
+	case 0x201ea0: {
+		sub_20EA0(a1_6E8E);		 
+		break;
+	}
+	case 0x201ec0: {
+		sub_20EC0(a1_6E8E);		 
+		break;
+	}
+	case 0x201f20: {
+		sub_20F20(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x201f60: {
+		sub_20F60(a1_6E8E);		 
+		break;
+	}
+	case 0x201f80: {
+		sub_20F80(a1_6E8E);		 
+		break;
+	}
+	case 0x201fc0: {
+		sub_20FC0(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x202030: {
+		sub_21030(a1_6E8E);		 
+		break;
+	}
+	case 0x202490: {
+		sub_21490(a1_6E8E);
+		break;
+	}
+	case 0x202850: {
+		sub_21850(a1_6E8E);
 		 
-	// 	break;
-	// }
-	// case 0x202ab0: {
-	// 	sub_21AB0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x202f60: {
-	// 	sub_21F60(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x203190: {
-	// 	sub_22190(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2031f0: {
-	// 	sub_221F0(a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x203270: {
-	// 	sub_22270(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2032b0: {
-	// 	sub_222B0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2033e0: {
-	// 	sub_223E0();		 
-	// 	break;
-	// }
-	// case 0x203490: {
-	// 	sub_22490(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x203530: {
-	// 	sub_22530(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x203540: {
-	// 	sub_22540(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x203550: {
-	// 	sub_22550(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x203560: {
-	// 	sub_22560(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x203580: {
-	// 	sub_22580(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2035a0: {
-	// 	sub_225A0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2035b0: {
-	// 	sub_225B0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x203640: {
-	// 	sub_22640((axis_3d*)a1_6E8E,0,0,0);
-	// 	break;
-	// }
-	// /*case 0x2036d0: {
-	// 	sub_226D0((unsigned short)a1_6E8E,0,0);
-	// 	break;
-	// }*/
-	// case 0x203760: {
-	// 	sub_22760(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x203c80: {
-	// 	sub_22C80(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x203e60: {
-	// 	sub_22E60(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x204020: {
-	// 	sub_23020(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2041e0: {
-	// 	sub_231E0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204200: {
-	// 	sub_23200(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204260: {
-	// 	sub_23260(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2042a0: {
-	// 	sub_232A0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2042c0: {
-	// 	sub_232C0();
-	// 	break;
-	// }
-	// case 0x204320: {
-	// 	sub_23320(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204340: {
-	// 	sub_23340(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204640: {
-	// 	sub_23640(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204660: {
-	// 	sub_23660(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204680: {//mana posses
-	// 	sub_23680(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2046f0: {
-	// 	sub_236F0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204710: {
-	// 	sub_23710(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204750: {
-	// 	sub_23750(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204790: {
-	// 	sub_23790(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2047b0: {
-	// 	sub_237B0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204ac0: {
-	// 	sub_23AC0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204ae0: {
-	// 	sub_23AE0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204b00: {
-	// 	sub_23B00(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204b30: {
-	// 	sub_23B30(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204b90: {//kill human with bag
-	// 	sub_23B90(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204bd0: {
-	// 	sub_23BD0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204c20: {
-	// 	sub_23C20(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204c40: {
-	// 	sub_23C40(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x204e60: {
-	// 	sub_23E60(a1_6E8E);		 
-	// 	break;
-	// }
+		break;
+	}
+	case 0x202ab0: {
+		sub_21AB0(a1_6E8E);		 
+		break;
+	}
+	case 0x202f60: {
+		sub_21F60(a1_6E8E);
+		break;
+	}
+	case 0x203190: {
+		sub_22190(a1_6E8E);
+		break;
+	}
+	case 0x2031f0: {
+		sub_221F0(a1_6E8E,0);
+		break;
+	}
+	case 0x203270: {
+		sub_22270(a1_6E8E);		 
+		break;
+	}
+	case 0x2032b0: {
+		sub_222B0(a1_6E8E);		 
+		break;
+	}
+	case 0x2033e0: {
+		sub_223E0();		 
+		break;
+	}
+	case 0x203490: {
+		sub_22490(a1_6E8E);		 
+		break;
+	}
+	case 0x203530: {
+		sub_22530(a1_6E8E);
+		break;
+	}
+	case 0x203540: {
+		sub_22540(a1_6E8E);
+		break;
+	}
+	case 0x203550: {
+		sub_22550(a1_6E8E);
+		break;
+	}
+	case 0x203560: {
+		sub_22560(a1_6E8E);		 
+		break;
+	}
+	case 0x203580: {
+		sub_22580(a1_6E8E);		 
+		break;
+	}
+	case 0x2035a0: {
+		sub_225A0(a1_6E8E);
+		break;
+	}
+	case 0x2035b0: {
+		sub_225B0(a1_6E8E);
+		break;
+	}
+	case 0x203640: {
+		sub_22640((axis_3d*)a1_6E8E,0,0,0);
+		break;
+	}
+	/*case 0x2036d0: {
+		sub_226D0((unsigned short)a1_6E8E,0,0);
+		break;
+	}*/
+	case 0x203760: {
+		sub_22760(a1_6E8E);
+		break;
+	}
+	case 0x203c80: {
+		sub_22C80(a1_6E8E);
+		break;
+	}
+	case 0x203e60: {
+		sub_22E60(a1_6E8E);
+		break;
+	}
+	case 0x204020: {
+		sub_23020(a1_6E8E);
+		break;
+	}
+	case 0x2041e0: {
+		sub_231E0(a1_6E8E);		 
+		break;
+	}
+	case 0x204200: {
+		sub_23200(a1_6E8E);		 
+		break;
+	}
+	case 0x204260: {
+		sub_23260(a1_6E8E);		 
+		break;
+	}
+	case 0x2042a0: {
+		sub_232A0(a1_6E8E);		 
+		break;
+	}
+	case 0x2042c0: {
+		sub_232C0();
+		break;
+	}
+	case 0x204320: {
+		sub_23320(a1_6E8E);		 
+		break;
+	}
+	case 0x204340: {
+		sub_23340(a1_6E8E);		 
+		break;
+	}
+	case 0x204640: {
+		sub_23640(a1_6E8E);		 
+		break;
+	}
+	case 0x204660: {
+		sub_23660(a1_6E8E);		 
+		break;
+	}
+	case 0x204680: {//mana posses
+		sub_23680(a1_6E8E);		 
+		break;
+	}
+	case 0x2046f0: {
+		sub_236F0(a1_6E8E);		 
+		break;
+	}
+	case 0x204710: {
+		sub_23710(a1_6E8E);		 
+		break;
+	}
+	case 0x204750: {
+		sub_23750(a1_6E8E);		 
+		break;
+	}
+	case 0x204790: {
+		sub_23790(a1_6E8E);		 
+		break;
+	}
+	case 0x2047b0: {
+		sub_237B0(a1_6E8E);		 
+		break;
+	}
+	case 0x204ac0: {
+		sub_23AC0(a1_6E8E);		 
+		break;
+	}
+	case 0x204ae0: {
+		sub_23AE0(a1_6E8E);		 
+		break;
+	}
+	case 0x204b00: {
+		sub_23B00(a1_6E8E);		 
+		break;
+	}
+	case 0x204b30: {
+		sub_23B30(a1_6E8E);		 
+		break;
+	}
+	case 0x204b90: {//kill human with bag
+		sub_23B90(a1_6E8E);		 
+		break;
+	}
+	case 0x204bd0: {
+		sub_23BD0(a1_6E8E);		 
+		break;
+	}
+	case 0x204c20: {
+		sub_23C20(a1_6E8E);		 
+		break;
+	}
+	case 0x204c40: {
+		sub_23C40(a1_6E8E);		 
+		break;
+	}
+	case 0x204e60: {
+		sub_23E60(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x2050a0: {
-	// 	sub_240A0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2050c0: {
-	// 	sub_240C0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2050e0: {
-	// 	sub_240E0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205100: {
-	// 	sub_24100(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205150: {
-	// 	sub_24150(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x2050a0: {
+		sub_240A0(a1_6E8E);		 
+		break;
+	}
+	case 0x2050c0: {
+		sub_240C0(a1_6E8E);		 
+		break;
+	}
+	case 0x2050e0: {
+		sub_240E0(a1_6E8E);		 
+		break;
+	}
+	case 0x205100: {
+		sub_24100(a1_6E8E);		 
+		break;
+	}
+	case 0x205150: {
+		sub_24150(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x205190: {
-	// 	sub_24190(a1_6E8E);		 
-	// }
-	// case 0x205400: {
-	// 	sub_24400(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205420: {
-	// 	sub_24420(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205440: {
-	// 	sub_24440(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205510: {
-	// 	sub_24510(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x2057d0: {
-	// 	sub_247D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2057f0: {
-	// 	sub_247F0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205810: {
-	// 	sub_24810(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205840: {
-	// 	sub_24840(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205860: {
-	// 	sub_24860(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x2058c0: {
-	// 	sub_248C0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205930: {
-	// 	sub_24930(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x205d40: {
-	// 	sub_24D40(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205da0: {
-	// 	sub_24DA0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205dc0: {
-	// 	sub_24DC0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x205df0: {
-	// 	sub_24DF0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x205e20: {
-	// 	sub_24E20(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x206050: {
-	// 	sub_25050(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2060b0: {
-	// 	sub_250B0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x206280: {
-	// 	sub_25280(/*a1_6E8E,*/a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x2062a0: {
-	// 	sub_252A0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2062c0: {
-	// 	sub_252C0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2062e0: {
-	// 	sub_252E0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2063b0: {
-	// 	sub_253B0(a1_6E8E,0,0);
-	// 	break;
-	// }
-	// case 0x2064e0: {
-	// 	sub_254E0(a1_6E8E,0,0);
-	// 	break;
-	// }
+	case 0x205190: {
+		sub_24190(a1_6E8E);		 
+	}
+	case 0x205400: {
+		sub_24400(a1_6E8E);		 
+		break;
+	}
+	case 0x205420: {
+		sub_24420(a1_6E8E);		 
+		break;
+	}
+	case 0x205440: {
+		sub_24440(a1_6E8E);		 
+		break;
+	}
+	case 0x205510: {
+		sub_24510(a1_6E8E);
+		break;
+	}
 
 
-	// case 0x206550: {
-	// 	sub_25550(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x206590: {
-	// 	sub_25590(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2065c0: {
-	// 	sub_255C0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x206610: {
-	// 	sub_25610(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x206cd0: {
-	// 	sub_25CD0(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x2057d0: {
+		sub_247D0(a1_6E8E);		 
+		break;
+	}
+	case 0x2057f0: {
+		sub_247F0(a1_6E8E);		 
+		break;
+	}
+	case 0x205810: {
+		sub_24810(a1_6E8E);		 
+		break;
+	}
+	case 0x205840: {
+		sub_24840(a1_6E8E);		 
+		break;
+	}
+	case 0x205860: {
+		sub_24860(a1_6E8E);		 
+		break;
+	}
+
+	case 0x2058c0: {
+		sub_248C0(a1_6E8E);		 
+		break;
+	}
+	case 0x205930: {
+		sub_24930(a1_6E8E);
+		break;
+	}
+	case 0x205d40: {
+		sub_24D40(a1_6E8E);		 
+		break;
+	}
+	case 0x205da0: {
+		sub_24DA0(a1_6E8E);		 
+		break;
+	}
+	case 0x205dc0: {
+		sub_24DC0(a1_6E8E);		 
+		break;
+	}
+
+	case 0x205df0: {
+		sub_24DF0(a1_6E8E);		 
+		break;
+	}
+	case 0x205e20: {
+		sub_24E20(a1_6E8E);
+		break;
+	}
+	case 0x206050: {
+		sub_25050(a1_6E8E);
+		break;
+	}
+	case 0x2060b0: {
+		sub_250B0(a1_6E8E);
+		break;
+	}
+	case 0x206280: {
+		sub_25280(/*a1_6E8E,*/a1_6E8E);
+		break;
+	}
+
+	case 0x2062a0: {
+		sub_252A0(a1_6E8E);		 
+		break;
+	}
+	case 0x2062c0: {
+		sub_252C0(a1_6E8E);		 
+		break;
+	}
+	case 0x2062e0: {
+		sub_252E0(a1_6E8E);
+		break;
+	}
+	case 0x2063b0: {
+		sub_253B0(a1_6E8E,0,0);
+		break;
+	}
+	case 0x2064e0: {
+		sub_254E0(a1_6E8E,0,0);
+		break;
+	}
 
 
-	// case 0x206d00: {
-	// 	sub_25D00(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x206d20: {
-	// 	sub_25D20(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x206d50: {
-	// 	sub_25D50(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x206d80: {
-	// 	sub_25D80(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x206de0: {
-	// 	sub_25DE0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x206e40: {
-	// 	sub_25E40(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x206f70: {
-	// 	sub_25F70(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x206fd0: {
-	// 	sub_25FD0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x206ff0: {
-	// 	sub_25FF0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x207020: {
-	// 	sub_26020(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x206550: {
+		sub_25550(a1_6E8E);		 
+		break;
+	}
+	case 0x206590: {
+		sub_25590(a1_6E8E);		 
+		break;
+	}
+	case 0x2065c0: {
+		sub_255C0(a1_6E8E);		 
+		break;
+	}
+	case 0x206610: {
+		sub_25610(a1_6E8E);		 
+		break;
+	}
+	case 0x206cd0: {
+		sub_25CD0(a1_6E8E);		 
+		break;
+	}
 
 
-	// case 0x207050: {
-	// 	sub_26050(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x207070: {
-	// 	sub_26070(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x207220: {
-	// 	sub_26220(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2073c0: {
-	// 	sub_263C0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2073e0: {
-	// 	sub_263E0(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x206d00: {
+		sub_25D00(a1_6E8E);		 
+		break;
+	}
+	case 0x206d20: {
+		sub_25D20(a1_6E8E);		 
+		break;
+	}
+	case 0x206d50: {
+		sub_25D50(a1_6E8E);		 
+		break;
+	}
+	case 0x206d80: {
+		sub_25D80(a1_6E8E);		 
+		break;
+	}
+	case 0x206de0: {
+		sub_25DE0(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x207400: {
-	// 	sub_26400(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x207470: {
-	// 	sub_26470(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x207500: {
-	// 	sub_26500(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2075a0: {
-	// 	sub_265A0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x207830: {
-	// 	sub_26830(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x2078f0: {
-	// 	sub_268F0 (a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x207930: {
-	// 	sub_26930(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x207960: {
-	// 	sub_26960(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x207990: {
-	// 	sub_26990(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x207aa0: {
-	// 	sub_26AA0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x207bd0: {
-	// 	sub_26BD0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x207ca0: {
-	// 	sub_26CA0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x207cc0: {
-	// 	sub_26CC0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x207d20: {
-	// 	sub_26D20(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x207f10: {
-	// 	sub_26F10(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x207ff0: {
-	// 	sub_26FF0(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x208120: {
-	// 	sub_27120(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2081d0: {
-	// 	sub_271D0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2082c0: {
-	// 	sub_272C0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x208470: {
-	// 	sub_27470(a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x208590: {
-	// 	sub_27590(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x208610: {
-	// 	sub_27610(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2086e0: {
-	// 	sub_276E0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x208720: {
-	// 	sub_27720(a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x208880: {
-	// 	sub_27880(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x208930: {
-	// 	sub_27930(a1_6E8E);
-	// 	break;
-	// }
+	case 0x206e40: {
+		sub_25E40(a1_6E8E);		 
+		break;
+	}
+	case 0x206f70: {
+		sub_25F70(a1_6E8E);		 
+		break;
+	}
+	case 0x206fd0: {
+		sub_25FD0(a1_6E8E);		 
+		break;
+	}
+	case 0x206ff0: {
+		sub_25FF0(a1_6E8E);		 
+		break;
+	}
+	case 0x207020: {
+		sub_26020(a1_6E8E);		 
+		break;
+	}
 
 
-	// case 0x208950: {
-	// 	sub_27950(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x208b20: {
-	// 	sub_27B20(a1_6E8E);
-	// 	break;
-	// }
+	case 0x207050: {
+		sub_26050(a1_6E8E);		 
+		break;
+	}
+	case 0x207070: {
+		sub_26070(a1_6E8E);
+		break;
+	}
+	case 0x207220: {
+		sub_26220(a1_6E8E);		 
+		break;
+	}
+	case 0x2073c0: {
+		sub_263C0(a1_6E8E);		 
+		break;
+	}
+	case 0x2073e0: {
+		sub_263E0(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x208c10: {
-	// 	sub_27C10(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x208e00: {
-	// 	sub_27E00(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x208fa0: {
-	// 	sub_27FA0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x208fc0: {
-	// 	sub_27FC0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x208fe0: {
-	// 	sub_27FE0(a1_6E8E,0,0,0);
-	// 	break;
-	// }
-
-
-
-
-	// case 0x209000: {
-	// 	sub_28000(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209060: {
-	// 	sub_28060(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209110: {
-	// 	sub_28110(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2092d0: {
-	// 	sub_282D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209390: {
-	// 	sub_28390(a1_6E8E,0);		 
-	// 	break;
-	// }
+	case 0x207400: {
+		sub_26400(a1_6E8E);		 
+		break;
+	}
+	case 0x207470: {
+		sub_26470(a1_6E8E);		 
+		break;
+	}
+	case 0x207500: {
+		sub_26500(a1_6E8E);		 
+		break;
+	}
+	case 0x2075a0: {
+		sub_265A0(a1_6E8E);		 
+		break;
+	}
+	case 0x207830: {
+		sub_26830(a1_6E8E);
+		break;
+	}
 
 
-	// case 0x209420: {
-	// 	sub_28420(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209470: {
-	// 	sub_28470(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209490: {
-	// 	sub_28490(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209500: {
-	// 	sub_28500(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209570: {
-	// 	sub_28570(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x2078f0: {
+		sub_268F0 (a1_6E8E,0);		 
+		break;
+	}
+	case 0x207930: {
+		sub_26930(a1_6E8E);
+		break;
+	}
+	case 0x207960: {
+		sub_26960(a1_6E8E);		 
+		break;
+	}
+	case 0x207990: {
+		sub_26990(a1_6E8E);		 
+		break;
+	}
+	case 0x207aa0: {
+		sub_26AA0(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x2095d0: {
-	// 	sub_285D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2095f0: {
-	// 	sub_285F0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209610: {
-	// 	sub_28610(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209630: {
-	// 	sub_28630(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209660: {
-	// 	sub_28660(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x207bd0: {
+		sub_26BD0(a1_6E8E);		 
+		break;
+	}
+	case 0x207ca0: {
+		sub_26CA0(a1_6E8E);		 
+		break;
+	}
+	case 0x207cc0: {
+		sub_26CC0(a1_6E8E);
+		break;
+	}
+	case 0x207d20: {
+		sub_26D20(a1_6E8E);		 
+		break;
+	}
+	case 0x207f10: {
+		sub_26F10(a1_6E8E);
+		break;
+	}
+	case 0x207ff0: {
+		sub_26FF0(a1_6E8E);
+		break;
+	}
 
-	// case 0x209690: {
-	// 	sub_28690(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2097b0: {
-	// 	sub_287B0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209860: {
-	// 	sub_28860(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209c30: {
-	// 	sub_28C30(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209c60: {
-	// 	sub_28C60(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x208120: {
+		sub_27120(a1_6E8E);
+		break;
+	}
+	case 0x2081d0: {
+		sub_271D0(a1_6E8E);
+		break;
+	}
+	case 0x2082c0: {
+		sub_272C0(a1_6E8E);
+		break;
+	}
+	case 0x208470: {
+		sub_27470(a1_6E8E,0);
+		break;
+	}
+	case 0x208590: {
+		sub_27590(a1_6E8E);
+		break;
+	}
 
-	// case 0x209cc0: {
-	// 	sub_28CC0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209ce0: {
-	// 	sub_28CE0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209ec0: {
-	// 	sub_28EC0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209f50: {
-	// 	sub_28F50(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209f90: {
-	// 	sub_28F90(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209fc0: {
-	// 	sub_28FC0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x209ff0: {
-	// 	sub_28FF0(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x208610: {
+		sub_27610(a1_6E8E);
+		break;
+	}
+	case 0x2086e0: {
+		sub_276E0(a1_6E8E);
+		break;
+	}
+	case 0x208720: {
+		sub_27720(a1_6E8E,0);
+		break;
+	}
+	case 0x208880: {
+		sub_27880(a1_6E8E);
+		break;
+	}
+	case 0x208930: {
+		sub_27930(a1_6E8E);
+		break;
+	}
 
 
-	// case 0x20a300: {
-	// 	sub_29300(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20a330: {
-	// 	sub_29330(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20a350: {
-	// 	sub_29350(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20a380: {
-	// 	sub_29380(a1_6E8E);		 
-	// 	break; 
-	// }
-	// case 0x20a3b0: {
-	// 	sub_293B0(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x208950: {
+		sub_27950(a1_6E8E);
+		break;
+	}
+	case 0x208b20: {
+		sub_27B20(a1_6E8E);
+		break;
+	}
 
-	// case 0x20a3d0: {
-	// 	sub_293D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20a400: {
-	// 	sub_29400(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20a670: {
-	// 	sub_29670(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20a710: {
-	// 	sub_29710(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20a890: {
-	// 	sub_29890(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x208c10: {
+		sub_27C10(a1_6E8E);
+		break;
+	}
+	case 0x208e00: {
+		sub_27E00(a1_6E8E);
+		break;
+	}
+	case 0x208fa0: {
+		sub_27FA0(a1_6E8E);
+		break;
+	}
+	case 0x208fc0: {
+		sub_27FC0(a1_6E8E);
+		break;
+	}
+	case 0x208fe0: {
+		sub_27FE0(a1_6E8E,0,0,0);
+		break;
+	}
 
 
-	// case 0x20a8b0: {
-	// 	sub_298B0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20a8d0: {
-	// 	sub_298D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20a930: {
-	// 	sub_29930(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20aa90: {
-	// 	sub_29A90(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20b340: {
-	// 	sub_2A340(a1_6E8E);		 
-	// 	break;
-	// }
 
 
-	// case 0x20b5b0: {
-	// 	sub_2A5B0(a1_6E8E,0,0);		 
-	// 	break;
-	// }
-	// case 0x20b660: {
-	// 	sub_2A660(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x20b6b0: {
-	// 	sub_2A6B0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20b6f0: {
-	// 	sub_2A6F0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20b7b0: {
-	// 	sub_2A7B0(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x209000: {
+		sub_28000(a1_6E8E);		 
+		break;
+	}
+	case 0x209060: {
+		sub_28060(a1_6E8E);		 
+		break;
+	}
+	case 0x209110: {
+		sub_28110(a1_6E8E);		 
+		break;
+	}
+	case 0x2092d0: {
+		sub_282D0(a1_6E8E);		 
+		break;
+	}
+	case 0x209390: {
+		sub_28390(a1_6E8E,0);		 
+		break;
+	}
 
 
-	// case 0x20b7f0: {
-	// 	sub_2A7F0(a1_6E8E,0,0);		 
-	// 	break;
-	// }
-	// case 0x20b940: {
-	// 	sub_2A940(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x20b9f0: {
-	// 	sub_2A9F0(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x20ba90: {
-	// 	sub_2AA90(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x20bc50: {
-	// 	sub_2AC50(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x209420: {
+		sub_28420(a1_6E8E);		 
+		break;
+	}
+	case 0x209470: {
+		sub_28470(a1_6E8E);		 
+		break;
+	}
+	case 0x209490: {
+		sub_28490(a1_6E8E);		 
+		break;
+	}
+	case 0x209500: {
+		sub_28500(a1_6E8E);		 
+		break;
+	}
+	case 0x209570: {
+		sub_28570(a1_6E8E);		 
+		break;
+	}
+
+	case 0x2095d0: {
+		sub_285D0(a1_6E8E);		 
+		break;
+	}
+	case 0x2095f0: {
+		sub_285F0(a1_6E8E);		 
+		break;
+	}
+	case 0x209610: {
+		sub_28610(a1_6E8E);		 
+		break;
+	}
+	case 0x209630: {
+		sub_28630(a1_6E8E);		 
+		break;
+	}
+	case 0x209660: {
+		sub_28660(a1_6E8E);		 
+		break;
+	}
+
+	case 0x209690: {
+		sub_28690(a1_6E8E);		 
+		break;
+	}
+	case 0x2097b0: {
+		sub_287B0(a1_6E8E);		 
+		break;
+	}
+	case 0x209860: {
+		sub_28860(a1_6E8E);		 
+		break;
+	}
+	case 0x209c30: {
+		sub_28C30(a1_6E8E);		 
+		break;
+	}
+	case 0x209c60: {
+		sub_28C60(a1_6E8E);		 
+		break;
+	}
+
+	case 0x209cc0: {
+		sub_28CC0(a1_6E8E);		 
+		break;
+	}
+	case 0x209ce0: {
+		sub_28CE0(a1_6E8E);		 
+		break;
+	}
+	case 0x209ec0: {
+		sub_28EC0(a1_6E8E);		 
+		break;
+	}
+	case 0x209f50: {
+		sub_28F50(a1_6E8E);		 
+		break;
+	}
+	case 0x209f90: {
+		sub_28F90(a1_6E8E);		 
+		break;
+	}
+	case 0x209fc0: {
+		sub_28FC0(a1_6E8E);		 
+		break;
+	}
+	case 0x209ff0: {
+		sub_28FF0(a1_6E8E);		 
+		break;
+	}
 
 
-	// case 0x20bd40: {
-	// 	sub_2AD40(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20be30: {
-	// 	sub_2AE30(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20be80: {
-	// 	sub_2AE80(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20bed0: {
-	// 	sub_2AED0(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x20bf10: {
-	// 	sub_2AF10(a1_6E8E,0);		 
-	// 	break;
-	// }
+	case 0x20a300: {
+		sub_29300(a1_6E8E);		 
+		break;
+	}
+	case 0x20a330: {
+		sub_29330(a1_6E8E);		 
+		break;
+	}
+	case 0x20a350: {
+		sub_29350(a1_6E8E);		 
+		break;
+	}
+	case 0x20a380: {
+		sub_29380(a1_6E8E);		 
+		break; 
+	}
+	case 0x20a3b0: {
+		sub_293B0(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x20c1d0: {
-	// 	sub_2B1D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20c200: {
-	// 	sub_2B200(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20c260: {
-	// 	sub_2B260(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20c750: {
-	// 	sub_2B750(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20c760: {
-	// 	sub_2B760(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x20c780: {
-	// 	sub_2B780(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20c7b0: {
-	// 	sub_2B7B0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20c7e0: {
-	// 	sub_2B7E0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20c840: {
-	// 	sub_2B840(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20c860: {
-	// 	sub_2B860(a1_6E8E,0);		 
-	// 	break;
-	// }
+	case 0x20a3d0: {
+		sub_293D0(a1_6E8E);		 
+		break;
+	}
+	case 0x20a400: {
+		sub_29400(a1_6E8E);		 
+		break;
+	}
+	case 0x20a670: {
+		sub_29670(a1_6E8E);		 
+		break;
+	}
+	case 0x20a710: {
+		sub_29710(a1_6E8E);		 
+		break;
+	}
+	case 0x20a890: {
+		sub_29890(a1_6E8E);		 
+		break;
+	}
 
 
-	// case 0x20c9a0: {
-	// 	sub_2B9A0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x20ca50: {
-	// 	sub_2BA50(a1_6E8E,0);		 
-	// 	break;
-	// }
+	case 0x20a8b0: {
+		sub_298B0(a1_6E8E);		 
+		break;
+	}
+	case 0x20a8d0: {
+		sub_298D0(a1_6E8E);		 
+		break;
+	}
+	case 0x20a930: {
+		sub_29930(a1_6E8E);		 
+		break;
+	}
+	case 0x20aa90: {
+		sub_29A90(a1_6E8E);		 
+		break;
+	}
+	case 0x20b340: {
+		sub_2A340(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x20b5b0: {
+		sub_2A5B0(a1_6E8E,0,0);		 
+		break;
+	}
+	case 0x20b660: {
+		sub_2A660(a1_6E8E,0);		 
+		break;
+	}
+	case 0x20b6b0: {
+		sub_2A6B0(a1_6E8E);		 
+		break;
+	}
+	case 0x20b6f0: {
+		sub_2A6F0(a1_6E8E);		 
+		break;
+	}
+	case 0x20b7b0: {
+		sub_2A7B0(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x20b7f0: {
+		sub_2A7F0(a1_6E8E,0,0);		 
+		break;
+	}
+	case 0x20b940: {
+		sub_2A940(a1_6E8E,0);		 
+		break;
+	}
+	case 0x20b9f0: {
+		sub_2A9F0(a1_6E8E,0);		 
+		break;
+	}
+	case 0x20ba90: {
+		sub_2AA90(a1_6E8E,0);		 
+		break;
+	}
+	case 0x20bc50: {
+		sub_2AC50(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x20bd40: {
+		sub_2AD40(a1_6E8E);		 
+		break;
+	}
+	case 0x20be30: {
+		sub_2AE30(a1_6E8E);		 
+		break;
+	}
+	case 0x20be80: {
+		sub_2AE80(a1_6E8E);		 
+		break;
+	}
+	case 0x20bed0: {
+		sub_2AED0(a1_6E8E,0);		 
+		break;
+	}
+	case 0x20bf10: {
+		sub_2AF10(a1_6E8E,0);		 
+		break;
+	}
+
+	case 0x20c1d0: {
+		sub_2B1D0(a1_6E8E);		 
+		break;
+	}
+	case 0x20c200: {
+		sub_2B200(a1_6E8E);		 
+		break;
+	}
+	case 0x20c260: {
+		sub_2B260(a1_6E8E);		 
+		break;
+	}
+	case 0x20c750: {
+		sub_2B750(a1_6E8E);		 
+		break;
+	}
+	case 0x20c760: {
+		sub_2B760(a1_6E8E);		 
+		break;
+	}
+
+	case 0x20c780: {
+		sub_2B780(a1_6E8E);		 
+		break;
+	}
+	case 0x20c7b0: {
+		sub_2B7B0(a1_6E8E);		 
+		break;
+	}
+	case 0x20c7e0: {
+		sub_2B7E0(a1_6E8E);		 
+		break;
+	}
+	case 0x20c840: {
+		sub_2B840(a1_6E8E);		 
+		break;
+	}
+	case 0x20c860: {
+		sub_2B860(a1_6E8E,0);		 
+		break;
+	}
+
+
+	case 0x20c9a0: {
+		sub_2B9A0(a1_6E8E);		 
+		break;
+	}
+	case 0x20ca50: {
+		sub_2BA50(a1_6E8E,0);		 
+		break;
+	}
 	/*case 0x20cb40: {
 		sub_2BB40_draw_bitmap((Bit16s)a1,0,(posistruct)0);
 		 
@@ -60905,1546 +60862,1594 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 		break;
 	}*/
 
-// FIXME: types
+	case 0x20cc10: {
+		sub_2BC10_draw_text((char*)a1_6E8E,0,0,0);		 
+		break;
+	}
+	case 0x20cc80: {
+		// FIXME: types
 std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-	// // case 0x20cc10: {
-	// 	sub_2BC10_draw_text((char*)a1_6E8E,0,0,0);		 
-	// 	break;
-	// }
-	// case 0x20cc80: {
-	// 	sub_2BC80((Bit16u)a1_6E8E,0,0,0,0);		 
-	// 	break;
-	// }
+		// sub_2BC80((Bit16u)a1_6E8E,0,0,0,0);		 
+		break;
+	}
 
 
 
-	// case 0x211be0: {
-	// 	sub_30BE0((Bit32s*)a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x211d50: {
-	// 	sub_30D50(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x211f60: {
-	// 	sub_30F60(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x212100: {
-	// 	sub_31100(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x212120: {
-	// 	sub_31120(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x211be0: {
+		sub_30BE0((Bit32s*)a1_6E8E,0);
+		break;
+	}
+	case 0x211d50: {
+		sub_30D50(a1_6E8E);		 
+		break;
+	}
+	case 0x211f60: {
+		sub_30F60(a1_6E8E);		 
+		break;
+	}
+	case 0x212100: {
+		sub_31100(a1_6E8E);		 
+		break;
+	}
+	case 0x212120: {
+		sub_31120(a1_6E8E);		 
+		break;
+	}
 
 
-	// case 0x2121e0: {
-	// 	sub_311E0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x212760: {
-	// 	sub_31760(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x212870: {
-	// 	sub_31870(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x212890: {
-	// 	sub_31890(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2128b0: {//end of water splash
-	// 	sub_318B0(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x2121e0: {
+		sub_311E0(a1_6E8E);		 
+		break;
+	}
+	case 0x212760: {
+		sub_31760(a1_6E8E);
+		break;
+	}
+	case 0x212870: {
+		sub_31870(a1_6E8E);		 
+		break;
+	}
+	case 0x212890: {
+		sub_31890(a1_6E8E);		 
+		break;
+	}
+	case 0x2128b0: {//end of water splash
+		sub_318B0(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x212920: {
-	// 	sub_31920(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x212940: {
-	// 	sub_31940(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x212e90: {
-	// 	sub_31E90(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x212f00: {
-	// 	sub_31F00(a1_6E8E,0,0);		 
-	// 	break;
-	// }
-	// case 0x212fb0: {
-	// 	sub_31FB0(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x212920: {
+		sub_31920(a1_6E8E);
+		break;
+	}
+	case 0x212940: {
+		sub_31940(a1_6E8E);		 
+		break;
+	}
+	case 0x212e90: {
+		sub_31E90(a1_6E8E);		 
+		break;
+	}
+	case 0x212f00: {
+		sub_31F00(a1_6E8E,0,0);		 
+		break;
+	}
+	case 0x212fb0: {
+		sub_31FB0(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x2130e0: {
-	// 	sub_320E0(a1_6E8E);//posses spell drop
-	// 	//debug
-	// 	//sub_4AA40(a1);//castle create
-	// 	//sub_5FA70(a1);//castle create2		
-	// 	//debug		 
-	// 	break;
-	// }
-	// case 0x213120: {
-	// 	sub_32120(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x213160: {//in quest point3
-	// 	sub_32160(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2132a0: {
-	// 	sub_322A0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2133e0: {//in quest point2
-	// 	sub_323E0(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x2130e0: {
+		sub_320E0(a1_6E8E);//posses spell drop
+		//debug
+		//sub_4AA40(a1);//castle create
+		//sub_5FA70(a1);//castle create2		
+		//debug		 
+		break;
+	}
+	case 0x213120: {
+		sub_32120(a1_6E8E);		 
+		break;
+	}
+	case 0x213160: {//in quest point3
+		sub_32160(a1_6E8E);		 
+		break;
+	}
+	case 0x2132a0: {
+		sub_322A0(a1_6E8E);		 
+		break;
+	}
+	case 0x2133e0: {//in quest point2
+		sub_323E0(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x213400: {
-	// 	sub_32400(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x213420: {
-	// 	sub_32420(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x213520: {
-	// 	sub_32520__wcpp_1_unwind_leave__69(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x213530: {
-	// 	sub_32530(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x213600: {
-	// 	sub_32600(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x213880: {
-	// 	sub_32880(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x213400: {
+		sub_32400(a1_6E8E);		 
+		break;
+	}
+	case 0x213420: {
+		sub_32420(a1_6E8E);		 
+		break;
+	}
+	case 0x213520: {
+		sub_32520__wcpp_1_unwind_leave__69(a1_6E8E);		 
+		break;
+	}
+	case 0x213530: {
+		sub_32530(a1_6E8E);		 
+		break;
+	}
+	case 0x213600: {
+		sub_32600(a1_6E8E);		 
+		break;
+	}
+	case 0x213880: {
+		sub_32880(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x213a70: {
-	// 	sub_32A70(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x213cf0: {
-	// 	sub_32CF0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x213f40: {
-	// 	sub_32F40(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x214110: {
-	// 	sub_33110(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2141a0: {
-	// 	sub_331A0(a1_6E8E);
-	// 	break;
-	// }
+	case 0x213a70: {
+		sub_32A70(a1_6E8E);		 
+		break;
+	}
+	case 0x213cf0: {
+		sub_32CF0(a1_6E8E);		 
+		break;
+	}
+	case 0x213f40: {
+		sub_32F40(a1_6E8E);
+		break;
+	}
+	case 0x214110: {
+		sub_33110(a1_6E8E);		 
+		break;
+	}
+	case 0x2141a0: {
+		sub_331A0(a1_6E8E);
+		break;
+	}
 
-	// case 0x214340: {
-	// 	sub_33340(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x214710: {
-	// 	sub_33710(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x214810: {
-	// 	sub_33810(a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x2148d0: {
-	// 	sub_338D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2149b0: {
-	// 	sub_339B0(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x214ad0: {
-	// 	sub_33AD0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x214b20: {
-	// 	sub_33B20(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x214c00: {
-	// 	sub_33C00(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x214c70: {
-	// 	sub_33C70(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x214d40: {
-	// 	sub_33D40(a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x214340: {
+		sub_33340(a1_6E8E);		 
+		break;
+	}
+	case 0x214710: {
+		sub_33710(a1_6E8E);		 
+		break;
+	}
+	case 0x214810: {
+		sub_33810(a1_6E8E,0);
+		break;
+	}
+	case 0x2148d0: {
+		sub_338D0(a1_6E8E);		 
+		break;
+	}
+	case 0x2149b0: {
+		sub_339B0(a1_6E8E);
+		break;
+	}
 
 
+	case 0x214ad0: {
+		sub_33AD0(a1_6E8E);		 
+		break;
+	}
+	case 0x214b20: {
+		sub_33B20(a1_6E8E);		 
+		break;
+	}
+	case 0x214c00: {
+		sub_33C00(a1_6E8E);		 
+		break;
+	}
+	case 0x214c70: {
+		sub_33C70(a1_6E8E);		 
+		break;
+	}
+	case 0x214d40: {
+		sub_33D40(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x214d80: {
-	// 	sub_33D80(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x214e20: {
-	// 	sub_33E20(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x214e80: {
-	// 	sub_33E80(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x214f70: {
-	// 	sub_33F70((int)a1_6E8E);
-	// 	break;
-	// }
-	// case 0x215000: {
-	// 	sub_34000(a1_6E8E);
-	// 	break;
-	// }
 
 
-	// case 0x215110: {
-	// 	sub_34110(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x215210: {
-	// 	sub_34210(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x215330: {
-	// 	sub_34330(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x215350: {
-	// 	sub_34350(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x215390: {
-	// 	sub_34390(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2153c0: {
-	// 	sub_343C0(a1_6E8E);
-	// 	break;
-	// }
+	case 0x214d80: {
+		sub_33D80(a1_6E8E);		 
+		break;
+	}
+	case 0x214e20: {
+		sub_33E20(a1_6E8E);		 
+		break;
+	}
+	case 0x214e80: {
+		sub_33E80(a1_6E8E);		 
+		break;
+	}
+	case 0x214f70: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_33F70((int)a1_6E8E);
+		break;
+	}
+	case 0x215000: {
+		sub_34000(a1_6E8E);
+		break;
+	}
+
+
+	case 0x215110: {
+		sub_34110(a1_6E8E);
+		break;
+	}
+	case 0x215210: {
+		sub_34210(a1_6E8E);
+		break;
+	}
+	case 0x215330: {
+		sub_34330(a1_6E8E);
+		break;
+	}
+	case 0x215350: {
+		sub_34350(a1_6E8E);
+		break;
+	}
+	case 0x215390: {
+		sub_34390(a1_6E8E);
+		break;
+	}
+	case 0x2153c0: {
+		sub_343C0(a1_6E8E);
+		break;
+	}
 
 
 
 
-	// case 0x2153f0: {//2 instances in level 1
-	// 	sub_343F0(a1_6E8E);
-	// 	break;
-	// }
+	case 0x2153f0: {//2 instances in level 1
+		sub_343F0(a1_6E8E);
+		break;
+	}
 
-	// case 0x215480: {
-	// 	sub_34480(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2154a0: {
-	// 	sub_344A0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x215520: {
-	// 	sub_34520(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x215540: {
-	// 	sub_34540(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x215910: {
-	// 	sub_34910(a1_6E8E);
-	// 	break;
-	// }
+	case 0x215480: {
+		sub_34480(a1_6E8E);
+		break;
+	}
+	case 0x2154a0: {
+		sub_344A0(a1_6E8E);
+		break;
+	}
+	case 0x215520: {
+		sub_34520(a1_6E8E);
+		break;
+	}
+	case 0x215540: {
+		sub_34540(a1_6E8E);
+		break;
+	}
+	case 0x215910: {
+		sub_34910(a1_6E8E);
+		break;
+	}
 
-	// case 0x215b00: {
-	// 	sub_34B00((char)a1_6E8E,0,0,0);
-	// 	break;
-	// }
-	// case 0x215c40: {
-	// 	sub_34C40(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x215ee0: {
-	// 	sub_34EE0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2162a0: {
-	// 	sub_352A0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2162c0: {
-	// 	sub_352C0(a1_6E8E);
-	// 	break;
-	// }
+	case 0x215b00: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_34B00((char)a1_6E8E,0,0,0);
+		break;
+	}
+	case 0x215c40: {
+		sub_34C40(a1_6E8E);
+		break;
+	}
+	case 0x215ee0: {
+		sub_34EE0(a1_6E8E);		 
+		break;
+	}
+	case 0x2162a0: {
+		sub_352A0(a1_6E8E);
+		break;
+	}
+	case 0x2162c0: {
+		sub_352C0(a1_6E8E);
+		break;
+	}
 
-	// case 0x216390: {
-	// 	sub_35390(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x216530: {
-	// 	sub_35530(a1_6E8E);
+	case 0x216390: {
+		sub_35390(a1_6E8E);		 
+		break;
+	}
+	case 0x216530: {
+		sub_35530(a1_6E8E);
 		 
-	// 	break;
-	// }
-	// case 0x216600: {
-	// 	sub_35600(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x216640: {//lighting II
-	// 	sub_35640(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2167c0: {
-	// 	sub_357C0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x216940: {//end of mana sphere making(move sphere)
-	// 	sub_35940(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x216FB0: {
-	// 	sub_35FB0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x217680: {
-	// 	sub_36680(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x217770: {
-	// 	sub_36770(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x217850: {
-	// 	sub_36850(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x217920: {
-	// 	sub_36920(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2179f0: {
-	// 	sub_369F0((int)a1_6E8E);
-	// 	break;
-	// }
-	// case 0x217a50: {
-	// 	sub_36A50((int)a1_6E8E);
-	// 	break;
-	// }
-	// case 0x217ae0: {//enemy dead
-	// 	sub_36AE0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x217ba0: {
-	// 	sub_36BA0(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x217d50: {
-	// 	sub_36D50(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x217f30: {
-	// 	sub_36F30(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x217fc0: {
-	// 	sub_36FC0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x218240: {//255 instances in level 1
-	// 	sub_37240(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x218740: {
-	// 	sub_37740(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2187a0: {
-	// 	sub_377A0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2187f0: {
-	// 	sub_377F0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x218bc0: {
-	// 	sub_37BC0_modify_terrain(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x219270: {
-	// 	sub_38270(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x219330: {
-	// 	sub_38330(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2195c0: {
-	// 	sub_385C0_remove_castle_stage(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2199f0: {//cast castleII 2
-	// 	sub_389F0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x219b00: {
-	// 	sub_38B00(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x219b90: {
-	// 	sub_38B90(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x219d80: {
-	// 	sub_38D80(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x219e20: {
-	// 	sub_38E20(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x219e40: {
-	// 	sub_38E40(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x219e70: {
-	// 	sub_38E70(a1_6E8E);
-	// 	break;
-	// }
-
-
-
-	// case 0x219f70: {
-	// 	sub_38F70(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x21a040: {
-	// 	sub_39040(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x21a6a0: {
-	// 	sub_396A0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x21a6d0: {
-	// 	sub_396D0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x21ab60: {
-	// 	sub_39B60(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x21ae40: {
-	// 	sub_39E40(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x21afa0: {
-	// 	sub_39FA0(a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x21b909: {
-	// 	sub_3A090(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x21b200: {
-	// 	sub_3A200(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x21b2d0: {
-	// 	sub_3A2D0(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x21b5b0: {
-	// 	sub_3A5B0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x21b630: {
-	// 	sub_3A630(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x21b650: {
-	// 	sub_3A650(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x21b7f0: {
-	// 	sub_3A7F0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x21b8b0: {
-	// 	sub_3A8B0(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x21bf00: {
-	// 	sub_3AF00_castle_defend_event(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x232bb0: {
-	// 	sub_51BB0_game_events(/*a1*/);		 
-	// 	break;
-	// }
-	// case 0x233d70: {
-	// 	sub_52D70((unsigned short)a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x233e90: {
-	// 	sub_52E90((type_str_0x2BDE*)a1_6E8E,0,0);		 
-	// 	break;
-	// }
-	// case 0x234120: {
-	// 	sub_53120();		 
-	// 	break;
-	// }
-	// case 0x234160: {
-	// 	sub_53160();		 
-	// 	break;
-	// }
-	// case 0x2343b0: {
-	// 	sub_533B0_decompress_levels((short)a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x234590: {
-	// 	sub_53590((type_str_2FECE*)a1_6E8E);		 
-	// 	break;
-	// }
-
-
-
-	// 			   /*
-	// 			   char sub_595C0(int16_t a1)//23a5c0
-	// 			   char sub_59610(Bit8u** a1, int16_t a2)//23a610
-	// 			   char sub_596C0(x_WORD *a1, int16_t a2)//23a6c0
-	// 			   void sub_59760(Bit8u* a1, Bit8u* a2)//23a760
-	// 			   void sub_59820()//23a820
-
-	// 			   int sub_59A50_sound_proc8()//23aa50
-	// 			   void sub_59AF0_sound_proc9()//23aaf0
-	// 			   void sub_59B50_sound_proc10(HMDIDRIVER user)//23ab50
-	// 			   void sub_59BF0_sound_proc11_volume()//23abf0
-	// 			   */
-
-	// case 0x23ac40: {
-	// 	sub_59C40_getTerrtoZ(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x23ac60: {
-	// 	sub_59C60(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x23ac80: {
-	// 	sub_59C80(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x23adc0: {
-	// 	sub_59DC0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x23af60: {
-	// 	sub_59F60(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x23c070: {
-	// 	sub_5B070(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x23c100: {
-	// 	sub_5B100(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x23f010: {
-	// 	sub_5E010(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x23f310: {
-	// 	sub_5E310_multiplayer_test_die(a1_6E8E);//enemy player die		 
-	// 	break;
-	// }
-	// case 0x23f660: {
-	// 	sub_5E660(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x23f6c0: {
-	// 	sub_5E6C0(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x23f7c0: {
-	// 	sub_5E7C0_multiplayer_test_banished(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x23f8c0: {
-	// 	sub_5E8C0_endGameSeq(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x23ff70: {
-	// 	sub_5EF70(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x23ffa0: {
-	// 	sub_5EFA0(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x240380: {
-	// 	sub_5F380(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x240660: {
-	// 	sub_5F660(a1_6E8E,0,0);
-	// 	break;
-	// }
-	// case 0x2407b0: {
-	// 	sub_5F7B0(a1_6E8E,0,0);
-	// 	break;
-	// }
-	// case 0x2407e0: {
-	// 	sub_5F7E0(a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x240810: {
-	// 	sub_5F810(a1_6E8E,0,0);
-	// 	break;
-	// }
-
-
-	// case 0x240890: {
-	// 	sub_5F890(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x2408f0: {
-	// 	sub_5F8F0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x240a70: {
-	// 	sub_5FA70(a1_6E8E);//castle create2		 
-	// 	break;
-	// }
-	// case 0x240bd0: {
-	// 	sub_5FBD0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x240c40: {
-	// 	sub_5FC40(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x240ca0: {
-	// 	sub_5FCA0_destroy_castle_level(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x240d00: {
-	// 	sub_5FD00(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x240f50: {
-	// 	 sub_5FF50(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x241400: {
-	// 	sub_60400((short)a1_6E8E,0,0);
-	// 	break;
-	// }
-	// case 0x241480: {
-	// 	sub_60480(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x2415e0: {
-	// 	sub_605E0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x241780: {
-	// 	sub_60780(a1_6E8E,0,0,0);
-	// 	break;
-	// }
-	// case 0x241810: {
-	// 	sub_60810(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2419e0: {
-	// 	sub_609E0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x241ab0: {
-	// 	sub_60AB0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x241d50: {
-	// 	sub_60D50((axis_3d*)a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x241ea0: {
-	// 	sub_60EA0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x241f00: {
-	// 	sub_60F00();		 
-	// 	break;
-	// }
-	// case 0x242000: {
-	// 	sub_61000(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x242050: {
-	// 	sub_61050(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x2423d0: {
-	// 	sub_613D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x242620: {
-	// 	sub_61620(a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x2426d0: {
-	// 	sub_616D0((int)a1_6E8E);
-	// 	break;
-	// }
-	// case 0x242790: {
-	// 	sub_61790((int)a1_6E8E);
-	// 	break;
-	// }
-	// case 0x242810: {
-	// 	sub_61810(a1_6E8E,0);
-	// 	break;
-	// }
-
-
-	// case 0x242880: {
-	// 	sub_61880_draw_minimap_entites((int)a1_6E8E,0, 0, 0, 0, 0, 0, 0);		 
-	// 	break;
-	// }
-	// case 0x242a00: {
-	// 	sub_61A00_draw_minimap_entites_b((int)a1_6E8E,0, 0, 0, 0, 0, 0, 0);		 
-	// 	break;
-	// }
-	// case 0x2437f0: {
-	// 	sub_627F0_draw_minimap_entites_a((int)a1_6E8E,0, 0, 0, 0, 0, 0, 0);		 
-	// 	break;
-	// }
-	// case 0x244570: {
-	// 	sub_63570(a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x244600: {
-	// 	sub_63600_draw_minimap((int)a1_6E8E,0,0, 0, 0, 0, 0, 0,0,0);		 
-	// 	break;
-	// }
-
-	// case 0x244670: {
-	// 	sub_63670_draw_minimap_a((int)a1_6E8E,0,0, 0, 0, 0, 0, 0,0,0);		 
-	// 	break;
-	// }
-	// case 0x244c90: {
-	// 	sub_63C90_draw_minimap_b((int)a1_6E8E,0,0, 0, 0, 0, 0, 0,0,0);		 
-	// 	break;
-	// }
-	// case 0x2454f0: {
-	// 	sub_644F0_draw_minimap_marks((int)a1_6E8E,0,0, 0, 0, 0, 0, 0);		 
-	// 	break;
-	// }
-	// case 0x245ce0: {
-	// 	sub_64CE0_draw_follow_rectangle((v51x_struct*)a1_6E8E);
-	// 	break;
-	// }
-	// case 0x245e20: {
-	// 	sub_64E20(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x245f60: {
-	// 	sub_64F60(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x245ff0: {
-	// 	sub_64FF0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x246040: {
-	// 	sub_65040(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x246080: {
-	// 	sub_65080(a1_6E8E);
-	// 	break;
-	// }	
-	// case 0x246110: {
-	// 	sub_65110(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x2461b0: {
-	// 	sub_651B0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x246240: {
-	// 	sub_65240(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x246280: {
-	// 	sub_65280(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2462a0: {
-	// 	sub_652A0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2462c0: {
-	// 	sub_652C0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x2464b0: {
-	// 	sub_654B0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x246580: {
-	// 	sub_65580(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2465a0: {
-	// 	sub_655A0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2465c0: {
-	// 	sub_655C0(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x246610: {
-	// 	sub_65610(a1_6E8E,0);		 
-	// 	break;
-	// }
-
-
-	// case 0x2466d0: {
-	// 	sub_656D0(a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x246780: {
-	// 	sub_65780(a1_6E8E,0,0);		 
-	// 	break;
-	// }
-	// case 0x246820: {
-	// 	sub_65820(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x246b30: {
-	// 	sub_65B30(a1_6E8E);//fly fire projectile		 
-	// 	break;
-	// }
-	// case 0x246b50: {
-	// 	sub_65B50(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x246c20: {
-	// 	sub_65C20(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x246f60: {
-	// 	sub_65F60(a1_6E8E);//fly possess projectile		 
-	// 	break;
-	// }
-
-	// case 0x247160: {
-	// 	sub_66160(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x247180: {
-	// 	sub_66180(a1_6E8E);		 
-	// 	break;	
-	// }
-	// case 0x247250: {
-	// 	sub_66250(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x247280: {
-	// 	sub_66280(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2472a0: {
-	// 	sub_662A0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x2472c0: {
-	// 	sub_662C0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x2472e0: {
-	// 	sub_662E0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x247610: {
-	// 	sub_66610(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x247750: {
-	// 	sub_66750(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x247b30: {
-	// 	sub_66B30(a1_6E8E);//castle fly projectile		 
-	// 	break;
-	// }
-	// case 0x247d00: {
-	// 	sub_66D00(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x247fb0: {
-	// 	sub_66FB0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x247fd0: {//lighting II
-	// 	sub_66FD0(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x2482e0: {//arrow2
-	// 	sub_672E0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248410: {
-	// 	sub_67410(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248430: {
-	// 	sub_67430(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248450: {
-	// 	sub_67450(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248470: {
-	// 	sub_67470(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-
-	// case 0x2484c0: {
-	// 	sub_674C0(a1_6E8E);//possess mana ii		 
-	// 	break;
-	// }
-	// case 0x2486f0: {
-	// 	sub_676F0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248740: {
-	// 	sub_67740(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248760: {
-	// 	sub_67760(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248780: {
-	// 	sub_67780(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x2487a0: {
-	// 	sub_677A0(a1_6E8E);		 
-	// 	break;
-	// 			   }
-	// case 0x2487d0: {
-	// 	sub_677D0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248800: {
-	// 	sub_67800(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248890: {
-	// 	sub_67890(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x2488e0: {
-	// 	sub_678E0(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x248910: {
-	// 	sub_67910(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248940: {
-	// 	sub_67940(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x248960: {
-	// 	sub_67960(a1_6E8E/*,0*/);		 
-	// 	break;
-	// }
-	// case 0x248cb0: {
-	// 	sub_67CB0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x249490: {
-	// 	sub_68490(a1_6E8E,0,0,0);		 
-	// 	break;
-	// }
-
-
-	// case 0x2495d0: {
-	// 	sub_685D0(a1_6E8E,0,0,0);		 
-	// 	break;
-	// }
-	// case 0x2496d0: {
-	// 	sub_686D0(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x249740: {
-	// 	sub_68740(a1_6E8E,0,0,0);		 
-	// 	break;
-	// }
-	// case 0x249940: {
-	// 	sub_68940(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x249ac0: {
-	// 	sub_68AC0(a1_6E8E,0);		 
-	// 	break;
-	// }
-
-
-	// case 0x249bd0: {
-	// 	sub_68BD0(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x249bf0: {
-	// 	sub_68BF0();		 
-	// 	break;
-	// }
-	// case 0x249c70: {
-	// 	sub_68C70(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x249d50: {
-	// 	sub_68D50(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x249de0: {
-	// 	sub_68DE0(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x249e50: {
-	// 	sub_68E50(a1_6E8E,0,0);		 
-	// 	break;
-	// }
-
-	// case 0x249f00: {
-	// 	sub_68FF0(a1_6E8E,0,0);
-	// 	break;
-	// }
-	// case 0x24a250: {
-	// 	sub_69250(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24a2a0: {
-	// 	sub_692A0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24a2c0: {
-	// 	sub_692C0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24a300: {
-	// 	sub_69300(a1_6E8E,0);		 
-	// 	break;
-	// }
-
-
-	// case 0x24a3f0: {
-	// 	sub_693F0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24a600: {
-	// 	sub_69600(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24a620: {
-	// 	sub_69620(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24a640: {
-	// 	sub_69640(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24a900: {
-	// 	sub_69900(a1_6E8E,0);		 
-	// 	break;
-	// }
-
-
-	// case 0x24aa70: {
-	// 	sub_69A70(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24aa90: {
-	// 	sub_69A90(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24aab0: {//get scroll6
-	// 	sub_69AB0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24ad70: {
-	// 	sub_69D70(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24ad90: {
-	// 	sub_69D90(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x24adb0: {
-	// 	sub_69DB0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24aff0: {
-	// 	sub_69FF0(a1_6E8E);
-	// 	break;
-	// }
-
-
-
-
-	// case 0x24b010: {
-	// 	sub_6A010(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24b030: {
-	// 	sub_6A030(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24b2c0: {
-	// 	sub_6A2C0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24b2e0: {
-	// 	sub_6A2E0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24b300: {
-	// 	sub_6A300(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x24b440: {
-	// 	sub_6A440(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24b460: {
-	// 	sub_6A460(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24b480: {
-	// 	sub_6A480(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24b580: {
-	// 	sub_6A580(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24b5a0: {
-	// 	sub_6A5A0(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x24b5c0: {
-	// 	sub_6A5C0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24b9c0: {
-	// 	 sub_6A9C0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24b9e0: {
-	// 	sub_6A9E0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24ba00: {
-	// 	sub_6AA00(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24bac0: {
-	// 	sub_6AAC0(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x24bae0: {
-	// 	sub_6AAE0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24bb00: {
-	// 	sub_6AB00(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24bd00: {
-	// 	sub_6AD00(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24bd20: {
-	// 	sub_6AD20(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24bd60: {
-	// 	sub_6AD60(a1_6E8E);		 
-	// 	break;
-	// }
-
-	// case 0x24c180: {
-	// 	sub_6B180(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24c1a0: {
-	// 	sub_6B1A0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24c1c0: {
-	// 	sub_6B1C0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24c2d0: {
-	// 	sub_6B2D0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24c2f0: {
-	// 	sub_6B2F0(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x24c310: {
-	// 	sub_6B310(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24c3a0: {
-	// 	sub_6B3A0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24c3c0: {
-	// 	sub_6B3C0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24c3e0: {
-	// 	sub_6B3E0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24c5d0: {
-	// 	sub_6B5D0(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x24c5f0: {
-	// 	sub_6B5F0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24c610: {
-	// 	sub_6B610(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24c830: {
-	// 	sub_6B830(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24c850: {
-	// 	sub_6B850(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24c870: {
-	// 	sub_6B870(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x24ca70: {
-	// 	sub_6BA70(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24ca90: {
-	// 	sub_6BA90(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24cab0: {
-	// 	sub_6BAB0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24ccb0: {
-	// 	sub_6BCB0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24ccd0: {
-	// 	sub_6BCD0(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x24ccf0: {
-	// 	sub_6BCF0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24cef0: {
-	// 	sub_6BEF0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24cf10: {
-	// 	sub_6BF10(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24cf30: {
-	// 	sub_6BF30(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24d130: {
-	// 	sub_6C130(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x24d150: {
-	// 	sub_6C150(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24d170: {
-	// 	sub_6C170(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24d3a0: {
-	// 	sub_6C3A0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24d3c0: {
-	// 	sub_6C3C0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24d3e0: {
-	// 	sub_6C3E0(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x24d5e0: {
-	// 	sub_6C5E0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24d600: {
-	// 	sub_6C600(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24d620: {
-	// 	sub_6C620(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24d830: {
-	// 	sub_6C830(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24d850: {
-	// 	sub_6C850(a1_6E8E);
-	// 	break;
-	// }
-
-
-	// case 0x24d870: {
-	// 	sub_6C870(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24da80: {
-	// 	sub_6CA80(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24daa0: {
-	// 	sub_6CAA0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24dac0: {
-	// 	sub_6CAC0(a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24dce0: {
-	// 	sub_6CCE0(a1_6E8E);
-	// 	break;
-	// }
-
-	// case 0x24dd00: {
-	// 	sub_6CD00(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24dd20: {
-	// 	sub_6CD20(a1_6E8E);
+		break;
+	}
+	case 0x216600: {
+		sub_35600(a1_6E8E);
+		break;
+	}
+	case 0x216640: {//lighting II
+		sub_35640(a1_6E8E);		 
+		break;
+	}
+	case 0x2167c0: {
+		sub_357C0(a1_6E8E);		 
+		break;
+	}
+
+	case 0x216940: {//end of mana sphere making(move sphere)
+		sub_35940(a1_6E8E);		 
+		break;
+	}
+	case 0x216FB0: {
+		sub_35FB0(a1_6E8E);
+		break;
+	}
+	case 0x217680: {
+		sub_36680(a1_6E8E);
+		break;
+	}
+	case 0x217770: {
+		sub_36770(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x217850: {
+		sub_36850(a1_6E8E);		 
+		break;
+	}
+	case 0x217920: {
+		sub_36920(a1_6E8E);
+		break;
+	}
+	case 0x2179f0: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_369F0((int)a1_6E8E);
+		break;
+	}
+	case 0x217a50: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_36A50((int)a1_6E8E);
+		break;
+	}
+	case 0x217ae0: {//enemy dead
+		sub_36AE0(a1_6E8E);		 
+		break;
+	}
+
+	case 0x217ba0: {
+		sub_36BA0(a1_6E8E,0);		 
+		break;
+	}
+	case 0x217d50: {
+		sub_36D50(a1_6E8E,0);		 
+		break;
+	}
+	case 0x217f30: {
+		sub_36F30(a1_6E8E,0);		 
+		break;
+	}
+	case 0x217fc0: {
+		sub_36FC0(a1_6E8E);
+		break;
+	}
+	case 0x218240: {//255 instances in level 1
+		sub_37240(a1_6E8E);		 
+		break;
+	}
+
+	case 0x218740: {
+		sub_37740(a1_6E8E);
+		break;
+	}
+	case 0x2187a0: {
+		sub_377A0(a1_6E8E);		 
+		break;
+	}
+	case 0x2187f0: {
+		sub_377F0(a1_6E8E);		 
+		break;
+	}
+	case 0x218bc0: {
+		sub_37BC0_modify_terrain(a1_6E8E);		 
+		break;
+	}
+	case 0x219270: {
+		sub_38270(a1_6E8E);		 
+		break;
+	}
+
+	case 0x219330: {
+		sub_38330(a1_6E8E);
+		break;
+	}
+	case 0x2195c0: {
+		sub_385C0_remove_castle_stage(a1_6E8E);		 
+		break;
+	}
+	case 0x2199f0: {//cast castleII 2
+		sub_389F0(a1_6E8E);
+		break;
+	}
+	case 0x219b00: {
+		sub_38B00(a1_6E8E);
+		break;
+	}
+
+
+	case 0x219b90: {
+		sub_38B90(a1_6E8E);
+		break;
+	}
+	case 0x219d80: {
+		sub_38D80(a1_6E8E);
+		break;
+	}
+	case 0x219e20: {
+		sub_38E20(a1_6E8E);
+		break;
+	}
+	case 0x219e40: {
+		sub_38E40(a1_6E8E);
+		break;
+	}
+	case 0x219e70: {
+		sub_38E70(a1_6E8E);
+		break;
+	}
+
+
+
+	case 0x219f70: {
+		sub_38F70(a1_6E8E);
+		break;
+	}
+	case 0x21a040: {
+		sub_39040(a1_6E8E);		 
+		break;
+	}
+	case 0x21a6a0: {
+		sub_396A0(a1_6E8E);		 
+		break;
+	}
+	case 0x21a6d0: {
+		sub_396D0(a1_6E8E);
+		break;
+	}
+	case 0x21ab60: {
+		sub_39B60(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x21ae40: {
+		sub_39E40(a1_6E8E);
+		break;
+	}
+	case 0x21afa0: {
+		sub_39FA0(a1_6E8E,0);
+		break;
+	}
+	case 0x21b909: {
+		sub_3A090(a1_6E8E);		 
+		break;
+	}
+	case 0x21b200: {
+		sub_3A200(a1_6E8E,0);		 
+		break;
+	}
+	case 0x21b2d0: {
+		sub_3A2D0(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x21b5b0: {
+		sub_3A5B0(a1_6E8E);		 
+		break;
+	}
+	case 0x21b630: {
+		sub_3A630(a1_6E8E);		 
+		break;
+	}
+	case 0x21b650: {
+		sub_3A650(a1_6E8E);
+		break;
+	}
+	case 0x21b7f0: {
+		sub_3A7F0(a1_6E8E);
+		break;
+	}
+	case 0x21b8b0: {
+		sub_3A8B0(a1_6E8E);
+		break;
+	}
+
+	case 0x21bf00: {
+		sub_3AF00_castle_defend_event(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x232bb0: {
+		sub_51BB0_game_events(/*a1*/);		 
+		break;
+	}
+	case 0x233d70: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_52D70((unsigned short)a1_6E8E,0);		 
+		break;
+	}
+	case 0x233e90: {
+		sub_52E90((type_str_0x2BDE*)a1_6E8E,0,0);		 
+		break;
+	}
+	case 0x234120: {
+		sub_53120();		 
+		break;
+	}
+	case 0x234160: {
+		sub_53160();		 
+		break;
+	}
+	case 0x2343b0: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_533B0_decompress_levels((short)a1_6E8E,0);
+		break;
+	}
+	case 0x234590: {
+		sub_53590((type_str_2FECE*)a1_6E8E);		 
+		break;
+	}
+
+
+
+				   /*
+				   char sub_595C0(int16_t a1)//23a5c0
+				   char sub_59610(Bit8u** a1, int16_t a2)//23a610
+				   char sub_596C0(x_WORD *a1, int16_t a2)//23a6c0
+				   void sub_59760(Bit8u* a1, Bit8u* a2)//23a760
+				   void sub_59820()//23a820
+
+				   int sub_59A50_sound_proc8()//23aa50
+				   void sub_59AF0_sound_proc9()//23aaf0
+				   void sub_59B50_sound_proc10(HMDIDRIVER user)//23ab50
+				   void sub_59BF0_sound_proc11_volume()//23abf0
+				   */
+
+	case 0x23ac40: {
+		sub_59C40_getTerrtoZ(a1_6E8E);
+		break;
+	}
+	case 0x23ac60: {
+		sub_59C60(a1_6E8E);
+		break;
+	}
+	case 0x23ac80: {
+		sub_59C80(a1_6E8E);
+		break;
+	}
+	case 0x23adc0: {
+		sub_59DC0(a1_6E8E);
+		break;
+	}
+	case 0x23af60: {
+		sub_59F60(a1_6E8E);		 
+		break;
+	}
+
+	case 0x23c070: {
+		sub_5B070(a1_6E8E);		 
+		break;
+	}
+	case 0x23c100: {
+		sub_5B100(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x23f010: {
+		sub_5E010(a1_6E8E);		 
+		break;
+	}
+	case 0x23f310: {
+		sub_5E310_multiplayer_test_die(a1_6E8E);//enemy player die		 
+		break;
+	}
+	case 0x23f660: {
+		sub_5E660(a1_6E8E);
+		break;
+	}
+	case 0x23f6c0: {
+		sub_5E6C0(a1_6E8E);
+		break;
+	}
+
+
+	case 0x23f7c0: {
+		sub_5E7C0_multiplayer_test_banished(a1_6E8E);		 
+		break;
+	}
+	case 0x23f8c0: {
+		sub_5E8C0_endGameSeq(a1_6E8E);
+		break;
+	}
+	case 0x23ff70: {
+		sub_5EF70(a1_6E8E);
+		break;
+	}
+	case 0x23ffa0: {
+		sub_5EFA0(a1_6E8E);
+		break;
+	}
+
+	case 0x240380: {
+		sub_5F380(a1_6E8E);		 
+		break;
+	}
+	case 0x240660: {
+		sub_5F660(a1_6E8E,0,0);
+		break;
+	}
+	case 0x2407b0: {
+		sub_5F7B0(a1_6E8E,0,0);
+		break;
+	}
+	case 0x2407e0: {
+		sub_5F7E0(a1_6E8E,0);
+		break;
+	}
+	case 0x240810: {
+		sub_5F810(a1_6E8E,0,0);
+		break;
+	}
+
+
+	case 0x240890: {
+		sub_5F890(a1_6E8E,0);		 
+		break;
+	}
+	case 0x2408f0: {
+		sub_5F8F0(a1_6E8E);		 
+		break;
+	}
+	case 0x240a70: {
+		sub_5FA70(a1_6E8E);//castle create2		 
+		break;
+	}
+	case 0x240bd0: {
+		sub_5FBD0(a1_6E8E);		 
+		break;
+	}
+	case 0x240c40: {
+		sub_5FC40(a1_6E8E);
+		break;
+	}
+
+	case 0x240ca0: {
+		sub_5FCA0_destroy_castle_level(a1_6E8E);
+		break;
+	}
+	case 0x240d00: {
+		sub_5FD00(a1_6E8E);		 
+		break;
+	}
+	case 0x240f50: {
+		 sub_5FF50(a1_6E8E);
+		break;
+	}
+	case 0x241400: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_60400((short)a1_6E8E,0,0);
+		break;
+	}
+	case 0x241480: {
+		sub_60480(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x2415e0: {
+		sub_605E0(a1_6E8E);		 
+		break;
+	}
+	case 0x241780: {
+		sub_60780(a1_6E8E,0,0,0);
+		break;
+	}
+	case 0x241810: {
+		sub_60810(a1_6E8E);
+		break;
+	}
+	case 0x2419e0: {
+		sub_609E0(a1_6E8E);
+		break;
+	}
+	case 0x241ab0: {
+		sub_60AB0(a1_6E8E);		 
+		break;
+	}
+
+	case 0x241d50: {
+		sub_60D50((axis_3d*)a1_6E8E,0);		 
+		break;
+	}
+	case 0x241ea0: {
+		sub_60EA0(a1_6E8E);		 
+		break;
+	}
+	case 0x241f00: {
+		sub_60F00();		 
+		break;
+	}
+	case 0x242000: {
+		sub_61000(a1_6E8E);
+		break;
+	}
+	case 0x242050: {
+		sub_61050(a1_6E8E);
+		break;
+	}
+
+	case 0x2423d0: {
+		sub_613D0(a1_6E8E);		 
+		break;
+	}
+	case 0x242620: {
+		sub_61620(a1_6E8E,0);
+		break;
+	}
+	case 0x2426d0: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_616D0((int)a1_6E8E);
+		break;
+	}
+	case 0x242790: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_61790((int)a1_6E8E);
+		break;
+	}
+	case 0x242810: {
+		sub_61810(a1_6E8E,0);
+		break;
+	}
+
+
+	case 0x242880: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_61880_draw_minimap_entites((int)a1_6E8E,0, 0, 0, 0, 0, 0, 0);		 
+		break;
+	}
+	case 0x242a00: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_61A00_draw_minimap_entites_b((int)a1_6E8E,0, 0, 0, 0, 0, 0, 0);		 
+		break;
+	}
+	case 0x2437f0: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_627F0_draw_minimap_entites_a((int)a1_6E8E,0, 0, 0, 0, 0, 0, 0);		 
+		break;
+	}
+	case 0x244570: {
+		sub_63570(a1_6E8E,0);
+		break;
+	}
+	case 0x244600: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_63600_draw_minimap((int)a1_6E8E,0,0, 0, 0, 0, 0, 0,0,0);		 
+		break;
+	}
+
+	case 0x244670: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_63670_draw_minimap_a((int)a1_6E8E,0,0, 0, 0, 0, 0, 0,0,0);		 
+		break;
+	}
+	case 0x244c90: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_63C90_draw_minimap_b((int)a1_6E8E,0,0, 0, 0, 0, 0, 0,0,0);		 
+		break;
+	}
+	case 0x2454f0: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_644F0_draw_minimap_marks((int)a1_6E8E,0,0, 0, 0, 0, 0, 0);		 
+		break;
+	}
+	case 0x245ce0: {
+		sub_64CE0_draw_follow_rectangle((v51x_struct*)a1_6E8E);
+		break;
+	}
+	case 0x245e20: {
+		sub_64E20(a1_6E8E);
+		break;
+	}
+
+	case 0x245f60: {
+		sub_64F60(a1_6E8E);
+		break;
+	}
+	case 0x245ff0: {
+		sub_64FF0(a1_6E8E);
+		break;
+	}
+	case 0x246040: {
+		sub_65040(a1_6E8E);
+		break;
+	}
+	case 0x246080: {
+		sub_65080(a1_6E8E);
+		break;
+	}	
+	case 0x246110: {
+		sub_65110(a1_6E8E);
+		break;
+	}
+
+
+	case 0x2461b0: {
+		sub_651B0(a1_6E8E);
+		break;
+	}
+	case 0x246240: {
+		sub_65240(a1_6E8E);
+		break;
+	}
+	case 0x246280: {
+		sub_65280(a1_6E8E);		 
+		break;
+	}
+	case 0x2462a0: {
+		sub_652A0(a1_6E8E);		 
+		break;
+	}
+	case 0x2462c0: {
+		sub_652C0(a1_6E8E);		 
+		break;
+	}
+
+	case 0x2464b0: {
+		sub_654B0(a1_6E8E);
+		break;
+	}
+	case 0x246580: {
+		sub_65580(a1_6E8E);		 
+		break;
+	}
+	case 0x2465a0: {
+		sub_655A0(a1_6E8E);		 
+		break;
+	}
+	case 0x2465c0: {
+		sub_655C0(a1_6E8E,0);		 
+		break;
+	}
+	case 0x246610: {
+		sub_65610(a1_6E8E,0);		 
+		break;
+	}
+
+
+	case 0x2466d0: {
+		sub_656D0(a1_6E8E,0);
+		break;
+	}
+	case 0x246780: {
+		sub_65780(a1_6E8E,0,0);		 
+		break;
+	}
+	case 0x246820: {
+		sub_65820(a1_6E8E);
+		break;
+	}
+	case 0x246b30: {
+		sub_65B30(a1_6E8E);//fly fire projectile		 
+		break;
+	}
+	case 0x246b50: {
+		sub_65B50(a1_6E8E);		 
+		break;
+	}
+	case 0x246c20: {
+		sub_65C20(a1_6E8E);
+		break;
+	}
+	case 0x246f60: {
+		sub_65F60(a1_6E8E);//fly possess projectile		 
+		break;
+	}
+
+	case 0x247160: {
+		sub_66160(a1_6E8E);
+		break;
+	}
+	case 0x247180: {
+		sub_66180(a1_6E8E);		 
+		break;	
+	}
+	case 0x247250: {
+		sub_66250(a1_6E8E);
+		break;
+	}
+	case 0x247280: {
+		sub_66280(a1_6E8E);
+		break;
+	}
+	case 0x2472a0: {
+		sub_662A0(a1_6E8E);
+		break;
+	}
+	case 0x2472c0: {
+		sub_662C0(a1_6E8E);		 
+		break;
+	}
+
+	case 0x2472e0: {
+		sub_662E0(a1_6E8E);		 
+		break;
+	}
+	case 0x247610: {
+		sub_66610(a1_6E8E);		 
+		break;
+	}
+	case 0x247750: {
+		sub_66750(a1_6E8E);		 
+		break;
+	}
+	case 0x247b30: {
+		sub_66B30(a1_6E8E);//castle fly projectile		 
+		break;
+	}
+	case 0x247d00: {
+		sub_66D00(a1_6E8E);
+		break;
+	}
+	case 0x247fb0: {
+		sub_66FB0(a1_6E8E);
+		break;
+	}
+	case 0x247fd0: {//lighting II
+		sub_66FD0(a1_6E8E);		 
+		break;
+	}
+
+	case 0x2482e0: {//arrow2
+		sub_672E0(a1_6E8E);		 
+		break;
+	}
+	case 0x248410: {
+		sub_67410(a1_6E8E);		 
+		break;
+	}
+	case 0x248430: {
+		sub_67430(a1_6E8E);		 
+		break;
+	}
+	case 0x248450: {
+		sub_67450(a1_6E8E);		 
+		break;
+	}
+	case 0x248470: {
+		sub_67470(a1_6E8E);		 
+		break;
+	}
+
+
+
+	case 0x2484c0: {
+		sub_674C0(a1_6E8E);//possess mana ii		 
+		break;
+	}
+	case 0x2486f0: {
+		sub_676F0(a1_6E8E);		 
+		break;
+	}
+	case 0x248740: {
+		sub_67740(a1_6E8E);		 
+		break;
+	}
+	case 0x248760: {
+		sub_67760(a1_6E8E);		 
+		break;
+	}
+	case 0x248780: {
+		sub_67780(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x2487a0: {
+		sub_677A0(a1_6E8E);		 
+		break;
+				   }
+	case 0x2487d0: {
+		sub_677D0(a1_6E8E);		 
+		break;
+	}
+	case 0x248800: {
+		sub_67800(a1_6E8E);		 
+		break;
+	}
+	case 0x248890: {
+		sub_67890(a1_6E8E);		 
+		break;
+	}
+	case 0x2488e0: {
+		sub_678E0(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x248910: {
+		sub_67910(a1_6E8E);		 
+		break;
+	}
+	case 0x248940: {
+		sub_67940(a1_6E8E);		 
+		break;
+	}
+	case 0x248960: {
+		sub_67960(a1_6E8E/*,0*/);		 
+		break;
+	}
+	case 0x248cb0: {
+		sub_67CB0(a1_6E8E);		 
+		break;
+	}
+	case 0x249490: {
+		sub_68490(a1_6E8E,0,0,0);		 
+		break;
+	}
+
+
+	case 0x2495d0: {
+		sub_685D0(a1_6E8E,0,0,0);		 
+		break;
+	}
+	case 0x2496d0: {
+		sub_686D0(a1_6E8E,0);		 
+		break;
+	}
+	case 0x249740: {
+		sub_68740(a1_6E8E,0,0,0);		 
+		break;
+	}
+	case 0x249940: {
+		sub_68940(a1_6E8E);		 
+		break;
+	}
+	case 0x249ac0: {
+		sub_68AC0(a1_6E8E,0);		 
+		break;
+	}
+
+
+	case 0x249bd0: {
+		sub_68BD0(a1_6E8E,0);		 
+		break;
+	}
+	case 0x249bf0: {
+		sub_68BF0();		 
+		break;
+	}
+	case 0x249c70: {
+		sub_68C70(a1_6E8E);		 
+		break;
+	}
+	case 0x249d50: {
+		sub_68D50(a1_6E8E,0);		 
+		break;
+	}
+	case 0x249de0: {
+		sub_68DE0(a1_6E8E,0);		 
+		break;
+	}
+	case 0x249e50: {
+		sub_68E50(a1_6E8E,0,0);		 
+		break;
+	}
+
+	case 0x249f00: {
+		sub_68FF0(a1_6E8E,0,0);
+		break;
+	}
+	case 0x24a250: {
+		sub_69250(a1_6E8E);
+		break;
+	}
+	case 0x24a2a0: {
+		sub_692A0(a1_6E8E);
+		break;
+	}
+	case 0x24a2c0: {
+		sub_692C0(a1_6E8E);
+		break;
+	}
+	case 0x24a300: {
+		sub_69300(a1_6E8E,0);		 
+		break;
+	}
+
+
+	case 0x24a3f0: {
+		sub_693F0(a1_6E8E);		 
+		break;
+	}
+	case 0x24a600: {
+		sub_69600(a1_6E8E);
+		break;
+	}
+	case 0x24a620: {
+		sub_69620(a1_6E8E);
+		break;
+	}
+	case 0x24a640: {
+		sub_69640(a1_6E8E);		 
+		break;
+	}
+	case 0x24a900: {
+		sub_69900(a1_6E8E,0);		 
+		break;
+	}
+
+
+	case 0x24aa70: {
+		sub_69A70(a1_6E8E);
+		break;
+	}
+	case 0x24aa90: {
+		sub_69A90(a1_6E8E);
+		break;
+	}
+	case 0x24aab0: {//get scroll6
+		sub_69AB0(a1_6E8E);
+		break;
+	}
+	case 0x24ad70: {
+		sub_69D70(a1_6E8E);
+		break;
+	}
+	case 0x24ad90: {
+		sub_69D90(a1_6E8E);
+		break;
+	}
+
+
+	case 0x24adb0: {
+		sub_69DB0(a1_6E8E);		 
+		break;
+	}
+	case 0x24aff0: {
+		sub_69FF0(a1_6E8E);
+		break;
+	}
+
+
+
+
+	case 0x24b010: {
+		sub_6A010(a1_6E8E);
+		break;
+	}
+	case 0x24b030: {
+		sub_6A030(a1_6E8E);		 
+		break;
+	}
+	case 0x24b2c0: {
+		sub_6A2C0(a1_6E8E);
+		break;
+	}
+	case 0x24b2e0: {
+		sub_6A2E0(a1_6E8E);
+		break;
+	}
+	case 0x24b300: {
+		sub_6A300(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x24b440: {
+		sub_6A440(a1_6E8E);
+		break;
+	}
+	case 0x24b460: {
+		sub_6A460(a1_6E8E);
+		break;
+	}
+	case 0x24b480: {
+		sub_6A480(a1_6E8E);		 
+		break;
+	}
+	case 0x24b580: {
+		sub_6A580(a1_6E8E);
+		break;
+	}
+	case 0x24b5a0: {
+		sub_6A5A0(a1_6E8E);
+		break;
+	}
+
+	case 0x24b5c0: {
+		sub_6A5C0(a1_6E8E);		 
+		break;
+	}
+	case 0x24b9c0: {
+		 sub_6A9C0(a1_6E8E);
+		break;
+	}
+	case 0x24b9e0: {
+		sub_6A9E0(a1_6E8E);
+		break;
+	}
+	case 0x24ba00: {
+		sub_6AA00(a1_6E8E);
+		break;
+	}
+	case 0x24bac0: {
+		sub_6AAC0(a1_6E8E);
+		break;
+	}
+
+	case 0x24bae0: {
+		sub_6AAE0(a1_6E8E);
+		break;
+	}
+	case 0x24bb00: {
+		sub_6AB00(a1_6E8E);		 
+		break;
+	}
+	case 0x24bd00: {
+		sub_6AD00(a1_6E8E);
+		break;
+	}
+	case 0x24bd20: {
+		sub_6AD20(a1_6E8E);
+		break;
+	}
+	case 0x24bd60: {
+		sub_6AD60(a1_6E8E);		 
+		break;
+	}
+
+	case 0x24c180: {
+		sub_6B180(a1_6E8E);
+		break;
+	}
+	case 0x24c1a0: {
+		sub_6B1A0(a1_6E8E);
+		break;
+	}
+	case 0x24c1c0: {
+		sub_6B1C0(a1_6E8E);		 
+		break;
+	}
+	case 0x24c2d0: {
+		sub_6B2D0(a1_6E8E);
+		break;
+	}
+	case 0x24c2f0: {
+		sub_6B2F0(a1_6E8E);
+		break;
+	}
+
+
+	case 0x24c310: {
+		sub_6B310(a1_6E8E);
+		break;
+	}
+	case 0x24c3a0: {
+		sub_6B3A0(a1_6E8E);
+		break;
+	}
+	case 0x24c3c0: {
+		sub_6B3C0(a1_6E8E);
+		break;
+	}
+	case 0x24c3e0: {
+		sub_6B3E0(a1_6E8E);		 
+		break;
+	}
+	case 0x24c5d0: {
+		sub_6B5D0(a1_6E8E);
+		break;
+	}
+
+
+	case 0x24c5f0: {
+		sub_6B5F0(a1_6E8E);
+		break;
+	}
+	case 0x24c610: {
+		sub_6B610(a1_6E8E);
+		break;
+	}
+	case 0x24c830: {
+		sub_6B830(a1_6E8E);
+		break;
+	}
+	case 0x24c850: {
+		sub_6B850(a1_6E8E);
+		break;
+	}
+	case 0x24c870: {
+		sub_6B870(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x24ca70: {
+		sub_6BA70(a1_6E8E);
+		break;
+	}
+	case 0x24ca90: {
+		sub_6BA90(a1_6E8E);
+		break;
+	}
+	case 0x24cab0: {
+		sub_6BAB0(a1_6E8E);		 
+		break;
+	}
+	case 0x24ccb0: {
+		sub_6BCB0(a1_6E8E);
+		break;
+	}
+	case 0x24ccd0: {
+		sub_6BCD0(a1_6E8E);
+		break;
+	}
+
+
+	case 0x24ccf0: {
+		sub_6BCF0(a1_6E8E);		 
+		break;
+	}
+	case 0x24cef0: {
+		sub_6BEF0(a1_6E8E);
+		break;
+	}
+	case 0x24cf10: {
+		sub_6BF10(a1_6E8E);
+		break;
+	}
+	case 0x24cf30: {
+		sub_6BF30(a1_6E8E);		 
+		break;
+	}
+	case 0x24d130: {
+		sub_6C130(a1_6E8E);
+		break;
+	}
+
+	case 0x24d150: {
+		sub_6C150(a1_6E8E);
+		break;
+	}
+	case 0x24d170: {
+		sub_6C170(a1_6E8E);		 
+		break;
+	}
+	case 0x24d3a0: {
+		sub_6C3A0(a1_6E8E);
+		break;
+	}
+	case 0x24d3c0: {
+		sub_6C3C0(a1_6E8E);
+		break;
+	}
+	case 0x24d3e0: {
+		sub_6C3E0(a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x24d5e0: {
+		sub_6C5E0(a1_6E8E);
+		break;
+	}
+	case 0x24d600: {
+		sub_6C600(a1_6E8E);
+		break;
+	}
+	case 0x24d620: {
+		sub_6C620(a1_6E8E);		 
+		break;
+	}
+	case 0x24d830: {
+		sub_6C830(a1_6E8E);
+		break;
+	}
+	case 0x24d850: {
+		sub_6C850(a1_6E8E);
+		break;
+	}
+
+
+	case 0x24d870: {
+		sub_6C870(a1_6E8E);		 
+		break;
+	}
+	case 0x24da80: {
+		sub_6CA80(a1_6E8E);
+		break;
+	}
+	case 0x24daa0: {
+		sub_6CAA0(a1_6E8E);
+		break;
+	}
+	case 0x24dac0: {
+		sub_6CAC0(a1_6E8E);		 
+		break;
+	}
+	case 0x24dce0: {
+		sub_6CCE0(a1_6E8E);
+		break;
+	}
+
+	case 0x24dd00: {
+		sub_6CD00(a1_6E8E);
+		break;
+	}
+	case 0x24dd20: {
+		sub_6CD20(a1_6E8E);
 		 
-	// 	break;
-	// }
-	// case 0x24df60: {
-	// 	sub_6CF60(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24df80: {
-	// 	sub_6CF80(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24dfa0: {
-	// 	sub_6CFA0(a1_6E8E);		 
-	// 	break;
-	// }
+		break;
+	}
+	case 0x24df60: {
+		sub_6CF60(a1_6E8E);
+		break;
+	}
+	case 0x24df80: {
+		sub_6CF80(a1_6E8E);
+		break;
+	}
+	case 0x24dfa0: {
+		sub_6CFA0(a1_6E8E);		 
+		break;
+	}
 
-	// case 0x24e1c0: {
-	// 	sub_6D1C0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24e1e0: {
-	// 	sub_6D1E0(a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24e200: {
-	// 	sub_6D200((type_str_0x2BDE*)a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24e420: {
-	// 	sub_6D420_mouse_to_spell((short)a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x24e4c0: {
-	// 	sub_6D4C0((type_str_611*)a1_6E8E);
-	// 	break;
-	// }
+	case 0x24e1c0: {
+		sub_6D1C0(a1_6E8E);
+		break;
+	}
+	case 0x24e1e0: {
+		sub_6D1E0(a1_6E8E);
+		break;
+	}
+	case 0x24e200: {
+		sub_6D200((type_str_0x2BDE*)a1_6E8E);		 
+		break;
+	}
+	case 0x24e420: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_6D420_mouse_to_spell((short)a1_6E8E,0);
+		break;
+	}
+	case 0x24e4c0: {
+		sub_6D4C0((type_str_611*)a1_6E8E);
+		break;
+	}
 
-	// /*case 0x24e4f0: {
-	// 	 sub_6D4F0((Bit8u*)a1,0);
-	// 	break;
-	// }*/
-	// case 0x24e5e0: {
-	// 	sub_6D5E0(a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x24e710: {
-	// 	sub_6D710(a1_6E8E,0,0);
-	// 	break;
-	// }
-	// case 0x24e830: {
-	// 	sub_6D830(a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x24e880: {
-	// 	sub_6D880(a1_6E8E);		 
-	// 	break;
-	// }
-
-
-	// case 0x24e8b0: {
-	// 	sub_6D8B0((unsigned short)a1_6E8E,0,0);		 
-	// 	break;
-	// }
-	// case 0x24e9c0: {
-	// 	sub_6D9C0((type_str_611*)a1_6E8E,0,0,0,0);		 
-	// 	break;
-	// }
-	// case 0x24ead0: {
-	// 	sub_6DAD0((type_str_611*)a1_6E8E,0,0);		 
-	// 	break;
-	// }
-	// case 0x24eb50: {
-	// 	sub_6DB50((char)a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x24ebd0: {
-	// 	sub_6DBD0();		 
-	// 	break;
-	// }
-
-	// case 0x24ec40: {
-	// 	sub_6DC40_improve_ability((unsigned char)a1_6E8E);		 
-	// 	break;
-	// }
-	// case 0x24eca0: {
-	// 	sub_6DCA0(a1_6E8E,0,0,0,0,0);
-	// 	break;
-	// }
-	// case 0x24f020: {
-	// 	sub_6E020((unsigned short)a1_6E8E);
-	// 	break;
-	// }
-	// case 0x24f090: {
-	// 	sub_6E090((type_str_611*)a1_6E8E,0);		 
-	// 	break;
-	// }
-	// case 0x24f0d0: {
-	// 	sub_6E0D0();		 
-	// 	break;
-	// }
-
-	// case 0x24f150: {
-	// 	sub_6E150();		 
-	// 	break;
-	// }
-	// case 0x24f450: {
-	// 	sub_6E450_distance_sound((short)a1_6E8E,0,0);		 
-	// 	break;
-	// }
-	// case 0x24fa90: {
-	// 	sub_6EA90((int)a1_6E8E,0);
-	// 	break;
-	// }
-	// case 0x24fab0: {
-	// 	sub_6EAB0((int)a1_6E8E,0,0);		 
-	// 	break;
-	// }
-	// case 0x24fb90: {
-	// 	sub_6EB90((filearray_struct*)a1_6E8E);		 
-	// 	break;
-	// }
+	/*case 0x24e4f0: {
+		 sub_6D4F0((Bit8u*)a1,0);
+		break;
+	}*/
+	case 0x24e5e0: {
+		sub_6D5E0(a1_6E8E,0);		 
+		break;
+	}
+	case 0x24e710: {
+		sub_6D710(a1_6E8E,0,0);
+		break;
+	}
+	case 0x24e830: {
+		sub_6D830(a1_6E8E,0);
+		break;
+	}
+	case 0x24e880: {
+		sub_6D880(a1_6E8E);		 
+		break;
+	}
 
 
-	// case 0x24FBF0: {
-	// 	sub_6EBF0((filearray_struct*)a1_6E8E);		 
-	// 	break;
-	// }
+	case 0x24e8b0: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_6D8B0((unsigned short)a1_6E8E,0,0);		 
+		break;
+	}
+	case 0x24e9c0: {
+		sub_6D9C0((type_str_611*)a1_6E8E,0,0,0,0);		 
+		break;
+	}
+	case 0x24ead0: {
+		sub_6DAD0((type_str_611*)a1_6E8E,0,0);		 
+		break;
+	}
+	case 0x24eb50: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_6DB50((char)a1_6E8E,0);		 
+		break;
+	}
+	case 0x24ebd0: {
+		sub_6DBD0();		 
+		break;
+	}
+
+	case 0x24ec40: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_6DC40_improve_ability((unsigned char)a1_6E8E);		 
+		break;
+	}
+	case 0x24eca0: {
+		sub_6DCA0(a1_6E8E,0,0,0,0,0);
+		break;
+	}
+	case 0x24f020: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_6E020((unsigned short)a1_6E8E);
+		break;
+	}
+	case 0x24f090: {
+		sub_6E090((type_str_611*)a1_6E8E,0);		 
+		break;
+	}
+	case 0x24f0d0: {
+		sub_6E0D0();		 
+		break;
+	}
+
+	case 0x24f150: {
+		sub_6E150();		 
+		break;
+	}
+	case 0x24f450: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_6E450_distance_sound((short)a1_6E8E,0,0);		 
+		break;
+	}
+	case 0x24fa90: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_6EA90((int)a1_6E8E,0);
+		break;
+	}
+	case 0x24fab0: {
+		// FIXME: types
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		// sub_6EAB0((int)a1_6E8E,0,0);		 
+		break;
+	}
+	case 0x24fb90: {
+		sub_6EB90((filearray_struct*)a1_6E8E);		 
+		break;
+	}
+
+
+	case 0x24FBF0: {
+		sub_6EBF0((filearray_struct*)a1_6E8E);		 
+		break;
+	}
 	case 0x24FDB0: {
 		sub_6EDB0_set_mouse_position_by_res();		 
 		break;
@@ -62676,34 +62681,23 @@ int debugcounter_0022B25D = 0;
 //----- (0004A1E0) --------------------------------------------------------
 void sub_4A1E0(int a1, char a2)//22b1e0
 {
-	//Bit8u* v2; // ebx
-	//uint16_t *v3; // ebx
 	int v3x;
 	uint16_t v4; // ST04_2
 	uint16_t v5; // ST00_2
-	//Bit8u* ix; // ebx
 	int iy;
 	uint16_t v7; // ax
-	//int result; // eax
 
 	if (!a1)
 	{
-		//v2 = D41A0_BYTESTR_0.array_0x364D6;
-		//*(x_DWORD *)(v2 - 4) = 0;
 		D41A0_BYTESTR_0.str_0x364D2.dword_0x364D2 = 0;
 		memset(D41A0_BYTESTR_0.str_0x364D2.dword_0x364D6, 0, 104);
 
 		x_BYTE_F5538.fill(0);
 		v3x = 1;
-		//v3 = &D41A0_BYTESTR_0.str_2FECE.array_0x30311[1].str_0x30311_type;
-		//while ((Bit8u*)v3 < &x_D41A0_BYTEARRAY_0[221393])
 		while(v3x< 0x4b0)
 		{
-			//adress 22b21a
-
 			v4 = D41A0_BYTESTR_0.str_2FECE.array_0x30311[v3x].str_0x30311_subtype;
 			v5 = D41A0_BYTESTR_0.str_2FECE.array_0x30311[v3x].str_0x30311_type;
-			//v3 += 10;
 			v3x++;
 			sub_716C0(v5, v4, 0xFFFFu);
 		}
@@ -62712,11 +62706,8 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 	sub_49F90();
 	sub_122C0(a1);//adress 22b257
 
-
-	//for (ix = &x_D41A0_BYTEARRAY_0[197413]; ix < &x_D41A0_BYTEARRAY_0[221393]; ix += 20)
 	for (iy = 1; iy < 0x4b0; iy++)
 	{
-		//adress 22b26e
 		if (D41A0_BYTESTR_0.str_2FECE.array_0x30311[iy].str_0x30311_type && D41A0_BYTESTR_0.str_2FECE.array_0x30311[iy].DisId == a1)
 		{//adress 22b278
 			sub_4A310(&D41A0_BYTESTR_0.str_2FECE.array_0x30311[iy]);
@@ -62731,9 +62722,7 @@ void sub_4A1E0(int a1, char a2)//22b1e0
 		}
 	}
 	sub_12870();
-	//result = (int)x_D41A0_BYTEARRAY_0;	
 	D41A0_BYTESTR_0.dword_0x11e6 = -1;
-//	return result;
 }
 
 int debugcounter_22b310=0;
@@ -62741,31 +62730,21 @@ int debugcounter_22b310=0;
 //----- (0004A310) --------------------------------------------------------
 void sub_4A310(type_str_0x30311* a1x)//22b310
 {
-	//Bit8u* indexy; // eax
 	type_str_0x6E8E* indexx; // eax
 	type_str_0x6E8E* v2x; // edx
 	type_str_0x6E8E* v3x; // ebx
 	Bit8u v4; // al
 	int v5; // eax
 	int16_t v6; // di
-	//Bit8u* v7; // edx
 	Bit8u v8; // al
 	int v9; // eax
 	Bit8u v10; // al
 	axis_3d v11x; // [esp+0h] [ebp-8h]
-	//int16_t v12; // [esp+2h] [ebp-6h]
-	//int16_t v13; // [esp+4h] [ebp-4h]
-	//Bit32u posxy;
 
-	//indexy = &x_DWORD_D4C52ar[4+18 * a1x->str_0x30311_type];
-	//indexy = &str_D4C48ar[a1x->str_0x30311_type].dword_14;
-	//*(Bit32u*)&x_DWORD_D4C56[(*(Bit32u*)index - 0x2a5c56)+14* a1[1]+10]
-	//if (!*(Bit32u*)&x_DWORD_D4C52ar[(str_D4C48ar[a1x->str_0x30311_type].dword_14 - 0x2a5c52) + 14 * a1x->str_0x30311_subtype + 10])//14*a1[1]+10
 	if (!str_D4C48ar[a1x->str_0x30311_type].dword_14[a1x->str_0x30311_subtype].dword_10)
 		return/* index*/;
 	v11x.x = (a1x->axis2d_4.x << 8) + 128;
 	v11x.y = (a1x->axis2d_4.y << 8) + 128;
-	//posxy = v11 + (v12 << 16);
 	v11x.z = sub_10C40_getTerrainAlt(&v11x);//tady to chce pridat jeste 5012 804d80da5012
 	indexx = sub_4A190(&v11x, a1x->str_0x30311_type, a1x->str_0x30311_subtype);
 	v2x = indexx;
@@ -62898,8 +62877,6 @@ void sub_4A310(type_str_0x30311* a1x)//22b310
 				}
 			}
 		}
-		//v7 = &(*xadataspellsdat.var28_begin_buffer)[80 * (uint16_t)sub_6E020(v3x->byte_0x40_64) + 2 + 26 * a1x->word_14];
-		//v3x->word_0x2A_42 = *(x_WORD *)v7;
 		v3x->word_0x2A_42 = SPELLS_BEGIN_BUFFER_str[(uint16_t)sub_6E020(v3x->byte_0x40_64)].subspell[a1x->word_14].dword_2;
 		v8 = v3x->byte_0x40_64;
 		if (v8 >= 0x11u)
@@ -63015,45 +62992,21 @@ int sub_4A810_get_0x35plus()//22b810
 //----- (0004A820) --------------------------------------------------------
 type_str_0x6E8E* sub_4A820(axis_3d* a1)//22b820
 {
-	//Bit8u* v1; // edi
-	//int result; // eax
-
-	//v1 = x_D41A0_BYTEARRAY_0 + 9058;
-	//result = 0;
-	//*(Bit32s*)(x_D41A0_BYTEARRAY_0 + 9058) = *(Bit32s*)a1;
-	//*(Bit16s*)(x_D41A0_BYTEARRAY_0 + 9058 + 4) = *(Bit16s*)(a1 + 4);
-
 	D41A0_BYTESTR_0.array_0x2362[0] = *a1;
-	//set_x_D41A0_BYTEARRAY_0_0x2366(0, *(Bit16s*)(a1 + 4));
-
 	return 0;
 }
 
 //----- (0004A840) --------------------------------------------------------
 type_str_0x6E8E* sub_4A840(axis_3d* a1)//22b840
 {
-	//axis_3d* v1; // edi
-	//int result; // eax
-
-	/*v1 = &*/D41A0_BYTESTR_0.array_0x2362[1]=*a1;
-	//result = 0;
-	/**(x_DWORD *)v1 = *(x_DWORD *)a1;
-	*(x_WORD *)(v1 + 4) = *(x_WORD *)(a1 + 4);*/
-	//return result;
+	D41A0_BYTESTR_0.array_0x2362[1]=*a1;
 	return 0;
 }
 
 //----- (0004A860) --------------------------------------------------------
 type_str_0x6E8E* sub_4A860(axis_3d* a1)//22b860
 {
-	//Bit8u* v1; // edi
-	//int result; // eax
-
-	//v1 = x_D41A0_BYTEARRAY_0 + 9070;
-	//result = 0;
 	D41A0_BYTESTR_0.array_0x2362[2] = *a1;
-	//*(x_DWORD *)v1 = *(x_DWORD *)a1;
-	//*(x_WORD *)(v1 + 4) = *(x_WORD *)(a1 + 4);
 	return 0;
 }
 
@@ -63061,13 +63014,6 @@ type_str_0x6E8E* sub_4A860(axis_3d* a1)//22b860
 type_str_0x6E8E* sub_4A880(axis_3d* a1)//22b880
 {
 	D41A0_BYTESTR_0.array_0x2362[3] = *a1;
-	/*Bit8u* v1; // edi
-	int result; // eax
-
-	v1 = x_D41A0_BYTEARRAY_0 + 9076;
-	result = 0;
-	*(x_DWORD *)v1 = *(x_DWORD *)a1;
-	*(x_WORD *)(v1 + 4) = *(x_WORD *)(a1 + 4);*/
 	return 0;
 }
 
@@ -63075,14 +63021,6 @@ type_str_0x6E8E* sub_4A880(axis_3d* a1)//22b880
 type_str_0x6E8E* sub_4A8A0(axis_3d* a1)//22b8a0
 {
 	D41A0_BYTESTR_0.array_0x2362[4] = *a1;
-	/*Bit8u* v1; // edi
-	int result; // eax
-
-	v1 = x_D41A0_BYTEARRAY_0 + 9082;
-	result = 0;
-	*(x_DWORD *)v1 = *(x_DWORD *)a1;
-	*(x_WORD *)(v1 + 4) = *(x_WORD *)(a1 + 4);
-	return result;*/
 	return 0;
 }
 
@@ -63090,14 +63028,6 @@ type_str_0x6E8E* sub_4A8A0(axis_3d* a1)//22b8a0
 type_str_0x6E8E* sub_4A8C0(axis_3d* a1)//22b8c0
 {
 	D41A0_BYTESTR_0.array_0x2362[5] = *a1;
-	/*Bit8u* v1; // edi
-	int result; // eax
-
-	v1 = x_D41A0_BYTEARRAY_0 + 9088;
-	result = 0;
-	*(x_DWORD *)v1 = *(x_DWORD *)a1;
-	*(x_WORD *)(v1 + 4) = *(x_WORD *)(a1 + 4);
-	return result;*/
 	return 0;
 }
 
@@ -63105,14 +63035,6 @@ type_str_0x6E8E* sub_4A8C0(axis_3d* a1)//22b8c0
 type_str_0x6E8E* sub_4A8E0(axis_3d* a1)//22b8e0
 {
 	D41A0_BYTESTR_0.array_0x2362[6] = *a1;
-	/*Bit8u* v1; // edi
-	int result; // eax
-
-	v1 = x_D41A0_BYTEARRAY_0 + 9094;
-	result = 0;
-	*(x_DWORD *)v1 = *(x_DWORD *)a1;
-	*(x_WORD *)(v1 + 4) = *(x_WORD *)(a1 + 4);
-	return result;*/
 	return 0;
 }
 
@@ -63120,14 +63042,6 @@ type_str_0x6E8E* sub_4A8E0(axis_3d* a1)//22b8e0
 type_str_0x6E8E* sub_4A900(axis_3d* a1)//22b900
 {
 	D41A0_BYTESTR_0.array_0x2362[7] = *a1;
-	/*Bit8u* v1; // edi
-	int result; // eax
-
-	v1 = x_D41A0_BYTEARRAY_0 + 9100;
-	result = 0;
-	*(x_DWORD *)v1 = *(x_DWORD *)a1;
-	*(x_WORD *)(v1 + 4) = *(x_WORD *)(a1 + 4);
-	return result;*/
 	return 0;
 }
 
@@ -63135,16 +63049,12 @@ type_str_0x6E8E* sub_4A900(axis_3d* a1)//22b900
 type_str_0x6E8E* sub_4A920(axis_3d* a1x)//22b920 - add player 0
 {
 	type_str_0x6E8E* v1x; // eax
-	//x_WORD *v2; // esi
-	//int v3; // ecx
 
 	v1x = sub_4A050_new_event();
-	//v2 = (x_WORD *)v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 0;
 		v1x->byte_0x3F_63 = 3;
-		//v3 = (int)x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x40_64 = 0;
 		v1x->dword_0x4 = 10000;
 		v1x->word_0x84_132 = 80;
@@ -63165,16 +63075,12 @@ type_str_0x6E8E* sub_4A920(axis_3d* a1x)//22b920 - add player 0
 type_str_0x6E8E* sub_4A9C0(axis_3d* a1x)//22b9c0 //Other player spawn?
 {
 	type_str_0x6E8E* v1x; // eax
-	//x_WORD *v2; // ebx
-	//int v3; // edx
 
 	v1x = sub_4A050_new_event();
-	//v2 = (x_WORD *)v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 1;
 		v1x->byte_0x3F_63 = 3;
-		//v3 = (int)x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x40_64 = 1;
 		v1x->dword_0x4 = 10000;
 		v1x->word_0x84_132 = 80;
@@ -63193,11 +63099,9 @@ type_str_0x6E8E* sub_4AA40(axis_3d* a1x)//22ba40 //Spawn Scenery Bad Stone
 {
 	type_str_0x6E8E* resultx; // eax
 	type_str_0x6E8E* v2x; // ebx
-	//int v3; // edx
 	uint16_t v4; // ax
 	uint16_t v5; // cx
 	axis_3d v6ar; // [esp+0h] [ebp-Ch]
-	//int16_t v7; // [esp+4h] [ebp-8h]
 	int v8; // [esp+8h] [ebp-4h]
 
 	x_WORD_EB398ar = *a1x;
@@ -63219,8 +63123,6 @@ type_str_0x6E8E* sub_4AA40(axis_3d* a1x)//22ba40 //Spawn Scenery Bad Stone
 			v6ar.x++;
 		v6ar.x <<= 8;
 		v6ar.y <<= 8;
-		//v3 = **filearray_2aa18c[24];
-		//HIBYTE(v4) = 0;
 		v2x->word_0x9A_154x = v6ar;
 		v4 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[1].width;
 		v5 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[1].height;
@@ -63243,12 +63145,8 @@ type_str_0x6E8E* sub_4AA40(axis_3d* a1x)//22ba40 //Spawn Scenery Bad Stone
 type_str_0x6E8E* sub_4ABA0(axis_3d* a1x)//22bba0 //Spawn Creature 3?
 {
 	type_str_0x6E8E* resultx; // eax
-	//x_WORD *v2; // ebx
-	//int v3; // esi
 
 	resultx = sub_4A050_new_event();
-	//v2 = (x_WORD *)result;
-	//v3 = result;
 	if (resultx)
 	{
 		resultx->byte_0x45_69 = 7;
@@ -63265,7 +63163,6 @@ type_str_0x6E8E* sub_4ABA0(axis_3d* a1x)//22bba0 //Spawn Creature 3?
 		sub_49CD0(resultx, 169);
 		if (x_BYTE_D41B6)
 			sub_49EA0(resultx, 256, 768);
-		//result = v3;
 	}
 	return resultx;
 }
@@ -63278,7 +63175,6 @@ type_str_0x6E8E* sub_4AC40(axis_3d* a1x)//22bc40 Spawn ??
 	uint16_t v3; // ax
 	int v4; // eax
 	axis_3d v5x; // [esp+0h] [ebp-Ch]
-	//int16_t v6; // [esp+4h] [ebp-8h]
 	type_str_0x6E8E* v7x; // [esp+8h] [ebp-4h]
 
 	resultx = sub_4A050_new_event();
@@ -63321,11 +63217,8 @@ type_str_0x6E8E* sub_4AC40(axis_3d* a1x)//22bc40 Spawn ??
 type_str_0x6E8E* sub_4AD70(axis_3d* a1x)//22bd70 //Spawn ??
 {
 	type_str_0x6E8E* v1x; // eax
-	//x_WORD *v2; // ebx
-	//int v3; // ecx
 
 	v1x = sub_4A050_new_event();
-	//v2 = (x_WORD *)v1;
 	if (v1x)
 	{
 		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
@@ -63344,11 +63237,8 @@ type_str_0x6E8E* sub_4AD70(axis_3d* a1x)//22bd70 //Spawn ??
 type_str_0x6E8E* sub_4ADF0(axis_3d* a1x)//22bdf0 - add scenery Dolmen(Similar as Obelisk)
 {
 	type_str_0x6E8E* v1x; // eax
-	//x_WORD *v2; // ebx
-	//int v3; // ecx
 
 	v1x = sub_4A050_new_event();
-	//v2 = (x_WORD *)v1;
 	if (v1x)
 	{
 		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7u;
@@ -63391,14 +63281,10 @@ type_str_0x6E8E* sub_4AE80(axis_3d* a1x)//22be80 // Spawn Creture 3
 type_str_0x6E8E* sub_4AF00(axis_3d* a1x)//22bf00 // Spawn 4??
 {
 	type_str_0x6E8E* v1x; // eax
-	//x_WORD *v2; // ebx
-	//int v3; // edx
 
 	v1x = sub_4A050_new_event();
-	//v2 = (x_WORD *)v1;
 	if (v1x)
 	{
-		//v3 = (int)x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x45_69 = 12;
 		v1x->byte_0x3F_63 = 2;
 		v1x->byte_0x40_64 = 4;
@@ -63414,14 +63300,10 @@ type_str_0x6E8E* sub_4AF00(axis_3d* a1x)//22bf00 // Spawn 4??
 type_str_0x6E8E* sub_4AF70(axis_3d* a1x)//22bf70 //Spawn 5??
 {
 	type_str_0x6E8E* v1x; // eax
-	//x_WORD *v2; // ebx
-	//int v3; // edx
 
 	v1x = sub_4A050_new_event();
-	//v2 = (x_WORD *)v1;
 	if (v1x)
 	{
-		//v3 = (int)x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x45_69 = 15;
 		v1x->byte_0x3F_63 = 2;
 		v1x->byte_0x40_64 = 5;
@@ -63438,10 +63320,8 @@ type_str_0x6E8E* sub_4AFE0(axis_3d* a1x)//22bfe0 //Spawn Creture Bee
 {
 	type_str_0x6E8E* v1x; // eax
 	type_str_0x6E8E* v2x; // ebx
-	//int16_t v3; // dx
 	uint16_t v4; // ax
 	axis_3d v6x; // [esp+0h] [ebp-8h]
-	//int16_t v7; // [esp+4h] [ebp-4h]
 
 	if (D41A0_BYTESTR_0.str_2FECE.byte_level_type != 2)
 		return 0;
@@ -63451,14 +63331,12 @@ type_str_0x6E8E* sub_4AFE0(axis_3d* a1x)//22bfe0 //Spawn Creture Bee
 		return 0;
 	v1x->byte_0x45_69 = 18;
 	v1x->byte_0x3F_63 = 2;
-	//v3 = v1x->word_0x14_20;
 	v1x->byte_0x40_64 = 6;
 	v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
 	v4 = v1x->word_0x14_20;
 	v2x->byte_0x38_56 = 1;
 	v2x->dword_0x4 = v4 % 0x50u + 100;
 	v6x = *a1x;
-	//LOBYTE(v3) = -95 * v2x->word_0x14_20 - 33;
 	v2x->word_0x14_20 = 9377 * v2x->word_0x14_20 + 9439;
 	v6x.x += (v2x->word_0x14_20 & 0x3F) - 32;
 	v2x->word_0x14_20 = 9377 * v2x->word_0x14_20 + 9439;
@@ -63499,17 +63377,14 @@ type_str_0x6E8E* sub_4B150(axis_3d* a1x, char a2, char a3, int16_t a4)//22c150
 {
 	type_str_0x6E8E* v4x; // eax
 	type_str_0x6E8E* v5x; // ebx
-	//int16_t v6; // dx
 	uint16_t v7; // ax
 	axis_3d v9x; // [esp+0h] [ebp-8h]
-	//int16_t v10; // [esp+4h] [ebp-4h]
 
 	v4x = sub_4A050_new_event();
 	v5x = v4x;
 	if (v4x)
 	{
 		v4x->byte_0x45_69 = a3;
-		//v6 = v4x->word_0x14_20;
 		v4x->byte_0x40_64 = a2;
 		v4x->word_0x14_20 = 9377 * v4x->word_0x14_20 + 9439;
 		v7 = v4x->word_0x14_20;
@@ -63522,7 +63397,6 @@ type_str_0x6E8E* sub_4B150(axis_3d* a1x, char a2, char a3, int16_t a4)//22c150
 		v9x = *a1x;
 		v5x->word_0x14_20 = 9377 * v5x->word_0x14_20 + 9439;
 		v9x.x += (v5x->word_0x14_20 & 0x3F) - 32;
-		//LOBYTE(v6) = -95 * v5x->word_0x14_20 - 33;
 		v5x->word_0x14_20 = 9377 * v5x->word_0x14_20 + 9439;
 		v9x.y += (v5x->word_0x14_20 & 0x3F) - 32;
 		sub_57D70_actualize_event(v5x, &v9x);
@@ -63537,17 +63411,10 @@ type_str_0x6E8E* sub_4B240(axis_3d* a1x)//22c240
 {
 	type_str_0x6E8E* v1x; // eax
 	type_str_0x6E8E* v2x; // ebx
-	//int v3; // eax
-	//int16_t v4; // dx
-	//int v5; // ecx
-	//Bit8u* v6; // edx
 	Bit8s v6y;
 	Bit8s v6z;
-	//int v7; // eax
 	type_str_0x6E8E* v8x; // eax
 	type_str_0x6E8E* v9x; // ebx
-	//int v10; // edx
-	//int v10index = 0;
 	type_str_0x6E8E* v12x; // [esp+0h] [ebp-10h]
 	type_str_0x6E8E* v13x; // [esp+4h] [ebp-Ch]
 	type_str_0x6E8E* v14x; // [esp+8h] [ebp-8h]
@@ -63568,25 +63435,19 @@ type_str_0x6E8E* sub_4B240(axis_3d* a1x)//22c240
 	v1x->word_0x82_130 = 30;
 	v1x->dword_0x4 = 4000;
 	v1x->dword_0x90_144 = 4500;
-	//v3 = v1x->dword_0x90_144;
 	v2x->dword_0x8C_140 = v1x->dword_0x90_144;
-	//v4 = v2x->word_0x14_20;
 	v2x->dword_0x90_144 = v1x->dword_0x90_144 / 2;
 	v2x->word_0x14_20 = 9377 * v2x->word_0x14_20 + 9439;
-	//LOWORD(v3) = (v2x->word_0x14_20 & 0x7FF) - 1;
 	v2x->word_0x20_32 = (v2x->word_0x14_20 & 0x7FF) - 1;
 	v2x->word_0x1C_28 = (v2x->word_0x14_20 & 0x7FF) - 1;
-	//v5 = (int)x_D41A0_BYTEARRAY_0;
 	v2x->word_0x1E_30 = v2x->word_0x20_32;
 	v2x->word_0x22_34 = 0;
 	v2x->word_0x36_54 = 96;
 	v2x->byte_0x38_56 = 1;
-	//v7 = v2x->byte_0x40_64;
 	v2x->dword_0x10_16 = (v2x - D41A0_BYTESTR_0.struct_0x6E8E) % 100;
 	v6y = D41A0_BYTESTR_0.array_0x10[v2x->byte_0x40_64]++;	
 	v2x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x96e];
 	v2x->byte_0x3E_62 = v6y;
-	//LOWORD(v5) = *(x_WORD *)(*(x_DWORD *)(v2 + 160) + 26);
 	v6z = (int16_t)v2x->byte_0x3E_62 % v2x->dword_0xA0_160x->word_160_0x1a_26;
 	v2x->byte_0x41_65 = 3;
 	v2x->word_0x2C_44 = 0;
@@ -63627,13 +63488,8 @@ type_str_0x6E8E* sub_4B240(axis_3d* a1x)//22c240
 type_str_0x6E8E* sub_4B490(axis_3d* a1x)//22c490 - add creature Vulture(sup?)
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//Bit8u* v3; // ecx
-	//int v4; // edx
-	//Bit8u* v5; // ecx
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 9;
@@ -63646,15 +63502,10 @@ type_str_0x6E8E* sub_4B490(axis_3d* a1x)//22c490 - add creature Vulture(sup?)
 		sub_49C70(v1x);
 		v1x->word_0x20_32 = 0;
 		v1x->word_0x1C_28 = v1x->word_0x20_32;
-		//v3 = x_D41A0_BYTEARRAY_0;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
 		v1x->dword_0x10_16 = (v1x-D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//v4 = *(char *)(v1 + 64);
 		v1x->word_0x22_34 = 0;
-		//v5 = v4 + x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x38_56 = 1;
-		//LOBYTE(v4) = (*(x_BYTE *)(*(char *)(v1 + 64) + x_D41A0_BYTEARRAY_0 + 16))++;
-		//D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xd04];
 		v1x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
 		v1x->byte_0x39_57 = v1x->dword_0xA0_160x->word_160_0x1a_26 + 1;
@@ -63672,10 +63523,6 @@ type_str_0x6E8E* sub_4B590(axis_3d* a1x)//22c590
 	type_str_0x6E8E* v1x; // eax
 	type_str_0x6E8E* v2x; // ebx
 	int v3; // edx
-	//int16_t v4; // ax
-	//int v5; // ecx
-	//Bit8u* v6; // edx
-	//int v7; // edx
 	int v8; // ecx
 
 	if (D41A0_BYTESTR_0.str_2FECE.byte_level_type)
@@ -63694,19 +63541,15 @@ type_str_0x6E8E* sub_4B590(axis_3d* a1x)//22c590
 	v1x->word_0x82_130 = v3 / 2;
 	sub_49C70(v1x);
 	v2x->word_0x14_20 = 9377 * v2x->word_0x14_20 + 9439;
-	//v4 = (v2x->word_0x14_20 & 0x7FF) - 1;
 	v2x->word_0x20_32 = (v2x->word_0x14_20 & 0x7FF) - 1;
 	v2x->word_0x1C_28 = (v2x->word_0x14_20 & 0x7FF) - 1;
-	//v5 = (int)x_D41A0_BYTEARRAY_0;
 	v2x->word_0x1E_30 = v2x->word_0x20_32;
 	v2x->word_0x22_34 = 0;
 	v2x->word_0x2A_42 = 200;
 	v2x->byte_0x41_65 = 3;
 	v2x->byte_0x42_66 = 0;
 	v2x->dword_0x10_16 = (v2x - D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-	//v7 = v1x->byte_0x40_64;
 	v2x->byte_0x38_56 = 1;
-	//LOBYTE(v4) = (*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v7 + 16))++;
 	v2x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x9b2];
 	v2x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
 	v8 = v2x->dword_0xA0_160x->word_160_0x1a_26
@@ -63725,11 +63568,8 @@ type_str_0x6E8E* sub_4B6F0(axis_3d* a1x)//22c6f0
 {
 	type_str_0x6E8E* resultx; // eax
 	type_str_0x6E8E* v2x; // ebx
-	//int64_t v3; // rax
-	//int v4; // ecx
 	type_str_0x6E8E* v5x; // eax
 	type_str_0x6E8E* v6x; // ebx
-	//int v7; // edx
 	uint16_t v8; // ax
 	type_str_0x6E8E* v9x; // [esp+0h] [ebp-10h]
 	type_str_0x6E8E* v10x; // [esp+4h] [ebp-Ch]
@@ -63749,27 +63589,18 @@ type_str_0x6E8E* sub_4B6F0(axis_3d* a1x)//22c6f0
 		resultx->word_0x82_130 = 30;
 		resultx->dword_0x4 = 9000;
 		sub_49C70(resultx);
-		//v3 = v2x->dword_0x90_144;
 		v2x->dword_0x8C_140 = v2x->dword_0x90_144;
-		//LODWORD(v3) = ((signed int)v3 - HIDWORD(v3)) >> 1;
-		//WORD2(v3) = *(x_WORD *)(v2 + 20);
 		v2x->dword_0x90_144 = v2x->dword_0x90_144/2;
 		v2x->word_0x14_20 = 9377 * v2x->word_0x14_20 + 9439;
-		//LOWORD(v3) = (v2x->word_0x14_20 & 0x7FF) - 1;
 		v2x->word_0x20_32 = (v2x->word_0x14_20 & 0x7FF) - 1;
 		v2x->word_0x1C_28 = (v2x->word_0x14_20 & 0x7FF) - 1;
-		//v4 = (int)x_D41A0_BYTEARRAY_0;
 		v2x->word_0x1E_30 = v2x->word_0x20_32;
 		v2x->word_0x22_34 = 0;
 		v2x->word_0x36_54 = 96;
 		v2x->byte_0x38_56 = 1;
-		//LODWORD(v3) = v2x->byte_0x40_64;
 		v2x->dword_0x10_16 = (v2x - D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//BYTE4(v3) = (*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v2x->byte_0x40_64 + 16))++;
 		v2x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x9d4];
 		v2x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v2x->byte_0x40_64]++;
-		//LOWORD(v4) = *(x_WORD *)(*(x_DWORD *)(v2 + 160) + 26);
-		//WORD2(v3) = (int16_t)v2x->byte_0x3E_62 % *(x_WORD *)(v2x->dword_0xA0_160 + 26);
 		v11x = v2x;
 		v2x->byte_0x41_65 = 3;
 		v12 = 0;
@@ -63820,10 +63651,6 @@ type_str_0x6E8E* sub_4BA10(axis_3d* a1x)//22ca10
 {
 	type_str_0x6E8E* v1x; // eax
 	type_str_0x6E8E* v2x; // ebx
-	//int16_t v3; // dx
-	//Bit8u* v4; // ecx
-	//int v5; // edx
-	//Bit8u* v6; // ecx
 	int v7; // ecx
 
 	v1x = sub_4A050_new_event();
@@ -63839,18 +63666,13 @@ type_str_0x6E8E* sub_4BA10(axis_3d* a1x)//22ca10
 		v1x->word_0x82_130 = v1x->word_0x84_132;
 		sub_49C70(v1x);
 		v2x->word_0x14_20 = 9377 * v2x->word_0x14_20 + 9439;
-		//v3 = (v2x->word_0x14_20 & 0x7FF) - 1;
 		v2x->word_0x20_32 = (v2x->word_0x14_20 & 0x7FF) - 1;
 		v2x->word_0x1C_28 = (v2x->word_0x14_20 & 0x7FF) - 1;
-		//v4 = x_D41A0_BYTEARRAY_0;
 		v2x->word_0x1E_30 = v2x->word_0x20_32;
 		v2x->word_0x22_34 = 0;
 		v2x->dword_0x10_16 = (v2x - D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//v5 = v2x->byte_0x40_64;
 		v2x->word_0x2A_42 = 500;
-		//v6 = v2x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 		v2x->byte_0x38_56 = 1;
-		//LOBYTE(v5) = (*(x_BYTE *)(v2x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 		v2x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x9f6];
 		v2x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v2x->byte_0x40_64]++;
 		v7 = v2x->dword_0xA0_160x->word_160_0x1a_26
@@ -63873,9 +63695,6 @@ type_str_0x6E8E* sub_4BBB0(axis_3d* a1x)//22cbb0
 	int16_t v3; // ax
 	uint16_t v4; // ax
 	int16_t v5; // dx
-	//int v6; // edx
-	//int v7; // eax
-	//Bit8u* v8; // eax
 	int v9; // esi
 
 	v1x = sub_4A050_new_event();
@@ -63898,12 +63717,8 @@ type_str_0x6E8E* sub_4BBB0(axis_3d* a1x)//22cbb0
 		v2x->word_0x20_32 = v5;
 		v2x->word_0x1C_28 = v5;
 		v2x->word_0x1E_30 = v2x->word_0x20_32;
-		//v6 = (int)x_D41A0_BYTEARRAY_0;
-		//v7 = v2x->byte_0x40_64;
 		v2x->word_0x2A_42 = 500;
-		//v8 = x_D41A0_BYTEARRAY_0 + v7;
 		v2x->byte_0x38_56 = 1;
-		//LOBYTE(v6) = (*(x_BYTE *)(v8 + 16))++;
 		v2x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xaa0];
 		v2x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v2x->byte_0x40_64]++;
 		v9 = v2x->dword_0xA0_160x->word_160_0x1a_26
@@ -63930,9 +63745,6 @@ type_str_0x6E8E* sub_4BD00(axis_3d* a1x)//22cd00
 {
 	type_str_0x6E8E* v1x; // eax
 	type_str_0x6E8E* v2x; // ebx
-	//int v3; // eax
-	//int v4; // edx
-	//Bit8u* v5; // eax	
 	if (!(D41A0_BYTESTR_0.str_2FECE.byte_0x2FED2 & 2))
 		return 0;
 	v1x = sub_4A050_new_event();
@@ -63945,12 +63757,8 @@ type_str_0x6E8E* sub_4BD00(axis_3d* a1x)//22cd00
 	v1x->dword_0x4 = 300000;
 	sub_49C70(v1x);
 	v2x->struct_byte_0xc_12_15.dword |= 0x48800001u;
-	//v3 = (int)x_D41A0_BYTEARRAY_0;
-	//v4 = v2x->byte_0x40_64;
 	v2x->word_0x2A_42 = 0;
-	//v5 = v2x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 	v2x->byte_0x38_56 = 1;
-	//LOBYTE(v4) = (*(x_BYTE *)(v2x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 	v2x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xe4e];
 	v2x->byte_0x39_57 = 64;
 	v2x->byte_0x41_65 = 3;
@@ -63971,41 +63779,27 @@ type_str_0x6E8E* sub_4BDF0(axis_3d* a1x)//22cdf0
 {
 	type_str_0x6E8E* v1x; // eax
 	type_str_0x6E8E* v2x; // ebx
-	//int16_t v3; // cx
-	//int16_t v4; // dx
-	//int16_t v5; // dx
-	//Bit8u* v6; // ecx
-	//int v7; // edx
-	//Bit8u* v8; // edx
-	//char v9; // al
 
 	v1x = sub_4A050_new_event();
 	v2x = v1x;
 	if (v1x)
 	{
 		v1x->word_0x86_134 = 24;
-		//v3 = v1x->word_0x14_20;
 		v1x->word_0x82_130 = v1x->word_0x86_134;
 		v1x->byte_0x45_69 = 97;
 		v1x->byte_0x3F_63 = 5;
 		v1x->byte_0x40_64 = 12;
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v4 = v1x->word_0x14_20;
 		v1x->word_0x84_132 = 54;
 		v1x->dword_0x4 = 1000;
-		//v5 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v6 = x_D41A0_BYTEARRAY_0;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
 		v1x->dword_0x90_144 = 0;
 		v1x->word_0x22_34 = 0;
 		v1x->dword_0x10_16 = (v1x-D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//v7 = v1x->byte_0x40_64;
 		v1x->word_0x2A_42 = 500;
-		//v8 = x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64;
 		v1x->byte_0x38_56 = 1;
-		//v9 = (*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64 + 16))++;
 		v2x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xd6a];
 		v2x->byte_0x39_57 = 64;
 		v2x->byte_0x41_65 = 3;
@@ -64023,17 +63817,8 @@ type_str_0x6E8E* sub_4BDF0(axis_3d* a1x)//22cdf0
 type_str_0x6E8E* sub_4BF40(axis_3d* a1x)//22cf40 - add creature Townie
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//x_WORD *v3; // esi
-	//int16_t v4; // dx
-	//int16_t v5; // ax
-	//Bit8u* v6; // ecx
-	//Bit8u* v7; // edx
-	//int v8; // edx
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
-	//v3 = (x_WORD *)v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 105;
@@ -64041,29 +63826,18 @@ type_str_0x6E8E* sub_4BF40(axis_3d* a1x)//22cf40 - add creature Townie
 		v1x->byte_0x40_64 = 13;
 		v1x->word_0x84_132 = 54;
 		v1x->word_0x86_134 = 18;
-		//v4 = v1x->word_0x14_20;
 		v1x->word_0x82_130 = v1x->word_0x86_134;
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v5 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v6 = x_D41A0_BYTEARRAY_0;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
 		v1x->dword_0x4 = 1000;
 		v1x->dword_0x90_144 = 0;
 		v1x->word_0x22_34 = 0;
 		v1x->word_0x2A_42 = 500;
 		v1x->dword_0x10_16 = (v1x-D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//v8 = *(char *)(v1 + 64);
 		v1x->byte_0x38_56 = 1;
-		//LOBYTE(v5) = (*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v8 + 16))++;
 
-		/*
-		plus_x_D41A0_BYTEARRAY_0_0x10(*(char *)(v1 + 64));
-		*(x_DWORD *)(v1 + 160) = (x_DWORD)&unk_D7BD6[0xd04];
-		*(x_BYTE *)(v1 + 62) = get_x_D41A0_BYTEARRAY_0_0x10(*(char *)(v1 + 64));
-		*/
-		//D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xd48];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64103,42 +63877,26 @@ type_str_0x6E8E* sub_4BF40(axis_3d* a1x)//22cf40 - add creature Townie
 type_str_0x6E8E* sub_4C0B0(axis_3d* a1x)//22d0b0
 {
 	type_str_0x6E8E* v1x; // eax
-	//type_str_0x6E8E* v2x; // ebx
-	//int16_t v3; // cx
-	//int16_t v4; // dx
-	//int16_t v5; // dx
-	//Bit8u* v6; // ecx
-	//int v7; // edx
-	//Bit8u* v8; // edx
-	//char v9; // al
 
 	v1x = sub_4A050_new_event();
-	//v2x = v1x;
 	if (v1x)
 	{
 		v1x->word_0x86_134 = 18;
-		//v3 = v1x->word_0x14_20;
 		v1x->word_0x82_130 = v1x->word_0x86_134;
 		v1x->byte_0x45_69 = 113;
 		v1x->byte_0x3F_63 = 5;
 		v1x->byte_0x40_64 = 14;
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v4 = v1x->word_0x14_20;
 		v1x->word_0x84_132 = 54;
 		v1x->dword_0x4 = 1000;
-		//v5 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v6 = x_D41A0_BYTEARRAY_0;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
 		v1x->dword_0x90_144 = 0;
 		v1x->word_0x22_34 = 0;
 		v1x->dword_0x10_16 = (v1x-D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//v7 = v1x->byte_0x40_64;
 		v1x->word_0x2A_42 = 500;
-		//v8 = x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64;
 		v1x->byte_0x38_56 = 1;
-		//v9 = (*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64 + 16))++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xd48];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64156,14 +63914,8 @@ type_str_0x6E8E* sub_4C0B0(axis_3d* a1x)//22d0b0
 type_str_0x6E8E* sub_4C1E0(axis_3d* a1x)//22d1e0
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//Bit8u* v3; // ecx
-	//int v4; // edx
-	//Bit8u* v5; // ecx
-	//char v6; // ah
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 121;
@@ -64175,22 +63927,15 @@ type_str_0x6E8E* sub_4C1E0(axis_3d* a1x)//22d1e0
 		v1x->word_0x20_32 = 0;
 		v1x->word_0x82_130 = v1x->word_0x84_132;
 		v1x->word_0x1C_28 = v1x->word_0x20_32;
-		//v3 = x_D41A0_BYTEARRAY_0;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
 		v1x->dword_0x90_144 = 0;
 		v1x->word_0x22_34 = 0;
 		v1x->dword_0x10_16 = (v1x-D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//v4 = v1x->byte_0x40_64;
 		v1x->word_0x2A_42 = 500;
-		//v5 = v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x38_56 = 1;
-		//LOBYTE(v4) = (*(x_BYTE *)(v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xb06];
 		v1x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
-		//LOWORD(v5) = *(x_WORD *)(v1x->dword_0xA0_160 + 26);
-		//LOWORD(v4) = (int16_t)v1x->byte_0x3E_62 % *(x_WORD *)(v1x->dword_0xA0_160 + 26);
 		v1x->byte_0x41_65 = 3;
-		//v6 = v1x->struct_byte_0xc_12_15.dbyte3_4.byte1 | 2;
 		v1x->byte_0x39_57 = (Bit8u)(v1x->dword_0xA0_160x->word_160_0x1a_26 - ((int16_t)v1x->byte_0x3E_62 % v1x->dword_0xA0_160x->word_160_0x1a_26) + 4);
 		v1x->struct_byte_0xc_12_15.byte[2] |= 2;
 		sub_57D70_actualize_event(v1x, a1x);
@@ -64205,16 +63950,8 @@ type_str_0x6E8E* sub_4C1E0(axis_3d* a1x)//22d1e0
 type_str_0x6E8E* sub_4C310(axis_3d* a1x)//22d310
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // ax
-	//int16_t v4; // ax
-	//Bit8u* v5; // ecx
-	//Bit8u* v6; // edx
-	//int v7; // eax
-	//Bit8u* v8; // ecx
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 129;
@@ -64222,23 +63959,17 @@ type_str_0x6E8E* sub_4C310(axis_3d* a1x)//22d310
 		v1x->byte_0x40_64 = 16;
 		v1x->word_0x84_132 = 60;
 		v1x->word_0x86_134 = 20;
-		//v3 = v1x->word_0x84_132;
 		v1x->dword_0x4 = 60000;
 		v1x->word_0x82_130 = v1x->word_0x84_132;
 		sub_49C70(v1x);
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v4 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v5 = x_D41A0_BYTEARRAY_0;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
 		v1x->word_0x22_34 = 0;
 		v1x->word_0x2A_42 = 500;
-		//v7 = v1x->byte_0x40_64;
 		v1x->byte_0x38_56 = 1;
-		//v8 = v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 		v1x->dword_0x10_16 = (v1x-D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//LOBYTE(v7) = (*(x_BYTE *)(v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xb28];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64259,15 +63990,8 @@ type_str_0x6E8E* sub_4C310(axis_3d* a1x)//22d310
 type_str_0x6E8E* sub_4C460(axis_3d* a1x)//22d460
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // dx
-	//Bit8u* v4; // ecx
-	//int v5; // edx
-	//Bit8u* v6; // edx
-	//char v7; // al
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 137;
@@ -64279,18 +64003,13 @@ type_str_0x6E8E* sub_4C460(axis_3d* a1x)//22d460
 		v1x->word_0x82_130 = v1x->word_0x84_132;
 		sub_49C70(v1x);
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v3 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v4 = x_D41A0_BYTEARRAY_0;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
 		v1x->word_0x22_34 = 0;
 		v1x->dword_0x10_16 = (v1x-D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//v5 = v1x->byte_0x40_64;
 		v1x->word_0x2A_42 = 350;
-		//v6 = x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64;
 		v1x->byte_0x38_56 = 1;
-		//v7 = (*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64 + 16))++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xb4a];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64308,15 +64027,8 @@ type_str_0x6E8E* sub_4C460(axis_3d* a1x)//22d460
 type_str_0x6E8E* sub_4C590(axis_3d* a1x)//22d590
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // dx
-	//Bit8u* v4; // ecx
-	//int v5; // edx
-	//Bit8u* v6; // edx
-	//char v7; // al
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = -109;
@@ -64328,18 +64040,13 @@ type_str_0x6E8E* sub_4C590(axis_3d* a1x)//22d590
 		v1x->word_0x82_130 = v1x->word_0x84_132;
 		sub_49C70(v1x);
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v3 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v4 = x_D41A0_BYTEARRAY_0;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
 		v1x->word_0x22_34 = 0;
 		v1x->dword_0x10_16 = (v1x-D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//v5 = v1x->byte_0x40_64;
 		v1x->word_0x2A_42 = 500;
-		//v6 = x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64;
 		v1x->byte_0x38_56 = 1;
-		//v7 = (*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64 + 16))++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xb6c];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64357,15 +64064,8 @@ type_str_0x6E8E* sub_4C590(axis_3d* a1x)//22d590
 type_str_0x6E8E* sub_4C6B0(axis_3d* a1x)//22d6b0
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // dx
-	//Bit8u* v4; // ecx
-	//int v5; // edx
-	//Bit8u* v6; // ecx
-	//int v7; // ecx
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 0x99;
@@ -64377,23 +64077,17 @@ type_str_0x6E8E* sub_4C6B0(axis_3d* a1x)//22d6b0
 		v1x->word_0x82_130 = v1x->word_0x84_132;
 		sub_49C70(v1x);
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v3 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v4 = x_D41A0_BYTEARRAY_0;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
 		v1x->word_0x22_34 = 0;
 		v1x->word_0x2A_42 = 300;
 		v1x->byte_0x41_65 = 3;
 		v1x->dword_0x10_16 = (v1x-D41A0_BYTESTR_0.struct_0x6E8E) % 100;
-		//v5 = v1x->byte_0x40_64;
 		v1x->byte_0x42_66 = 0;
-		//v6 = v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x38_56 = 1;
-		//LOBYTE(v5) = (*(x_BYTE *)(v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xbb0];
 		v1x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
-		//v7 = *(int16_t *)(v1x->dword_0xA0_160 + 26) - v1x->byte_0x3E_62 % *(int16_t *)(v1x->dword_0xA0_160 + 26);
 		v1x->byte_0x41_65 = 3;
 		v1x->byte_0x39_57 = v1x->dword_0xA0_160x->word_160_0x1a_26 - v1x->byte_0x3E_62 % v1x->dword_0xA0_160x->word_160_0x1a_26 + 4;
 		sub_57D70_actualize_event(v1x, a1x);
@@ -64408,14 +64102,8 @@ type_str_0x6E8E* sub_4C6B0(axis_3d* a1x)//22d6b0
 type_str_0x6E8E* sub_4C7F0(axis_3d* a1x)//22d7f0
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // dx
-	//int v4; // eax
-	//int v5; // edx
-	//Bit8u* v6; // edx
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = -95;
@@ -64427,17 +64115,12 @@ type_str_0x6E8E* sub_4C7F0(axis_3d* a1x)//22d7f0
 		v1x->word_0x82_130 = v1x->word_0x84_132;
 		sub_49C70(v1x);
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v3 = v1x->word_0x14_20 & 0x7FF;
 		v1x->word_0x22_34 = 0;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v4 = v1x->byte_0x40_64;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
-		//v5 = (int)x_D41A0_BYTEARRAY_0;
 		v1x->word_0x2A_42 = 100;
-		//v6 = v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x38_56 = 1;
-		//LOBYTE(v4) = (*(x_BYTE *)(v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xbd2];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64454,19 +64137,10 @@ type_str_0x6E8E* sub_4C7F0(axis_3d* a1x)//22d7f0
 type_str_0x6E8E* sub_4C8F0(axis_3d* a1x)//22d8f0
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // cx
-	//int16_t v4; // dx
-	//int16_t v5; // dx
-	//int v6; // eax
-	//int v7; // edx
-	//int v8; // eax
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1x;
 	if (v1x)
 	{
-		//v3 = v1x->word_0x14_20;
 		v1x->word_0x82_130 = v1x->word_0x86_134;
 		v1x->byte_0x45_69 = 169;
 		v1x->byte_0x3F_63 = 5;
@@ -64476,18 +64150,12 @@ type_str_0x6E8E* sub_4C8F0(axis_3d* a1x)//22d8f0
 		v1x->dword_0x90_144 = 1000;
 		v1x->word_0x22_34 = 0;
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v4 = v1x->word_0x14_20;
 		v1x->word_0x2A_42 = 400;
 		v1x->byte_0x38_56 = 1;
-		//v5 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
-		//v6 = v1x->byte_0x40_64;
-		//v7 = v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
-		//LOBYTE(v6) = *(x_BYTE *)(v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16);
 		v1x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;//fixed
-		//D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xcc0];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64495,9 +64163,7 @@ type_str_0x6E8E* sub_4C8F0(axis_3d* a1x)//22d8f0
 		v1x->word_0x2C_44 = 0;
 		v1x->byte_0x44_68 = 0;
 		v1x->byte_0x43_67 = 0;
-		//v1x->byte_0x3E_62 = v6;
 		sub_57D70_actualize_event(v1x, a1x);
-		//v8 = sub_49A20_remove_event(v1x);
 		sub_49A20_remove_event(v1x);
 		sub_26500(/*sub_49A20_remove_event(v1x),*/ v1x);
 		sub_268F0(v1x, 1u);
@@ -64510,18 +64176,10 @@ type_str_0x6E8E* sub_4C8F0(axis_3d* a1x)//22d8f0
 type_str_0x6E8E* sub_4CA00(axis_3d* a1x)//22da00
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // dx
-	//int16_t v4; // ax
-	//int v5; // ecx
-	//int v6; // eax
-	//Bit8u* v7; // ecx
-	//int16_t v8; // dx
 
 	if (sub_4A810_get_0x35plus() < 15)
 		return 0;
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (!v1x)
 		return 0;
 	v1x->byte_0x45_69 = 176;
@@ -64529,23 +64187,15 @@ type_str_0x6E8E* sub_4CA00(axis_3d* a1x)//22da00
 	v1x->byte_0x40_64 = 22;
 	v1x->word_0x84_132 = 128;
 	v1x->word_0x86_134 = 16;
-	//v3 = v1x->word_0x14_20;
 	v1x->word_0x82_130 = v1x->word_0x86_134;
 	v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-	//v4 = (v1x->word_0x14_20 & 0x7FF) - 1;
 	v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 	v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-	//v5 = v1x->byte_0x40_64;
 	v1x->word_0x1E_30 = v1x->word_0x20_32;
-	//v6 = (int)x_D41A0_BYTEARRAY_0;
 	v1x->dword_0x4 = 2000;
-	//v7 = x_D41A0_BYTEARRAY_0 + v5;
 	v1x->word_0x22_34 = 0;
-	//LOBYTE(v3) = (*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64 + 16))++;
 	v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xbf4];
 	v1x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
-	//LOWORD(v7) = *(x_WORD *)(*(x_DWORD *)(v2 + 160) + 26);
-	//v8 = (int16_t)v1x->byte_0x3E_62 % *(x_WORD *)(v1x->dword_0xA0_160 + 26);
 	v1x->byte_0x41_65 = 3;
 	v1x->byte_0x38_56 = 3;
 	v1x->word_0x94_148 = 0;
@@ -64605,16 +64255,8 @@ void sub_4CB60(type_str_0x6E8E* a1x)//22db60
 type_str_0x6E8E* sub_4CBF0(axis_3d* a1x)//22dbf0
 {
 	type_str_0x6E8E* v1x; // eax
-	//int v2; // ebx
-	//int16_t v3; // dx
-	//int16_t v4; // ax
-	//int16_t v5; // ax
-	//int v6; // edx
-	//Bit8u* v7; // eax
-	//Bit8u* v8; // eax
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 184;
@@ -64622,21 +64264,14 @@ type_str_0x6E8E* sub_4CBF0(axis_3d* a1x)//22dbf0
 		v1x->byte_0x40_64 = 23;
 		v1x->word_0x84_132 = 24;
 		v1x->word_0x86_134 = 14;
-		//v3 = v1x->word_0x14_20;
 		v1x->word_0x82_130 = v1x->word_0x84_132;
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v4 = v1x->word_0x14_20;
 		v1x->dword_0x4 = 10000;
 		v1x->dword_0x90_144 = 100;
-		//v5 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v6 = v1x->byte_0x40_64;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v7 = x_D41A0_BYTEARRAY_0;
 		v1x->word_0x2A_42 = 500;
-		//v8 = v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x38_56 = 1;
-		//LOBYTE(v6) = (*(x_BYTE *)(v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xc16];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64655,17 +64290,10 @@ type_str_0x6E8E* sub_4CBF0(axis_3d* a1x)//22dbf0
 type_str_0x6E8E* sub_4CCF0(axis_3d* a1x)//22dcf0
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // ax
-	//int16_t v4; // ax
-	//int v5; // edx
-	//int v6; // eax
-	//Bit8u* v7; // eax
 
 	if (D41A0_BYTESTR_0.str_2FECE.byte_level_type != 2)
 		return 0;
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (!v1x)
 		return 0;
 	v1x->byte_0x45_69 = 193;
@@ -64674,22 +64302,16 @@ type_str_0x6E8E* sub_4CCF0(axis_3d* a1x)//22dcf0
 	v1x->byte_0x46_70 = 0;
 	v1x->word_0x84_132 = 80;
 	v1x->word_0x86_134 = 24;
-	//v3 = v1x->word_0x86_134;
 	v1x->dword_0x4 = 16000;
 	v1x->word_0x82_130 = v1x->word_0x86_134;
 	sub_49C70(v1x);
 	v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-	//v4 = v1x->word_0x14_20 & 0x7FF;
 	v1x->word_0x22_34 = 0;
 	v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 	v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-	//v5 = v1x->byte_0x40_64;
 	v1x->word_0x1E_30 = v1x->word_0x20_32;
-	//v6 = (int)x_D41A0_BYTEARRAY_0;
 	v1x->word_0x2A_42 = 1500;
-	//v7 = v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 	v1x->byte_0x38_56 = 1;
-	//LOBYTE(v5) = (*(x_BYTE *)(v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 	v1x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
 	v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xd8c];
 	v1x->byte_0x39_57 = 64;
@@ -64705,14 +64327,8 @@ type_str_0x6E8E* sub_4CCF0(axis_3d* a1x)//22dcf0
 type_str_0x6E8E* sub_4CE00(axis_3d* a1x)//22de00
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // dx
-	//int v4; // eax
-	//int v5; // edx
-	//Bit8u* v6; // edx
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 201;
@@ -64725,17 +64341,12 @@ type_str_0x6E8E* sub_4CE00(axis_3d* a1x)//22de00
 		v1x->word_0x82_130 = v1x->word_0x84_132;
 		sub_49C70(v1x);
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v3 = v1x->word_0x14_20 & 0x7FF;
 		v1x->word_0x22_34 = 0;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF)-1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v4 = v1x->byte_0x40_64;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
-		//v5 = (int)x_D41A0_BYTEARRAY_0;
 		v1x->word_0x2A_42 = 300;
-		//v6 = v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x38_56 = 1;
-		//LOBYTE(v4) = (*(x_BYTE *)(v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xc38];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64752,14 +64363,8 @@ type_str_0x6E8E* sub_4CE00(axis_3d* a1x)//22de00
 type_str_0x6E8E* sub_4CF00(axis_3d* a1x)//22df00
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // dx
-	//int v4; // eax
-	//int v5; // edx
-	//Bit8u* v6; // edx
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 209;
@@ -64771,17 +64376,12 @@ type_str_0x6E8E* sub_4CF00(axis_3d* a1x)//22df00
 		v1x->word_0x82_130 = v1x->word_0x86_134;
 		sub_49C70(v1x);
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v3 = v1x->word_0x14_20 & 0x7FF;
 		v1x->word_0x22_34 = 0;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF)-1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v4 = v1x->byte_0x40_64;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
-		//v5 = (int)x_D41A0_BYTEARRAY_0;
 		v1x->word_0x2A_42 = 300;
-		//v6 = v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x38_56 = 1;
-		//LOBYTE(v4) = (*(x_BYTE *)(v1x->byte_0x40_64 + x_D41A0_BYTEARRAY_0 + 16))++;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xd26];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64802,7 +64402,6 @@ type_str_0x6E8E* sub_4D000(/*Bit8u* a1,*/ axis_3d* a2x)//22e000
 	type_str_0x6E8E* v3x; // ebx
 	int v4; // edi
 	type_str_0x6E8E* v5x; // eax
-	//int64_t v6; // rtt
 	type_str_0x6E8E* v7x; // eax
 	type_str_0x6E8E* v8x; // ebx
 	int v9; // eax
@@ -64910,18 +64509,8 @@ type_str_0x6E8E* sub_4D000(/*Bit8u* a1,*/ axis_3d* a2x)//22e000
 type_str_0x6E8E* sub_4D1D0(axis_3d* a1x)//22e1d0
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int16_t v3; // dx
-	//int16_t v4; // ax
-	//int v5; // edx
-	//int v6; // eax
-	//Bit8u* v7; // edx
-	//char v8; // cl
-	//int v9; // ecx
-	//int v10; // eax
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 225;
@@ -64931,23 +64520,15 @@ type_str_0x6E8E* sub_4D1D0(axis_3d* a1x)//22e1d0
 		v1x->word_0x86_134 = 64;
 		v1x->dword_0x4 = 8000;
 		sub_49C70(v1x);
-		//v3 = v1x->word_0x14_20;
 		v1x->struct_byte_0xc_12_15.byte[3] |= 8u;
 		v1x->word_0x14_20 = 9377 * v1x->word_0x14_20 + 9439;
-		//v4 = word_0x14_20 & 0x7FF;
 		v1x->word_0x22_34 = 0;
 		v1x->word_0x20_32 = (v1x->word_0x14_20 & 0x7FF) - 1;
 		v1x->word_0x1C_28 = (v1x->word_0x14_20 & 0x7FF) - 1;
-		//v5 = v1x->byte_0x40_64;
 		v1x->word_0x1E_30 = v1x->word_0x20_32;
-		//v6 = (int)x_D41A0_BYTEARRAY_0;
 		v1x->word_0x2A_42 = 2000;
-		//v7 = x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64;
 		v1x->byte_0x38_56 = 1;
-		//v8 = (*(x_BYTE *)(x_D41A0_BYTEARRAY_0 + v1x->byte_0x40_64 + 16))++;
 		v1x->byte_0x3E_62 = D41A0_BYTESTR_0.array_0x10[v1x->byte_0x40_64]++;
-		//v9 = v1x->word_0x86_134;
-		//v10 = (v1x->word_0x84_132 - v1x->word_0x86_134) / 2;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0xC5A];
 		v1x->byte_0x39_57 = 64;
 		v1x->byte_0x41_65 = 3;
@@ -64964,11 +64545,8 @@ type_str_0x6E8E* sub_4D1D0(axis_3d* a1x)//22e1d0
 type_str_0x6E8E* sub_4D2E0(axis_3d* a1x)//22e2e0
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int v3; // eax
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 0;
@@ -64976,10 +64554,8 @@ type_str_0x6E8E* sub_4D2E0(axis_3d* a1x)//22e2e0
 		v1x->byte_0x40_64 = 0;
 		v1x->word_0x82_130 = 384;
 		v1x->word_0x84_132 = 384;
-		//v3 = 0x2000 / v1x->word_0x82_130;
 		v1x->dword_0x90_144 = 50;
 		v1x->dword_0x4 = 0x2000 / v1x->word_0x82_130;
-		//BYTE1(v3) = v1x->struct_byte_0xc_12_15.dbyte1_2.byte1;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x880];
 		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
 		sub_57D70_actualize_event(v1x, a1x);
@@ -65008,11 +64584,8 @@ type_str_0x6E8E* sub_4D380(axis_3d* a1x)//22e380
 type_str_0x6E8E* sub_4D3B0(axis_3d* a1x)//22e3b0
 {
 	type_str_0x6E8E* resultx; // eax
-	//Bit8u* v2; // ebx
-	//int v3; // eax
 
 	resultx = sub_4A050_new_event();
-	//v2x = resultx;
 	if (resultx)
 	{
 		resultx->byte_0x45_69 = 1;
@@ -65020,18 +64593,15 @@ type_str_0x6E8E* sub_4D3B0(axis_3d* a1x)//22e3b0
 		resultx->byte_0x40_64 = 1;
 		resultx->word_0x82_130 = 384;
 		resultx->word_0x84_132 = 384;
-		//v3 = 4096 / resultx->word_0x82_130;
 		resultx->dword_0x90_144 = 50;
 		resultx->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x81a];
 		resultx->dword_0x4 = 4096 / resultx->word_0x82_130;
-		//BYTE1(v3) = resultx->struct_byte_0xc_12_15.dbyte1_2.byte1;
 		resultx->byte_0x41_65 = 10;
 		resultx->struct_byte_0xc_12_15.byte[0] &= 0xF7;
 		sub_57D70_actualize_event(resultx, a1x);
 		sub_49A20_remove_event(resultx);
 		sub_49CD0(resultx, 209);
 		sub_49EA0(resultx, 2 * resultx->array_0x52_82.xshift, 5 * resultx->array_0x52_82.dd / 2);
-		//result = v2;
 	}
 	return resultx;
 }
@@ -65040,11 +64610,8 @@ type_str_0x6E8E* sub_4D3B0(axis_3d* a1x)//22e3b0
 type_str_0x6E8E* sub_4D470(axis_3d* a1x)//22e470
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int v3; // eax
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 2;
@@ -65052,10 +64619,8 @@ type_str_0x6E8E* sub_4D470(axis_3d* a1x)//22e470
 		v1x->byte_0x40_64 = 2;
 		v1x->word_0x82_130 = 384;
 		v1x->word_0x84_132 = 384;
-		//v3 = 0x2000 / v1x->word_0x82_130;
 		v1x->dword_0x90_144 = 50;
 		v1x->dword_0x4 = 0x2000 / v1x->word_0x82_130;
-		//BYTE1(v3) = struct_byte_0xc_12_15.dbyte1_2.byte1;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x7f8];
 		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
 		sub_57D70_actualize_event(v1x, a1x);
@@ -65069,11 +64634,8 @@ type_str_0x6E8E* sub_4D470(axis_3d* a1x)//22e470
 type_str_0x6E8E* sub_4D500(axis_3d* a1x)//22e500
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int v3; // eax
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 3;
@@ -65081,10 +64643,8 @@ type_str_0x6E8E* sub_4D500(axis_3d* a1x)//22e500
 		v1x->byte_0x40_64 = 3;
 		v1x->word_0x82_130 = 384;
 		v1x->word_0x84_132 = 384;
-		//v3 = 0x2000 / v1x->word_0x82_130;
 		v1x->dword_0x90_144 = 50;
 		v1x->dword_0x4 = 0x2000 / v1x->word_0x82_130;
-		//BYTE1(v3) = v1x->struct_byte_0xc_12_15.dbyte1_2.byte1;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x7F8];
 		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
 		sub_57D70_actualize_event(v1x, a1x);
@@ -65098,11 +64658,8 @@ type_str_0x6E8E* sub_4D500(axis_3d* a1x)//22e500
 type_str_0x6E8E* sub_4D590(axis_3d* a1x)//22e590
 {
 	type_str_0x6E8E* v1x; // eax
-	//Bit8u* v2; // ebx
-	//int v3; // eax
 
 	v1x = sub_4A050_new_event();
-	//v2 = v1;
 	if (v1x)
 	{
 		v1x->byte_0x45_69 = 4;
@@ -65110,10 +64667,8 @@ type_str_0x6E8E* sub_4D590(axis_3d* a1x)//22e590
 		v1x->byte_0x40_64 = 4;
 		v1x->word_0x82_130 = 384;
 		v1x->word_0x84_132 = 384;
-		//v3 = 0x2000 / v1x->word_0x82_130;
 		v1x->dword_0x90_144 = 50;
 		v1x->dword_0x4 = 0x2000 / v1x->word_0x82_130;
-		//BYTE1(v3) = v1x->struct_byte_0xc_12_15.dbyte1_2.byte1;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x7F8];
 		v1x->struct_byte_0xc_12_15.byte[0] &= 0xF7;
 		sub_57D70_actualize_event(v1x, a1x);
@@ -71096,30 +70651,7 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 	char arg0; // dl
 	char* v4; // edi
 	char* v5; // esi
-	//char v6; // al
-	//char v7; // al
-	//uint8_t v8; // al
-	//int v9; // ebx
-	//char* v10; // esi
-	//int result; // eax
 	char actarg[512]="\0"; // [esp+0h] [ebp-46h]
-	//int v13; // [esp+80h] [ebp+3Ah]
-	//char v14; // [esp+84h] [ebp+3Eh]
-	//uint8_t v15; // [esp+88h] [ebp+42h]
-	//char v16; // [esp+8Ch] [ebp+46h]
-	//char v17; // [esp+90h] [ebp+4Ah]
-	//char v18; // [esp+94h] [ebp+4Eh]
-	//char v19; // [esp+98h] [ebp+52h]
-	//char v20; // [esp+9Ch] [ebp+56h]
-	//char v21; // [esp+A0h] [ebp+5Ah]
-	//char v22; // [esp+A4h] [ebp+5Eh]
-	//char v23; // [esp+A8h] [ebp+62h]
-	//uint8_t v24; // [esp+ACh] [ebp+66h]
-	//char v25; // [esp+B0h] [ebp+6Ah]
-	//char v26; // [esp+B4h] [ebp+6Eh]
-	//char v27; // [esp+B8h] [ebp+72h]
-	//char v28; // [esp+BCh] [ebp+76h]
-	//fix it:
 	argnumber = 1;
 	x_DWORD_355208/* v13*/ = -1;//3551CE+3A DWORD //355208
 	x_BYTE_355234_hardisknumber/*v24*/ = 'C';//harddrive//3551CE+66 BYTE
@@ -71146,17 +70678,6 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 			v4 = actarg;
 			v5 = argv[argnumber] + 1;//(char *)(*(x_DWORD *)((int)argv + 4 * v2) + 1);
 			strcpy(v4, v5);
-			/*do
-			{
-				//v6 = v5[0];
-				v4[0] = v5[0];
-				if (!v4[0])
-					break;
-				//v7 = v5[1];
-				v5 += 2;
-				v4[1] = v7;
-				v4 += 2;
-			} while (v7);*/
 		}
 		if (_stricmp("network", (char*)actarg))
 		{
@@ -71180,8 +70701,6 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 			else if (!_stricmp("harddrive", (char*)actarg))
 			{
 				x_BYTE_355234_hardisknumber = x_toupper(argv[++argnumber][0]);//**(x_BYTE **)((int)argv + 4 * ++v2);
-				//x_BYTE_355234_hardisknumber = x_toupper(x_BYTE_355234_hardisknumber);
-			  //x_BYTE_355234_hardisknumber = v8;
 				if (x_BYTE_355234_hardisknumber < 'A' || x_BYTE_355234_hardisknumber > 'Z')
 					x_BYTE_355234_hardisknumber = 'C';
 			}
@@ -71211,9 +70730,6 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 			}
 			else if (!_stricmp("vio", (char*)actarg))
 			{
-				//v9 = argnumber + 1;
-				//v10 = argv[argnumber + 1];//*(x_DWORD *)((int)argv + 4 * v9);
-
 				unk_18058Cstr.x_WORD_1805C4_vio1_analog_joy = atoi(argv[argnumber + 1]);
 				argnumber += 2;
 				unk_18058Cstr.x_WORD_1805C6_vio2_analog_joy = atoi(argv[argnumber]/* *(char**)((int)argv + 4 * v2)*/);
@@ -71246,28 +70762,9 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 	}
 	if (!x_BYTE_35522C_nocd)//if cd
 		sub_86A00_some_allocs();//fix it -not at now
-	//x_D41A0_BYTEARRAY_0 = (Bit8u*)malloc(0x36e17);//2A51A0
-	/*if (!x_D41A0_BYTEARRAY_0)
-	{
-		myprintf("ERROR: CANT ALLOC CARPET MEMORY.");
-		exit(-1);
-	}*/
 
-	/*x_D41A0_BYTEARRAY_4 = (Bit8u*)malloc(0x9693);
-	if (!x_D41A0_BYTEARRAY_4)
-	{
-		sub_83E80_freemem4(x_D41A0_BYTEARRAY_0);
-		myprintf("ERROR: CANT ALLOC TAPE MEMORY.");
-		exit(-1);
-	}*/
-
-	/*memset((void*)x_D41A0_BYTEARRAY_0[0], 0, 224791);
-	memset((void*)x_DWORD_D41A4, 0, 38547);*/
 	memset((void*)&D41A0_BYTESTR_0, 0, sizeof(D41A0_BYTESTR_0));
-	//clean_x_D41A0_BYTEARRAY_0();
 	
-	//memset((void*)x_D41A0_BYTEARRAY_4, 0, 0x9693);
-
 	if (x_BYTE_35520C)
 	{
 		x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 |= 0x8;
@@ -71293,7 +70790,6 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 		x_D41A0_BYTEARRAY_4_struct.setting_byte4_25 |= 0x40u;
 	if (x_BYTE_35523C_detectoff)
 		x_BYTE_E379B = 1;
-	//result = x_D41A0_BYTEARRAY_4;
 	x_D41A0_BYTEARRAY_4_struct.levelnumber_43w = x_BYTE_355210_level;
 	x_D41A0_BYTEARRAY_4_struct.setting_45w = x_DWORD_355208;
 	x_D41A0_BYTEARRAY_4_struct.harddiskchar_byte4_182 = x_BYTE_355234_hardisknumber;
@@ -71305,7 +70801,6 @@ void sub_56210_process_command_line(int argc, char** argv)//237210
 		sub_5BC20();
 		exit(1);
 	}
-	//return (int)x_D41A0_BYTEARRAY_4;
 }
 
 //----- (00056730) --------------------------------------------------------
@@ -71331,7 +70826,8 @@ void sub_567C0()//2377c0 // clean level
 	memset((void*)(x_D41A0_BYTEARRAY_4_struct.byteindex_121), 0, 16);
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.byteindex_178), 0, 1);
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.byteindex_180), 0, 1);
-	memset((void*)(x_D41A0_BYTEARRAY_4_struct.byteindex_242ar), 0, 14);
+	//memset((void*)(x_D41A0_BYTEARRAY_4_struct.byteindex_242ar), 0, 14);
+	x_D41A0_BYTEARRAY_4_struct.byteindex_242ar_4 = 0;
 	memset((void*)(x_D41A0_BYTEARRAY_4_struct.bytearray_38403x), 0, 116);
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38519), 0, 4);
 	memset((void*)(&x_D41A0_BYTEARRAY_4_struct.dword_38523), 0, 4);
@@ -71927,24 +71423,14 @@ void sub_574A0()//2384a0
 //----- (00057570) --------------------------------------------------------
 void sub_57570()//238570
 {
-	//int result; // eax
-	//int v1; // edx
-	//char v2; // ch
-
-	//result = (int)x_D41A0_BYTEARRAY_4;
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte2_23 & 1))
 	{
-		//result = (int)x_D41A0_BYTEARRAY_0;
-		//v1 = D41A0_BYTESTR_0.word_0xc;
 		if (D41A0_BYTESTR_0.struct_0x3659C[D41A0_BYTESTR_0.word_0xc].array_0x3659C_byte[0])
 		{
-			//result = 2124 * v1 + (int)x_D41A0_BYTEARRAY_0;
-			//v2 = x_D41A0_BYTEARRAY_0[2124 * D41A0_BYTESTR_0.word_0xc + 11232];
 			if (!(D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dw_w_b_0_2BDE_11230.byte[2] & 0x10))
 				D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dw_w_b_0_2BDE_11230.byte[2] = D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].dw_w_b_0_2BDE_11230.byte[2] | 2;
 		}
 	}
-	//return result;
 }
 
 //----- (000575C0) --------------------------------------------------------
@@ -72043,15 +71529,9 @@ void sub_57730()//238730
 	char v6; // bl
 	uint8_t v7; // bl
 	bool v8; // zf
-	//int v9; // ebx
-	//type_str_0x6E8E* v10x; // edi
-	//uint8_t v11; // bl
-	//type_str_0x6E8E* v12x; // ebx
 	uint8_t v13; // bl
-	//char result; // al
 	signed int k; // esi
 	type_str_0x6E8E* lx; // ebx
-	//int v17; // ST08_4
 	type_str_0x6E8E* mx; // ebx
 	char v19; // cl
 	type_D4C52ar2* v20; // eax
@@ -72086,16 +71566,6 @@ void sub_57730()//238730
 	v4x = 0;
 	for (jx = x_DWORD_EA3E4[1]; jx < x_DWORD_EA3E4[0x3e8]; jx++)
 	{
-		//adress 2387d9
-		/*if ((j - x_DWORD_EA3E4[1]) / 168 > 0x3e0)
-		{
-			Bit8u origbyte28 = 0;
-			Bit8u remakebyte28 = 0;
-			int comp28 = compare_with_sequence_D41A0((char*)"002387D9", x_D41A0_BYTEARRAY_0, 0x356038, debugcounter28, 0x36e16, &origbyte28, &remakebyte28);
-			if (comp28 < 0x36e16) {
-				myprintf("stop");
-			}
-		}*/
 		debugcounter28++;
 		
 		v6 = jx->byte_0x3F_63;
@@ -72110,7 +71580,6 @@ void sub_57730()//238730
 						v3x->next_0 = jx;
 					else
 						x_D41A0_BYTEARRAY_4_struct.dword_38519 = jx;
-					//v12x = x_DWORD_EA3E4[0];
 					v3x = jx;
 					jx->next_0 = x_DWORD_EA3E4[0];
 					continue;
@@ -72132,8 +71601,6 @@ void sub_57730()//238730
 				}
 				if (!v8)
 				{
-					//v9 = jx->byte_0x40_64;
-					//v10x = v22x[jx->byte_0x40_64];
 					if (v22x[jx->byte_0x40_64])
 						v22x[jx->byte_0x40_64]->next_0 = jx;
 					else
@@ -72147,12 +71614,10 @@ void sub_57730()//238730
 					v23x->next_0 = jx;
 				else
 					x_D41A0_BYTEARRAY_4_struct.dword_38531 = jx;
-				//v12x = x_DWORD_EA3E4[0];
 				v23x = jx;
 				jx->next_0 = x_DWORD_EA3E4[0];
 				continue;
 			case 10:
-				//v11 = jx->byte_0x40_64;
 				if (jx->byte_0x40_64 < 0x2Du)
 				{
 					if (jx->byte_0x40_64 < 0x27u)
@@ -72176,7 +71641,6 @@ void sub_57730()//238730
 						v24x->next_0 = jx;
 					else
 						x_D41A0_BYTEARRAY_4_struct.dword_38527 = jx;
-					//v12x = x_DWORD_EA3E4[0];
 					v24x = jx;
 					jx->next_0 = x_DWORD_EA3E4[0];
 					continue;
@@ -72190,9 +71654,7 @@ void sub_57730()//238730
 						v2x->next_0 = jx;
 					else
 						x_D41A0_BYTEARRAY_4_struct.dword_38523 = jx;
-					//v12x = x_DWORD_EA3E4[0];
 					v2x = jx;
-				//LABEL_60:
 					jx->next_0 = x_DWORD_EA3E4[0];
 					continue;
 				}
@@ -72216,7 +71678,6 @@ void sub_57730()//238730
 			}
 		}
 	}
-	//result = (char)x_D41A0_BYTEARRAY_4;
 	//adress 23899a
 	if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1))
 	{
@@ -72238,37 +71699,21 @@ void sub_57730()//238730
 		sub_60F00();
 		for (mx = x_DWORD_EA3E4[1]; mx < x_DWORD_EA3E4[0x3e8]; mx++)
 		{
-			//zde sbirat informace
-			//if (debugcounter29 >= 0x1f6a)
 			if (debugcounter29 >= 0x1b83)
 			{
-
-				//myprintf("i:%d,", debugcounter29);
 				mx++;
 				mx--;
 			}
-			//adress 238a3d
-			//!!!! 
-			//361f7e-168//35cf6e 0x7a nebo 0x7b nebo 0x79
-			/*if (m == x_DWORD_EA3E4[1] + 168 * 0x79)
-				myprintf("xxx");*/
-				//!!!!
-			//if ((m - x_DWORD_EA3E4[1]) / 168 > 0x3e0)
 
 			v19 = mx->byte_0x3F_63;
 			if (v19)
 			{
-				//v20 = &x_DWORD_D4C52ar[14 * mx->byte_0x45_69 + *(Bit32u*)(x_DWORD_D4C52ar + 18 * v19)-0x2a5c52];
-				//v20 = &x_DWORD_D4C52ar[14 * mx->byte_0x45_69 + str_D4C48ar[v19].dword_10 - 0x2a5c52];
 				v20=&str_D4C48ar[v19].dword_10[mx->byte_0x45_69];
 				if (mx->byte_0x45_69 == v20->word_4)
 				{
 					if (v20->dword_10)
 					{
-
-						//adress 238a8a zacina na 35cf6e 363bb6 =6c48/168=165=a5
 						pre_sub_4A190_0x6E8E(v20->dword_6, mx,2);
-						//(*(void(**)(Bit8u*))(v20 + 6))((Bit8u*)(m));
 						mx->byte_0x3E_62++;
 					}
 				}
@@ -72279,12 +71724,10 @@ void sub_57730()//238730
 			}
 		}
 		sub_585D0();
-		//result = (int)x_D41A0_BYTEARRAY_0;
 		v21 = D41A0_BYTESTR_0.word_0x3654A;
 		if (v21)
 			sub_21F60(x_DWORD_EA3E4[v21]);
 	}
-	//return result;
 }
 
 
@@ -73144,7 +72587,7 @@ void sub_58F00_game_objectives()//239f00
 							v6x = v17x->dword_0xA4_164x;
 							if (v17x->dword_0xA4_164x->word_0x3A_58)
 							{//adress 239Ffc
-								v18 = *(Bit32u*)&x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4];
+								v18 = x_D41A0_BYTEARRAY_4_struct.byteindex_242ar_4;
 								if (v18 > 0)
 								{//23a02d
 									//v7 = (int)x_D41A0_BYTEARRAY_0;
@@ -76635,7 +76078,7 @@ void sub_5C530()//23d530
 	v16x = x_DWORD_EA3E4[v2x->dword_0xA4_164x->word_0x3A_58];
 	if (v16x)
 	{
-		v17 = *(Bit32u*)& x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4] - 1;
+		v17 = x_D41A0_BYTEARRAY_4_struct.byteindex_242ar_4 - 1;
 		if (v17 <= 0)
 		{
 			v2x->dword_0xA4_164x->dword_0x181_385 = 100;
@@ -79725,27 +79168,12 @@ int debugcounter_sub_241F7A = 0;
 void sub_60F00()//241f00
 {
 	uint16_t v0; // bx
-	//Bit8u* v1; // eax
 	type_str_0x6E8E* v2x; // edx
-	//x_DWORD *v3; // eax
 	type_str_0x6E8E* v4x; // ebx
 	Bit8u v3a;
 	type_str_0x6E8E* v3c;
 
-	/*Bit8u origbyte20 = 0;
-	Bit8u remakebyte20 = 0;
-	int comp20;
-
-	comp20 = compare_with_sequence_D41A0((char*)"00241F00-00356038", (Bit8u*)& D41A0_BYTESTR_0, 0x356038, debugcounter_sub_241F7A, 0x36e16, &origbyte20, &remakebyte20);
-	if(debugcounter_sub_241F7A>=0xb)
-	{
-		debugcounter_sub_241F7A++;
-		debugcounter_sub_241F7A--;
-	}
-	debugcounter_sub_241F7A++;*/
-
 	v0 = 0;
-	//v1 = &x_D41A0_BYTEARRAY_0[11230];
 	int v1index = 0;
 	while (v0 < D41A0_BYTESTR_0.word_0xe)
 	{
@@ -79756,14 +79184,14 @@ void sub_60F00()//241f00
 		v0++;
 		v2x->dword_0xA4_164x->dword_0x13C_316 = 0;
 	}
-	//v3 = (Bit32s*)x_D41A0_BYTEARRAY_4;
-	//adress 241f53
 	v4x = x_DWORD_EA3E4[1];
-	*(Bit32u*)&x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4] = 1;
-	*(Bit32u*)&x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[8] = 0;
+	x_D41A0_BYTEARRAY_4_struct.byteindex_242ar_4 = 1;
+	//*(Bit32u*)&x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4] = 1;
+	//*(Bit32u*)&x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[8] = 0;
 
-	/**(_DWORD *)(dword_D41A4 + 246) = 1;
-	*(_DWORD *)(dword_D41A4 + 250) = 0;*/
+std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+	// FIXME: result from call to sub_61000 is used as int in some places
+	//        and as type_str_0x6E8E in other places in this function
 
 	if (v4x < x_DWORD_EA3E4[0x3e8])
 	{
@@ -79787,12 +79215,9 @@ void sub_60F00()//241f00
 				if (v3a <= 0x2Du)
 				{
 					v3c = sub_61000(v4x);
-					if(v3c)
 					if (v3c && v3c->dword_0xA4_164x)
 					{
 						v3c->dword_0xA4_164x->dword_0x13C_316+= v4x->dword_0x90_144;
-						//v3b = (Bit8u*)(x_DWORD *)v3b[41];
-						//v3b[79] += v4x->dword_0x90_144;
 					}
 					goto LABEL_24;
 				}
@@ -79815,9 +79240,6 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 		// v3a = (int)sub_61000(v4x);
 		goto LABEL_24;
 	}
-
-
-	//return (char)v3;
 }
 
 //----- (00061000) --------------------------------------------------------
@@ -79832,7 +79254,7 @@ type_str_0x6E8E* sub_61000(type_str_0x6E8E* a1x)//242000
 		v1x = x_DWORD_EA3E4[a1x->word_0x94_148];
 		v1x->dword_0x8C_140 += a1x->dword_0x90_144;
 	}
-	*(Bit32u*)&x_D41A0_BYTEARRAY_4_struct.byteindex_242ar[4] += a1x->dword_0x90_144;
+	x_D41A0_BYTEARRAY_4_struct.byteindex_242ar_4 += a1x->dword_0x90_144;
 	return v1x;
 }
 
@@ -90977,7 +90399,6 @@ void sub_70F50_initTmaps(uint16_t tmaps_tab_begin_index)//251f50
 	Bit8u* index2; // eax
 	Bit8u* buffer_tmap; // eax
 	int index5; // eax
-	int index6; // eax
 	uint16_t v2; // bx
 	uint16_t i; // si
 	int v5; // [esp+0h] [ebp-Ch]
@@ -91086,11 +90507,9 @@ void sub_70F50_initTmaps(uint16_t tmaps_tab_begin_index)//251f50
 					x_DWORD_F5F10[v6] = buffer_tmap;
 					x_DWORD_F66F0x[v6] = (Bit32u*)buffer_tmap;
 					x_DWORD_F5730.at(v6) = v5;
-					// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-					// index6 = (int)x_DWORD_F66F0x[v6];
-					if (**(Bit8u**)index6 & 1)
-						index = sub_721C0_initTmap(x_DWORD_E9C08x, (int *)index6, i);
+					Bit32u* index6 = x_DWORD_F66F0x[v6];
+					if (*reinterpret_cast<Bit8u*>(index6) & 1)
+						index = sub_721C0_initTmap(x_DWORD_E9C08x, index6, i);
 					if (v2 < 0x1E0u)
 					{
 						if (v2 != 311)
@@ -91928,7 +91347,7 @@ type_E9C08* sub_72120(uint16_t a1)//253120
 }
 
 //----- (000721C0) --------------------------------------------------------
-type_animations1* sub_721C0_initTmap(type_E9C08* a1x, int *a2, int16_t a3)//2531c0
+type_animations1* sub_721C0_initTmap(type_E9C08* a1x, Bit32u* a2, int16_t a3)//2531c0
 {
 	int16_t v3; // cx
 	int16_t v4; // si
@@ -97474,8 +96893,8 @@ void sub_7C9D0(int16_t a1)//25d9d0
 	int16_t v1; // cx
 	uint8_t *i; // eax
 	int16_t v3; // bx
-	int v4; // eax
-	int v5; // eax
+	Bit8u* v4; // eax
+	Bit8u* v5; // eax
 	unsigned int v7; // [esp+4h] [ebp-4h]
 
 	v1 = a1;
@@ -97494,16 +96913,12 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 	// 	i[1] -= (uint16_t)(v1 * i[1]) >> 8;
 	// 	v3 = i[2];
 	// 	i += 3;
-	// }
-	// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-	// v4 = (int)x_DWORD_17DE38str.x_DWORD_17DE38;
+	// } 
+	v4 = x_DWORD_17DE38str.x_DWORD_17DE38;
 	*(x_BYTE *)(x_DWORD_17DE38str.x_DWORD_17DE38 + 447) -= (uint16_t)(v1 * *(uint8_t *)(x_DWORD_17DE38str.x_DWORD_17DE38 + 447)) >> 8;
 	*(x_BYTE *)(v4 + 448) -= (uint16_t)(v1 * *(uint8_t *)(v4 + 448)) >> 8;
 	*(x_BYTE *)(v4 + 449) -= (uint16_t)(v1 * *(uint8_t *)(v4 + 449)) >> 8;
-	// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-	// v5 = (int)x_DWORD_17DE38str.x_DWORD_17DE38;
+	v5 = x_DWORD_17DE38str.x_DWORD_17DE38;
 	*(x_BYTE *)(x_DWORD_17DE38str.x_DWORD_17DE38 + 444) -= (uint16_t)(v1 * *(uint8_t *)(x_DWORD_17DE38str.x_DWORD_17DE38 + 444)) >> 8;
 	*(x_BYTE *)(v5 + 445) -= (uint16_t)(v1 * *(uint8_t *)(v5 + 445)) >> 8;
 	*(x_BYTE *)(v5 + 446) -= (uint16_t)(*(uint8_t *)(v5 + 446) * v1) >> 8;
@@ -129368,14 +128783,8 @@ void sub_B51B3(int16_t a1, int a2, double *a3, int16_t a4, double a5)//2961b3
 //----- (000B5205) --------------------------------------------------------
 double sub_B5205(char a1, int a2, int16_t a3, double a4)//296205
 {
-	bool v4; // c0
-	char v5; // c2
-	bool v6; // c3
 	double result; // st7
 
-	v4 = a4 < 0.0;
-	v5 = 0;
-	v6 = a4 == 0.0;
 	*(x_WORD *)(a2 + 20) = a3;
 	if (a1 & 4)
 		result = dbl_E7C6E;

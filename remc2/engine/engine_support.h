@@ -524,7 +524,8 @@ typedef struct {
 	std::vector<Bit8u> heapbuffer;
 	Bit32u dword_0xE6_heapsize_230;//x_D41A0_BYTEARRAY_4_struct.dword_0xE6_heapsize_230
 	Bit8u stubr[8];
-	Bit8u byteindex_242ar[14];//0xf2//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar
+	//Bit8u byteindex_242ar[14];//0xf2//x_D41A0_BYTEARRAY_4_struct.byteindex_242ar
+	Bit32u byteindex_242ar_4;
 	
 	type_str_0x2BDE byteindex_256ar;//0x100//x_D41A0_BYTEARRAY_4_struct.byteindex_256ar	
 

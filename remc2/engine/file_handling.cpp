@@ -99,6 +99,19 @@ void FileHandling::init() {
     m_mc2files.insert( {MC2File::data_msprc00_dat, {m_game_path / "DATA" / "MSPRC0-0.DAT"} } );
     m_mc2files.insert( {MC2File::data_msprc00_tab, {m_game_path / "DATA" / "MSPRC0-0.TAB"} } );
 
+    m_mc2files.insert( {MC2File::data_hwebd00_dat, {m_game_path / "DATA" / "HWEBD0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_hwebd00_tab, {m_game_path / "DATA" / "HWEBD0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_mwebd00_dat, {m_game_path / "DATA" / "MWEBD0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_mwebd00_tab, {m_game_path / "DATA" / "MWEBD0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_hwebn00_dat, {m_game_path / "DATA" / "HWEBN0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_hwebn00_tab, {m_game_path / "DATA" / "HWEBN0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_mwebn00_dat, {m_game_path / "DATA" / "MWEBN0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_mwebn00_tab, {m_game_path / "DATA" / "MWEBN0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_hwebc00_dat, {m_game_path / "DATA" / "HWEBC0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_hwebc00_tab, {m_game_path / "DATA" / "HWEBC0-0.TAB"} } );
+    m_mc2files.insert( {MC2File::data_mwebc00_dat, {m_game_path / "DATA" / "MWEBC0-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_mwebc00_tab, {m_game_path / "DATA" / "MWEBC0-0.TAB"} } );
+
     m_mc2files.insert( {MC2File::data_etext_dat, {m_game_path / "DATA" / "ETEXT.DAT"} } );
     m_mc2files.insert( {MC2File::data_ftext_dat, {m_game_path / "DATA" / "FTEXT.DAT"} } );
     m_mc2files.insert( {MC2File::data_gtext_dat, {m_game_path / "DATA" / "GTEXT.DAT"} } );
@@ -720,7 +733,6 @@ int unpack_data_m1(vars_t *v)
 					write_decoded_byte(v, (v->enc_key ^ read_source_byte(v)) & 0xFF);
 
 				ror_w(&v->enc_key);
-
 				v->bit_buffer = (((v->pack_block_start[2] << 16) | (v->pack_block_start[1] << 8) | v->pack_block_start[0]) << v->bit_count) | (v->bit_buffer & ((1 << v->bit_count) - 1));
 			}
 
