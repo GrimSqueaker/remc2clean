@@ -430,6 +430,7 @@ typedef struct {
 	int16_t data_10;
 	int16_t data_12;
 } type_x_DWORD_E9C28_data;
+#pragma pack (16)
 
 typedef struct {//size 26
 	Bit32s dword_0;
@@ -571,7 +572,7 @@ typedef struct {
 }type_x_D41A0_BYTEARRAY_4_struct;
 
 
-
+#pragma pack (1)
 doublebyte doublebyte_conv(Bit16u a2);
 
 extern type_x_D41A0_BYTEARRAY_4_struct x_D41A0_BYTEARRAY_4_struct;

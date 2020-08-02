@@ -2698,7 +2698,7 @@ void sub_88BA0();
 void sub_88D00();
 char sub_88D40();
 char sub_89360();
-void sub_89420(type_sub_str_unk_1804B0ar* a1, const char *a2);
+void sub_89420(type_sub_str_unk_1804B0ar* a1, char *a2);
 void sub_89520(type_sub_str_unk_1804B0ar* a1);
 void sub_895D0_draw_textbox(type_sub_str_unk_1804B0ar* a1x, char *a2);
 void sub_89690_draw_frame(type_sub_str_unk_1804B0ar* a1);
@@ -7759,7 +7759,7 @@ Bit8u unk_D849A[0x50c] = {//unk_D83AC[0xee]*/
 
 //void *off_D89C8 = &loc_5002E; // weak
 //void *off_D89EA = &unk_11002F; // weak
-char x_BYTE_D8A2E[38] =
+std::array<char,38> x_BYTE_D8A2E =
 {
 	1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
 	1,1,1,1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,0
@@ -29750,7 +29750,7 @@ LABEL_11:
 	{
 		a1x->word_0x5A_90 = v3;
 		a1x->byte_0x5C_92 = 0;
-		a1x->byte_0x5D_93 = x_BYTE_D8A2E[(uint8_t)x_WORD_D951C[6+7 * v3]];
+		a1x->byte_0x5D_93 = x_BYTE_D8A2E.at((uint8_t)x_WORD_D951C[6+7 * v3]);
 	}
 	//return result;
 }
@@ -31752,8 +31752,7 @@ void sub_2AED0(type_str_0x6E8E* a1x, int a2)//20bed0
 	{
 		a1x->word_0x5A_90 = a2;
 		a1x->byte_0x5C_92 = 0;
-		//LOBYTE(v2) = x_BYTE_D8A2E[(uint8_t)x_WORD_D951C[6+7 * a2]];
-		a1x->byte_0x5D_93 = x_BYTE_D8A2E[(uint8_t)x_WORD_D951C[6 + 7 * a2]];
+		a1x->byte_0x5D_93 = x_BYTE_D8A2E.at((uint8_t)x_WORD_D951C[6 + 7 * a2]);
 	}
 	//return v2;
 }
@@ -33579,6 +33578,11 @@ void sub_2D710_draw_top_menu(type_str_0x6E8E* a1x)//20e710
 	{//adress 20ed35
 	  x_DWORD_F01E8(v12, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[41]);
 	}
+
+// FIXME: posistruct segfault
+std::cout << "FIXME: posistruct segfault @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+return;
+
 	if ( (a1x->struct_byte_0xc_12_15.byte[0] & 0x20 || a1x->dword_0xA4_164x->word_0x159_345) && x_D41A0_BYTEARRAY_4_struct.byteindex_121[2])
 	{
 	  sub_2DE80_draw_bitmapxx(v12 + 2, 2, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[43]);
@@ -33622,9 +33626,9 @@ void sub_2DE80_draw_bitmapxx(int16_t a1, int16_t a2, posistruct a3)//20ee80
 	Bit8u* v17; // [esp+4h] [ebp-8h]
 	Bit8u* i; // [esp+8h] [ebp-4h]
 
-	// FIXME: crashes at accessing posistruct a3: LOBYTE(v4) = *v6++;
-	std::cerr << "FIXME: crash at accessing posistruct" << std::endl;
-	return;
+// FIXME: crashes at accessing posistruct a3: LOBYTE(v4) = *v6++;
+std::cerr << "FIXME: crash at accessing posistruct" << std::endl;
+return;
 
 	if (x_WORD_180660_VGA_type_resolution == 1)
 	{
@@ -35140,8 +35144,9 @@ void sub_30630()//211630
 
 			sub_895D0_draw_textbox(&v6z, v5);
 
-			sub_89690_draw_frame(&v6z);
-
+// FIXME: textures
+std::cout << "FIXME: textures @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+			//sub_89690_draw_frame(&v6z);
 		}
 	}
 	//return result;
@@ -45840,15 +45845,6 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 }
 
 
-
-
-
-
-
-
-
-
-
 void sub_3E360_draw_particlesB(/*Bit8u* a1,*/ Bit8u* a2);
 uint16_t sub_3FD60B(/*int a1, */Bit8u* a2);
 
@@ -45870,7 +45866,6 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 	int v21; // ecx
 	char v22; // ch
 	int v23; // eax
-	//int v24; // edx
 	Bit8u* v25x; // edi
 	Bit32u* v25y; // edi
 	uint16_t v26; // dx
@@ -45904,7 +45899,6 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 	signed int v54; // esi
 	signed int v55; // esi
 	Bit8u* v56; // eax
-	//int v56b; // eax
 	Bit8u* v57; // esi
 	char v58; // ah
 	Bit8u* j; // ebx
@@ -46096,35 +46090,6 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 	char v245; // dh
 	int* v246; // edx
 	int v248x[33]; // [esp+0h] [ebp-62h]//v248x[0]
-	//int v249; // [esp+4h] [ebp-5Eh]//v248x[1]
-	//int v250; // [esp+8h] [ebp-5Ah]//v248x[2]
-	//int v251; // [esp+Ch] [ebp-56h]//v248x[3]
-	//int v252; // [esp+10h] [ebp-52h]//v248x[4]
-	//int v253; // [esp+18h] [ebp-4Ah]//v248x[6]
-	//int v254; // [esp+1Ch] [ebp-46h]//v248x[7]
-	//int v255; // [esp+20h] [ebp-42h]//v248x[8]
-	//int v256; // [esp+24h] [ebp-3Eh]//v248x[9]
-	//x_DWORD *v257; // [esp+28h] [ebp-3Ah]//v248x[10]
-	//int v258; // [esp+30h] [ebp-32h]//v248x[12]
-	//int v259; // [esp+34h] [ebp-2Eh]//v248x[13]
-	//int v260; // [esp+38h] [ebp-2Ah]//v248x[14]
-	//int v261; // [esp+3Ch] [ebp-26h]//v248x[15]
-	//int v262; // [esp+40h] [ebp-22h]//v248x[16]
-	//int v263; // [esp+48h] [ebp-1Ah]//v248x[18]
-	//int v264; // [esp+4Ch] [ebp-16h]//v248x[19]
-	//int v265; // [esp+50h] [ebp-12h]//v248x[20]
-	//int v266; // [esp+54h] [ebp-Eh]//v248x[21]
-	//int v267; // [esp+58h] [ebp-Ah]//v248x[22]
-	//int v268; // [esp+60h] [ebp-2h]//v248x[24]
-
-	//int v269; // [esp+64h] [ebp+2h]//v248x[25]
-	//int v270; // [esp+68h] [ebp+6h]//v248x[26]
-	//int v271; // [esp+6Ch] [ebp+Ah]//v248x[27]
-	//int v272; // [esp+70h] [ebp+Eh]//v248x[28]
-	//int v273; // [esp+74h] [ebp+12h]//v248x[29]
-	//Bit32u v274; // [esp+78h] [ebp+16h]//v248x[30]
-	//int v275; // [esp+7Ch] [ebp+1Ah]//v248x[31]
-	//int v276; // [esp+80h] [ebp+1Eh]//v248x[32]
 
 	Bit8u* v277; // [esp+84h] [ebp+22h]
 	Bit8u* v278; // [esp+88h] [ebp+26h]
@@ -46146,6 +46111,10 @@ void sub_3C080_draw_terrain_and_particles_old(/*int a1, int a2,*/ int16_t a3, in
 
 	int a1;
 	int a2;
+
+// FIXME: texture loading problems
+std::cout << "FIXME: texture loading problems @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+return;
 
 	x_BYTE_F2CC7 = D41A0_BYTESTR_0.str_0x218A_settings.str_0x218A.shadows_0x218B;//21d080
 
@@ -55863,31 +55832,32 @@ void sub_47760(/*int a1,*/Bit32u user/* int a2, int a3*/)//228760
 			{
 				if (!v7)
 				{
-std::cout << "FIXME: files @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-					sub_53E60_readfile_and_decompress("data/pald-0.dat", xadatapald0dat2.var28_begin_buffer);
-					sub_53E60_readfile_and_decompress("data/clrd-0.dat", xadataclrd0dat.var28_begin_buffer);
+					sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_pald0_dat).c_str(), xadatapald0dat2.var28_begin_buffer);
+					sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_clrd0_dat).c_str(), xadataclrd0dat.var28_begin_buffer);
 				}
 			}
 			else if (v7 <= 1u)
 			{
-std::cout << "FIXME: files @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				if (D41A0_BYTESTR_0.str_2FECE.byte_0x2FED2 & 2)
-					sub_53E60_readfile_and_decompress("data/palf-0.dat", xadatapald0dat2.var28_begin_buffer);
+					sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_palf0_dat).c_str(), xadatapald0dat2.var28_begin_buffer);
 				else
-					sub_53E60_readfile_and_decompress("data/paln-0.dat", xadatapald0dat2.var28_begin_buffer);
-				sub_53E60_readfile_and_decompress("data/clrn-0.dat", xadataclrd0dat.var28_begin_buffer);
+					sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_paln0_dat).c_str(), xadatapald0dat2.var28_begin_buffer);
+				sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_clrn0_dat).c_str(), xadataclrd0dat.var28_begin_buffer);
 			}
 			else if (v7 == 2)
 			{
-std::cout << "FIXME: files @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-				sub_53E60_readfile_and_decompress("data/palc-0.dat", xadatapald0dat2.var28_begin_buffer);
-				sub_53E60_readfile_and_decompress("data/clrc-0.dat", xadataclrd0dat.var28_begin_buffer);
+				sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_palc0_dat).c_str(), xadatapald0dat2.var28_begin_buffer);
+				sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_clrc0_dat).c_str(), xadataclrd0dat.var28_begin_buffer);
 			}
 			qmemcpy((void *)x_DWORD_EA3B8, (void *)*xadatapald0dat2.var28_begin_buffer, 0x300u);
 			sub_47650(768/*, v6*/);
 			sub_90D27();
 			x_BYTE_EB3A8 = (uint8_t)**xadataclrd0dat.var28_begin_buffer;
-			/*LOBYTE(v3) = */sub_57640();
+
+// FIXME: error accessing save file
+std::cout << "FIXME: error accessing save file @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+//			sub_57640();
+
 			break;
 		}
 		case 3:
@@ -56740,32 +56710,34 @@ void sub_48A20(int a1, char a2, char a3, int a4, int a5, uint8_t a6)//229a20
 	int v11; // edi
 	Bit8u v13; // [esp+0h] [ebp-8h]
 	Bit8u v14; // [esp+1h] [ebp-7h]
-	//int16_t v15; // [esp+2h] [ebp-6h]
 	uaxis_2d v16x; // [esp+4h] [ebp-4h]
 	uaxis_2d v17x; // [esp+4h] [ebp-4h]
 
-	// fix if begin
-	//v15 = 0;
-	// end
 	v6 = 0;
+
+	// FIXME: 2*v6 -> signed integer overflow
+std::cout << "FIXME: signed integer overflow @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+return;
+	// call stack to get here:
+	// sub_48A20@0x000000000084cfc6 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:56745)
+	// sub_37240@0x0000000000748289 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:40020)
+	// pre_sub_4A190_0x6E8E@0x000000000086dea6 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:61106)
+	// sub_498A0@0x0000000000859f70 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:57673)
+	// sub_49290@0x000000000085593c (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:57342)
+	// sub_49270_generate_level_features@0x00000000008533a5 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:57236)
+	// sub_56A30_init_game_level@0x00000000008f18ac (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:70759)
+	// sub_46830_main_loop@0x000000000083d9c2 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:54999)
+	// sub_main@0x00000000008ef201 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:70481)
+	// main@0x00000000004e1776 (/home/sebi/daten/projekte/remc2clean/remc2/remc2.cpp:13)
 
 	v13 = a2 - a5;
 	v14 = a3 - a4;
 	HIWORD(v6) = v13 + (v14 << 8);//v15;//eax
-	//esi=a1
-	//[ebp-4]=HIWORD(v6)
-	//ebx= HIWORD(v6)
-	//HIBYTE(v16) = a3 - a4;
-	//HIBYTE(v8) = a3 - a4;
 	v16x._axis_2d.y= a3 - a4;
 	v8x._axis_2d.y = a3 - a4;
 	v7 = 2 * a4;
-	//LOBYTE(v8) = a2 - a5 - a6;
-	//LOBYTE(v16) = 2 * a5 + a2 - a5;
 	v8x._axis_2d.x = a2 - a5 - a6;
 	v16x._axis_2d.x = 2 * a5 + a2 - a5;
-	//dh=a6
-	//bl=v13
 	while ((x_WORD)--v7 != -1)
 	{
 		LOWORD(a1) = a6;
@@ -56774,27 +56746,17 @@ void sub_48A20(int a1, char a2, char a3, int a4, int a5, uint8_t a6)//229a20
 		{
 			sub_48B90(v8x);
 			sub_48B90(v16x);
-			//LOBYTE(v8)++;
-			//LOBYTE(v16)++;
 			v8x._axis_2d.x++;
 			v16x._axis_2d.x++;
 		}
-		//LOBYTE(v16) = 2 * a5 + v13;
-		//LOBYTE(v8) = v13 - a6;
 		v16x._axis_2d.x = 2 * a5 + v13;
 		v8x._axis_2d.x = v13 - a6;
-		//HIBYTE(v8)++;
-		//HIBYTE(v16)++;
 		v8x._axis_2d.y++;
 		v16x._axis_2d.y++;
 	}
-	//LOBYTE(v9) = v13 - a6;
-	//LOBYTE(v17) = v13 - a6;
 	v9x._axis_2d.x = v13 - a6;
 	v17x._axis_2d.x = v13 - a6;
 
-	//HIBYTE(v9) = v14 - a6;
-	//HIBYTE(v17) = 2 * a4 + v14;
 	v9x._axis_2d.y = v14 - a6;
 	v17x._axis_2d.y = 2 * a4 + v14;
 	LOWORD(v6) = a6;
@@ -56808,23 +56770,16 @@ void sub_48A20(int a1, char a2, char a3, int a4, int a5, uint8_t a6)//229a20
 		{
 			sub_48B90(v9x);
 			sub_48B90(v17x);
-			//HIBYTE(v9)++;
-			//HIBYTE(v17)++;
 			v9x._axis_2d.y++;
 			v17x._axis_2d.y++;
 		}
 		LOBYTE(v10) = 2 * a4;
-		//HIBYTE(v9) = v14 - a6;
-		//LOBYTE(v9) = v9 + 1;
 		v9x._axis_2d.y= v14 - a6;
 		v9x._axis_2d.x++;
 		BYTE1(v10) = 2 * a4 + v14;
-		//HIBYTE(v17) = 2 * a4 + v14;
-		//LOBYTE(v17) = v17 + 1;
 		v17x._axis_2d.y = 2 * a4 + v14;
 		v17x._axis_2d.x++;
 	}
-	//return v10;
 }
 
 //----- (00048B50) --------------------------------------------------------
@@ -57804,39 +57759,30 @@ void sub_49A30(type_str_0x6E8E* a1x, uint16_t a2)//22aa30
 //----- (00049C70) --------------------------------------------------------
 void sub_49C70(type_str_0x6E8E* a1x)//22ac70
 {
-	//int result; // eax
-
-	//result = *(x_DWORD *)(a1 + 4) >> 1;
 	a1x->dword_0x90_144 = a1x->dword_0x4 >> 1;
-	//return result;
 }
 
 //----- (00049C90) --------------------------------------------------------
 void sub_49C90(type_str_0x6E8E* a1x, int16_t a2)//22ac90
 {
-	//char result; // al
-
 	a1x->word_0x5A_90 = a2;
 	a1x->byte_0x5C_92 = 0;
-	//result = x_BYTE_D8A2E[(uint8_t)x_WORD_D951C[6+7 * a2]];
-	a1x->byte_0x5D_93 = x_BYTE_D8A2E[(uint8_t)x_WORD_D951C[6 + 7 * a2]];
-	//return result;
+	// FIXME: understand these arrays, for the moment prevent out of bounds access via mod
+	//a1x->byte_0x5D_93 = x_BYTE_D8A2E.at((uint8_t)x_WORD_D951C[6 + 7 * a2]);
+	a1x->byte_0x5D_93 = x_BYTE_D8A2E.at((uint8_t)x_WORD_D951C[6 + 7 * a2] % x_BYTE_D8A2E.size());
 }
 
 //----- (00049CD0) --------------------------------------------------------
 void sub_49CD0(type_str_0x6E8E* a1x, int16_t a2)//22acd0
 {
 	int v2; // ebx
-	//int result; // eax
 
 	sub_49C90(a1x, a2);
 	v2 = 7 * a2;
 	a1x->array_0x52_82.aa = (Bit16u)x_WORD_D951C[4+v2] / 2;
 	a1x->array_0x52_82.xshift = (Bit16u)x_WORD_D951C[3+v2] / 2;
 	a1x->array_0x52_82.yshift = (Bit16u)x_WORD_D951C[3+v2] / 2;
-	//result = (uint16_t)x_WORD_D9524[v2] / 2;
 	a1x->array_0x52_82.dd = (Bit16u)x_WORD_D951C[4+v2] / 2;
-	//return result;
 }
 
 //----- (00049D50) --------------------------------------------------------
@@ -57845,7 +57791,7 @@ void sub_49D50(type_str_0x6E8E* a1x, int16_t a2)//22ad50
 	//int result; // eax
 
 	a1x->word_0x5A_90 = a2;
-	a1x->byte_0x5D_93 = x_BYTE_D8A2E[(uint8_t)x_WORD_D951C[6+7 * a2]];
+	a1x->byte_0x5D_93 = x_BYTE_D8A2E.at((uint8_t)x_WORD_D951C[6+7 * a2]);
 	//result = (uint16_t)x_WORD_D951C[4+7 * a2] / 2;
 	a1x->array_0x52_82.aa = (uint16_t)x_WORD_D951C[4 + 7 * a2] / 2;
 	//return result;
@@ -57939,85 +57885,51 @@ int filearrayindex_MSPRD00DATTAB = 4;
 //----- (00049F30) --------------------------------------------------------
 void sub_49F30()//22af30
 {
-	//Bit32u v3; // ebx
-
-	//*(Bit32u*)(x_D41A0_BYTEARRAY_0 + 28466) = (Bit32u)unk_F42B0;
 	D41A0_BYTESTR_0.struct_0x6E8E[0].dword_0xA4_164x = unk_F42B0x;
-	//*(Bit32u*)(x_D41A0_BYTEARRAY_0 + 53) = (Bit32u)-1;
 	D41A0_BYTESTR_0.dword_0x35 = -1;
-	//*(Bit32u*)(x_D41A0_BYTEARRAY_0 + 4582) = (Bit32u)-1;
 	D41A0_BYTESTR_0.dword_0x11e6 = -1;
 	Bit32s index = 999;
 	do
 	{
-		//v3 = *(Bit32u*)(x_D41A0_BYTEARRAY_0 + 53) + 1;
-		//*(Bit32u*)(x_D41A0_BYTEARRAY_0 + 53) = *(Bit32u*)(x_D41A0_BYTEARRAY_0 + 53) + 1;
 		D41A0_BYTESTR_0.dword_0x35++;
-		//*(Bit32u*)(x_D41A0_BYTEARRAY_0 + 4 * (D41A0_BYTESTR_0.dword_0x35()) + 582) = (Bit32u)x_DWORD_EA3E4[index];
 		D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35] = x_DWORD_EA3E4[index];
 		index--;
 	} while (index > 0);
-	//return result;
 }
 
 //----- (00049F90) --------------------------------------------------------
 void sub_49F90()//22af90
 {
-	//type_str_0x6E8E* ix; // ebx
 	int iy;
-	//Bit8u* v1; // eax
 	signed int v2; // ebx
-	//signed int v3; // edx
 	type_str_0x6E8E* indexx; // eax
-	//Bit8u* v5; // eax
-	//int v6; // ecx
-	//Bit8u* v7; // ecx
-	//Bit8u* v8; // eax
-	//int v9; // esi
-	//Bit8u* v10; // ecx
 
-	//for (ix = x_DWORD_EA3E4[1]; ix < x_DWORD_EA3E4[0x3e8]; ix+=sizeof(type_str_0x6E8E))
 	for(iy=1;iy< 0x3e8;iy++)
 	{
 		if (x_DWORD_EA3E4[iy]->byte_0x3F_63 && x_DWORD_EA3E4[iy]->struct_byte_0xc_12_15.byte[1] & 4)
 			sub_57F20(x_DWORD_EA3E4[iy]);
 	}
-	//adress 22afc0
-	//v1 = x_D41A0_BYTEARRAY_0;
-	//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 53) = -1;
 	D41A0_BYTESTR_0.dword_0x35=-1;
 	v2 = 999;
 	D41A0_BYTESTR_0.dword_0x11e6 = -1;
 	do
 	{
-		//v3 = v2;
 		indexx = x_DWORD_EA3E4[v2];
 		if (indexx->byte_0x3F_63)
 		{
 			if (indexx->struct_byte_0xc_12_15.byte[2] & 2)
 			{
-				//v8 = x_D41A0_BYTEARRAY_0;
-				//v9 = *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 4582) + 1;
 				D41A0_BYTESTR_0.dword_0x11e6++;
-				//v10 = x_D41A0_BYTEARRAY_0 + 4 * (D41A0_BYTESTR_0.dword_0x11e6);
-				//index = x_DWORD_EA3E4[v3];
 				D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6] = x_DWORD_EA3E4[v2];
 			}
 		}
 		else
 		{
-			//v5 = x_D41A0_BYTEARRAY_0;
-			//v6 = *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 53) + 1;
-			//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 53) = *(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 53) + 1;
 			D41A0_BYTESTR_0.dword_0x35++;
-			//v7 = x_D41A0_BYTEARRAY_0 + 4 * (D41A0_BYTESTR_0.dword_0x35());
-			//index = x_DWORD_EA3E4[v3];
-			//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 4 * (D41A0_BYTESTR_0.dword_0x35()) + 582) = (Bit32s)x_DWORD_EA3E4[v3];
 			D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35] = x_DWORD_EA3E4[v2];
 		}
 		v2--;
 	} while (v2 > 0);
-//	return result;
 }
 
 //----- (0004A050) --------------------------------------------------------
@@ -58025,48 +57937,30 @@ type_str_0x6E8E* sub_4A050_new_event()//22b050
 {
 	Bit32s v0; // edx
 	type_str_0x6E8E* v1x; // ebx
-	//int v2; // eax
-	//int v3; // eax
-	//int v4; // ecx
-	//int v5; // eax
-	//int v6; // edx
-	//Bit8u* result; // eax
 
 	v0 = D41A0_BYTESTR_0.dword_0x35;
 	if (D41A0_BYTESTR_0.dword_0x35 >= 0)
 	{
-		//v1 = (Bit8u*)*(Bit32u*)(x_D41A0_BYTEARRAY_0 + 4 * D41A0_BYTESTR_0.dword_0x35() + 582);
-		//v1x = D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35];
-		//*(x_DWORD *)(x_D41A0_BYTEARRAY_0 + 53) = v0 - 1;
 		D41A0_BYTESTR_0.dword_0x35--;
-	//LABEL_5:
 		memset(D41A0_BYTESTR_0.pointers_0x246[v0], 0, sizeof(type_str_0x6E8E));
-		//v4 = (int)x_D41A0_BYTEARRAY_4;
-		//v5 = v1x-D41A0_BYTESTR_0.struct_0x6E8E;
-		//v5 = D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35] - D41A0_BYTESTR_0.struct_0x6E8E;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->dword_0x4 = 300;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->struct_byte_0xc_12_15.dword = 8;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x82_130 = 16;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x2A_42 = 100;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x1A_26 = D41A0_BYTESTR_0.pointers_0x246[v0] - D41A0_BYTESTR_0.struct_0x6E8E;
-		//v6 = *(Bit32u*)(x_D41A0_BYTEARRAY_0 + 8);
-		//v6 = D41A0_BYTESTR_0.dword_0x8;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->byte_0x41_65 = -1;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->byte_0x42_66 = -1;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x7d6];
 		D41A0_BYTESTR_0.pointers_0x246[v0]->dword_0xA4_164x = unk_F42B0x;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->byte_0x43_67 = 10;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->byte_0x39_57 = -6;
-		//LOWORD(v6) = D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35] - D41A0_BYTESTR_0.struct_0x6E8E + D41A0_BYTESTR_0.dword_0x8;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->byte_0x3E_62 = D41A0_BYTESTR_0.pointers_0x246[v0] - D41A0_BYTESTR_0.struct_0x6E8E;
-		//result = v1;
 		D41A0_BYTESTR_0.pointers_0x246[v0]->word_0x14_20 = D41A0_BYTESTR_0.pointers_0x246[v0] - D41A0_BYTESTR_0.struct_0x6E8E + D41A0_BYTESTR_0.dword_0x8;//this is it line
 		return D41A0_BYTESTR_0.pointers_0x246[v0];
 	}	
 	if (D41A0_BYTESTR_0.dword_0x11e6 >= 0)
 	{
 		memset(x_D41A0_BYTEARRAY_4_struct.bytearray_38403x, 0, 116);
-		//v2 = (int)x_D41A0_BYTEARRAY_4;
 		x_D41A0_BYTEARRAY_4_struct.dword_38523 = 0;
 		x_D41A0_BYTEARRAY_4_struct.dword_38527 = 0;
 		x_D41A0_BYTEARRAY_4_struct.dword_38519 = 0;
@@ -58074,31 +57968,22 @@ type_str_0x6E8E* sub_4A050_new_event()//22b050
 		x_D41A0_BYTEARRAY_4_struct.dword_38535 = 0;		
 		v1x = D41A0_BYTESTR_0.dword_0x11EA[D41A0_BYTESTR_0.dword_0x11e6];
 		sub_57E50(v1x);
-		//v3 = (int)x_D41A0_BYTEARRAY_0;
 		v1x->byte_0x3F_63 = 0;
 		D41A0_BYTESTR_0.dword_0x11e6--;
-		//goto LABEL_5;
 
 		memset(v1x, 0, sizeof(type_str_0x6E8E));
-		//v4 = (int)x_D41A0_BYTEARRAY_4;
-		//v5 = v1x-D41A0_BYTESTR_0.struct_0x6E8E;
-		//v5 = D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35] - D41A0_BYTESTR_0.struct_0x6E8E;
 		v1x->dword_0x4 = 300;
 		v1x->struct_byte_0xc_12_15.dword = 8;
 		v1x->word_0x82_130 = 16;
 		v1x->word_0x2A_42 = 100;
 		v1x->word_0x1A_26 = v1x - D41A0_BYTESTR_0.struct_0x6E8E;
-		//v6 = *(Bit32u*)(x_D41A0_BYTEARRAY_0 + 8);
-		//v6 = D41A0_BYTESTR_0.dword_0x8;
 		v1x->byte_0x41_65 = -1;
 		v1x->byte_0x42_66 = -1;
 		v1x->dword_0xA0_160x = (type_str_160*)&unk_D7BD6[0x7d6];
 		v1x->dword_0xA4_164x = unk_F42B0x;
 		v1x->byte_0x43_67 = 10;
 		v1x->byte_0x39_57 = -6;
-		//LOWORD(v6) = D41A0_BYTESTR_0.pointers_0x246[D41A0_BYTESTR_0.dword_0x35] - D41A0_BYTESTR_0.struct_0x6E8E + D41A0_BYTESTR_0.dword_0x8;
 		v1x->byte_0x3E_62 = v1x - D41A0_BYTESTR_0.struct_0x6E8E;
-		//result = v1;
 		v1x->word_0x14_20 = v1x - D41A0_BYTESTR_0.struct_0x6E8E + D41A0_BYTESTR_0.dword_0x8;//this is it line
 		return v1x;
 	}
@@ -58110,36 +57995,6 @@ type_str_0x6E8E* fix_it_4A190() {
 	allert_error();
 	return 0;
 };
-
-Bit8u testarray[0x260000];//for debug
-bool test_pre_sub_4a190_firstrun=true;//for debug
-
-int debugcounter_4a190 = 0;
-void test_pre_sub_4a190(Bit32u adress)//for debug
-{
-	if (test_pre_sub_4a190_firstrun) {
-		//testarray = new Bit8u(0x260000);
-		test_pre_sub_4a190_firstrun = false;
-		for (int64_t i = 0; i < 0x260000; i++)
-			testarray[i] = 0;
-	}
-	if (testarray[adress] < 0xff)
-	{
-		if (testarray[adress] == 0)
-		{
-			myprintf("%d - new procedure:%08X\n", debugcounter_4a190,adress);
-		}
-		//else
-			//myprintf("%d - new instance:%08X, %d\n", debugcounter_4a190,adress, testarray[adress]);
-		testarray[adress]++;
-		if (debugcounter_4a190 > 0x3c4)
-		{
-			debugcounter_4a190++;
-			debugcounter_4a190--;
-		}
-		debugcounter_4a190++;
-	}
-}
 
 type_str_0x6E8E* pre_sub_4A190_axis_3d(Bit32u adress, axis_3d* a1_axis3d, int type)//pre 22b190
 {
@@ -59127,10 +58982,6 @@ type_str_0x6E8E* pre_sub_4A190_axis_3d(Bit32u adress, axis_3d* a1_axis3d, int ty
 }
 void pre_sub_4A190_0x6E8E(Bit32u adress, type_str_0x6E8E* a1_6E8E,int type)//pre 22b190
 {
-
-#ifndef RELEASE_GAME
-	test_pre_sub_4a190(adress);//for debug
-#endif
 	switch (adress)
 	{
 		case 0x1f3910: {
@@ -62661,22 +62512,14 @@ type_str_0x6E8E* sub_4A190(axis_3d* a1x, int a2, int a3)//22b190
 	type_D4C52ar2* v3; // eax
 	type_str_0x6E8E* resultx; // eax
 
-	/*index = &x_DWORD_D4C56[18 * a1[0]];
-	if (!*(Bit32u*)&x_DWORD_D4C56[(*(Bit32u*)index - 0x2a5c56) + 14 * a1[1] + 10])*/
-
-	//v3 = *(Bit32u*)&x_DWORD_D4C56[(*(Bit32u*)&x_DWORD_D4C56[18 * a2] - 0x2a5c56) + 14 * a3];
-	//v3 = *(Bit32u*)&x_DWORD_D4C52ar[4 + 18 * a2] + 14 * a3;
 	v3 = &str_D4C48ar[a2].dword_14[a3];
-	/*if (*(Bit32u*)&x_DWORD_D4C52ar[4+v3 - 0x2a5c56 + 10] && *(Bit16u*)&x_DWORD_D4C52ar[v3 - 0x2a5c52 + 4] == a3)
-		resultx = pre_sub_4A190_axis_3d(*(Bit32u*)&x_DWORD_D4C52ar[v3 - 0x2a5c52 + 6],a1x,2);///(*(int(**)(Bit8u*))(v3 + 6))(a1);
-	else
-		resultx = 0;*/
 	if(v3->dword_10 && v3->word_4==a3)
 		resultx = pre_sub_4A190_axis_3d(v3->dword_6,a1x, 2);
 	else
 		resultx = 0;
 	return resultx;
 }
+
 int debugcounter_0022B25D = 0;
 //----- (0004A1E0) --------------------------------------------------------
 void sub_4A1E0(int a1, char a2)//22b1e0
@@ -70928,6 +70771,10 @@ void sub_56A30_init_game_level(unsigned int a1)//237a30
 		//D41A0_BYTESTR_0.struct_0x3654C[0].str_36550_word4 = 40;
 	#endif
 
+
+// FIXME: memory accesses during initialisation
+std::cout << "FIXME: memory accesses during initialisation @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+return;
 
 	sub_4A1E0(0, 1);
 	//adress 237bb9
@@ -91200,7 +91047,6 @@ Bit8u* sub_71E70(type_x_DWORD_E9C28_str &a1y, unsigned int a2, int16_t a3)//252e
 	int16_t v4; // ax
 	int16_t v5; // dx
 	int v6; // ecx
-	int v7; // eax
 	Bit8u* result; // eax
 
 	v3 = -1;
@@ -91220,14 +91066,26 @@ Bit8u* sub_71E70(type_x_DWORD_E9C28_str &a1y, unsigned int a2, int16_t a3)//252e
 			//a1y.dword_4 -= a2;
 			//*(x_WORD *)(a1y.dword_8_data + v7 + 8) = a1y.word_20;
 			//*(x_DWORD *)(a1y.dword_12x + (uint16_t)(a1y.word_20)++) = (Bit32u)a1y.dword_8_data + 14 * v6;
-			v7 = 14 * v4;
 			a1y.data[v4].data_0 = a1y.dword_0 + (Bit8u*)a1y.dword_16x - a1y.dword_4;
 			a1y.data[v4].data_4 = a2;
 			a1y.data[v4].data_8 = a1y.word_20;
 			a1y.data[v4].data_10 = v5;
 			a1y.data[v4].data_12 = a3;
 			a1y.dword_4 -= a2;
-			*(x_DWORD *)(a1y.dword_12x + (uint16_t)(a1y.word_20)++) = (Bit32u)a1y.data[v6].data_8;
+
+//			*(x_DWORD *)(a1y.dword_12x + (uint16_t)(a1y.word_20)++) = (Bit32u)a1y.data[v6].data_8;
+std::cout << "FIXME: heap-buffer-overflow @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+// FIXME: heap-buffer-overflow, call-stack
+			//sub_71E70@0x0000000000a3f94b (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:91100)
+			//sub_70F50_initTmaps@0x0000000000a38ff4 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:90323)
+			//sub_718F0@0x0000000000a3d117 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:90839)
+			//sub_712F0@0x0000000000a3a851 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:90552)
+			//sub_71780@0x0000000000a3c7e2 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:90768)
+			//sub_4A1E0@0x0000000000871d4d (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:62576)
+			//sub_56A30_init_game_level@0x00000000008f0f1b (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:70804)
+			//sub_46830_main_loop@0x000000000083d9c2 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:54999)
+			//sub_main@0x00000000008ee6be (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:70496)
+			//main@0x00000000004e1776 (/home/sebi/daten/projekte/remc2clean/remc2/remc2.cpp:13)
 		}
 	}
 
@@ -97573,9 +97431,11 @@ void sub_7D400_draw_texts_and_play_sounds(int a1, int16_t a2, int16_t a3, char a
 	if ((v41x != -1) && (v40x != -1))
 		return;
 
+	if (v41x >= 0) {
 // FIXME: value, reached with v41x == -1
-std::cout << "FIXME: values @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-	//sub_7DA70(unk_E17CC_str_0x194[v41x].word_12_x, unk_E17CC_str_0x194[v41x].word_14_y, unk_E17CC_str_0x194[23].word_12_x, unk_E17CC_str_0x194[23].word_14_y, a2, a3);
+//std::cout << "FIXME: values @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+		sub_7DA70(unk_E17CC_str_0x194[v41x].word_12_x, unk_E17CC_str_0x194[v41x].word_14_y, unk_E17CC_str_0x194[23].word_12_x, unk_E17CC_str_0x194[23].word_14_y, a2, a3);
+	}
 }
 
 //----- (0007DA70) --------------------------------------------------------
@@ -105691,25 +105551,20 @@ char sub_89360()//26a360
 }
 
 //----- (00089420) --------------------------------------------------------
-void sub_89420(type_sub_str_unk_1804B0ar* a1x, const char *a2)//26a420
+void sub_89420(type_sub_str_unk_1804B0ar* a1x, char *a2)//26a420
 {
-	int result; // eax
-	unsigned int v3; // kr04_4
-	signed int v4; // ecx
-	signed int v5; // ebx
-	unsigned int v6; // ecx
-	unsigned int v7; // edx
-	x_BYTE *i; // ecx
-	int16_t v9; // [esp+4h] [ebp-4h]
+	int result;
+	unsigned int pos_after_end;
+	signed int v4;
+	signed int v5;
+	int16_t v9;
 
-	//result = 0;
-	v3 = strlen(a2) + 1;
+	pos_after_end = strlen(a2) + 1;
 	v9 = 1;
 	a1x->word_0x4 = 0;
 	a1x->word_0x6 = 0;
-	if (v3 != 1)
+	if (pos_after_end != 1)
 	{
-		//HIWORD(result) = 0;
 		v4 = a1x->word_0x10 * strlen(a2);
 		v5 = a1x->word_0xc;
 		if (v4 <= v5)
@@ -105718,12 +105573,10 @@ void sub_89420(type_sub_str_unk_1804B0ar* a1x, const char *a2)//26a420
 		}
 		else
 		{
-			//result = v5 / 2;
 			if (v4 % v5 < v5 / 2)
 			{
 				while (1)
 				{
-					//result = v5 / 2;
 					if (v4 % v5 >= v5 / 2 || v5 <= 0)
 						break;
 					v5 -= a1x->word_0x10;
@@ -105733,30 +105586,21 @@ void sub_89420(type_sub_str_unk_1804B0ar* a1x, const char *a2)//26a420
 			{
 				result = (v5 + a1x->word_0x10 - 1) / a1x->word_0x10;
 				v9 = 0;
-				// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-				// v6 = (unsigned int)a2;
-				// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-				// v7 = (unsigned int)&a2[v3 - 1];
+				char *v6 = a2;
+				char *v7 = &a2[pos_after_end - 1];
 				while (v6 < v7)
 				{
-					// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-					// // for (i = (x_BYTE *)(result + v6); *i != 32 && (unsigned int)i < v7; i--)
-					// 	;
-					// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-					// v6 = (unsigned int)(i + 1);
+					char* i;
+					for (i = (char *)(result + v6); *i != 32 && i < v7; i--)
+					 	;
+					v6 = (i + 1);
 					v9++;
 				}
 				a1x->word_0x4 = v5;
 			}
 		}
-		//LOWORD(result) = a1x->word_0x12;
 		a1x->word_0x6 = a1x->word_0x12 * v9;
 	}
-	//return result;
 }
 
 //----- (00089520) --------------------------------------------------------
@@ -105879,6 +105723,11 @@ void sub_89690_draw_frame(type_sub_str_unk_1804B0ar* a1x)//26a690
 	v9 = a1x->word_0x6 / a1x->word_0x12;
 	/*sub_2BB40_draw_bitmap(a1[18] - v12, v14, (Bit8u**)(**filearray_2aa18c[6] + 1026));
 	sub_2BB40_draw_bitmap(v3, v4, (Bit8u**)(**filearray_2aa18c[6] + 1026));*/
+
+// FIXME: textures
+std::cout << "FIXME: textures @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
+return;
+
 	sub_2BB40_draw_bitmap(a1x->word_0x24 - v12, v14, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[171]);
 	sub_2BB40_draw_bitmap(v3, v4, (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[171]);
 	v5 = v1 + v14;

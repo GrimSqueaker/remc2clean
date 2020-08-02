@@ -57,6 +57,8 @@ void FileHandling::init() {
     m_mc2files.insert( {MC2File::data_build00_dat, {m_game_path / "DATA" / "BUILD0-0.DAT"} } );
     m_mc2files.insert( {MC2File::data_build00_tab, {m_game_path / "DATA" / "BUILD0-0.TAB"} } );
     m_mc2files.insert( {MC2File::data_clrd0_dat, {m_game_path / "DATA" / "CLRD-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_clrn0_dat, {m_game_path / "DATA" / "CLRN-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_clrc0_dat, {m_game_path / "DATA" / "CLRC-0.DAT"} } );
     m_mc2files.insert( {MC2File::data_font0_dat, {m_game_path / "DATA" / "FONT0.DAT"} } );
     m_mc2files.insert( {MC2File::data_font0_tab, {m_game_path / "DATA" / "FONT0.TAB"} } );
     m_mc2files.insert( {MC2File::data_font1_dat, {m_game_path / "DATA" / "FONT1.DAT"} } );
@@ -65,6 +67,9 @@ void FileHandling::init() {
     m_mc2files.insert( {MC2File::data_hfont3_dat, {m_game_path / "DATA" / "HFONT3.DAT"} } );
     m_mc2files.insert( {MC2File::data_hfont3_tab, {m_game_path / "DATA" / "HFONT3.TAB"} } );
     m_mc2files.insert( {MC2File::data_pald0_dat, {m_game_path / "DATA" / "PALD-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_palf0_dat, {m_game_path / "DATA" / "PALF-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_paln0_dat, {m_game_path / "DATA" / "PALN-0.DAT"} } );
+    m_mc2files.insert( {MC2File::data_palc0_dat, {m_game_path / "DATA" / "PALC-0.DAT"} } );
     m_mc2files.insert( {MC2File::data_pointers_dat, {m_game_path / "DATA" / "POINTERS.DAT"} } );
     m_mc2files.insert( {MC2File::data_pointers_tab, {m_game_path / "DATA" / "POINTERS.TAB"} } );
     m_mc2files.insert( {MC2File::data_screens_hscreen0_dat, {m_game_path / "DATA" / "SCREENS" / "HSCREEN0.DAT"} } );
@@ -359,6 +364,8 @@ void FileHandling::prepareTMapsFile(MC2CurrentTMapsFile map)
 }
 
 	
+
+
 
 
 // original load and decompress functions
