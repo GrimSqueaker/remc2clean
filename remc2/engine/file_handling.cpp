@@ -152,14 +152,39 @@ void FileHandling::init() {
 	}
 
 	// set up texture maps
-	m_tmaps.clear();
+	m_tabs.clear();
 	std::vector<MC2CurrentTMapsFile> tmaps = {
 		MC2CurrentTMapsFile::TMaps00,
 		MC2CurrentTMapsFile::TMaps10,
 		MC2CurrentTMapsFile::TMaps20,
 	};
-	for( auto map : tmaps ) {
-		prepareTMapsFile(map);
+
+	// prepare all tab/dat file pairs
+	std::vector<std::pair<MC2File, MC2File>> tabdatpairs = {
+		//{MC2File::data_build00_tab, MC2File::data_build00_dat},
+		//{MC2File::data_font0_tab, MC2File::data_font0_dat},
+		//{MC2File::data_font1_tab, MC2File::data_font1_dat},
+		//{MC2File::data_hfont3_tab, MC2File::data_hfont3_dat},
+		//{MC2File::data_pointers_tab, MC2File::data_pointers_dat},
+		{MC2File::data_tmaps00_tab, MC2File::data_tmaps00_dat},
+		{MC2File::data_tmaps10_tab, MC2File::data_tmaps10_dat},
+		{MC2File::data_tmaps20_tab, MC2File::data_tmaps20_dat},
+		//{MC2File::data_hsprd00_tab, MC2File::data_hsprd00_dat},
+		//{MC2File::data_msprd00_tab, MC2File::data_msprd00_dat},
+		//{MC2File::data_hsprn00_tab, MC2File::data_hsprn00_dat},
+		//{MC2File::data_msprn00_tab, MC2File::data_msprn00_dat},
+		//{MC2File::data_hsprc00_tab, MC2File::data_hsprc00_dat},
+		//{MC2File::data_msprc00_tab, MC2File::data_msprc00_dat},
+		//{MC2File::data_hwebd00_tab, MC2File::data_hwebd00_dat},
+		//{MC2File::data_mwebd00_tab, MC2File::data_mwebd00_dat},
+		//{MC2File::data_hwebn00_tab, MC2File::data_hwebn00_dat},
+		//{MC2File::data_mwebn00_tab, MC2File::data_mwebn00_dat},
+		//{MC2File::data_hwebc00_tab, MC2File::data_hwebc00_dat},
+		//{MC2File::data_mwebc00_tab, MC2File::data_mwebc00_dat},
+		//{MC2File::levels_levels_tab, MC2File::levels_levels_dat},
+	};
+	for( auto tabdatpair : tabdatpairs ) {
+		prepareTabFile(tabdatpair.first, tabdatpair.second);
 	}
 }
 
@@ -313,12 +338,12 @@ MC2FileInfo& FileHandling::getCurrentTMapsFileTabInfo()
     return m_mc2files[getTMapsTabFile(m_current_tmaps_file)];
 }
 
-void FileHandling::prepareTMapsFile(MC2CurrentTMapsFile map)
+void FileHandling::prepareTabFile(MC2File tabfile, MC2File datfile)
 {
-    std::vector<MC2TMapsEntry> tmap_entries;
+    std::vector<MC2TabEntry> tab_entries;
 
-    const MC2FileInfo& tab_file = m_mc2files[getTMapsTabFile(map)];
-    const MC2FileInfo& dat_file = m_mc2files[getTMapsDatFile(map)];
+    const MC2FileInfo& tab_file = m_mc2files[tabfile];
+    const MC2FileInfo& dat_file = m_mc2files[datfile];
 
 	// note: the last entry is just a end marker -> skip it
 	for (int i = 0; (10*(i+1)) < tab_file.file_data.size(); ++i) {
@@ -326,21 +351,21 @@ void FileHandling::prepareTMapsFile(MC2CurrentTMapsFile map)
 		uncompressed_size += (int)tab_file.file_data[10*i + 1] << 8;
 		uncompressed_size += (int)tab_file.file_data[10*i + 2] << 16;
 		uncompressed_size += (int)tab_file.file_data[10*i + 3] << 24;
-		int pos_in_tmaps_dat = (int)tab_file.file_data[10*i + 4];
-		pos_in_tmaps_dat += (int)tab_file.file_data[10*i + 5] << 8;
-		pos_in_tmaps_dat += (int)tab_file.file_data[10*i + 6] << 16;
-		pos_in_tmaps_dat += (int)tab_file.file_data[10*i + 7] << 24;
+		int pos_in_dat = (int)tab_file.file_data[10*i + 4];
+		pos_in_dat += (int)tab_file.file_data[10*i + 5] << 8;
+		pos_in_dat += (int)tab_file.file_data[10*i + 6] << 16;
+		pos_in_dat += (int)tab_file.file_data[10*i + 7] << 24;
 		int id = (int)tab_file.file_data[10*i + 8];
 		id += (int)tab_file.file_data[10*i + 9] << 8;
 
 		// size == 1 in TAB file seems to indicate non-existing texture
 		if (uncompressed_size > 1) {
-			auto search = dat_file.data_decompressed.find(pos_in_tmaps_dat);
+			auto search = dat_file.data_decompressed.find(pos_in_dat);
 			if (search == dat_file.data_decompressed.end())
 				throw std::runtime_error(
 					std::string("Referenced data in tab file not found in dat file: ")
 					+ "index = " + std::to_string(i)
-					+ ", pos_in_dat_file = " + std::to_string(pos_in_tmaps_dat)
+					+ ", pos_in_dat_file = " + std::to_string(pos_in_dat)
 					+ ", file = " + tab_file.file_path.string());
 			if (uncompressed_size != search->second.size())
 				throw std::runtime_error(
@@ -348,19 +373,19 @@ void FileHandling::prepareTMapsFile(MC2CurrentTMapsFile map)
 					+ "index = " + std::to_string(i)
 					+ ", file = " + tab_file.file_path.string());
 
-			tmap_entries.push_back({
-				uncompressed_size, pos_in_tmaps_dat, id, search->second
+			tab_entries.push_back({
+				uncompressed_size, pos_in_dat, id, search->second
 			});
 		}
 		else {
 			data_t empty_dat = {0};
-			tmap_entries.push_back({
-				uncompressed_size, pos_in_tmaps_dat, id, empty_dat
+			tab_entries.push_back({
+				uncompressed_size, pos_in_dat, id, empty_dat
 			});
 		}
 	}
 
-    m_tmaps.insert({map, tmap_entries});
+    m_tabs.insert({tabfile, tab_entries});
 }
 
 	

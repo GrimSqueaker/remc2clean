@@ -546,12 +546,12 @@ void VGA_Init(uint32_t flags)
 int origw = 640;
 int origh = 480;
 
-void VGA_Resize(int width, int height) {
+void VGA_resize(int width, int height) {
 	origw = width;
 	origh = height;
-	//VGA_Resize(width, height, 8, SDL_HWPALETTE);
+	//VGA_resize(width, height, 8, SDL_HWPALETTE);
 }
-void VGA_Resize(int width, int height, int bpp, uint32_t flags) {
+void VGA_resize(int width, int height, int bpp, uint32_t flags) {
 	/*SDL_FreeSurface(screen);
 
 	if (!screen) {

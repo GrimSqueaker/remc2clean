@@ -127,8 +127,8 @@ void loadlevel(int levelnumber) {
 void editor_run()
 {	
 	sub_6EBF0(&filearray_2aa18c[filearrayindex_POINTERSDATTAB]);
-	x_WORD_180660_VGA_type_resolution = 1;
-	x_WORD_E29DA_type_resolution = 1;
+	VGA_res = MC2VGARes::VGA320;
+	x_WORD_E29DA_type_resolution = MC2VGARes::VGA320;
 
 	sub_6FC50(1);
 

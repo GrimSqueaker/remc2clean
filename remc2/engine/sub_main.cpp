@@ -11156,7 +11156,7 @@ int x_DWORD_180650_positiony; // weak
 int x_DWORD_180654; // weak
 int x_DWORD_180658; // weak
 int x_DWORD_18065C; // weak
-int16_t x_WORD_180660_VGA_type_resolution; // weak
+MC2VGARes VGA_res; // weak
 int16_t x_WORD_180662_graphics_handle; // weak
 
 char x_BYTE_1806E5; // weak
@@ -12104,7 +12104,7 @@ int sub_10C80(type_str_0x6E8E* a1x, uint8_t a2, uint16_t a3)//1f1c80
 std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 				v6 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[jjx->byte_0x46_70].width;//fix it;
 				v21 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[jjx->byte_0x46_70].height;//fix it;
-				if (x_WORD_180660_VGA_type_resolution == 1)
+				if (VGA_res == MC2VGARes::VGA320)
 				{
 					v6 >>= 1;
 					v21 >>= 1;
@@ -12204,18 +12204,18 @@ std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LI
   //
 
   sub_47130();
-  if (x_WORD_180660_VGA_type_resolution == 1)
+  if (VGA_res == MC2VGARes::VGA320)
   {
     sub_6EBF0(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);
     sub_90D3F_unload_file_array(psxadatamsprd00dat);
-    x_WORD_180660_VGA_type_resolution = 8;
+    VGA_res = MC2VGARes::VGA640;
 
   }
   else
   {
     sub_6EBF0(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);
     sub_90D3F_unload_file_array(psxadatahsprd00dat);
-    x_WORD_180660_VGA_type_resolution = 1;
+    VGA_res = MC2VGARes::VGA320;
 
   }
   sub_47160();//reload graphics
@@ -12227,7 +12227,7 @@ std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LI
   //
 
   memset((void*)* xadatapald0dat2.var28_begin_buffer, 0, 768);
-  if (x_WORD_180660_VGA_type_resolution & 1)
+  if (VGA_res == MC2VGARes::VGA320)
   {
     v1 = sub_5BE80_test_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
     sub_72883_clear_graphics_320((void*)x_DWORD_180628b_screen_buffer, 0xC8u, v1);
@@ -12239,7 +12239,7 @@ std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LI
   }
   memset((void*)* xadatapald0dat2.var28_begin_buffer, 0, 768);
   sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
-  if (x_WORD_180660_VGA_type_resolution & 1)
+  if (VGA_res == MC2VGARes::VGA320)
     sub_90D6E_VGA_set_video_mode_320x200_and_pallette(*xadatapald0dat2.var28_begin_buffer);
   else
     //sub_90E07_VGA_set_video_mode_640x480_and_pallette(*xadatapald0dat2.var28_begin_buffer);
@@ -12247,7 +12247,7 @@ std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LI
   sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
   v3 = sub_5BE80_test_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
   x_BYTE_EB3A8 = v3;
-  if (x_WORD_180660_VGA_type_resolution & 1)
+  if (VGA_res == MC2VGARes::VGA320)
     sub_72883_clear_graphics_320((void*)x_DWORD_180628b_screen_buffer, 0xC8u, v3);
   else
     sub_728A9_clear_graphics_alt((void*)x_DWORD_180628b_screen_buffer, alt_resolution_height, v3);
@@ -12256,7 +12256,7 @@ std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LI
 std::cout << "FIXME: filearray @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
   sub_8CD27_set_cursor(*(*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct));
   x_D41A0_BYTEARRAY_4_struct.byteindex_51 = 2;
-  if (x_WORD_180660_VGA_type_resolution == 1)
+  if (VGA_res == MC2VGARes::VGA320)
     x_BYTE_D419D_fonttype = 1;
   else
     x_BYTE_D419D_fonttype = 3;
@@ -16524,7 +16524,7 @@ void sub_17060_compute_mouse_relative_pos(int16_t a1, int16_t a2)//1f8060
 	//result = x_D41A0_BYTEARRAY_4[0];
 	if (!x_D41A0_BYTEARRAY_4_struct.byteindex_178)
 	{
-		if (x_WORD_180660_VGA_type_resolution == 1)
+		if (VGA_res == MC2VGARes::VGA320)
 		{
 			v3 = ((a1 << 7) - 40960) / 320;
 			v4 = ((a2 << 7) - 25600) / -200;
@@ -16892,7 +16892,7 @@ void sub_17190()//1f8190
 					}
 					case 0x1f: {//s
 						if (!(x_D41A0_BYTEARRAY_4_struct.setting_byte3_24 & 1)
-							&& x_WORD_180660_VGA_type_resolution & 1
+							&& VGA_res == MC2VGARes::VGA320
 							&& (unk_18058Cstr.x_WORD_1805C2_joystick == 0x01 || unk_18058Cstr.x_WORD_1805C2_joystick == 0x08 || unk_18058Cstr.x_WORD_1805C2_joystick == 0x0c))
 						{
 							sub_1A970_change_game_settings(18, 0, 0);
@@ -17202,7 +17202,7 @@ void sub_17A00_mouse_and_keys_events(/*Bit8u* a1,*/ signed int a2, int16_t a3)//
 		LABEL_215:
 			x_BYTE_1806E4 = 0;
 		LABEL_216:
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				v28 = 400;
 			else
 				v28 = 480;
@@ -24968,7 +24968,7 @@ void sub_226D0(uint16_t a1, Bit16s* exwidth, Bit16s* expheight)//2036d0
 	v4 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * a1 + 4);*/
 	v3 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[a1].height;
 	v4 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[a1].width;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v3 >>= 1;
 		v4 >>= 1;
@@ -32328,7 +32328,7 @@ void sub_2BB40_draw_bitmap(Bit16s posx, Bit16s posy, posistruct tempposstr)//20c
 {
 	Bit8u* temp_screen_buffer; // edi
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_8F8B0_draw_bitmap320(posx, posy, tempposstr);
 	else
 		sub_8F8E8_draw_bitmap640(posx, posy, tempposstr);
@@ -32336,7 +32336,7 @@ void sub_2BB40_draw_bitmap(Bit16s posx, Bit16s posy, posistruct tempposstr)//20c
 	{
 		temp_screen_buffer = x_DWORD_180628b_screen_buffer;
 		x_DWORD_180628b_screen_buffer = x_DWORD_E9C3C;
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_8F8B0_draw_bitmap320(posx, posy, tempposstr);
 		else
 			sub_8F8E8_draw_bitmap640(posx, posy, tempposstr);
@@ -32386,7 +32386,7 @@ void sub_2BC80(Bit16s x1, Bit16s y1, Bit16s x2, Bit16s y2, Bit8u a5)//20cc80
 {
 	Bit8u* temp_screen_buffer; // ST14_4
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_90164(x1, y1, x2, y2, a5);
 	else
 		sub_901E4(x1, y1, x2, y2, a5);
@@ -32395,7 +32395,7 @@ void sub_2BC80(Bit16s x1, Bit16s y1, Bit16s x2, Bit16s y2, Bit8u a5)//20cc80
 	{
 		temp_screen_buffer = x_DWORD_180628b_screen_buffer;
 		x_DWORD_180628b_screen_buffer = x_DWORD_E9C3C;
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_90164(x1, y1, x2, y2, a5);
 		else
 			sub_901E4(x1, y1, x2, y2, a5);
@@ -32410,7 +32410,7 @@ void sub_2BD10_draw_line(int16_t a1, int16_t a2, int16_t a3, int16_t a4, uint8_t
 
 	Bit8u* temp_screen_buffer; // ST14_4
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		func_draw = &sub_BD524;
 	else
 		func_draw = &sub_BD542;
@@ -32510,7 +32510,7 @@ int sub_2BE30_draw_game_frame()//20CE30
 	//tempstruct.data = new Bit8u;//this must fix
 	if (D41A0_BYTESTR_0.str_0x218A_settings.str_0x2196.transparency_0x2198)
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			//v1 = sub_8F8B0_draw_bitmap320;
 			v1 = sub_8F8B0_draw_bitmap320;//(0, 0, tempstruct);//this must fix
 		else
@@ -32544,7 +32544,7 @@ int sub_2BE30_draw_game_frame()//20CE30
 			x_BYTE_D41C6_old_graphics_mode = D41A0_BYTESTR_0.str_0x218A_settings.str_0x218A.alter_0x218D;
 			if (D41A0_BYTESTR_0.str_0x218A_settings.str_0x218A.alter_0x218D < 0x28)
 			{
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (VGA_res == MC2VGARes::VGA320)
 					sub_72883_clear_graphics_320(/*(uint8_t)x_BYTE_EB3A8, */(void *)x_DWORD_180628b_screen_buffer, 0xC8u, x_BYTE_EB3A8);
 				else
 					sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, x_BYTE_EB3A8);
@@ -32552,7 +32552,7 @@ int sub_2BE30_draw_game_frame()//20CE30
 		}
 		if (D41A0_BYTESTR_0.str_0x218A_settings.str_0x218A.alter_0x218D < 0x28)
 		{
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				sub_72883_clear_graphics_320(/*(uint8_t)x_BYTE_EB3A8, */(void *)x_DWORD_180628b_screen_buffer, 0xC8u, x_BYTE_EB3A8);
 			else
 				sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, x_BYTE_EB3A8);
@@ -32605,7 +32605,7 @@ int sub_2BE30_draw_game_frame()//20CE30
 		{
 			if (x_DWORD_D4188 && v3x->dword_0xA4_164x->byte_0x14E_334)
 			{
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (VGA_res == MC2VGARes::VGA320)
 				{
 					v39 = 2;
 					v37 = 4;
@@ -32726,11 +32726,11 @@ int sub_2BE30_draw_game_frame()//20CE30
 	case 0xC:
 	case 0xE:
 		v14x = x_DWORD_EA3E4[D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].word_0x00a_2BE4_11240];
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_72883_clear_graphics_320(/*(uint8_t)x_BYTE_EB3A8, */(void *)x_DWORD_180628b_screen_buffer, 0xC8u, x_BYTE_EB3A8);
 		else
 			sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, x_BYTE_EB3A8);
-		if (x_WORD_180660_VGA_type_resolution == 1)
+		if (VGA_res == MC2VGARes::VGA320)
 		{
 			//v15 = x_D41A0_BYTEARRAY_0 + 2124 * D41A0_BYTESTR_0.word_0xc;
 			//v16 = x_D41A0_BYTEARRAY_0 + 2124 * D41A0_BYTESTR_0.word_0xc + 14 * v6;
@@ -32791,16 +32791,16 @@ int sub_2BE30_draw_game_frame()//20CE30
 			D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.xshift,
 			D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.yshift,
 			D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].struct_0x1d1_2BDE_11695[v6 + 1].rotation__2BDE_11701.dd);
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_9025C(384, 0, 384, 400, (unsigned short)(*xadataclrd0dat.var28_begin_buffer)[0], 0);
 		else
 			sub_90374(384, 0, 384, 400, (unsigned short)(*xadataclrd0dat.var28_begin_buffer)[0], 0);
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_9025C(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.var28_begin_buffer)[0], 0);
 		else
 			sub_90374(382, 0, 382, 400, (unsigned short)(*xadataclrd0dat.var28_begin_buffer)[0], 0);
 		sub_40C50(D41A0_BYTESTR_0.str_0x218A_settings.str_0x218A.alter_0x218D);
-		/*if (x_WORD_180660_VGA_type_resolution == 1)
+		/*if (VGA_res == MC2VGARes::VGA320)
 		{
 			v23 = (int)x_D41A0_BYTEARRAY_0;
 			v24 = 2124 * D41A0_BYTESTR_0.word_0xc;
@@ -32955,7 +32955,7 @@ int sub_2CA90(int16_t a1)//20da90
 	v1 = 40 - a1;
 	x_DWORD_EA3D0 = 8 * v1;
 	x_DWORD_EA3C4 = 16 * a1;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		result = 5 * v1 / 2;
 		v3 = 10 * a1;
@@ -33051,7 +33051,7 @@ void sub_2CB30(type_str_0x6E8E* a1x, int16_t a2, int a3, int16_t a4)//20db30
 	v37 = x_WORD_D93C0_bldgprmbuffer[2+0x12e + v8];//?v22
 	//v9 = a4 >> 1;
 	v10 = (a4 >> 1) + a2;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v10 *= 2;
 		a3 *= 2;
@@ -33304,7 +33304,7 @@ int sub_2D1D0()//20e1d0
 	}
 	v3 = v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[85].height;
 	v28 = (640 - (v1 * (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[86].width + (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[85].width)) / 2;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		v4 = 400;
 	else
 		v4 = 480;
@@ -33630,7 +33630,7 @@ void sub_2DE80_draw_bitmapxx(int16_t a1, int16_t a2, posistruct a3)//20ee80
 std::cerr << "FIXME: crash at accessing posistruct" << std::endl;
 return;
 
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v3 = a3.height / 2;
 		v4 = a2 / 2 * x_DWORD_18062C_resolution_x + a1 / 2;
@@ -33748,7 +33748,7 @@ char sub_2DFD0(int16_t a1, int16_t a2, posistruct a3, uint8_t a4)//20efd0
 	int16_t v18; // [esp+Ch] [ebp-8h]
 	int16_t v19; // [esp+10h] [ebp-4h]
 
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v19 = a3.height / 2;
 		v4 = a2 / 2 * x_DWORD_18062C_resolution_x + a1 / 2;
@@ -33946,16 +33946,16 @@ void sub_2E260_draw_spell(int16_t a1, int16_t a2, type_str_0x6E8E* a3x, char a4)
 //----- (0002E790) --------------------------------------------------------
 int sub_2E790(int16_t a1, int a2, int a3, int a4, uint8_t a5)//20f790
 {
-	int16_t v5; // bx
-	int v6; // ecx
-	int v7; // eax
-	int result; // eax
-	int16_t v9; // si
-	int v10; // [esp+Ch] [ebp-4h]
+	int16_t v5 = 0;
+	int v6 = 0;
+	int v7 = 0;
+	int result = 0;
+	int16_t v9 = 0;
+	int v10 = 0;
 
 	v5 = a1;
 	v6 = a2;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v5 = a1 / 2;
 		HIWORD(v7) = HIWORD(a2);
@@ -33977,10 +33977,9 @@ int sub_2E790(int16_t a1, int a2, int a3, int a4, uint8_t a5)//20f790
 			if ((int16_t)a3 + v5 <= v9)
 				break;
 			++v9;
-			// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-			// // *(x_BYTE *)((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * (int16_t)result + v10) = x_BYTE_F6EE0_tablesx[0x4000+256 * a5
-			// 	+ *(uint8_t *)((int)x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * (int16_t)result + v10)];
+			*(x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * result + v10) 
+				= x_BYTE_F6EE0_tablesx[
+					0x4000 + 256*a5 + *(x_DWORD_180628b_screen_buffer + x_DWORD_18062C_resolution_x * result + v10)];
 		}
 	}
 	return result;
@@ -33998,7 +33997,7 @@ int sub_2E850(int16_t a1, int a2, int a3, int a4, uint8_t a5)//20f850
 
 	v5 = a1;
 	v6 = a2;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v5 = a1 / 2;
 		HIWORD(v7) = HIWORD(a2);
@@ -34169,9 +34168,9 @@ void sub_2ECC0_draw_bottom_menu()//20fcc0
 	//v36x = &v37x->dword_0xA4_164x->str_611;
 	v57 = x_BYTE_E88E0x[3 * sub_61790(v37x->dword_0xA4_164x->word_0x38_56)];
 	v56 = x_BYTE_E88E0x[1 + 3 * sub_61790(v37x->dword_0xA4_164x->word_0x38_56)];
-	//v3 = x_WORD_180660_VGA_type_resolution;
+	//v3 = VGA_res;
 	x_D41A0_BYTEARRAY_4_struct.byteindex_50 = -1;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		v4 = 400;
 	else
 		v4 = 480;
@@ -34516,7 +34515,7 @@ void sub_2F6B0()//2106b0
 	char v51; // [esp+8Ch] [ebp+7Eh]
 
 	//v41 = (x_BYTE *)(2124 * D41A0_BYTESTR_0.word_0xc + x_D41A0_BYTEARRAY_0 + 11230);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		v0 = 400;
 	else
 		v0 = 480;
@@ -39788,7 +39787,7 @@ void sub_36FC0(type_str_0x6E8E* a1x)//217fc0
 	//result = 0;v3 = 0;v4 = 0;v17 = 0;  //fix it
 	if (!result)
 	{
-		if (x_WORD_180660_VGA_type_resolution == 1)
+		if (VGA_res == MC2VGARes::VGA320)
 		{
 			v3 >>= 1;
 			v4 >>= 1;
@@ -39962,7 +39961,7 @@ void sub_37240(type_str_0x6E8E* a1x)//218240
 		v3 = v2.height;
 		v26 = v2.data;
 		v4 = v2.width;
-		if (x_WORD_180660_VGA_type_resolution == 1)
+		if (VGA_res == MC2VGARes::VGA320)
 		{
 			v3 >>= 1;
 			v4 >>= 1;
@@ -40221,27 +40220,27 @@ void sub_377F0(type_str_0x6E8E* a1x)//2187f0
 
 	LOBYTE(v1) = (uint16_t)(a1x->array_0x4C_76.x + 128) >> 8;
 	HIBYTE(v1) = (uint16_t)(a1x->array_0x4C_76.y + 128) >> 8;
-	/* if ( x_WORD_180660_VGA_type_resolution == 1 )
+	/* if ( VGA_res == MC2VGARes::VGA320 )
 	   v2 = (signed int)*(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 4) >> 1;
 	 else
 	   v2 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 4);
 	 v3 = v2;
-	 if ( x_WORD_180660_VGA_type_resolution == 1 )
+	 if ( VGA_res == MC2VGARes::VGA320 )
 	   v4 = (signed int)*(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 5) >> 1;
 	 else
 	   v4 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 5);
 	 v5 = v4;*/
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		v3 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[a1x->byte_0x46_70].width >> 1;
 	else
 		v3 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[a1x->byte_0x46_70].width;
 	//v3 = v2;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		v5 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[a1x->byte_0x46_70].height >> 1;
 	else
 		v5 = (*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[a1x->byte_0x46_70].height;
 	//v5 = v4;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v5 >>= 1;
 		v3 >>= 1;
@@ -40441,12 +40440,12 @@ void sub_37BC0_modify_terrain(type_str_0x6E8E* a1x)//218bc0 // groove castle
 		if (a1x->dword_0x10_16 == 0)
 		{
 			v50 = (uint16_t)(a1x->array_0x4C_76.x + 128) >> 8;
-			/*if ( x_WORD_180660_VGA_type_resolution == 1 )
+			/*if ( VGA_res == MC2VGARes::VGA320 )
 			  v23 = (signed int)*(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 4) >> 1;
 			else
 			  v23 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 4);
 			v24 = v23;
-			if ( x_WORD_180660_VGA_type_resolution == 1 )
+			if ( VGA_res == MC2VGARes::VGA320 )
 			  v25 = (signed int)*(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 5) >> 1;
 			else
 			  v25 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 5);*/
@@ -40457,12 +40456,12 @@ void sub_37BC0_modify_terrain(type_str_0x6E8E* a1x)//218bc0 // groove castle
 			}//fix
 			else//fix
 			{
-			if (x_WORD_180660_VGA_type_resolution == 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				v23 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].width >> 1;
 			else
 				v23 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].width;
 
-			if (x_WORD_180660_VGA_type_resolution == 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				v25 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].height >> 1;
 			else
 				v25 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].height;
@@ -40516,12 +40515,12 @@ void sub_37BC0_modify_terrain(type_str_0x6E8E* a1x)//218bc0 // groove castle
 				v49 = (uint16_t)(a1x->array_0x4C_76.x + 128) >> 8;
 				v47 = (uint16_t)(a1x->array_0x4C_76.y + 128) >> 8;
 				v40 = a1x->array_0x4C_76.z >> 5;
-				/*if ( x_WORD_180660_VGA_type_resolution == 1 )
+				/*if ( VGA_res == MC2VGARes::VGA320 )
 				  v3 = (signed int)*(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 4) >> 1;
 				else
 				  v3 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 4);
 				v36 = v3;
-				if ( x_WORD_180660_VGA_type_resolution == 1 )
+				if ( VGA_res == MC2VGARes::VGA320 )
 				  v4 = (signed int)*(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 5) >> 1;
 				else
 				  v4 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * *(char *)(a1 + 70) + 5);*/
@@ -40532,12 +40531,12 @@ void sub_37BC0_modify_terrain(type_str_0x6E8E* a1x)//218bc0 // groove castle
 				}//fix
 				else//fix
 				{
-					if (x_WORD_180660_VGA_type_resolution == 1)
+					if (VGA_res == MC2VGARes::VGA320)
 						v3 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].width >> 1;
 					else
 						v3 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].width;
 
-					if (x_WORD_180660_VGA_type_resolution == 1)
+					if (VGA_res == MC2VGARes::VGA320)
 						v4 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].height >> 1;
 					else
 						v4 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].height;
@@ -40553,21 +40552,21 @@ void sub_37BC0_modify_terrain(type_str_0x6E8E* a1x)//218bc0 // groove castle
 				for (i = 1; i <= a1x->byte_0x46_70; i++)
 				{
 					//v5 = 6 * i;
-					/*if ( x_WORD_180660_VGA_type_resolution == 1 )
+					/*if ( VGA_res == MC2VGARes::VGA320 )
 					  v6 = (signed int)*(uint8_t *)(**filearray_2aa18c[24] + v5 + 4) >> 1;
 					else
 					  v6 = *(uint8_t *)(**filearray_2aa18c[24] + v5 + 4);
 					v31 = v6;
-					if ( x_WORD_180660_VGA_type_resolution == 1 )
+					if ( VGA_res == MC2VGARes::VGA320 )
 					  v7 = (signed int)*(uint8_t *)(**filearray_2aa18c[24] + 6 * i + 5) >> 1;
 					else
 					  v7 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * i + 5);*/
-					if (x_WORD_180660_VGA_type_resolution == 1)
+					if (VGA_res == MC2VGARes::VGA320)
 						v6 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[i].width >> 1;
 					else
 						v6 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[i].width;
 					v31 = v6;
-					if (x_WORD_180660_VGA_type_resolution == 1)
+					if (VGA_res == MC2VGARes::VGA320)
 						v7 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[i].height >> 1;
 					else
 						v7 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[i].height;
@@ -40875,7 +40874,7 @@ void sub_385C0_remove_castle_stage(type_str_0x6E8E* a1x)//2195c0 //remove castle
 	/*v22 = *(x_BYTE **)(**filearray_2aa18c[24] + 6 * v1);
 	v21 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * v1 + 5);
 	v24 = *(uint8_t *)(**filearray_2aa18c[24] + 6 * v1 + 4);
-	if ( x_WORD_180660_VGA_type_resolution == 1 )
+	if ( VGA_res == MC2VGARes::VGA320 )
 	{
 	  v21 >>= 1;
 	  v24 = (unsigned int)*(uint8_t *)(**filearray_2aa18c[24] + 6 * v1 + 4) >> 1;
@@ -40883,7 +40882,7 @@ void sub_385C0_remove_castle_stage(type_str_0x6E8E* a1x)//2195c0 //remove castle
 	v22 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].data;
 	v21 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].height;
 	v24 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[a1x->byte_0x46_70].width;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v21 >>= 1;
 		v24 >>= 1;
@@ -50012,7 +50011,7 @@ void sub_40BF0(int a1, int a2, int a3, int a4)//221bf0
 	v5 = a2;
 	LOWORD(v6) = a3;
 	LOWORD(v7) = a4;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v4 = a1 >> 1;
 		v5 = a2 >> 1;
@@ -50036,7 +50035,7 @@ void sub_40C50(int a1)//221c50
 	//int result; // eax
 
 	v1 = 40 - a1;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v2 = x_DWORD_18062C_resolution_x * (5 * v1 / 2) + 4 * v1;
 		v3 = (uint16_t)(5 * a1);
@@ -50382,7 +50381,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 	{
 		sub_40D10(/*(int)x_D41A0_BYTEARRAY_0*/);
 	}
-	else if (x_WORD_180660_VGA_type_resolution & 1)
+	else if (VGA_res == MC2VGARes::VGA320)
 	{
 		if (x_BYTE_D478C)
 		{
@@ -50390,7 +50389,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 			// sub_BD2CB((int)unk_F0A20x);
 		}
-		else if (x_WORD_180660_VGA_type_resolution & 1)
+		else if (VGA_res == MC2VGARes::VGA320)
 		{
 			sub_90478_VGA_Blit320();
 		}
@@ -50409,7 +50408,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 		// sub_BD1B6((int)unk_F0A20x);
 	}
-	else if (x_WORD_180660_VGA_type_resolution & 1)
+	else if (VGA_res == MC2VGARes::VGA320)
 	{
 		sub_90478_VGA_Blit320();
 	}
@@ -50546,7 +50545,7 @@ void sub_411A0_draw_world(Bit8u* a1, int a2, int a3, int16_t a4, signed int a5, 
 	else if (D41A0_BYTESTR_0.str_0x218A_settings.str_0x218E.scr_size_0x2190 != 1 || D41A0_BYTESTR_0.str_0x218A_settings.str_0x2192.xxxx_0x2193)
 	{
 		v52 = D41A0_BYTESTR_0.str_0x218A_settings.str_0x218E.xxxx_0x2191;
-		if (x_WORD_180660_VGA_type_resolution == 1)
+		if (VGA_res == MC2VGARes::VGA320)
 		{
 			//v33 = x_D41A0_BYTEARRAY_0 + 2124 * D41A0_BYTESTR_0.word_0xc;
 			if (!D41A0_BYTESTR_0.array_0x2BDE[D41A0_BYTESTR_0.word_0xc].byte_0x3DF_2BE4_12221)
@@ -54998,7 +54997,7 @@ void sub_46830_main_loop(/*Bit16s* a1, */signed int a2, uint16_t a3)//227830
 				sub_86860_speak_Sound(x_WORD_1803EC);//get graphics parametres?
 				sub_59BF0_sound_proc11_volume();
 				sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (VGA_res == MC2VGARes::VGA320)
 				{
 					v9 = sub_5BE80_test_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
 					sub_72883_clear_graphics_320(/*v9, */(void *)x_DWORD_180628b_screen_buffer, 0xC8u, v9);
@@ -55011,7 +55010,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 					// a3 = (int)x_DWORD_180628b_screen_buffer;
 					sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v10);
 				}
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (VGA_res == MC2VGARes::VGA320)
 					sub_90478_VGA_Blit320();
 				else
 					sub_75200_VGA_Blit640(480);
@@ -55114,11 +55113,11 @@ void sub_46B40()//227b40
 
 
   sub_47130();
-  if (x_WORD_180660_VGA_type_resolution == 1)
+  if (VGA_res == MC2VGARes::VGA320)
   {
     sub_6EBF0(&filearray_2aa18c[filearrayindex_FONTS0DATTAB]);
     sub_90D3F_unload_file_array(psxadatamsprd00dat);
-    x_WORD_180660_VGA_type_resolution = 8;
+    VGA_res = MC2VGARes::VGA640;
 
   }
   else
@@ -55129,7 +55128,7 @@ void sub_46B40()//227b40
     //fix
     sub_6EBF0(&filearray_2aa18c[filearrayindex_HFONT3DATTAB]);
     sub_90D3F_unload_file_array(psxadatahsprd00dat);
-    x_WORD_180660_VGA_type_resolution = 1;
+    VGA_res = MC2VGARes::VGA320;
     
   }
   sub_47160();
@@ -55139,7 +55138,7 @@ void sub_46B40()//227b40
   sub_6EB90(&filearray_2aa18c[filearrayindex_BUILD00DATTAB]);
 
   memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
-  if (x_WORD_180660_VGA_type_resolution & 1)
+  if (VGA_res == MC2VGARes::VGA320)
   {
     v1 = sub_5BE80_test_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
     sub_72883_clear_graphics_320((void *)x_DWORD_180628b_screen_buffer, 0xC8u, v1);
@@ -55151,21 +55150,21 @@ void sub_46B40()//227b40
   }
   memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
   sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
-  if (x_WORD_180660_VGA_type_resolution & 1)
+  if (VGA_res == MC2VGARes::VGA320)
     sub_90D6E_VGA_set_video_mode_320x200_and_pallette(*xadatapald0dat2.var28_begin_buffer);
   else
     sub_90E07_VGA_set_video_mode_640x480_and_pallette(*xadatapald0dat2.var28_begin_buffer);
   sub_41A90_VGA_pallette_install(*xadatapald0dat2.var28_begin_buffer);
   v3 = sub_5BE80_test_pallette(*xadatapald0dat2.var28_begin_buffer, 0, 0, 0);
   x_BYTE_EB3A8 = v3;
-  if (x_WORD_180660_VGA_type_resolution & 1)
+  if (VGA_res == MC2VGARes::VGA320)
     sub_72883_clear_graphics_320((void *)x_DWORD_180628b_screen_buffer, 0xC8u, v3);
   else
     sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v3);
   sub_8CEDF_install_mouse();
   sub_8CD27_set_cursor(*(*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct));
   x_D41A0_BYTEARRAY_4_struct.byteindex_51 = 2;
-  if (x_WORD_180660_VGA_type_resolution == 1)
+  if (VGA_res == MC2VGARes::VGA320)
     x_BYTE_D419D_fonttype = 1;
   else
     x_BYTE_D419D_fonttype = 3;
@@ -55258,27 +55257,27 @@ void sub_46F80()//227f80
 
 	sub_47130();
 	MC2LevelType level_type = D41A0_BYTESTR_0.str_2FECE.byte_level_type;
-	if (level_type == MC2LevelType::Day && x_WORD_180660_VGA_type_resolution == 1) {
+	if (level_type == MC2LevelType::Day && VGA_res == MC2VGARes::VGA320) {
 		web_dat = MC2File::data_mwebd00_dat;
 		web_tab = MC2File::data_mwebd00_tab;
 	}
-	else if (level_type == MC2LevelType::Day && x_WORD_180660_VGA_type_resolution != 1) {
+	else if (level_type == MC2LevelType::Day && VGA_res != MC2VGARes::VGA320) {
 		web_dat = MC2File::data_hwebd00_dat;
 		web_tab = MC2File::data_hwebd00_tab;
 	}
-	else if (level_type == MC2LevelType::Night && x_WORD_180660_VGA_type_resolution == 1) {
+	else if (level_type == MC2LevelType::Night && VGA_res == MC2VGARes::VGA320) {
 		web_dat = MC2File::data_mwebn00_dat;
 		web_tab = MC2File::data_mwebn00_tab;
 	}
-	else if (level_type == MC2LevelType::Night && x_WORD_180660_VGA_type_resolution != 1) {
+	else if (level_type == MC2LevelType::Night && VGA_res != MC2VGARes::VGA320) {
 		web_dat = MC2File::data_hwebn00_dat;
 		web_tab = MC2File::data_hwebn00_tab;
 	}
-	else if (level_type == MC2LevelType::Cave && x_WORD_180660_VGA_type_resolution == 1) {
+	else if (level_type == MC2LevelType::Cave && VGA_res == MC2VGARes::VGA320) {
 		web_dat = MC2File::data_mwebc00_dat;
 		web_tab = MC2File::data_mwebc00_tab;
 	}
-	else if (level_type == MC2LevelType::Cave && x_WORD_180660_VGA_type_resolution != 1) {
+	else if (level_type == MC2LevelType::Cave && VGA_res != MC2VGARes::VGA320) {
 		web_dat = MC2File::data_hwebc00_dat;
 		web_tab = MC2File::data_hwebc00_tab;
 	}
@@ -55325,7 +55324,7 @@ std::cout << "FIXME: dattab loading @ function " << __FUNCTION__ << ", line " <<
 //      	// 			// v7 = (unsigned int)&v5[(int)x_DWORD_D4188 + v14];
 //      	// 			// FIXME: types
 //      	// 			// x_DWORD_D4190 = (int)&v5[(int)x_DWORD_D4188 + v14];
-//      	// 			if (x_WORD_180660_VGA_type_resolution & 1)
+//      	// 			if (VGA_res == MC2VGARes::VGA320)
 //      	// 				sub_98709_create_index_dattab_power((Bit8u*)x_DWORD_D4188 + v14, (Bit8u*)v7, (Bit8u*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
 //      	// 			else
 //      	// 				sub_9874D_create_index_dattab((Bit8u*)(x_DWORD_D4188 + v14), (Bit8u*)v7, (Bit8u*)x_DWORD_D4188, x_DWORD_D4188t_spritestr);
@@ -55391,7 +55390,7 @@ void sub_47160()//228160
 	HSPRD00TAB_BEGIN_BUFFER = const_cast<Bit8u*>(file_handling->getFileData(hsprtab).data());
 	HSPRD00TAB_END_BUFFER = const_cast<Bit8u*>(file_handling->getFileData(hsprtab).data()) + file_handling->getFileData(msprtab).size();
 
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		//sub_84250_load_file_array(psxadatamsprd00dat);
 
@@ -56084,7 +56083,7 @@ void sub_47FC0_load_screen(char a1)//228fc0
 	else
 		sub_53E60_readfile_and_decompress(file_handling->getFilePath(MC2File::data_smatitle_dat).c_str(), &x_DWORD_E9C38_smalltit);
 	sub_85B20_copy_bitmap((x_BYTE *)x_DWORD_E9C38_smalltit, (x_WORD *)x_DWORD_180628b_screen_buffer, 0x190u);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_90478_VGA_Blit320();
 	else
 		sub_75200_VGA_Blit640(480);
@@ -56702,33 +56701,16 @@ int sub_48990(char a1, char a2, char a3, char a4)//229990
 //----- (00048A20) --------------------------------------------------------
 void sub_48A20(int a1, char a2, char a3, int a4, int a5, uint8_t a6)//229a20
 {
-	int v6; // eax
-	int v7; // esi
-	uaxis_2d v8x; // bx
-	uaxis_2d v9x; // bx
-	int v10; // eax
-	int v11; // edi
-	Bit8u v13; // [esp+0h] [ebp-8h]
-	Bit8u v14; // [esp+1h] [ebp-7h]
-	uaxis_2d v16x; // [esp+4h] [ebp-4h]
-	uaxis_2d v17x; // [esp+4h] [ebp-4h]
-
-	v6 = 0;
-
-	// FIXME: 2*v6 -> signed integer overflow
-std::cout << "FIXME: signed integer overflow @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-return;
-	// call stack to get here:
-	// sub_48A20@0x000000000084cfc6 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:56745)
-	// sub_37240@0x0000000000748289 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:40020)
-	// pre_sub_4A190_0x6E8E@0x000000000086dea6 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:61106)
-	// sub_498A0@0x0000000000859f70 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:57673)
-	// sub_49290@0x000000000085593c (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:57342)
-	// sub_49270_generate_level_features@0x00000000008533a5 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:57236)
-	// sub_56A30_init_game_level@0x00000000008f18ac (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:70759)
-	// sub_46830_main_loop@0x000000000083d9c2 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:54999)
-	// sub_main@0x00000000008ef201 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:70481)
-	// main@0x00000000004e1776 (/home/sebi/daten/projekte/remc2clean/remc2/remc2.cpp:13)
+	uint32_t v6 = 0;
+	int v7 = 0;
+	uaxis_2d v8x;
+	uaxis_2d v9x;
+	int v10;
+	int v11;
+	Bit8u v13;
+	Bit8u v14;
+	uaxis_2d v16x;
+	uaxis_2d v17x;
 
 	v13 = a2 - a5;
 	v14 = a3 - a4;
@@ -56760,6 +56742,7 @@ return;
 	v9x._axis_2d.y = v14 - a6;
 	v17x._axis_2d.y = 2 * a4 + v14;
 	LOWORD(v6) = a6;
+
 	v10 = 2 * v6;
 	v11 = v10 + 2 * a5;
 	while ((x_WORD)--v11 != -1)
@@ -57695,7 +57678,7 @@ void sub_49A20_remove_event(type_str_0x6E8E* a1x)//22aa20
 void sub_49A30(type_str_0x6E8E* a1x, uint16_t a2)//22aa30
 {
 	posistruct v2; // eax
-	int16_t v3; // dx
+	MC2VGARes v3; // dx
 	//int v4; // eax
 	char v5; // dl
 	int v6; // edx
@@ -57708,9 +57691,9 @@ void sub_49A30(type_str_0x6E8E* a1x, uint16_t a2)//22aa30
 	v8 = v2.height;
 	v9 = v2.width;
 	a1x->dword_0x10_16 = 2;
-	v3 = x_WORD_180660_VGA_type_resolution;
+	v3 = VGA_res;
 	a1x->word_0x84_132 = v9 * v8 >> 4;
-	if (v3 == 1)
+	if (v3 == MC2VGARes::VGA320)
 	{
 		v8 >>= 1;
 		v9 >>= 1;
@@ -57870,7 +57853,7 @@ int filearrayindex_MSPRD00DATTAB = 4;
 	}*/
 	v3 = v2.height;
 	v4 = v2.width;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v3 >>= 1;
 		v4 >>= 1;
@@ -62969,7 +62952,7 @@ type_str_0x6E8E* sub_4AA40(axis_3d* a1x)//22ba40 //Spawn Scenery Bad Stone
 		v2x->word_0x9A_154x = v6ar;
 		v4 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[1].width;
 		v5 = (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[1].height;
-		if (x_WORD_180660_VGA_type_resolution == 1)
+		if (VGA_res == MC2VGARes::VGA320)
 		{
 			v5 >>= 1;
 			v4 >>= 1;
@@ -69538,7 +69521,7 @@ void sub_54960()//235960
 {
 	Bit16s v0; // ax
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		v0 = 400;
 	else
 		v0 = 480;
@@ -70786,7 +70769,7 @@ return;
 	sub_60F00();
 
 	//fix
-	//x_WORD_180660_VGA_type_resolution = saved_x_WORD_180660_VGA_type_resolution;
+	//VGA_res = saved_VGA_res;
 	//fix
 
 }
@@ -70851,7 +70834,7 @@ void sub_56C00_sound_proc2(type_str_2FECE* a1x)//237c00
 	D41A0_BYTESTR_0.byte_0x36E0B = v3 & 0xFC;
 	//result = (int)x_D41A0_BYTEARRAY_4;
 	x_D41A0_BYTEARRAY_4_struct.byte_38546 = 0;
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		x_BYTE_D419D_fonttype = 1;
 	else
 		x_BYTE_D419D_fonttype = 3;
@@ -75188,8 +75171,8 @@ void sub_5B8D0_initialize()//23c8d0
 	if (x_BYTE_D4B80)
 		exit(-1);
 	x_BYTE_D4B80 = 1;
-	x_WORD_180660_VGA_type_resolution = 1;//fix it
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	VGA_res = MC2VGARes::VGA320;//fix it
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_72883_clear_graphics_320(/*sub_5C0A0(), */(void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);//253883
 	else
 		sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);//2538a9
@@ -75208,7 +75191,7 @@ void sub_5B8D0_initialize()//23c8d0
 	x_D41A0_BYTEARRAY_4_struct.setting_byte1_22 = 0;//fix it
 	if ((x_D41A0_BYTEARRAY_4_struct.setting_byte1_22) & 0x110)//2a51a4 // 38cf50+16 //00 druh grafiky/inicializace
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_90D6E_VGA_set_video_mode_320x200_and_pallette(*xadatapald0dat2.var28_begin_buffer);
 		else
 			sub_90E07_VGA_set_video_mode_640x480_and_pallette(*xadatapald0dat2.var28_begin_buffer);
@@ -75218,8 +75201,8 @@ void sub_5B8D0_initialize()//23c8d0
 	else
 	{
 		sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
-		x_WORD_180660_VGA_type_resolution = 1;//fix it
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		VGA_res = MC2VGARes::VGA320;//fix it
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_90D6E_VGA_set_video_mode_320x200_and_pallette((uint8_t *)x_DWORD_180628b_screen_buffer);//3aa0a4
 		else
 			sub_90E07_VGA_set_video_mode_640x480_and_pallette((uint8_t *)x_DWORD_180628b_screen_buffer);
@@ -75351,7 +75334,7 @@ void sub_5BDC0_set_mouse_position(Bit16s a1, Bit16s a2)//23cdc0
 		*(x_DWORD *)(x_DWORD_E36C4 + 40) = v3;
 		*(x_DWORD *)(x_DWORD_E36C4 + 36) = unk_18058Cstr.x_DWORD_1805B0_mouse.x;
 	}
-	if (x_WORD_180660_VGA_type_resolution & 8)
+	if (VGA_res == MC2VGARes::VGA640)
 	{
 		//v2 *= 8;
 		//v3 *= 8;
@@ -75390,9 +75373,9 @@ Bit8u sub_5BE80_test_pallette(Bit8u *pallette, Bit8u a2, Bit8u a3, Bit8u a4)//23
 
 	//v4 = pallette;//1a7358
 	Bit16u pallette_index = 0;
-	if (x_WORD_180660_VGA_type_resolution & 6)
-		count_of_colors = 16;
-	else
+	//if (VGA_res & 6)
+	//	count_of_colors = 16;
+	//else
 		count_of_colors = 256;
 	v6 = 9999;
 	//v12 = count_of_colors;
@@ -75510,7 +75493,7 @@ signed int sub_5BF50_load_psxdata()//23cf50 //find 2bc394
 				}
 				else
 				{
-					x_WORD_180660_VGA_type_resolution = 1;
+					VGA_res = MC2VGARes::VGA320;
 					sub_83B50();//264B50
 					result = 1;
 				}
@@ -79038,7 +79021,7 @@ void sub_60F00()//241f00
 
 std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 	// FIXME: result from call to sub_61000 is used as int in some places
-	//        and as type_str_0x6E8E in other places in this function
+	//        and as type_str_0x6E8E* in other places in this function
 
 	if (v4x < x_DWORD_EA3E4[0x3e8])
 	{
@@ -79074,7 +79057,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 		LABEL_24:
 			v4x++;
 			if (v4x >= x_DWORD_EA3E4[0x3e8])
-				return/* (char)v3*/;
+				return;
 		}
 		if (v3a != 3)
 			goto LABEL_24;
@@ -79092,9 +79075,8 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 //----- (00061000) --------------------------------------------------------
 type_str_0x6E8E* sub_61000(type_str_0x6E8E* a1x)//242000
 {
-	type_str_0x6E8E* v1x; // eax
+	type_str_0x6E8E* v1x = nullptr; // eax
 
-	v1x = 0;
 	if (a1x->word_0x94_148)
 	{
 		//LOWORD(v1) = *(x_WORD *)(a1 + 148);
@@ -79310,13 +79292,13 @@ void sub_613D0(type_str_0x6E8E* a1x)//2423d0
 		if (v4)
 		{
 			/*v6 = 6 * v4;
-			i = x_WORD_180660_VGA_type_resolution == 1 ? (signed int)*(uint8_t *)(v6 + **filearray_2aa18c[24] + 4) >> 1 : *(uint8_t *)(v6 + **filearray_2aa18c[24] + 4);
+			i = VGA_res == MC2VGARes::VGA320 ? (signed int)*(uint8_t *)(v6 + **filearray_2aa18c[24] + 4) >> 1 : *(uint8_t *)(v6 + **filearray_2aa18c[24] + 4);
 			v7 = 6 * v4;
-			v8 = x_WORD_180660_VGA_type_resolution == 1 ? (signed int)*(uint8_t *)(v7 + **filearray_2aa18c[24] + 5) >> 1 : *(uint8_t *)(v7 + **filearray_2aa18c[24] + 5);
+			v8 = VGA_res == MC2VGARes::VGA320 ? (signed int)*(uint8_t *)(v7 + **filearray_2aa18c[24] + 5) >> 1 : *(uint8_t *)(v7 + **filearray_2aa18c[24] + 5);
 			*/
 			//filearrayindex_MSPRD00DATTAB
-		    i1 = x_WORD_180660_VGA_type_resolution == 1 ? (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[v4].width >> 1 : (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[v4].width;
-			v8 = x_WORD_180660_VGA_type_resolution == 1 ? (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[v4].height >> 1 : (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[v4].height;
+		    i1 = VGA_res == MC2VGARes::VGA320 ? (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[v4].width >> 1 : (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[v4].width;
+			v8 = VGA_res == MC2VGARes::VGA320 ? (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[v4].height >> 1 : (*filearray_2aa18c[filearrayindex_BUILD00DATTAB]._posistruct)[v4].height;
 
 			v20 = ((uint16_t)(a1x->array_0x4C_76.x + 128) >> 8) - (i1 >> 1);
 			v19 = ((uint16_t)(a1x->array_0x4C_76.y + 128) >> 8) - (v8 >> 1);
@@ -79657,7 +79639,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t a3, int16_t a4, in
 		v91 = 0x1c;
 		v90 = (*xadataclrd0dat.var28_begin_buffer)[0xf0];
 	}
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v8 = a1 >> 1;
 		v9 = a2 >> 1;
@@ -80021,7 +80003,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t a3, int16_t a4, in
 								v58[1] = v94;
 							}
 						}
-						else if (x_WORD_180660_VGA_type_resolution == 1)
+						else if (VGA_res == MC2VGARes::VGA320)
 						{
 							if (v31 < 0x42u || v31 >= 0x4Au)
 							{
@@ -80093,7 +80075,7 @@ void sub_61A00_draw_minimap_entites_b(int a1, int a2, int16_t a3, int16_t a4, in
 								v65 = (uint8_t *)(v64 * x_DWORD_18062C_resolution_x + v63 + v84);
 								v66 = x_BYTE_E88E0x[3 * sub_61790(v60x->dword_0xA4_164x->word_0x38_56)];
 								*v65 = v66;
-								if (x_WORD_180660_VGA_type_resolution == 1)									
+								if (VGA_res == MC2VGARes::VGA320)									
 									sub_2BC10_draw_text(D41A0_BYTESTR_0.array_0x2BDE[v87].array_0x39f_2BFA_12157, 2 * v63 + 4, 2 * v64, v66);//wizard name
 								else
 									sub_2BC10_draw_text(D41A0_BYTESTR_0.array_0x2BDE[v87].array_0x39f_2BFA_12157, v63 + 4, v64, v66);//wizard name
@@ -80270,7 +80252,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 	}
 	v108 = v12;
 LABEL_10:
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v8 = a1 >> 1;
 		v9 = a2 >> 1;
@@ -80631,7 +80613,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 								v64[1] = v110;
 							}
 						}
-						else if (x_WORD_180660_VGA_type_resolution == 1)
+						else if (VGA_res == MC2VGARes::VGA320)
 						{
 							if (v36 < 0x42u || v36 >= 0x4Au)
 							{
@@ -80716,7 +80698,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 								v73 = x_BYTE_E88E0x[1+3 * sub_61790(v66x->dword_0xA4_164x->word_0x38_56)];
 								*v72 = v73;
 								*v71 = v73;
-								if (x_WORD_180660_VGA_type_resolution == 1)
+								if (VGA_res == MC2VGARes::VGA320)
 									sub_2BC10_draw_text(D41A0_BYTESTR_0.array_0x2BDE[j].array_0x39f_2BFA_12157, 2 * v69 + 4, 2 * v70, v73);//wizard name
 								else
 									sub_2BC10_draw_text(D41A0_BYTESTR_0.array_0x2BDE[j].array_0x39f_2BFA_12157, v69 + 4, v70, v73);//wizard name
@@ -80900,7 +80882,7 @@ void sub_63670_draw_minimap_a(int a1, int a2, int a3, int a4, int a5, int a6, in
 	v13 = a6;
 	v14 = !D41A0_BYTESTR_0.str_0x218A_settings.str_0x2196.transparency_0x2198 && D41A0_BYTESTR_0.str_2FECE.byte_level_type != 2;
 	v87 = v14;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v10 = a1 >> 1;
 		v11 = a2 >> 1;
@@ -81181,7 +81163,6 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, in
 	int v22; // eax
 	int v23; // eax
 	int v24; // edx
-	int index; // eax
 	int v26; // ebx
 	int v27; // ecx
 	char *v28; // edi
@@ -81239,7 +81220,7 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, in
 	v13 = a6;
 	//v14 = !x_D41A0_BYTEARRAY_0[8600] && x_D41A0_BYTEARRAY_0[196308] != 2;
 	//v75 = !x_D41A0_BYTEARRAY_0[8600] && x_D41A0_BYTEARRAY_0[196308] != 2;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		v10 = a1 >> 1;
 		v11 = a2 >> 1;
@@ -81291,9 +81272,6 @@ void sub_63C90_draw_minimap_b(int a1, int a2, int a3, int a4, int a5, int a6, in
 	v72 = a3 - (v12 * (v23 / v12) - v21) / 2;
 	v74 = x_WORD_F4960;
 	v24 = a4 - (v23 + v12 * (v21 / v12)) / 2;
-	// FIXME: types
-std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
-	// index = (int)v60;
 	v73 = v24;
 	v71 = v60;
 	if (x_BYTE_D41B6)//adress 244e53
@@ -81328,7 +81306,6 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 				} while (v29);
 				v71 += x_DWORD_18062C_resolution_x;
 				v74 += 2;
-				index = v69;
 				i--;
 				v72 -= v70;
 			}
@@ -81364,7 +81341,6 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 				} while (v36);
 				v71 += x_DWORD_18062C_resolution_x;
 				v74 += 2;
-				index = v69;
 				j--;
 				v72 -= v70;
 			}
@@ -81402,7 +81378,6 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 				} while (v42);
 				v71 += x_DWORD_18062C_resolution_x;
 				v74 += 2;
-				index = v69;
 				k--;
 				v72 -= v70;
 			}
@@ -81433,7 +81408,6 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 			} while (v49);
 			v71 += x_DWORD_18062C_resolution_x;
 			v74 += 2;
-			index = v69;
 			l--;
 			v72 -= v70;
 		}
@@ -81465,7 +81439,6 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 			} while (v55);
 			v71 += x_DWORD_18062C_resolution_x;
 			v74 += 2;
-			index = v69;
 			m--;
 			v72 -= v70;
 		}
@@ -81600,7 +81573,7 @@ void sub_644F0_draw_minimap_marks(int a1, int a2, int16_t a3, int16_t a4, int a5
 
 	v8 = 0x1000000;
 	v81 = 0;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		a1 >>= 1;
 		a2 >>= 1;
@@ -81807,7 +81780,7 @@ void sub_644F0_draw_minimap_marks(int a1, int a2, int16_t a3, int16_t a4, int a5
 					v26++;
 					v37x[1+2 * v29] = ((signed int)v28 * v69 + v27 * v70) >> 20;
 				}
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (VGA_res == MC2VGARes::VGA320)
 				{
 					v25 *= 2;
 					v77 *= 2;
@@ -87679,7 +87652,7 @@ void sub_6D200(type_str_0x2BDE* a1x)//24e200
 		//BYTE1(v1) = a1x->byte_0x3DF_2BE4_12221;
 		if (a1x->byte_0x3DF_2BE4_12221 == 5 || a1x->byte_0x3DF_2BE4_12221 == 8)
 		{
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				v2 = 400;
 			else
 				v2 = 480;
@@ -87786,7 +87759,7 @@ int sub_6D420_mouse_to_spell(int16_t posx, int16_t posy)//24e420
 	int outposy; // ebx
 	int outposx; // eax
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		v2 = 400;
 	else
 		v2 = 480;
@@ -88921,7 +88894,7 @@ void sub_6EB90(filearray_struct *a1)//24fb90
 {
 	for (Bit32u i = 0;(a1[i].begin_buffer) != &ZERO_BUFFER;i++)
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_98709_create_index_dattab_power(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, *a1[i]._posistruct);//279709 //1a6f44,1a6f86,1a6578
 		else
 			sub_9874D_create_index_dattab(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, *a1[i]._posistruct);
@@ -88933,7 +88906,7 @@ void sub_6EBF0(filearray_struct *a1)//24FBF0
 {
 	for (Bit32u i = 0;(a1[i].begin_buffer) != &ZERO_BUFFER;i++)
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_99A77_create_index_dattab_div(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, *a1[i]._posistruct);
 		else
 			sub_99AEB_create_index_dattab_minus(*a1[i].begin_buffer, *a1[i].end_buffer, *a1[i].dat_buffer, *a1[i]._posistruct);
@@ -88945,7 +88918,7 @@ void sub_6EDB0_set_mouse_position_by_res()//24FDB0
 {
 	//int result; // eax
 
-	if (x_WORD_180660_VGA_type_resolution == 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		/*result = */sub_6EDE0_set_mouse_position2(320, 200);
 	else
 		/*result = */sub_6EDE0_set_mouse_position2(320, 240);
@@ -88977,7 +88950,7 @@ void sub_6EDE0_set_mouse_position2(int16_t a1, int16_t a2)//24fde0
 				v6[0] = 4;
 				if (a1 <= 0)
 				{
-					if (!(x_WORD_180660_VGA_type_resolution & 1))
+					if (!(VGA_res == MC2VGARes::VGA320))
 						v2 = 8 * a1;
 				}
 				else
@@ -88985,13 +88958,13 @@ void sub_6EDE0_set_mouse_position2(int16_t a1, int16_t a2)//24fde0
 					if (a1 > 638)
 						v2 = 638;
 					x_WORD_E3760_mouse.x = v2;
-					if (!(x_WORD_180660_VGA_type_resolution & 1))
+					if (!(VGA_res == MC2VGARes::VGA320))
 						v2 *= 8;
 				}
 				v7 = v2;
 				if (a2 <= 0)
 				{
-					if (x_WORD_180660_VGA_type_resolution & 1)
+					if (VGA_res == MC2VGARes::VGA320)
 						v5 = x_WORD_E3760_mouse.y;
 					else
 						v5 = 8 * x_WORD_E3760_mouse.y;
@@ -88999,12 +88972,12 @@ void sub_6EDE0_set_mouse_position2(int16_t a1, int16_t a2)//24fde0
 				}
 				else
 				{
-					if (x_WORD_180660_VGA_type_resolution & 1)
+					if (VGA_res == MC2VGARes::VGA320)
 					{
 						if (a2 > 398)
 							v3 = 398;
 						x_WORD_E3760_mouse.y = v3;
-						if (!(x_WORD_180660_VGA_type_resolution & 1))
+						if (!(VGA_res == MC2VGARes::VGA320))
 							v3 *= 8;
 					}
 					else
@@ -89012,7 +88985,7 @@ void sub_6EDE0_set_mouse_position2(int16_t a1, int16_t a2)//24fde0
 						if (a2 > 478)
 							v3 = 478;
 						x_WORD_E3760_mouse.y = v3;
-						if (!(x_WORD_180660_VGA_type_resolution & 1))
+						if (!(VGA_res == MC2VGARes::VGA320))
 							v3 *= 8;
 					}
 					v8 = v3;
@@ -89029,7 +89002,6 @@ void sub_6EF10_set_mouse_minmax(int16_t a1, int16_t a2, int16_t a3, int16_t a4)/
 {
 	int16_t v4; // si
 	int16_t v5; // bx
-	int16_t result; // ax
 	char v7ar[28]; // [esp+0h] [ebp-38h]
 	int16_t v8ar[14]; // [esp+1Ch] [ebp-1Ch]
 	//int16_t v9; // [esp+24h] [ebp-14h]//v8ar[4]
@@ -89041,10 +89013,9 @@ void sub_6EF10_set_mouse_minmax(int16_t a1, int16_t a2, int16_t a3, int16_t a4)/
 	memset(v7ar, 0, 28);
 	if (a2 > 638)
 		v4 = 638;
-	result = x_WORD_180660_VGA_type_resolution;
-	if ((uint16_t)x_WORD_180660_VGA_type_resolution >= 1u)
+	if ((uint16_t)VGA_res >= 1u)
 	{
-		if ((uint16_t)x_WORD_180660_VGA_type_resolution <= 1u)
+		if ((uint16_t)VGA_res <= 1u)
 		{
 			v8ar[4] = a1;
 			v8ar[6] = v4;
@@ -89057,7 +89028,7 @@ void sub_6EF10_set_mouse_minmax(int16_t a1, int16_t a2, int16_t a3, int16_t a4)/
 		}
 		else
 		{
-			if (x_WORD_180660_VGA_type_resolution != 8)
+			if (VGA_res != MC2VGARes::VGA640)
 				return;
 			v8ar[0] = 7;
 			v8ar[4] = 8 * a1;
@@ -89070,7 +89041,6 @@ void sub_6EF10_set_mouse_minmax(int16_t a1, int16_t a2, int16_t a3, int16_t a4)/
 			v5 *= 8;
 		}
 		v8ar[6] = v5;
-		//result = int386(0x33, (REGS*)v8ar, (REGS*)v7ar);//set mouse min,max
 	}
 	//return;
 }
@@ -90124,10 +90094,10 @@ void sub_70BF0_close_tmaps()//251bf0
 //----- (00070C60) --------------------------------------------------------
 int sub_70C60_decompress_tmap(uint16_t index_in_tmaps_tab_file, Bit8u* texture_buffer)//251c60
 {
-	const MC2TMapsEntry& tmap = file_handling->getCurrentTMaps(index_in_tmaps_tab_file);
-	std::memcpy(texture_buffer, tmap.data.data(), tmap.uncompressed_size);
+	const MC2TabEntry& tmaptab = file_handling->getCurrentTMaps(index_in_tmaps_tab_file);
+	std::memcpy(texture_buffer, tmaptab.data.data(), tmaptab.uncompressed_size);
 
-	return tmap.uncompressed_size;
+	return tmaptab.uncompressed_size;
 
 	// FIXME: check if some called functions became obsolete
 std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
@@ -91076,16 +91046,16 @@ Bit8u* sub_71E70(type_x_DWORD_E9C28_str &a1y, unsigned int a2, int16_t a3)//252e
 //			*(x_DWORD *)(a1y.dword_12x + (uint16_t)(a1y.word_20)++) = (Bit32u)a1y.data[v6].data_8;
 std::cout << "FIXME: heap-buffer-overflow @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
 // FIXME: heap-buffer-overflow, call-stack
-			//sub_71E70@0x0000000000a3f94b (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:91100)
-			//sub_70F50_initTmaps@0x0000000000a38ff4 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:90323)
-			//sub_718F0@0x0000000000a3d117 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:90839)
-			//sub_712F0@0x0000000000a3a851 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:90552)
-			//sub_71780@0x0000000000a3c7e2 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:90768)
-			//sub_4A1E0@0x0000000000871d4d (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:62576)
-			//sub_56A30_init_game_level@0x00000000008f0f1b (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:70804)
-			//sub_46830_main_loop@0x000000000083d9c2 (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:54999)
-			//sub_main@0x00000000008ee6be (/home/sebi/daten/projekte/remc2clean/remc2/engine/sub_main.cpp:70496)
-			//main@0x00000000004e1776 (/home/sebi/daten/projekte/remc2clean/remc2/remc2.cpp:13)
+			//sub_71E70@0x0000000000a3f94b (remc2clean/remc2/engine/sub_main.cpp:91100)
+			//sub_70F50_initTmaps@0x0000000000a38ff4 (remc2clean/remc2/engine/sub_main.cpp:90323)
+			//sub_718F0@0x0000000000a3d117 (remc2clean/remc2/engine/sub_main.cpp:90839)
+			//sub_712F0@0x0000000000a3a851 (remc2clean/remc2/engine/sub_main.cpp:90552)
+			//sub_71780@0x0000000000a3c7e2 (remc2clean/remc2/engine/sub_main.cpp:90768)
+			//sub_4A1E0@0x0000000000871d4d (remc2clean/remc2/engine/sub_main.cpp:62576)
+			//sub_56A30_init_game_level@0x00000000008f0f1b (remc2clean/remc2/engine/sub_main.cpp:70804)
+			//sub_46830_main_loop@0x000000000083d9c2 (remc2clean/remc2/engine/sub_main.cpp:54999)
+			//sub_main@0x00000000008ee6be (remc2clean/remc2/engine/sub_main.cpp:70496)
+			//main@0x00000000004e1776 (remc2clean/remc2/remc2.cpp:13)
 		}
 	}
 
@@ -91481,13 +91451,13 @@ void sub_728A9_clear_graphics_alt(void* a2, uint16_t a3, char a4)//2538a9
 //----- (00072C40) --------------------------------------------------------
 void sub_72C40_draw_bitmap_640_setcolor(Bit16s posx, Bit16s posy, posistruct a3, Bit8u color)//253c40
 {
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		sub_8F920(a3.width, a3.height, posy, posx, a3.data, color, 0);
 	}
 	else
 	{
-		if (x_WORD_180660_VGA_type_resolution & 8)
+		if (VGA_res == MC2VGARes::VGA640)
 		{
 			sub_8F935_bitmap_draw_final(a3.width, a3.height, posy, posx, a3.data, color, 0);
 		}
@@ -93076,7 +93046,7 @@ void sub_75C50()//fix
 	/* __outx_BYTE(0x302u, 2u);
 	 __outx_BYTE(0x303u, 1u);*/
 	memset((void*)x_DWORD_180628b_screen_buffer, 0, x_DWORD_180624_resolution_y * x_DWORD_18062C_resolution_x);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_90478_VGA_Blit320();
 	else
 		sub_75200_VGA_Blit640(480);
@@ -93853,12 +93823,12 @@ char sub_77350_new_game_dialog(Bit8u* a1)//258350
 			x_DWORD_17DB70str.x_BYTE_17DB8F = 4;
 		else
 			x_DWORD_17DB70str.x_BYTE_17DB8F = 1;
-		sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 6);//here init sprites
+		sub_7A110_load_hscreen(VGA_res, 6);//here init sprites
 		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);//dword_EB394
 		
 		sub_7B5A0_disable_enable();
 		sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 		{
 			v4 = sub_5BE80_test_pallette((uint8_t *)x_DWORD_17DE38str.x_DWORD_17DE38, 0, 0, 0);
 			sub_72883_clear_graphics_320((void *)x_DWORD_180628b_screen_buffer, 0xC8u, v4);
@@ -93868,7 +93838,7 @@ char sub_77350_new_game_dialog(Bit8u* a1)//258350
 			v5 = sub_5BE80_test_pallette((uint8_t *)x_DWORD_17DE38str.x_DWORD_17DE38, 0, 0, 0);
 			sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, v5);
 		}
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_90478_VGA_Blit320();
 		else
 			sub_75200_VGA_Blit640(480);
@@ -93894,7 +93864,7 @@ char sub_77350_new_game_dialog(Bit8u* a1)//258350
 				&x_DWORD_17DB70str.unk_17DB80,
 				&x_DWORD_17DB70str.x_BYTE_17DB8F,
 				&x_DWORD_17DB70str.unk_17DB90);
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				sub_90478_VGA_Blit320();
 			else
 				sub_75200_VGA_Blit640(480);
@@ -93969,7 +93939,7 @@ char /*__fastcall*/ sub_77680(/*int a1, */int a2, int16_t *a3)//258680
 	}
 	else
 	{
-		sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 7);
+		sub_7A110_load_hscreen(VGA_res, 7);
 		x_DWORD_17DE38str.x_WORD_17DEFE = 0;
 		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 		x_DWORD_17DE38str.x_DWORD_17DEDC = 0;
@@ -94032,7 +94002,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 			// 	LOBYTE(a3) = 1;
 			// 	xy_DWORD_17DED4_spritestr[15];
 			// }
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				sub_90478_VGA_Blit320();
 			else
 				sub_75200_VGA_Blit640(480);
@@ -94110,14 +94080,14 @@ char sub_779E0_lang_setting_dialog(Bit8u* a1x)//2589E0
 	x_DWORD_17DE38str.x_DWORD_17DEE8_mouse_positiony = 0xC8;
 	if (a1x)//0x0
 	{
-		sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 12);//load hscreen 25b110
+		sub_7A110_load_hscreen(VGA_res, 12);//load hscreen 25b110
 		v1 = &x_DWORD_E9C38_smalltit[307200];//4B000
 	}
 	else
 	{
 		x_DWORD_E9C38_smalltit = x_D41A0_BYTEARRAY_4_struct.heapbuffer.data();//[[2a51a4]+e2]
 		v1 = &x_DWORD_E9C38_smalltit[307200];//406514+4b000
-		sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 14);//25b110
+		sub_7A110_load_hscreen(VGA_res, 14);//25b110
 	}
 	sub_7B5A0_disable_enable();//25c5a0  disable //enabl
 	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]/*filearray_2aa18c[0]*/);//26dd27
@@ -94163,7 +94133,7 @@ char sub_779E0_lang_setting_dialog(Bit8u* a1x)//2589E0
 				x_D41A0_BYTEARRAY_4_struct.byteindex_10 = x_D41A0_BYTEARRAY_4_struct.byteindex_10 != 1;
 				x_D41A0_BYTEARRAY_4_struct.setting_38402 = 1;
 			}
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				sub_9A128_copy_screen_320(x_DWORD_E9C38_smalltit, x_DWORD_180628b_screen_buffer, 0xC8u);
 			else
 				sub_9A144_copy_screen_640(x_DWORD_E9C38_smalltit, x_DWORD_180628b_screen_buffer, 0x1E0u);//write default screan 27b144  adress 258c99
@@ -94199,7 +94169,7 @@ char sub_779E0_lang_setting_dialog(Bit8u* a1x)//2589E0
 			}
 			if (v41)
 			{
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (VGA_res == MC2VGARes::VGA320)
 					sub_90478_VGA_Blit320();
 				else
 					sub_75200_VGA_Blit640(480);//vykresleni //256200
@@ -94303,7 +94273,7 @@ char sub_779E0_lang_setting_dialog(Bit8u* a1x)//2589E0
 		sub_98882_close(configfile);
 	}
 	/*LOWORD(v15) = */sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		// FIXME: types
 std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__ << std::endl;
@@ -94314,12 +94284,12 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 	{
 		sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
 	}
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_72883_clear_graphics_320(/*v15, */(void *)x_DWORD_E9C38_smalltit, 0xC8u, 0);
 	else
 		sub_728A9_clear_graphics_640((void *)x_DWORD_E9C38_smalltit, 0x1E0u, 0);
 	sub_7B5A0_disable_enable();
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_90478_VGA_Blit320();
 	else
 		sub_75200_VGA_Blit640(480);
@@ -94330,7 +94300,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 		sub_41A90_VGA_pallette_install((uint8_t *)x_DWORD_17DE38str.x_DWORD_17DE38);
 		sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);//mozna xadatapointerstab
 		sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_9A128_copy_screen_320((void*)x_DWORD_180628b_screen_buffer, (void*)x_DWORD_E9C38_smalltit, 0xC8u);
 		else
 			sub_9A144_copy_screen_640((void*)x_DWORD_180628b_screen_buffer, (void*)x_DWORD_E9C38_smalltit, 0x1E0u);
@@ -95163,7 +95133,7 @@ char sub_79610_set_keys_dialog()//25a610
 	v35 = v38;
 	memset(v28, 0, 60);
 	v2 = (int16_t *)x_BYTE_E25ED_2BB;
-	sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 15);
+	sub_7A110_load_hscreen(VGA_res, 15);
 	temp_screen_buffer = x_DWORD_180628b_screen_buffer;
 	x_DWORD_180628b_screen_buffer = x_DWORD_E9C38_smalltit;
 	while (v2[0])
@@ -95185,7 +95155,7 @@ char sub_79610_set_keys_dialog()//25a610
 	{
 		v34 = j___clock();
 		v36 = v34;
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_9A128_copy_screen_320((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
 		else
 			sub_9A144_copy_screen_640((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);
@@ -95347,7 +95317,7 @@ char sub_79610_set_keys_dialog()//25a610
 				v38 = v34;
 			}
 		}
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_90478_VGA_Blit320();
 		else
 			sub_75200_VGA_Blit640(480);
@@ -95371,7 +95341,7 @@ char sub_79610_set_keys_dialog()//25a610
 	}
 	sub_81DB0_read_config();
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		sub_72883_clear_graphics_320((void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
 	}
@@ -95379,12 +95349,12 @@ char sub_79610_set_keys_dialog()//25a610
 	{
 		sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
 	}
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_72883_clear_graphics_320((void *)x_DWORD_E9C38_smalltit, 0xC8u, 0);
 	else
 		sub_728A9_clear_graphics_640((void *)x_DWORD_E9C38_smalltit, 0x1E0u, 0);
 	sub_7B5A0_disable_enable();
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_90478_VGA_Blit320();
 	else
 		sub_75200_VGA_Blit640(480);
@@ -95394,7 +95364,7 @@ char sub_79610_set_keys_dialog()//25a610
 	sub_8CD27_set_cursor((*filearray_2aa18c[filearrayindex_POINTERSDATTAB]._posistruct)[0]);
 	sub_41A90_VGA_pallette_install(x_DWORD_17DE38str.x_DWORD_17DE38);
 	sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_9A128_copy_screen_320((void*)x_DWORD_180628b_screen_buffer, (void*)x_DWORD_E9C38_smalltit, 0xC8u);
 	else
 		sub_9A144_copy_screen_640((void*)x_DWORD_180628b_screen_buffer, (void*)x_DWORD_E9C38_smalltit, 0x1E0u);
@@ -95562,7 +95532,7 @@ void sub_7A060_get_mouse_and_keyboard_events()//25B060
 }
 
 //----- (0007A110) --------------------------------------------------------
-void sub_7A110_load_hscreen(char a1, char a2)//25b110
+void sub_7A110_load_hscreen(MC2VGARes res, char a2)//25b110
 {
 	//int v2; // eax
 
@@ -95575,7 +95545,7 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 	sub_7B5D0();//25c5d0
 	std::filesystem::path path_hscreen0dat = file_handling->getFilePath(MC2File::data_screens_hscreen0_dat);
 
-	if (a1 == 8)
+	if (res == MC2VGARes::VGA640)
 	{
 		switch (a2)
 		{
@@ -95599,11 +95569,11 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 			sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), x_DWORD_17DE38str.x_DWORD_17DE54, 0x13ACCA, 1226);
 			sub_7AA70_load_and_decompres_dat_file(file_handling->getFilePath(MC2File::data_screens_hscreen0_dat).c_str(), x_DWORD_17DE38str.x_DWORD_17DEC0, 0x13B194, 548);//25ba70
 			sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0); // this call closes the file handle
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DED4, x_DWORD_17DE38str.x_DWORD_17DED8, x_DWORD_17DE38str.x_DWORD_17DE48c, xy_DWORD_17DED4_spritestr);
 			else
 				sub_9874D_create_index_dattab(x_DWORD_17DE38str.x_DWORD_17DED4, x_DWORD_17DE38str.x_DWORD_17DED8, x_DWORD_17DE38str.x_DWORD_17DE48c, xy_DWORD_17DED4_spritestr);
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
 			else
 				sub_9874D_create_index_dattab(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
@@ -95638,7 +95608,7 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 			sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_DWORD_17DE38str.x_DWORD_17DE60, 0x13CE20, 20581);
 			sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_DWORD_17DE38str.x_DWORD_17DE5C_border_bitmap, 0x141E85, 13195);
 			sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 			{
 				sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DED4, x_DWORD_17DE38str.x_DWORD_17DED8, x_DWORD_17DE38str.x_DWORD_17DE48c, xy_DWORD_17DED4_spritestr);
 				sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);//here
@@ -95675,7 +95645,7 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 			sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_DWORD_17DE38str.x_DWORD_17DED4, 375690, 148);
 			sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_DWORD_17DE38str.x_DWORD_17DE54, 0x13ACCA, 1226);
 			sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_DWORD_17DE38str.x_DWORD_17DEC0, 0x13B194, 548);
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 			{
 				sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DED4, x_DWORD_17DE38str.x_DWORD_17DED8, x_DWORD_17DE38str.x_DWORD_17DE48c, xy_DWORD_17DED4_spritestr);
 				sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
@@ -95708,7 +95678,7 @@ void sub_7A110_load_hscreen(char a1, char a2)//25b110
 			sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_DWORD_17DE38str.x_DWORD_17DED4, 271062, 411);//19b
 			sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_D41A0_BYTEARRAY_4_struct.heapbuffer.data(), 0x91C59, 134382);
 			sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_DWORD_17DE38str.x_DWORD_17DE38, 0xB2947, 768);
-			if (x_WORD_180660_VGA_type_resolution & 1) {
+			if (VGA_res == MC2VGARes::VGA320) {
 				sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DED4, x_DWORD_17DE38str.x_DWORD_17DED8, &x_D41A0_BYTEARRAY_4_struct.heapbuffer[0x4D54A], xy_DWORD_17DED4_spritestr);
 				sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
 			}
@@ -95931,7 +95901,7 @@ char /*__fastcall*/ sub_7B250_draw_and_serve(/*int a1, int a2*//*, int16_t a3*/)
 			{
 				*((Bit16s*)i + 4) = 0;
 				sub_6EDB0_set_mouse_position_by_res();
-				sub_7A110_load_hscreen(x_WORD_180660_VGA_type_resolution, 4);
+				sub_7A110_load_hscreen(VGA_res, 4);
 				sub_7B5A0_disable_enable();
 				sub_8CD27_set_cursor(xy_DWORD_17DED4_spritestr[39]);
 				if (*((Bit32s*)i + 1) == 2)
@@ -96068,12 +96038,12 @@ void sub_7B5D0()
 
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	/*v0 = (int)*/memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
-	//BYTE1(v0) = x_WORD_180660_VGA_type_resolution;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	//BYTE1(v0) = VGA_res;
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_72883_clear_graphics_320(x_DWORD_180628b_screen_buffer, 0xC8u, 0);
 	else
 		sub_728A9_clear_graphics_640(x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_90478_VGA_Blit320();
 	else
 		sub_75200_VGA_Blit640(480);
@@ -96465,7 +96435,7 @@ int /*__fastcall*/ sub_7C230(int a1, int a2, int16_t *a3)//25d230
 	v6 = 0;
 	//fix it
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		a3 = (int16_t *)x_DWORD_E9C38_smalltit;
 		sub_9A128_copy_screen_320((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
@@ -96495,7 +96465,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 		x_DWORD_E208C = v8;
 	}
 	sub_7C120_draw_bitmap_640(x_DWORD_17DE38str.x_DWORD_17DEE4_mouse_positionx, x_DWORD_17DE38str.x_DWORD_17DEE8_mouse_positiony, xy_DWORD_17DED4_spritestr[x_WORD_E2094]);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_90478_VGA_Blit320();
 	else
 		sub_75200_VGA_Blit640(480);
@@ -96534,7 +96504,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 	{
 		qmemcpy(x_BYTE_E1B9C, &x_DWORD_17DE38str.x_BYTE_17DE68x[11 * sub_74515() + 1], sizeof(x_BYTE_E1B9C));
 		v1 = (int *)(&off_E1BAC[0x2ec] + 6 * x_DWORD_17DE38str.x_WORD_17DEF4);
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_9A128_copy_screen_320((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
 		else
 			sub_9A144_copy_screen_640((void*)x_DWORD_E9C38_smalltit, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);
@@ -98830,10 +98800,10 @@ int sub_7F7D0(Bit8u** a1, Bit8u** a2, Bit8u* a3, char* langfilename, posistruct*
 		sprintf(printbuffer, "LANGUAGE/%s", langfilename);
 	}
 	*a1 = a3 + 4773;//35513c
-	//v10 = x_WORD_180660_VGA_type_resolution;
+	//v10 = VGA_res;
 	*a2 = a3 + 4785;
 	//posistruct a3dattab[1000];
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_98709_create_index_dattab_power(*a1, a3 + 4785, a3, a3dattabindex);
 	else
 		sub_9874D_create_index_dattab(*a1, a3 + 4785, a3, a3dattabindex);
@@ -98885,7 +98855,7 @@ int sub_7F960(Bit8u* a1, Bit8u* a2, Bit8u* a3, char* langcountstring, posistruct
 		v10 = i;
 		sprintf(printbuffer, "LANGUAGE/%s", langcountstring);
 	}
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_98709_create_index_dattab_power(a1, a2, a3, a3dattabindex);
 	else
 		sub_9874D_create_index_dattab(a1, a2, a3, a3dattabindex);
@@ -101136,12 +101106,12 @@ void sub_833C0()//2643c0
 	sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), (Bit8u*)x_DWORD_17DE38str.x_DWORD_17DE38, 0x178B5F, 768);
 	sub_7AA70_load_and_decompres_dat_file(path_hscreen0dat.c_str(), x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, 0x16554D, 79378);
 	sub_7AA70_load_and_decompres_dat_file(0, 0, 0, 0);
-	/*if (x_WORD_180660_VGA_type_resolution & 1)
+	/*if (VGA_res == MC2VGARes::VGA320)
 		sub_98709_create_index_dattab_power((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
 	else
 		sub_9874D_create_index_dattab((Bit8u*)(int)x_DWORD_17DEC0, (Bit8u*)(int)x_DWORD_17DEC4, (Bit8u*)(int)x_DWORD_17DE54, (new posistruct));
 	*/
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
 	}
@@ -101150,11 +101120,11 @@ void sub_833C0()//2643c0
 		sub_9874D_create_index_dattab(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr);
 	}
 
-	/*if (x_WORD_180660_VGA_type_resolution & 1)
+	/*if (VGA_res == MC2VGARes::VGA320)
 		sub_98709_create_index_dattab_power((Bit8u*)x_DWORD_17DEC8, (Bit8u*)x_DWORD_17DECC, (Bit8u*)x_DWORD_17DE58, (new posistruct));
 	else
 		sub_9874D_create_index_dattab((Bit8u*)x_DWORD_17DEC8, (Bit8u*)x_DWORD_17DECC, (Bit8u*)x_DWORD_17DE58, (new posistruct));*/
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		sub_98709_create_index_dattab_power(x_DWORD_17DE38str.x_DWORD_17DEC8, x_DWORD_17DE38str.x_DWORD_17DECC, x_DWORD_17DE38str.x_DWORD_17DE58, xy_DWORD_17DEC8_spritestr);
 	}
@@ -101168,7 +101138,7 @@ void sub_833C0()//2643c0
 	x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons = 0;
 	//x_DWORD_17DEC0 += 6;
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		sub_98709_create_index_dattab_power_add(x_DWORD_17DE38str.x_DWORD_17DEC0, x_DWORD_17DE38str.x_DWORD_17DEC4, x_DWORD_17DE38str.x_DWORD_17DE54, xy_DWORD_17DEC0_spritestr,6);
 	}
@@ -101180,7 +101150,7 @@ void sub_833C0()//2643c0
 
 	while (!x_DWORD_17DE38str.x_BYTE_17DF10_get_key_scancode && !x_DWORD_17DE38str.x_WORD_17DEEE_mouse_buttons)
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			sub_9A128_copy_screen_320((void*)x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, (void*)x_DWORD_180628b_screen_buffer, 0xC8u);
 		else
 			sub_9A144_copy_screen_640((void*)x_DWORD_17DE38str.x_DWORD_17DE64_game_world_map, (void*)x_DWORD_180628b_screen_buffer, 0x1E0u);
@@ -101222,7 +101192,7 @@ void sub_833C0()//2643c0
 		sub_7A060_get_mouse_and_keyboard_events();
 		if (v20)
 		{
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 				sub_90478_VGA_Blit320();
 			else
 				sub_75200_VGA_Blit640(480);
@@ -101235,12 +101205,12 @@ void sub_833C0()//2643c0
 	}
 	sub_90B27_VGA_pal_fadein_fadeout(0, 0x10u, 0);
 	/*v17 = (int)*/memset((void*)*xadatapald0dat2.var28_begin_buffer, 0, 768);
-	//LOBYTE(v17) = x_WORD_180660_VGA_type_resolution;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	//LOBYTE(v17) = VGA_res;
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_72883_clear_graphics_320(/*v17, */(void *)x_DWORD_180628b_screen_buffer, 0xC8u, 0);
 	else
 		sub_728A9_clear_graphics_640((void *)x_DWORD_180628b_screen_buffer, 0x1E0u, 0);
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 		sub_90478_VGA_Blit320();
 	else
 		sub_75200_VGA_Blit640(480);
@@ -102728,7 +102698,7 @@ int sub_85B20_copy_bitmap(x_BYTE *a1, x_WORD *a2, uint16_t a3)//266b20
 
 	v3 = a1;
 	v4 = a2;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		sub_9A128_copy_screen_320(a1, a2, 0xC8u);
 		result = v17;
@@ -104837,7 +104807,7 @@ void sub_885E0(type_str_0x6E8E* a1x, int a2, int a3, uint16_t a4)//2695e0
 	{
 		if (!(str_E2A74[a4].axis_2[0] & 8))
 		{
-			if (x_WORD_180660_VGA_type_resolution & 1)
+			if (VGA_res == MC2VGARes::VGA320)
 			{
 				a2 *= 2;
 				a3 *= 2;
@@ -104995,7 +104965,7 @@ void sub_88740(type_str_0x6E8E* a1x, int a2, int a3)//269740
 LABEL_48:
 	if (v3)
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 		{
 			a2 *= 2;
 			a3 *= 2;
@@ -105303,7 +105273,7 @@ char sub_88D40()//269d40
 	}
 	if (v1)
 	{
-		if (x_WORD_180660_VGA_type_resolution & 1)
+		if (VGA_res == MC2VGARes::VGA320)
 			v4 = 400;
 		else
 			v4 = 480;
@@ -105890,7 +105860,7 @@ void sub_89A30_draw_line(type_sub_str_unk_1804B0ar* a1x)//26aa30
 	int16_t v1; // si
 	int16_t result = 0; // ax //fix it
 
-	v1 = ((x_WORD_180660_VGA_type_resolution & 1) != 0) + 1;
+	v1 = ((VGA_res == MC2VGARes::VGA320) != 0) + 1;
 	if (a1x->word_0x20 != a1x->word_0x0 || (result = a1x->word_0x22, result != a1x->word_0x2))
 	{
 		sub_2BD10_draw_line(a1x->word_0x1c, a1x->word_0x1e, a1x->word_0x20, a1x->word_0x22, *xadataclrd0dat.var28_begin_buffer[0]);
@@ -106305,7 +106275,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 					{
 					  if (unk_18058Cstr.x_DWORD_1805B0_mouse.x >= 384 )
 					  {
-						if ( x_WORD_180660_VGA_type_resolution & 1 )
+						if ( VGA_res == MC2VGARes::VGA320 )
 						  v49 = 400;
 						else
 						  v49 = 480;
@@ -106327,7 +106297,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 					  }
 					  else
 					  {
-						if ( x_WORD_180660_VGA_type_resolution & 1 )
+						if ( VGA_res == MC2VGARes::VGA320 )
 						  v47 = 400;
 						else
 						  v47 = 480;
@@ -106344,7 +106314,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 					}
 					else
 					{
-					  if ( x_WORD_180660_VGA_type_resolution & 1 )
+					  if ( VGA_res == MC2VGARes::VGA320 )
 						v44 = 400;
 					  else
 						v44 = 480;
@@ -106401,7 +106371,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 							v59 = 640 - v58;
 						}
 						v41 = v58 + v59;
-						if (x_WORD_180660_VGA_type_resolution & 1)
+						if (VGA_res == MC2VGARes::VGA320)
 							v40 = 400;
 						else
 							v40 = 480;
@@ -106432,13 +106402,13 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 				{
 					v41 = 640;
 					v59 = 0;
-					if (x_WORD_180660_VGA_type_resolution & 1)
+					if (VGA_res == MC2VGARes::VGA320)
 						v35 = 400;
 					else
 						v35 = 480;
 					//v9 = v35 - ((signed int)*(uint8_t *)(**filearray_2aa18c[6] + 539) >> 1);
 					v9 = v35 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[90].height>> 1);
-					if (x_WORD_180660_VGA_type_resolution & 1)
+					if (VGA_res == MC2VGARes::VGA320)
 						v36 = 400;
 					else
 						v36 = 480;
@@ -106677,7 +106647,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 				{
 				  if (unk_18058Cstr.x_DWORD_1805B0_mouse.x >= 384 )
 				  {
-					if ( x_WORD_180660_VGA_type_resolution & 1 )
+					if ( VGA_res == MC2VGARes::VGA320 )
 					  v18 = 400;
 					else
 					  v18 = 480;
@@ -106696,7 +106666,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 				  }
 				  else
 				  {
-					if ( x_WORD_180660_VGA_type_resolution & 1 )
+					if ( VGA_res == MC2VGARes::VGA320 )
 					  v17 = 400;
 					else
 					  v17 = 480;
@@ -106711,7 +106681,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 				}
 				else
 				{
-					if (x_WORD_180660_VGA_type_resolution & 1)
+					if (VGA_res == MC2VGARes::VGA320)
 						v15 = 400;
 					else
 						v15 = 480;
@@ -106743,13 +106713,13 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 			{
 				v7 = 640;
 				v59 = 0;
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (VGA_res == MC2VGARes::VGA320)
 					v8 = 400;
 				else
 					v8 = 480;
 				//v9 = v8 - ((signed int)*(uint8_t *)(**filearray_2aa18c[6] + 539) >> 1);
 				v9 = v8 - ((*filearray_2aa18c[filearrayindex_MSPRD00DATTAB]._posistruct)[90].height >> 1);
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (VGA_res == MC2VGARes::VGA320)
 					v10 = 400;
 				else
 					v10 = 480;
@@ -106790,7 +106760,7 @@ std::cout << "FIXME: types @ function " << __FUNCTION__ << ", line " << __LINE__
 					v59 = 640 - v58;
 				}
 				v7 = v58 + v59;
-				if (x_WORD_180660_VGA_type_resolution & 1)
+				if (VGA_res == MC2VGARes::VGA320)
 					v14 = 400;
 				else
 					v14 = 480;
@@ -107857,13 +107827,13 @@ int sub_8C329()//26D329
 	x_DWORD_1806E8_mousex = x_WORD_E3760_mouse.x;
 	x_DWORD_1806E8_mousey = x_WORD_E3760_mouse.y;//fix it
 
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		x_DWORD_1806E8_mousex >>= 1;
 		x_DWORD_1806E8_mousey >>= 1;
 	}
 	x_DWORD_1806F4_mouse_byte_index2 = (x_DWORD_1806E8_mousex >> 16) + (x_DWORD_1806E8_mousey >> 16) * x_DWORD_18062C_resolution_x;
-	if (x_WORD_180660_VGA_type_resolution & 8)
+	if (VGA_res == MC2VGARes::VGA640)
 	{
 		HIWORD(x_DWORD_18073A) = HIWORD(x_DWORD_1806F4_mouse_byte_index2);
 		sub_9951B(SHIWORD(x_DWORD_1806F4_mouse_byte_index2));//GET VIDEO STATE
@@ -107877,7 +107847,7 @@ int sub_8C329()//26D329
 	x_DWORD_180714 = x_DWORD_1806F0;
 	x_DWORD_180708 = (Bit8u*)&loc_A0000_vga_buffer + (uint16_t)x_DWORD_1806F4_mouse_byte_index2;
 	x_DWORD_18070C = x_DWORD_180730_cursor_data;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		for (x_WORD_180738 = 0; ; ++x_WORD_180738)
 		{
@@ -107946,7 +107916,7 @@ void sub_8C635_draw_cursor()//26d635
 	//x_DWORD_1806E8_mousex = x_WORD_E3760_mouse.x;
 	x_DWORD_1806F8_mousey = x_WORD_E3760_mouse.y;
 	//x_DWORD_1806E8_mousey = x_WORD_E3760_mouse.y;
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		x_DWORD_1806F8_mousex >>= 1;
 		x_DWORD_1806F8_mousey >>= 1;
@@ -107992,14 +107962,14 @@ int sub_8C839()//26d839
 	x_BYTE *v3; // eax
 	x_BYTE *v4; // edx
 
-	if (!(x_WORD_180660_VGA_type_resolution & 1))
+	if (!(VGA_res == MC2VGARes::VGA320))
 	{
 		HIWORD(x_DWORD_18073A) = HIWORD(x_DWORD_1806F4_mouse_byte_index2);
 		sub_9951B(SHIWORD(x_DWORD_1806F4_mouse_byte_index2));
 	}
 	x_DWORD_180714 = x_DWORD_1806F0;
 	x_DWORD_180708 = (Bit8u*)&loc_A0000_vga_buffer + (uint16_t)x_DWORD_1806F4_mouse_byte_index2;//graphics memory maybe
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		for (x_WORD_180738 = 0; ; ++x_WORD_180738)
 		{
@@ -108129,7 +108099,7 @@ void sub_8CB3A(Bit32u mouse_states, Bit32s mouse_posx, Bit32s a3, Bit32s mouse_p
 	{
 		x_BYTE_E3767 = 1;
 		x_DWORD_180710_mouse_buttons_states = mouse_states;//[ebp-c] - 00000001 // stav tlacitek 1 -zmena pozice
-		/*if (x_WORD_180660_VGA_type_resolution & 8)
+		/*if (VGA_res == MC2VGARes::VGA640)
 		{
 			temp_mouse_x = mouse_posx >> 3;//[ss:ebp-8] 0 - x
 			temp_mouse_y = mouse_posy >> 3;//[ss:ebp-4] 0 - y
@@ -108198,7 +108168,7 @@ void sub_8CB3A(Bit32u mouse_states, Bit32s mouse_posx, Bit32s a3, Bit32s mouse_p
 			HIWORD(x_DWORD_180734) = x_WORD_E3BA4;
 			sub_8C839();//draw cursor maybe
 			/*mouse_state = */sub_8C329();
-			if (x_WORD_180660_VGA_type_resolution & 8)
+			if (VGA_res == MC2VGARes::VGA640)
 				/*mouse_state = */sub_9951B(SHIWORD(x_DWORD_180734));
 		}
 	}
@@ -108245,7 +108215,7 @@ void sub_8CD27_set_cursor(posistruct a2)//26dd27
 		x_WORD_18072C_cursor_sizex = 0;
 		x_WORD_18072E_cursor_sizey = 0;
 	}
-	if (x_WORD_180660_VGA_type_resolution & 1)
+	if (VGA_res == MC2VGARes::VGA320)
 	{
 		x_WORD_18072C_cursor_sizex >>= 1;
 		x_WORD_18072E_cursor_sizey >>= 1;
@@ -108338,7 +108308,7 @@ signed int sub_8CEDF_install_mouse()//26dedf
 		;// fix it! sub_8CD27_set_cursor((Bit8u**)x_DWORD_180720);
 	//v2 = 2;
 	//int386(0x33, (REGS*)&v2, (REGS*)&v1);//hide mouse
-	if (x_WORD_180660_VGA_type_resolution & 8)
+	if (VGA_res == MC2VGARes::VGA640)
 	{
 		//v2 = 0xF;
 		v3 = 1;
@@ -110006,7 +109976,7 @@ void sub_8F935_bitmap_draw_final(Bit8u a1byte1, Bit8u a1byte2, Bit16u tiley, int
 	if (!(a1byte2))//453558
 		return;
 	pixel_buffer_index = x_DWORD_180628b_screen_buffer + x_DWORD_18063C_sprite_sizex + x_DWORD_18062C_resolution_x * x_DWORD_180650_positiony;
-	if (x_WORD_180660_VGA_type_resolution & 1)//pokud je rozliseno 320x200 zmensi hodnoty na polovic
+	if (VGA_res == MC2VGARes::VGA320)//pokud je rozliseno 320x200 zmensi hodnoty na polovic
 	{
 		a1byte1 /= 2;
 		a1byte2 /= 2;
@@ -111671,7 +111641,7 @@ void sub_90D6E_VGA_set_video_mode_320x200_and_pallette(Bit8u* pallette)//271d6e
 			//input2 35521c 00 0f 00 00 00
 	//v3 = 0xf00;
 	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
-	VGA_Resize(320, 200);
+	VGA_resize(320, 200);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	//v3 = 0x13;
@@ -111716,7 +111686,7 @@ void sub_90E07_VGA_set_video_mode_640x480_and_pallette(Bit8u* pallette)//271e07
 
 	//v3 = 0xf00;//
 	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
-	VGA_Resize(640, 480);
+	VGA_resize(640, 480);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	x_DWORD_18062C_resolution_x = 640;
@@ -111735,7 +111705,7 @@ void sub_90E07_VGA_set_video_mode_alt_and_pallette(Bit8u* pallette)//271e07
 
 	//v3 = 0xf00;//
 	//int386(0x10, (REGS*)&v3, (REGS*)&v2);//Set video mode
-	VGA_Resize(alt_resolution_width, alt_resolution_height);
+	VGA_resize(alt_resolution_width, alt_resolution_height);
 	if (!x_WORD_180662_graphics_handle)
 		x_WORD_180662_graphics_handle = 0x13;
 	x_DWORD_18062C_resolution_x = alt_resolution_width;

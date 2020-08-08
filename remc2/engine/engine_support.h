@@ -1139,7 +1139,12 @@ typedef struct {
 
 extern std::unique_ptr<FileHandling> file_handling;
 
-extern int16_t x_WORD_180660_VGA_type_resolution;
+enum class MC2VGARes {
+	VGA320,
+	VGA640,
+};
+extern MC2VGARes VGA_res;
+
 extern char x_BYTE_D41C1;
 extern Bit8u* x_DWORD_E9C38_smalltit;
 extern type_x_DWORD_17DE38str x_DWORD_17DE38str;
@@ -1155,7 +1160,7 @@ extern Bit8u off_E1BAC[0x3c4/*4096*/];
 extern int filearrayindex_POINTERSDATTAB;
 extern filearray_struct filearray_2aa18c[];
 extern Bit8u x_BYTE_EB3A8;
-extern int16_t x_WORD_E29DA_type_resolution;
+extern MC2VGARes x_WORD_E29DA_type_resolution;
 extern char x_BYTE_D41AD_skip_screen;
 extern Bit8u* pre_x_DWORD_E9C3C;
 extern Bit8u* x_DWORD_E9C3C;
@@ -1193,7 +1198,7 @@ extern void sub_9A128_copy_screen_320(void* source, void* desc, Bit16u countline
 extern long j___clock();
 extern void sub_8CD27_set_cursor(posistruct a2);
 extern void sub_7B5A0_disable_enable();
-extern void sub_7A110_load_hscreen(char a1, char a2);
+extern void sub_7A110_load_hscreen(MC2VGARes res, char a2);
 extern char sub_77350_new_game_dialog(Bit8u* a1);
 extern void sub_8E160_sound_proc15_startsequence(int16_t a1, uint16_t a2);
 extern void sub_8E020_sound_proc14_stopsequence();

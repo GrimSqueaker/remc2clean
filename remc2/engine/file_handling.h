@@ -133,10 +133,10 @@ enum class MC2CurrentTMapsFile {
 
 typedef struct {
     int    uncompressed_size;
-    int    pos_in_tmaps_dat;
+    int    pos_in_dat;
     int    id;
     data_t data;
-} MC2TMapsEntry;
+} MC2TabEntry;
 
 //enum class MC2Asset {
 //    sprite0,
@@ -172,11 +172,12 @@ public:
 
     void setCurrentTMapsFile(MC2CurrentTMapsFile file) { m_current_tmaps_file = file; };
     MC2CurrentTMapsFile getCurrentTMapsFile() { return m_current_tmaps_file; };
+    MC2File getCurrentTMapsTabFile() { return getTMapsTabFile(m_current_tmaps_file); };
     MC2File getTMapsDatFile(MC2CurrentTMapsFile tmap) const;
     MC2FileInfo& getCurrentTMapsFileDatInfo();
     MC2File getTMapsTabFile(MC2CurrentTMapsFile tmap) const;
     MC2FileInfo& getCurrentTMapsFileTabInfo();
-    MC2TMapsEntry& getCurrentTMaps(int index) { return m_tmaps[getCurrentTMapsFile()][index]; };
+    MC2TabEntry& getCurrentTMaps(int index) { return m_tabs[getCurrentTMapsTabFile()][index]; };
 
     const data_t& getFileData(MC2File file) {
         return m_mc2files.at(file).file_data;
@@ -192,13 +193,13 @@ public:
 private:
     void loadFileIntoBuffer(MC2File);
     void decompressFile(MC2File);
-    void prepareTMapsFile(MC2CurrentTMapsFile map);
+    void prepareTabFile(MC2File tabfile, MC2File datfile);
 
     std::unordered_map<MC2File, MC2FileInfo> m_mc2files;
 
     // tmaps
     MC2CurrentTMapsFile m_current_tmaps_file;
-    std::unordered_map<MC2CurrentTMapsFile, std::vector<MC2TMapsEntry>> m_tmaps;
+    std::unordered_map<MC2File, std::vector<MC2TabEntry>> m_tabs;
 };
 
 
